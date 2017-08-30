@@ -60,11 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IBrandDataService.cs" />
     <Compile Include="Interfaces\IDatabaseFactory.cs" />
     <Compile Include="Interfaces\IDocumentDataService.cs" />
     <Compile Include="Interfaces\IEgharpayDataService.cs" />
     <Compile Include="Interfaces\IGenericDataService.cs" />
     <Compile Include="Interfaces\IMaintenanceDataService.cs" />
+    <Compile Include="Interfaces\IMobileDataService.cs" />
     <Compile Include="Interfaces\IPersonnelDataService.cs" />
     <Compile Include="Interfaces\IPincodeDataService.cs" />
     <Compile Include="EgharpayDatabase.cs" />
@@ -73,10 +75,12 @@
     <Compile Include="Extensions\Pagination.cs" />
     <Compile Include="Partials\EgharpayDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BrandDataService.cs" />
     <Compile Include="Services\DocumentDataService.cs" />
     <Compile Include="Services\EgharpayDataService.cs" />
     <Compile Include="Services\EntityFrameworkGenericDataService.cs" />
     <Compile Include="Services\MaintenanceDataService.cs" />
+    <Compile Include="Services\MobileDataService.cs" />
     <Compile Include="Services\PersonnelDataService.cs" />
     <Compile Include="Services\PincodeDataService.cs" />
   </ItemGroup>

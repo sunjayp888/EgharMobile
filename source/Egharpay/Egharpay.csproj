@@ -270,6 +270,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\MiscellaneousController.cs" />
+    <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PersonnelController.cs" />
     <Compile Include="Controllers\PersonnelDocumentsController.cs" />
@@ -300,6 +301,7 @@
     <Compile Include="Models\JsonNetResult.cs" />
     <Compile Include="Models\MaintenanceViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MobileViewModel.cs" />
     <Compile Include="Models\PersonnelProfileViewModel.cs" />
     <Compile Include="Models\ScaffoldingContext.cs" />
     <Compile Include="Models\ScaffoldingController.cs" />
@@ -2323,6 +2325,7 @@
     <Content Include="Scripts\Angular\Controllers\CentreController.js" />
     <Content Include="Scripts\Angular\Controllers\DocumentController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
+    <Content Include="Scripts\Angular\Controllers\MobileController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelProfileController.js" />
     <Content Include="Scripts\Angular\Controllers\PincodeController.js" />
@@ -2341,6 +2344,7 @@
     <Content Include="Scripts\Angular\Services\CentreService.js" />
     <Content Include="Scripts\Angular\Services\DocumentService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
+    <Content Include="Scripts\Angular\Services\MobileService.js" />
     <Content Include="Scripts\Angular\Services\OrderService.js" />
     <Content Include="Scripts\Angular\Services\OrganisationalChartService.js" />
     <Content Include="Scripts\Angular\Services\PersonnelProfileService.js" />
@@ -2894,6 +2898,9 @@
     <Content Include="Views\Shared\Personnel\_PersonnelDocuments.cshtml" />
     <Content Include="Views\Shared\Personnel\_PersonnelDocumentModal.cshtml" />
     <Content Include="Views\AppViews\Mobile.cshtml" />
+    <Content Include="Views\Mobile\Index.cshtml" />
+    <Content Include="Views\Mobile\Create.cshtml" />
+    <Content Include="Views\Mobile\_Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
