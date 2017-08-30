@@ -1,0 +1,15 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="model.modalClose()" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title"><b>Your Current Location</b></h4>
+    </div>
+    <div class="modal-body">
+        <p>
+            <strong ng-bind="model.currentAddress"></strong>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="model.modalClose()">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="model.modalSubmit()">Accept</button>
+    </div>
+</div>

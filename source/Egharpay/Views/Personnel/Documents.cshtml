@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Documents";
+}
+
+<h2>Documents</h2>
+<div class="row">
+    <div class="panel panel-default" ng-controller="PersonnelDocumentsController as model" ng-init="model.initialise(@Model.PersonnelId)">
+        <div class="panel-heading">Personnel Documents</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <a class="btn btn-primary" ng-click="model.showDocumentModal(true)">Upload Document</a>
+                </div>
+            </div>
+            <div class="row">
+                @Html.Partial("Worker/_WorkerDocuments", Model)
+            </div>
+        </div>
+    </div>
+</div>

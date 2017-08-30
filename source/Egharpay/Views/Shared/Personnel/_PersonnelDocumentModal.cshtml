@@ -1,0 +1,64 @@
+﻿@model Egharpay.Models.PersonnelDocumentViewModel
+
+<div class="modal-content" ng-init="model.initialise(@Model.PersonnelId)">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="model.modalClose()">&times;</button>
+        <h4 class="modal-title">Upload Document</h4>
+    </div>
+    <div class="modal-body">
+        <form name="documentUploadForm" novalidate>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <div class="form-control-required-example">&nbsp;Required</div>
+                    </div>
+                </div>
+                <br />
+                <div class="alert alert-danger validation-summary-errors" ng-show="(model.submitted && documentUploadForm.$invalid) || (model.errorMessages && model.errorMessages.length > 0)">
+                    <ul>
+                        <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                        <li ng-show="documentUploadForm.DocumentCategoryId.$error.required">Document Category is required.</li>
+                    </ul>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <label class="col-form-label col-xs-3" for="DocumentCategoryId">Category</label>
+                            <div class="col-md-9 col-sm-12">
+                                <select id="DocumentCategoryId" name="DocumentCategoryId" class="form-control" ng-model="model.DocumentCategoryId" ng-required="true" data-val-required="" ng-options="category.DocumentCategoryId as category.Name for category in model.documentCategories">
+                                    <option value="" label="Select Document Category" disabled selected="selected" hidden></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <label class="col-form-label col-xs-3" for="Description">Description</label>
+                            <div class="col-md-9 col-sm-12">
+                                <textarea name="Description" ng-model="model.Description" value="" rows="4" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <label class="col-form-label col-xs-3" for="File">File</label>
+                            <div class="col-md-9 col-sm-12">
+                                <input file-upload-on-change="model.onFileChange" type="file" id="documentFile" name="DocumentFile" class="form-control" data-val="true" ng-required="true" required="required" data-val-required="File is required." />
+                                @*<input type="file" class="form-control" ng-required="true" data-val-required=""/>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer ng-cloak">
+        <div class="form-group">
+            <button class="btn btn-primary" type="button" ng-click="model.submitted=true; documentUploadForm.$valid && model.modalSubmit()" ng-disabled="model.submitting">
+                <span ng-if="!model.submitting">Submit</span>
+                <span ng-if="model.submitting && documentUploadForm.$valid" class="fa fa-circle-o-notch fa-spin fa-1x fa-fw"></span>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="model.modalClose()">Cancel</button>
+        </div>
+    </div>
+</div>
