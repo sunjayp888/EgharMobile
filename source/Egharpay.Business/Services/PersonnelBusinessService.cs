@@ -16,10 +16,10 @@ namespace Egharpay.Business.Services
 {
     public partial class PersonnelBusinessService : IPersonnelBusinessService
     {
-        protected IPersonnelTestDataService _dataService;
+        protected IPersonnelDataService _dataService;
         private readonly IMapper _mapper;
 
-        public PersonnelBusinessService(IPersonnelTestDataService dataService, IMapper mapper)
+        public PersonnelBusinessService(IPersonnelDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
             _mapper = mapper;

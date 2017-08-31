@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Egharpay.Data.Interfaces
 {
-    public interface IPersonnelTestDataService:IEgharpayDataService
+    public interface IPersonnelDataService:IEgharpayDataService
     {
 
     }

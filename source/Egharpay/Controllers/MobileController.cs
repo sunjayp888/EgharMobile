@@ -18,11 +18,11 @@ namespace Egharpay.Controllers
     {
         private readonly IMobileBusinessService _mobileBusinessService;
         private readonly IBrandBusinessService _brandBusinessService;
-        //public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService) : base(configurationManager, authorizationService)
-        //{
-        //    _mobileBusinessService = mobileBusinessService;
-        //    _brandBusinessService = brandBusinessService;
-        //}
+        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService) : base(configurationManager, authorizationService)
+        {
+            _mobileBusinessService = mobileBusinessService;
+            _brandBusinessService = brandBusinessService;
+        }
 
         // GET: Mobile
         public ActionResult Index()
