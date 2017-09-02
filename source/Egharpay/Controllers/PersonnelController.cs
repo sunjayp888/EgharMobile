@@ -40,7 +40,7 @@ namespace Egharpay.Controllers
         }
 
         private readonly IPersonnelBusinessService _personnelBusinessService;
-       // protected IAuthorizationService AuthorizationService { get; private set; }
+        // protected IAuthorizationService AuthorizationService { get; private set; }
         const string UserNotExist = "User does not exist.";
 
         public PersonnelController(IPersonnelBusinessService personnelBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService) : base(configurationManager, authorizationService)
@@ -82,7 +82,7 @@ namespace Egharpay.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            //var centres = EgharpayBusinessService.RetrieveCentres(UserOrganisationId, e => true);
+            var centres = _personnelBusinessService.RetrievePersonnel(1, 1);
             //var viewModel = new PersonnelProfileViewModel
             //{
 
@@ -162,7 +162,7 @@ namespace Egharpay.Controllers
                 return HttpNotFound();
             }
             //   var centres = EgharpayBusinessService.RetrieveCentres(UserOrganisationId, e => true);
-           // personnel.Email = UserManager.FindByPersonnelId(personnel.PersonnelId)?.Email;
+            // personnel.Email = UserManager.FindByPersonnelId(personnel.PersonnelId)?.Email;
             var viewModel = new PersonnelProfileViewModel
             {
                 //        Centres = new SelectList(centres, "CentreId", "Name"),
@@ -188,7 +188,7 @@ namespace Egharpay.Controllers
 
                     //var result = UserManager.Update(editUser);
                     //if (result.Succeeded)
-                        return RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", resultData.Exception);
                 foreach (var error in resultData.Errors)
@@ -207,7 +207,7 @@ namespace Egharpay.Controllers
         public ActionResult UploadPhoto(int? id)
         {
             try
-            {    
+            {
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -280,7 +280,7 @@ namespace Egharpay.Controllers
                 return HttpNotFound(UserNotExist);
 
             return View();
-        }   
+        }
 
 
         protected override void Dispose(bool disposing)

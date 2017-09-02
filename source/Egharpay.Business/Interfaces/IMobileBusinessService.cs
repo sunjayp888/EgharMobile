@@ -13,6 +13,8 @@ namespace Egharpay.Business.Interfaces
     {
         //Create
         Task<ValidationResult<Mobile>> CreateMobile(Mobile mobile);
+        Task<bool> CreateMobile(List<Mobile> mobile);
+        Task<bool> CreateBrand(List<Brand> brands);
 
         //Retrieve
         Task<Mobile> RetrieveMobile(int mobileId);

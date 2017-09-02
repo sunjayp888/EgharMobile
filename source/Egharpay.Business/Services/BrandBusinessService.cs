@@ -25,9 +25,9 @@ namespace Egharpay.Business.Services
             return brand.FirstOrDefault();
         }
 
-        public async Task<PagedResult<BrandGrid>> RetrieveBrands(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Brand>> RetrieveBrands(List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var brands = await _dataService.RetrievePagedResultAsync<BrandGrid>(a => true, orderBy, paging);
+            var brands = await _dataService.RetrievePagedResultAsync<Brand>(a => true, orderBy, paging);
             return brands;
         }
 

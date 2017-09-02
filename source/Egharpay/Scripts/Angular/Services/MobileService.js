@@ -9,13 +9,13 @@
 
     function MobileService($http) {
         var service = {
-            retrieveMobile: retrieveMobile,
+            retrieveMobiles: retrieveMobiles,
             searchMobile: searchMobile
         };
 
         return service;
 
-        function retrieveMobile(Paging, OrderBy) {
+        function retrieveMobiles(Paging, OrderBy) {
             var url = "/Mobile/List",
                 data = {
                     paging: Paging,

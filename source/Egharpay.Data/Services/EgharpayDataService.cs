@@ -75,7 +75,16 @@ namespace Egharpay.Data.Services
             {
                 _genericDataService.Context = context;
                 _genericDataService.CreateRange(entities);
-                await _genericDataService.SaveAsync();
+                try
+                {
+                    await _genericDataService.SaveAsync();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                
             }
         }
 

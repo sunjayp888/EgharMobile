@@ -4,9 +4,9 @@ using Egharpay.Data.Models;
 
 namespace Egharpay.Data.Services
 {
-    public class PersonnelTestDataService : EgharpayDataService, IPersonnelTestDataService
+    public class PersonnelDataService : EgharpayDataService, IPersonnelDataService
     {
-        public PersonnelTestDataService(IDatabaseFactory<EgharpayDatabase> databaseFactory, IGenericDataService<DbContext> genericDataService) : base(databaseFactory, genericDataService)
+        public PersonnelDataService(IDatabaseFactory<EgharpayDatabase> databaseFactory, IGenericDataService<DbContext> genericDataService) : base(databaseFactory, genericDataService)
         {
         }
     }

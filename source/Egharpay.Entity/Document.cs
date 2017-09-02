@@ -11,8 +11,7 @@ namespace Egharpay.Entity
     {
         public int DocumentId { get; set; }
 
-        [StringLength(50)]
-        public string PersonnelId { get; set; }
+        public int PersonnelId { get; set; }
 
         [Required]
         [StringLength(4000)]
@@ -41,6 +40,5 @@ namespace Egharpay.Entity
         public string Product { get; set; }
 
         public virtual DocumentCategory DocumentCategory { get; set; }
-
     }
 }

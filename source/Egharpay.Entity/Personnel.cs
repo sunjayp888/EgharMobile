@@ -9,12 +9,6 @@ namespace Egharpay.Entity
     [Table("Personnel")]
     public partial class Personnel
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Personnel()
-        {
-            Documents = new HashSet<Document>();
-        }
-
         public int PersonnelId { get; set; }
 
         [StringLength(50)]
@@ -69,8 +63,5 @@ namespace Egharpay.Entity
 
         [StringLength(128)]
         public string UserId { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Document> Documents { get; set; }
     }
 }

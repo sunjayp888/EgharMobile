@@ -21,6 +21,12 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Name { get; set; }
 
+        [StringLength(50)]
+        public string NumberOfDevice { get; set; }
+
+        [StringLength(1000)]
+        public string Link { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mobile> Mobiles { get; set; }
     }

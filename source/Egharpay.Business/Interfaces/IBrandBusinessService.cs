@@ -12,7 +12,7 @@ namespace Egharpay.Business.Interfaces
     {
         //Retrieve
         Task<Brand> RetrieveBrand(int brandId);
-        Task<PagedResult<BrandGrid>> RetrieveBrands(List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Brand>> RetrieveBrands(List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<BrandGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
     }
 }
