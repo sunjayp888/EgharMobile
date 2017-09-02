@@ -92,7 +92,7 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<Document>> RetrievePersonnelDocuments(int personnelId, Paging paging = null, List<OrderBy> orderBy = null)
         {
-            var documents = await _dataService.RetrievePagedResultAsync<Entity.Document>(d => d.PersonnelId == personnelId.ToString(), orderBy, paging);
+            var documents = await _dataService.RetrievePagedResultAsync<Entity.Document>(d => d.PersonnelId == personnelId, orderBy, paging);
 
             var searchResults = _mapper.Map<IEnumerable<Models.Document>>(documents.Items);
 

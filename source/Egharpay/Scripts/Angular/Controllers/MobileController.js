@@ -23,11 +23,14 @@
         initialise();
 
         function initialise() {
+            vm.orderBy.property = "Name";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
             order("Name");
         }
 
-        function retrieveMobile() {
-            return MobileService.retrieveMobile(vm.paging, vm.orderBy)
+        function retrieveMobiles() {
+            return MobileService.retrieveMobiles(vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.mobiles = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
@@ -53,7 +56,7 @@
             if (vm.searchKeyword) {
                 return searchMobile(vm.searchKeyword)();
             }
-            return retrieveMobile();
+            return retrieveMobiles();
         }
 
         function order(property) {
@@ -61,7 +64,7 @@
             if (vm.searchKeyword) {
                 return searchMobile(vm.searchKeyword)();
             }
-            return retrieveMobile();
+            return retrieveMobiles();
         }
 
         function orderClass(property) {

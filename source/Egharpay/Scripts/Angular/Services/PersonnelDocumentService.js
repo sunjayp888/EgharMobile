@@ -1,7 +1,7 @@
 ﻿(function (app) {
     'use strict';
 
-    app.module('TEMP').factory('PersonnelDocumentService', PersonnelDocumentService);
+    app.module('Egharpay').factory('PersonnelDocumentService', PersonnelDocumentService);
 
     PersonnelDocumentService.$inject = ['$http'];
 
