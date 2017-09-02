@@ -41,6 +41,5 @@ namespace Egharpay.Entity
         public string Product { get; set; }
 
         public virtual DocumentCategory DocumentCategory { get; set; }
-
     }
 }

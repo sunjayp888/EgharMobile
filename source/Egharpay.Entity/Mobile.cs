@@ -1,10 +1,7 @@
 namespace Egharpay.Entity
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("Mobile")]
     public partial class Mobile
@@ -16,6 +13,36 @@ namespace Egharpay.Entity
         [Required]
         [StringLength(500)]
         public string Name { get; set; }
+
+        [StringLength(500)]
+        public string ReleasedDate { get; set; }
+
+        [StringLength(500)]
+        public string BodyDimension { get; set; }
+
+        [StringLength(500)]
+        public string OS { get; set; }
+
+        [StringLength(500)]
+        public string Storage { get; set; }
+
+        [StringLength(500)]
+        public string DisplayResolution { get; set; }
+
+        [StringLength(10)]
+        public string CameraPixel { get; set; }
+
+        [StringLength(10)]
+        public string RAM { get; set; }
+
+        [StringLength(100)]
+        public string Chipset { get; set; }
+
+        [StringLength(10)]
+        public string BatterySize { get; set; }
+
+        [StringLength(10)]
+        public string BatteryType { get; set; }
 
         [StringLength(500)]
         public string Technology { get; set; }
@@ -63,19 +90,10 @@ namespace Egharpay.Entity
         public string DisplaySize { get; set; }
 
         [StringLength(500)]
-        public string DisplayResolution { get; set; }
-
-        [StringLength(500)]
         public string Multitouch { get; set; }
 
         [StringLength(500)]
         public string Protection { get; set; }
-
-        [StringLength(500)]
-        public string Os { get; set; }
-
-        [StringLength(500)]
-        public string Chipset { get; set; }
 
         [StringLength(500)]
         public string Cpu { get; set; }
@@ -87,7 +105,7 @@ namespace Egharpay.Entity
         public string CardSlot { get; set; }
 
         [StringLength(500)]
-        public string Internal { get; set; }
+        public string InternalMemory { get; set; }
 
         [StringLength(500)]
         public string PrimaryCamera { get; set; }
@@ -170,6 +188,13 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Price { get; set; }
 
-        public virtual Brand Brand { get; set; }
+        [StringLength(500)]
+        public string BatteryTalkTime { get; set; }
+
+        [StringLength(500)]
+        public string BatteryMusicPlay { get; set; }
+
+        [StringLength(10)]
+        public string VideoPixel { get; set; }
     }
 }

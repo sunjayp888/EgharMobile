@@ -36,6 +36,8 @@ namespace Egharpay
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
+                CookieSecure = CookieSecureOption.SameAsRequest,
+                CookieHttpOnly = true,
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
@@ -43,7 +45,10 @@ namespace Egharpay
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie)),
-                }
+                    OnException = context => { }
+                },
+                ExpireTimeSpan = TimeSpan.FromMinutes(30),
+                SlidingExpiration = false
             });            
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             var options = new AuthorizationOptions();

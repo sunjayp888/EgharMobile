@@ -38,6 +38,32 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
+        public async Task<bool> CreateMobile(List<Mobile> mobile)
+        {
+            try
+            {
+                await _dataService.CreateRangeAsync(mobile);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateBrand(List<Brand> brands)
+        {
+            try
+            {
+                await _dataService.CreateRangeAsync(brands);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<Mobile> RetrieveMobile(int mobileId)
         {
             var mobile = await _dataService.RetrieveAsync<Mobile>(a => a.MobileId == mobileId);
