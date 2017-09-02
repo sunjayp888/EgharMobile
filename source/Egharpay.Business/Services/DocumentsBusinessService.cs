@@ -56,7 +56,7 @@ namespace Egharpay.Business.Services
             //var documentPredicate = PredicateBuilder.New<Entity.Document>(e => e. == workerId && e.GenericDocument);
             //documentPredicate = documentPredicate.And(e => e.ClientPersonnelId == clientPersonnelId);
 
-            var documents = await _documentDataService.RetrieveAsync<Entity.Document>(e => e.PersonnelId == clientPersonnelId.Value.ToString());
+            var documents = await _documentDataService.RetrieveAsync<Entity.Document>(e => e.PersonnelId == clientPersonnelId);
 
             var result = _mapper.MapToList<Document>(documents).ToArray();
 
@@ -98,11 +98,11 @@ namespace Egharpay.Business.Services
 
             var apiDocument = _mapper.Map<Entity.Document>(documentMeta);
             apiDocument.Product = "Egharpay";
-            apiDocument.PersonnelId = personnelId.ToString();
+            apiDocument.PersonnelId = personnelId;
             apiDocument.CreatedBy = userId;
             apiDocument.CreatedDateTime = DateTime.UtcNow;
 
-            var documentGuid = CreateDocument(documentCategory, personnelId.ToString(), "Test", documentMeta.Description, documentMeta.Filename, documentMeta.Bytes);
+            var documentGuid = CreateDocument(documentCategory, personnelId, "Test", documentMeta.Description, documentMeta.Filename, documentMeta.Bytes);
 
             if (documentGuid == null)
                 return validationResult.Error("Document could not be saved, please try again");
@@ -112,7 +112,7 @@ namespace Egharpay.Business.Services
             {
                 DocumentTypeId = documentCategoryId.Value,
                 Guid = documentGuid,
-                PersonnelId = personnelId.ToString(),
+                PersonnelId = personnelId,
                 FileName = documentMeta.Filename
             };
 
@@ -135,12 +135,12 @@ namespace Egharpay.Business.Services
         //}
 
 
-        public Guid CreateDocument(DocumentCategory documentCategory, string personnelId, string userName, string description, string fileName, byte[] contents)
+        public Guid CreateDocument(DocumentCategory documentCategory, int personnelId, string userName, string description, string fileName, byte[] contents)
         {
             var newGuid = Guid.NewGuid();
             var basePath = CreateCentreBase(documentCategory.BasePath, "Egharpay");
             var categoryFileName = string.Concat(documentCategory.Name, "_", newGuid, "_", fileName);
-            var employeeDirectory = GetPersonnelDirectory(basePath, personnelId) ?? CreateStudentDirectory(basePath, userName, personnelId);
+            var employeeDirectory = GetPersonnelDirectory(basePath, personnelId.ToString()) ?? CreateStudentDirectory(basePath, userName, personnelId.ToString());
             var categoryDirectory = Path.Combine(employeeDirectory, documentCategory.Name);
             var filePath = Path.Combine(categoryDirectory, categoryFileName);
             Directory.CreateDirectory(categoryDirectory);

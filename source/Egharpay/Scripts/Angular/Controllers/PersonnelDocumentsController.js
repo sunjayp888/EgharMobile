@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('TEMP')
+        .module('Egharpay')
         .controller('PersonnelDocumentsController', PersonnelDocumentsController);
 
     PersonnelDocumentsController.$inject = ['$window', '$scope', 'PersonnelDocumentService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$uibModal'];
