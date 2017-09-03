@@ -194,7 +194,7 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string BatteryMusicPlay { get; set; }
 
-        [StringLength(10)]
+        [StringLength(100)]
         public string VideoPixel { get; set; }
     }
 }

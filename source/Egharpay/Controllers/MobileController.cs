@@ -43,8 +43,14 @@ namespace Egharpay.Controllers
         {
             HttpContext.Server.ScriptTimeout = 300000000;
             var brandResult = await _brandBusinessService.RetrieveBrands();
-            var singleBrand = brandResult.Items.Where(e => e.BrandId == 221).ToList();
-            var mobileList = CreateMobileData(singleBrand);
+            var singleBrand = brandResult.Items.Where(e => e.BrandId > 281).ToList();
+            foreach (var item in singleBrand)
+            {
+                var newList = new List<Brand>() { item };
+                var mobileList = CreateMobileData(newList);
+                await _mobileBusinessService.CreateMobile(mobileList);
+            }
+
             var brands = await _brandBusinessService.RetrieveBrands();
             var brandList = brands.Items.ToList();
             var viewModel = new MobileViewModel()
@@ -93,8 +99,8 @@ namespace Egharpay.Controllers
 
         private List<Mobile> CreateMobileData(List<Brand> brands)
         {
-           // var brands = GetAllBrandlink();
-           
+            // var brands = GetAllBrandlink();
+
             //For eg acer phone
 
             var mobileList = new List<Mobile>();
@@ -115,7 +121,7 @@ namespace Egharpay.Controllers
                         htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
                         var testingObject = htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
                         //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
-                        mobileList.Add(CreateMobile(testingObject));
+                        mobileList.Add(CreateMobile(testingObject, brand.BrandId));
 
                     }
 
@@ -142,7 +148,7 @@ namespace Egharpay.Controllers
                                     var testingObject =
                                         htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
                                     //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
-                                    mobileList.Add(CreateMobile(testingObject));
+                                    mobileList.Add(CreateMobile(testingObject,brand.BrandId));
                                 }
                             }
                         }
@@ -152,7 +158,7 @@ namespace Egharpay.Controllers
             return mobileList;
         }
 
-        public Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection)
+        public Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection,int brandId)
         {
             var modelName = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
             var released = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "released-hl"));
@@ -251,7 +257,8 @@ namespace Egharpay.Controllers
                 Wlan = wlan?.InnerHtml,
                 Weight = weight?.InnerHtml,
                 Sim = sim?.InnerHtml,
-                VideoPixel = videopixels?.InnerHtml
+                VideoPixel = videopixels?.InnerHtml,
+                BrandId=brandId
             };
             return mobile;
         }
@@ -272,7 +279,7 @@ namespace Egharpay.Controllers
                     var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
                     var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
                     brandList.Add(new BrandData() { Link = appendLink, Name = brandName, NumberOfDevice = numberOfdevice });
-                    brands.Add(new Brand() {Name = brandName,Link = links,NumberOfDevice = numberOfdevice });
+                    brands.Add(new Brand() { Name = brandName, Link = links, NumberOfDevice = numberOfdevice });
                 }
             }
             _mobileBusinessService.CreateBrand(brands);
@@ -292,7 +299,7 @@ namespace Egharpay.Controllers
                     {
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
-                          //  var receiveStream = response.GetResponseStream();
+                            //  var receiveStream = response.GetResponseStream();
                             StreamReader readStream = null;
 
                             if (response.CharacterSet == null)

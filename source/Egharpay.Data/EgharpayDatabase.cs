@@ -22,7 +22,6 @@ namespace Egharpay.Data
         public virtual DbSet<Mobile> Mobiles { get; set; }
         public virtual DbSet<Personnel> Personnels { get; set; }
         public virtual DbSet<Template> Templates { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<BrandGrid> BrandGrids { get; set; }
         public virtual DbSet<MobileGrid> MobileGrids { get; set; }
 
@@ -33,10 +32,6 @@ namespace Egharpay.Data
                 .Property(e => e.Name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Brand>()
-                .HasMany(e => e.Mobiles)
-                .WithRequired(e => e.Brand)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Centre>()
                 .Property(e => e.CentreCode)
@@ -64,10 +59,6 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<Centre>()
                 .Property(e => e.EmailId)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Document>()
-                .Property(e => e.PersonnelId)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Document>()

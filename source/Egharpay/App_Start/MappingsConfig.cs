@@ -1,6 +1,7 @@
-﻿using AutoMapper;
+﻿//using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Egharpay.Business.Models;
 using Egharpay.Models;
 
