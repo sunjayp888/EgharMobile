@@ -43,7 +43,7 @@ namespace Egharpay.Controllers
         {
             HttpContext.Server.ScriptTimeout = 300000000;
             var brandResult = await _brandBusinessService.RetrieveBrands();
-            var singleBrand = brandResult.Items.Where(e => e.BrandId > 281).ToList();
+            var singleBrand = brandResult.Items.Where(e => e.BrandId == 300).ToList();
             foreach (var item in singleBrand)
             {
                 var newList = new List<Brand>() { item };
