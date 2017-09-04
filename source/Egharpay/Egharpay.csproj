@@ -1031,6 +1031,21 @@
       <DependentUpon>Site.css</DependentUpon>
     </Content>
     <Content Include="Content\email.css" />
+    <Content Include="Content\Less\patterns\1.png" />
+    <Content Include="Content\Less\patterns\2.png" />
+    <Content Include="Content\Less\patterns\3.png" />
+    <Content Include="Content\Less\patterns\4.png" />
+    <Content Include="Content\Less\patterns\5.png" />
+    <Content Include="Content\Less\patterns\6.png" />
+    <Content Include="Content\Less\patterns\7.png" />
+    <Content Include="Content\Less\patterns\congruent_pentagon.png" />
+    <Content Include="Content\Less\patterns\header-profile-skin-1.png" />
+    <Content Include="Content\Less\patterns\header-profile-skin-2.png" />
+    <Content Include="Content\Less\patterns\header-profile-skin-3.png" />
+    <Content Include="Content\Less\patterns\header-profile.png" />
+    <Content Include="Content\Less\patterns\otis_redding.png" />
+    <Content Include="Content\Less\patterns\shattered.png" />
+    <Content Include="Content\Less\patterns\triangular.png" />
     <Content Include="Content\patterns\1.png" />
     <Content Include="Content\patterns\2.png" />
     <Content Include="Content\patterns\3.png" />
