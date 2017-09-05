@@ -207,7 +207,14 @@ namespace Egharpay.Data.Services
             using (var context = _databaseFactory.CreateContext())
             {
                 _genericDataService.Context = context;
-                return await _genericDataService.RetrievePagedResultAsync<T>(predicate, orderBy, paging);
+                try
+                {
+                    return await _genericDataService.RetrievePagedResultAsync<T>(predicate, orderBy, paging);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
             }
         }
 
