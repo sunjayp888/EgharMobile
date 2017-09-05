@@ -43,7 +43,8 @@ namespace Egharpay.Controllers
         {
             HttpContext.Server.ScriptTimeout = 300000000;
             var brandResult = await _brandBusinessService.RetrieveBrands();
-            var singleBrand = brandResult.Items.Where(e => e.BrandId == 300).ToList();
+            var number = 255;
+            var singleBrand = brandResult.Items.Where(e => e.BrandId == number).ToList();
             foreach (var item in singleBrand)
             {
                 var newList = new List<Brand>() { item };
@@ -130,25 +131,28 @@ namespace Egharpay.Controllers
                     {
                         foreach (var nextPageItem in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'nav-pages')]"))
                         {
-                            var linkForNextPage = nextPageItem.Descendants("a").ToList()[0].Attributes[0].Value;
-                            var appendLinkForNextPage =
-                                string.Format("http://www.gsmarena.com{0}{1}", "/", linkForNextPage);
-                            var htmlMobileNextPageDetailDocument = new HtmlDocument();
-                            htmlMobileNextPageDetailDocument.LoadHtml(GetHtmlData(appendLinkForNextPage));
-                            foreach (var nextPageitem in htmlMobileNextPageDetailDocument.DocumentNode.SelectNodes(
-                                "//div[contains(@class, 'makers')]"))
+                            var linkList = nextPageItem.Descendants("a").ToList();
+                            foreach (var singleLink in linkList)
                             {
-                                //Get Data For FirstPage
-                                foreach (var element in nextPageitem.SelectNodes(".//li"))
+                                var linkForNextPage = singleLink.Attributes[0].Value;
+                                var appendLinkForNextPage =
+                                    string.Format("http://www.gsmarena.com{0}{1}", "/", linkForNextPage);
+                                var htmlMobileNextPageDetailDocument = new HtmlDocument();
+                                htmlMobileNextPageDetailDocument.LoadHtml(GetHtmlData(appendLinkForNextPage));
+                                foreach (var nextPageitem in htmlMobileNextPageDetailDocument.DocumentNode.SelectNodes("//div[contains(@class, 'makers')]"))
                                 {
-                                    var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
-                                    var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
-                                    var htmlMobileDetailDocument = new HtmlDocument();
-                                    htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
-                                    var testingObject =
-                                        htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
-                                    //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
-                                    mobileList.Add(CreateMobile(testingObject,brand.BrandId));
+                                    //Get Data For FirstPage
+                                    foreach (var element in nextPageitem.SelectNodes(".//li"))
+                                    {
+                                        var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
+                                        var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
+                                        var htmlMobileDetailDocument = new HtmlDocument();
+                                        htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
+                                        var testingObject =
+                                            htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
+                                        //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+                                        mobileList.Add(CreateMobile(testingObject, brand.BrandId));
+                                    }
                                 }
                             }
                         }
@@ -158,7 +162,7 @@ namespace Egharpay.Controllers
             return mobileList;
         }
 
-        public Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection,int brandId)
+        public Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection, int brandId)
         {
             var modelName = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
             var released = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "released-hl"));
@@ -258,7 +262,7 @@ namespace Egharpay.Controllers
                 Weight = weight?.InnerHtml,
                 Sim = sim?.InnerHtml,
                 VideoPixel = videopixels?.InnerHtml,
-                BrandId=brandId
+                BrandId = brandId
             };
             return mobile;
         }
