@@ -94,7 +94,7 @@ namespace Egharpay.Entity
         public string CardSlot { get; set; }
 
         [StringLength(500)]
-        public string Internal { get; set; }
+        public string InternalMemory { get; set; }
 
         [StringLength(500)]
         public string PrimaryCamera { get; set; }
