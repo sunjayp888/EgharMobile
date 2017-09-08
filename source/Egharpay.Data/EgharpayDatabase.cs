@@ -444,7 +444,7 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
-                .Property(e => e.Internal)
+                .Property(e => e.InternalMemory)
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()

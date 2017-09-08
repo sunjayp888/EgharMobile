@@ -2920,6 +2920,7 @@
     <Content Include="Views\Mobile\Index.cshtml" />
     <Content Include="Views\Mobile\Create.cshtml" />
     <Content Include="Views\Mobile\_Mobile.cshtml" />
+    <Content Include="Views\Mobile\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

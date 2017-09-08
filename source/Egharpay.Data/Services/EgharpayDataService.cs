@@ -84,7 +84,7 @@ namespace Egharpay.Data.Services
                     Console.WriteLine(e);
                     throw;
                 }
-                
+
             }
         }
 
@@ -142,18 +142,18 @@ namespace Egharpay.Data.Services
             }
         }
 
-        public virtual async Task<IEnumerable<TResult>> RetrieveAllAsync<T,TResult>(Expression<Func<T, TResult>> selectExpression, List<OrderBy> orderBy = null, params Expression<Func<T, object>>[] includeExpressions) where T : class where TResult:class
+        public virtual async Task<IEnumerable<TResult>> RetrieveAllAsync<T, TResult>(Expression<Func<T, TResult>> selectExpression, List<OrderBy> orderBy = null, params Expression<Func<T, object>>[] includeExpressions) where T : class where TResult : class
         {
             return await RetrieveAsync(t => true, selectExpression, orderBy, includeExpressions);
         }
 
-        public virtual async Task<IEnumerable<TResult>> RetrieveAsync<T,TResult>(Expression<Func<T, bool>> predicate, Expression<Func<T, TResult>> selectExpression, List<OrderBy> orderBy = null, params Expression<Func<T, object>>[] includeExpressions) where T : class where TResult:class 
+        public virtual async Task<IEnumerable<TResult>> RetrieveAsync<T, TResult>(Expression<Func<T, bool>> predicate, Expression<Func<T, TResult>> selectExpression, List<OrderBy> orderBy = null, params Expression<Func<T, object>>[] includeExpressions) where T : class where TResult : class
         {
             using (ReadUncommitedTransactionScopeAsync)
             using (var context = _databaseFactory.CreateContext())
             {
                 _genericDataService.Context = context;
-                return await _genericDataService.RetrieveAsync<T,TResult>(predicate, selectExpression, orderBy, includeExpressions);
+                return await _genericDataService.RetrieveAsync<T, TResult>(predicate, selectExpression, orderBy, includeExpressions);
             }
         }
 
@@ -207,7 +207,14 @@ namespace Egharpay.Data.Services
             using (var context = _databaseFactory.CreateContext())
             {
                 _genericDataService.Context = context;
-                return await _genericDataService.RetrievePagedResultAsync<T>(predicate, orderBy, paging);
+                try
+                {
+                    return await _genericDataService.RetrievePagedResultAsync<T>(predicate, orderBy, paging);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
             }
         }
 
