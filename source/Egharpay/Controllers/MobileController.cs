@@ -429,12 +429,15 @@ namespace Egharpay.Controllers
 
         private void GetGoogleImages(string searchTerm)
         {
-            var url = "https://www.google.co.in/search?q=" + searchTerm.Replace(' ','+') + "&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjO0NHwwJXWAhXINo8KHTurAX0Q_AUICygC&biw=1600&bih=804";
-            var htmlData = GetHtmlData(url);
+            var yahooUrl =
+                "https://in.images.search.yahoo.com/search/images;_ylt=A2oKiHHojLNZ7C8AiRW8HAx.;_ylc=X1MDMjExNDcyMzAwNARfcgMyBGJjawNhdDI3YnRoY3IxcWVoJTI2YiUzRDMlMjZzJTNEOTkEZnIDBGdwcmlkA0hYdmxwRkdoUjRlWVAzZ2NWZjhtaEEEbXRlc3RpZANudWxsBG5fc3VnZwMxMARvcmlnaW4DaW4uaW1hZ2VzLnNlYXJjaC55YWhvby5jb20EcG9zAzAEcHFzdHIDBHBxc3RybAMEcXN0cmwDNwRxdWVyeQNub2tpYSA2BHRfc3RtcAMxNTA0OTM5Mjk4BHZ0ZXN0aWQDbnVsbA--?gprid=HXvlpFGhR4eYP3gcVf8mhA&pvid=_iSrdzEwNi6uiOvsWbDp0Ql9MTIzLgAAAAD40hUK&fr2=sb-top-in.images.search.yahoo.com&p=" + searchTerm.Replace(' ', '+') + "&ei=UTF-8&iscqry=&fr=sfp";
+            var url = "https://www.google.co.in/search?q=" + searchTerm.Replace(' ', '+') + "&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjO0NHwwJXWAhXINo8KHTurAX0Q_AUICygC&biw=1600&bih=804";
+            var htmlData = GetHtmlData(yahooUrl);
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(htmlData);
             var nodes = htmlDocument.DocumentNode;
-            foreach (var item in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'med')]"))
+            var classData = htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'sres-cntr')]");
+            foreach (var item in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'sres-cntr')]"))
             {
                 //Get Data For FirstPage
                 foreach (var element in item.SelectNodes(".//li"))
