@@ -16,11 +16,11 @@
         vm.orderBy = new OrderBy;
         vm.order = order;
         vm.orderClass = orderClass;
-        //vm.viewMobile = viewMobile;
         vm.searchMobile = searchMobile;
+        vm.detailMobile = detailMobile;
         vm.searchKeyword = "";
         vm.searchMessage = "";
-        initialise();
+        vm.initialise = initialise;
 
         function initialise() {
             vm.orderBy.property = "Name";
@@ -71,9 +71,11 @@
             return OrderService.orderClass(vm.orderBy, property);
         }
 
-        //function viewMobile(mobileId) {
-        //    $window.location.href = "/Apartment/Edit/" + apartmentId;
-        //}
-
+        function detailMobile(mobileId) {
+            return MobileService.detailMobile(mobileId).then(function (response) {
+                vm.mobiles = response.data;
+                return vm.mobiles;
+            });
+        }
     }
 })();

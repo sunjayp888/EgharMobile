@@ -64,21 +64,40 @@ namespace Egharpay.Business.Services
             }
         }
 
+        public async Task<bool> CreateMobileImage(List<MobileImage> mobileImage)
+        {
+            try
+            {
+                await _dataService.CreateRangeAsync(mobileImage);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<Mobile> RetrieveMobile(int mobileId)
         {
             var mobile = await _dataService.RetrieveAsync<Mobile>(a => a.MobileId == mobileId);
             return mobile.FirstOrDefault();
         }
 
-        public async Task<PagedResult<MobileGrid>> RetrieveMobiles(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Mobile>> RetrieveMobiles(List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var mobiles = await _dataService.RetrievePagedResultAsync<MobileGrid>(a => true, orderBy, paging);
+            var mobiles = await _dataService.RetrievePagedResultAsync<Mobile>(a => true, orderBy, paging);
             return mobiles;
         }
 
         public async Task<PagedResult<MobileGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
         {
             return await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
+        }
+
+        public async Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var mobiles = await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.BrandId == brandId, orderBy, paging);
+            return mobiles;
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Os { get; set; }
 
-        [StringLength(500)]
+        [StringLength(100)]
         public string Chipset { get; set; }
 
         [StringLength(500)]

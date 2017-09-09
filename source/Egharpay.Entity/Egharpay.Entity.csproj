@@ -104,6 +104,7 @@
     <Compile Include="Dto\Paging.cs" />
     <Compile Include="Mobile.cs" />
     <Compile Include="MobileGrid.cs" />
+    <Compile Include="MobileImage.cs" />
     <Compile Include="Partials\Template.cs" />
     <Compile Include="Personnel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
