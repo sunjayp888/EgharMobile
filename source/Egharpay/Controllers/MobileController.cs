@@ -95,10 +95,32 @@ namespace Egharpay.Controllers
             return View(mobileViewModel);
         }
 
+        // GET: Enquiry/View/{id}
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //var result = await _mobileBusinessService.RetrieveMobile(id.Value);
+            var viewModel = new MobileViewModel
+            {
+                MobileId = id.Value
+            };
+            return View(viewModel);
+        }
+
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             var data = await _mobileBusinessService.RetrieveMobiles(orderBy, paging);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> MobileData(int id)
+        {
+            var data = await _mobileBusinessService.RetrieveMobile(id);
             return this.JsonNet(data);
         }
 

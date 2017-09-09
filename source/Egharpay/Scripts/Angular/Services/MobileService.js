@@ -10,7 +10,8 @@
     function MobileService($http) {
         var service = {
             retrieveMobiles: retrieveMobiles,
-            searchMobile: searchMobile
+            searchMobile: searchMobile,
+            detailMobile: detailMobile
         };
 
         return service;
@@ -30,6 +31,14 @@
                     searchKeyword: SearchKeyword,
                     paging: Paging,
                     orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function detailMobile(mobileId) {
+            var url = "/Mobile/MobileData",
+                data = {
+                    id: mobileId
                 };
             return $http.post(url, data);
         }

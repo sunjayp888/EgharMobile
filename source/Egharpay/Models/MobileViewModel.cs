@@ -10,6 +10,7 @@ namespace Egharpay.Models
     public class MobileViewModel:BaseViewModel
     {
         public Mobile Mobile { get; set; }
+        public int MobileId { get; set; }
         public SelectList Brands { get; set; }
     }
 }
