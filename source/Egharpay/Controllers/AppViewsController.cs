@@ -24,6 +24,11 @@ namespace Egharpay.Controllers
             return View();
         }
 
+        public ActionResult Brand()
+        {
+            return View();
+        }
+
         public ActionResult Contacts2()
         {
             return View();
