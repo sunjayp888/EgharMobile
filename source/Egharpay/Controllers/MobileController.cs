@@ -43,13 +43,24 @@ namespace Egharpay.Controllers
         {
             HttpContext.Server.ScriptTimeout = 300000000;
             var brandResult = await _brandBusinessService.RetrieveBrands();
-            var singleBrand = brandResult.Items.Where(e => e.BrandId == 300).ToList();
-            foreach (var item in singleBrand)
-            {
-                var newList = new List<Brand>() { item };
-                var mobileList = CreateMobileData(newList);
-                await _mobileBusinessService.CreateMobile(mobileList);
-            }
+            var mobileResult = await _mobileBusinessService.RetrieveMobiles();
+            GetGoogleImages("nokia 6");
+            //var number = 255;
+            //var singleBrand = brandResult.Items.Where(e => e.BrandId == number).ToList();
+            //foreach (var item in singleBrand)
+            //{
+            //    var newList = new List<Brand>() { item };
+            //    var mobileList = CreateMobileData(newList);
+            //    await _mobileBusinessService.CreateMobile(mobileList);
+            //}
+
+            //foreach (var item in brandResult.Items.Where(e => e.BrandId == 300).ToList())
+            //{
+            //    var brandMobile = mobileResult.Items.Where(e => e.BrandId == item.BrandId).ToList();
+            //    var mobileImageList = CreateMobileImageData(item, brandMobile);
+            //    await _mobileBusinessService.CreateMobileImage(mobileImageList);
+
+            //}
 
             var brands = await _brandBusinessService.RetrieveBrands();
             var brandList = brands.Items.ToList();
@@ -84,10 +95,32 @@ namespace Egharpay.Controllers
             return View(mobileViewModel);
         }
 
+        // GET: Enquiry/View/{id}
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //var result = await _mobileBusinessService.RetrieveMobile(id.Value);
+            var viewModel = new MobileViewModel
+            {
+                MobileId = id.Value
+            };
+            return View(viewModel);
+        }
+
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             var data = await _mobileBusinessService.RetrieveMobiles(orderBy, paging);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> MobileData(int id)
+        {
+            var data = await _mobileBusinessService.RetrieveMobile(id);
             return this.JsonNet(data);
         }
 
@@ -115,6 +148,8 @@ namespace Egharpay.Controllers
                     //Get Data For FirstPage
                     foreach (var element in item.SelectNodes(".//li"))
                     {
+                        var homeImage = element.Descendants("img").ToList();
+                        var homeImage1 = element.Descendants("a").ToList();
                         var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
                         var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
                         var htmlMobileDetailDocument = new HtmlDocument();
@@ -130,25 +165,28 @@ namespace Egharpay.Controllers
                     {
                         foreach (var nextPageItem in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'nav-pages')]"))
                         {
-                            var linkForNextPage = nextPageItem.Descendants("a").ToList()[0].Attributes[0].Value;
-                            var appendLinkForNextPage =
-                                string.Format("http://www.gsmarena.com{0}{1}", "/", linkForNextPage);
-                            var htmlMobileNextPageDetailDocument = new HtmlDocument();
-                            htmlMobileNextPageDetailDocument.LoadHtml(GetHtmlData(appendLinkForNextPage));
-                            foreach (var nextPageitem in htmlMobileNextPageDetailDocument.DocumentNode.SelectNodes(
-                                "//div[contains(@class, 'makers')]"))
+                            var linkList = nextPageItem.Descendants("a").ToList();
+                            foreach (var singleLink in linkList)
                             {
-                                //Get Data For FirstPage
-                                foreach (var element in nextPageitem.SelectNodes(".//li"))
+                                var linkForNextPage = singleLink.Attributes[0].Value;
+                                var appendLinkForNextPage =
+                                    string.Format("http://www.gsmarena.com{0}{1}", "/", linkForNextPage);
+                                var htmlMobileNextPageDetailDocument = new HtmlDocument();
+                                htmlMobileNextPageDetailDocument.LoadHtml(GetHtmlData(appendLinkForNextPage));
+                                foreach (var nextPageitem in htmlMobileNextPageDetailDocument.DocumentNode.SelectNodes("//div[contains(@class, 'makers')]"))
                                 {
-                                    var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
-                                    var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
-                                    var htmlMobileDetailDocument = new HtmlDocument();
-                                    htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
-                                    var testingObject =
-                                        htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
-                                    //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
-                                    mobileList.Add(CreateMobile(testingObject,brand.BrandId));
+                                    //Get Data For FirstPage
+                                    foreach (var element in nextPageitem.SelectNodes(".//li"))
+                                    {
+                                        var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
+                                        var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
+                                        var htmlMobileDetailDocument = new HtmlDocument();
+                                        htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
+                                        var testingObject =
+                                            htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
+                                        //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+                                        mobileList.Add(CreateMobile(testingObject, brand.BrandId));
+                                    }
                                 }
                             }
                         }
@@ -158,7 +196,72 @@ namespace Egharpay.Controllers
             return mobileList;
         }
 
-        public Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection,int brandId)
+        private List<MobileImage> CreateMobileImageData(Brand brand, List<Mobile> mobile)
+        {
+            // var brands = GetAllBrandlink();
+
+            //For eg acer phone
+
+            var mobileList = new List<MobileImage>();
+
+            var htmlData = GetHtmlData(string.Format("http://www.gsmarena.com{0}{1}", "/", brand.Link));
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlData);
+
+            foreach (var item in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'makers')]"))
+            {
+                //Get Data For FirstPage
+                foreach (var element in item.SelectNodes(".//li"))
+                {
+                    var homeImage = element.Descendants("img").ToList();
+                    var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
+                    var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
+                    var htmlMobileDetailDocument = new HtmlDocument();
+                    htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
+                    var testingObject = htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
+                    //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+                    mobileList.Add(CreateMobileImage(testingObject, brand.Name, brand.BrandId, homeImage[0].Attributes[0].Value, mobile));
+
+                }
+
+                //Get data For Next Pages
+                if (htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'nav-pages')]") != null)
+                {
+                    foreach (var nextPageItem in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'nav-pages')]"))
+                    {
+                        var linkList = nextPageItem.Descendants("a").ToList();
+                        foreach (var singleLink in linkList)
+                        {
+                            var linkForNextPage = singleLink.Attributes[0].Value;
+                            var appendLinkForNextPage =
+                                string.Format("http://www.gsmarena.com{0}{1}", "/", linkForNextPage);
+                            var htmlMobileNextPageDetailDocument = new HtmlDocument();
+                            htmlMobileNextPageDetailDocument.LoadHtml(GetHtmlData(appendLinkForNextPage));
+                            foreach (var nextPageitem in htmlMobileNextPageDetailDocument.DocumentNode.SelectNodes("//div[contains(@class, 'makers')]"))
+                            {
+                                //Get Data For FirstPage
+                                foreach (var element in nextPageitem.SelectNodes(".//li"))
+                                {
+                                    var homeImage = element.Descendants("img").ToList();
+                                    var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
+                                    var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
+                                    var htmlMobileDetailDocument = new HtmlDocument();
+                                    htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
+                                    var testingObject =
+                                        htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
+                                    //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+                                    mobileList.Add(CreateMobileImage(testingObject, brand.Name, brand.BrandId, homeImage[0].Attributes[0].Value, mobile));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return mobileList;
+        }
+
+        private Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection, int brandId)
         {
             var modelName = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
             var released = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "released-hl"));
@@ -258,9 +361,93 @@ namespace Egharpay.Controllers
                 Weight = weight?.InnerHtml,
                 Sim = sim?.InnerHtml,
                 VideoPixel = videopixels?.InnerHtml,
-                BrandId=brandId
+                BrandId = brandId
             };
             return mobile;
+        }
+
+        public MobileImage CreateMobileImage(HtmlNodeCollection htmlNodeCollection, string brandName, int brandId, string imageLink, List<Mobile> mobile)
+        {
+            var rootDirectory = @"G:\MobileImage";
+            var modelName = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+            var mobileId = mobile.FirstOrDefault(e => e.Name.ToLower() == modelName.InnerHtml.ToLower()) == null ? -1 :
+                mobile.FirstOrDefault(e => e.Name.ToLower() == modelName.InnerHtml.ToLower()).MobileId;
+
+            //Create brand Directory
+            var brandDirectory = Path.Combine(rootDirectory, brandName);
+
+            if (!Directory.Exists(brandDirectory))
+                Directory.CreateDirectory(brandDirectory);
+
+            //Create modelName Directory
+            if (modelName?.InnerHtml != "Samsung :) Smiley")
+            {
+                var mobileDirectory = Path.Combine(brandDirectory, modelName?.InnerHtml);
+                if (!Directory.Exists(mobileDirectory))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory(mobileDirectory);
+                    }
+                    catch (Exception Ex)
+                    {
+                        Directory.CreateDirectory(mobileDirectory);
+                    }
+
+                }
+
+                //Write File
+                var uri = new Uri(imageLink);
+                var filename = imageLink.Split('/').Last();
+                if (uri.IsFile)
+                    filename = System.IO.Path.GetFileName(uri.LocalPath);
+
+                var saveImageFullPath = Path.Combine(mobileDirectory, filename);
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile(new Uri(imageLink), saveImageFullPath);
+                }
+
+                //Return object
+
+                return new MobileImage()
+                {
+                    BrandId = brandId,
+                    FilePath = saveImageFullPath,
+                    GSMLink = imageLink,
+                    MobileId = mobileId
+                };
+            }
+            return new MobileImage()
+            {
+                BrandId = 300,
+                FilePath = "",
+                GSMLink = "",
+                MobileId = mobileId
+            };
+        }
+
+        private void GetGoogleImages(string searchTerm)
+        {
+            var url = "https://www.google.co.in/search?q=" + searchTerm.Replace(' ','+') + "&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjO0NHwwJXWAhXINo8KHTurAX0Q_AUICygC&biw=1600&bih=804";
+            var htmlData = GetHtmlData(url);
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlData);
+            var nodes = htmlDocument.DocumentNode;
+            foreach (var item in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'med')]"))
+            {
+                //Get Data For FirstPage
+                foreach (var element in item.SelectNodes(".//li"))
+                {
+                    var homeImage = element.Descendants("img").ToList();
+                    var homeImage1 = element.Descendants("a").ToList();
+                    //var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
+                    //var htmlMobileDetailDocument = new HtmlDocument();
+                    //htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
+                    //var testingObject = htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
+
+                }
+            }
         }
 
         public List<BrandData> GetAllBrandlink()
@@ -322,7 +509,7 @@ namespace Egharpay.Controllers
                 }
 
             }
-            catch (WebException e) when (e.Status == WebExceptionStatus.Timeout)
+            catch (WebException e)
             {
                 return null;
             }

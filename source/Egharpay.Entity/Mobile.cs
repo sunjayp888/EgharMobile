@@ -29,19 +29,19 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string DisplayResolution { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string CameraPixel { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string RAM { get; set; }
 
-        [StringLength(100)]
+        [StringLength(500)]
         public string Chipset { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string BatterySize { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string BatteryType { get; set; }
 
         [StringLength(500)]
@@ -194,7 +194,7 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string BatteryMusicPlay { get; set; }
 
-        [StringLength(100)]
+        [StringLength(500)]
         public string VideoPixel { get; set; }
     }
 }

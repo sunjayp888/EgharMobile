@@ -24,7 +24,7 @@ namespace Egharpay.Data
         public virtual DbSet<Template> Templates { get; set; }
         public virtual DbSet<BrandGrid> BrandGrids { get; set; }
         public virtual DbSet<MobileGrid> MobileGrids { get; set; }
-
+        public virtual DbSet<MobileImage> MobileImages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -558,6 +558,18 @@ namespace Egharpay.Data
             modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.SearchField)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<MobileImage>()
+                .Property(e => e.GSMLink)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileImage>()
+                .Property(e => e.FilePath)
+                .IsUnicode(false);
+
+            //modelBuilder.Entity<MobileImage>()
+            //    .HasOptional(e => e.MobileImage1)
+            //    .WithRequired(e => e.MobileImage2);
         }
     }
 }

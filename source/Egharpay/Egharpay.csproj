@@ -6255,6 +6255,7 @@
     <Content Include="Views\Mobile\_Mobile.cshtml" />
     <Content Include="Views\Brand\Index.cshtml" />
     <Content Include="Views\Brand\Mobile.cshtml" />
+    <Content Include="Views\Mobile\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
