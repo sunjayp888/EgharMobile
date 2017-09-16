@@ -1,140 +1,125 @@
 ﻿@using Microsoft.AspNet.Identity
-<div class="row border-bottom">
-    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-            <form role="search" class="navbar-form-custom" method="post" action="">
-                <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                </div>
-            </form>
-        </div>
-        <ul class="nav navbar-top-links navbar-right">
-            @*<li>
-                <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Welcome to INSPINIA+ Admin Theme.</span>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
-                </a>
-                <ul class="dropdown-menu dropdown-messages">
-                    <li>
-                        <div class="dropdown-messages-box">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="~/Images/a7.jpg">
-                            </a>
-                            <div class="media-body">
-                                <small class="pull-right">46h ago</small>
-                                <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
-                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-                            </div>
+<div>
+    <div class="container">
+        <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div id="page-top" class="navbar-wrapper landing-page">
+                <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header page-scroll">
+                            <a class="navbar-brand">eGharpay</a>
                         </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="dropdown-messages-box">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="~/Images/a4.jpg">
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right text-navy">5h ago</small>
-                                <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
-                                <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-                            </div>
+                        <div class="navbar-header">
+                            <form role="search" class="navbar-form-custom" method="post" action="">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                                </div>
+                            </form>
                         </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="dropdown-messages-box">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="~/Images/profile.jpg">
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right">23h ago</small>
-                                <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
-                                <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="text-center link-block">
-                            <a href="#">
-                                <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
-                </a>
-                <ul class="dropdown-menu dropdown-alerts">
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-envelope fa-fw"></i> You have 16 messages
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                <span class="pull-right text-muted small">12 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <div>
-                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                <span class="pull-right text-muted small">4 minutes ago</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <div class="text-center link-block">
-                            <a href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </li>*@
-            <li>
-                @*<a href="@Url.Action("logout", "Account")">
-                    <i class="fa fa-sign-out"></i> Log out
-                </a>*@
-                @if (Request.IsAuthenticated)
+                    </div>
+                </nav>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    @if (Request.IsAuthenticated)
                 {
                     using (Html.BeginForm("logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                     {
-                        @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
-
-                    <li>
-                        @string.Concat("Hello ", User.Identity.GetUserName())
-                    </li>
-                    <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Log out</a></li>
-                    }
-                }
-
+                <li>
+                    @string.Concat("Hello ", User.Identity.GetUserName())
                 </li>
                 <li>
-                    <a class="right-sidebar-toggle">
-                        <i class="fa fa-tasks"></i>
-                    </a>
+                    <a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Log out</a>
                 </li>
-            </ul>
+                    }
+                }
+                    <li>
+                        <a class="right-sidebar-toggle">
+                            <i class="fa fa-tasks"></i>
+                        </a>
+                    </li>
+                </ul>
 
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown mega-dropdown open">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Collection <span class="glyphicon glyphicon-chevron-down pull-right"></span></a>
 
+                        <ul class="dropdown-menu mega-dropdown-menu row">
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">New in Stores</li>
+                                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="item">
+                                                <a href="#"><img src="http://placehold.it/254x150/3498db/f5f5f5/&amp;text=New+Collection" class="img-responsive" alt="product 1"></a>
+                                                <h4><small>Summer dress floral prints</small></h4>
+                                                <button class="btn btn-primary" type="button">49,99 €</button> <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
+                                            </div><!-- End Item -->
+                                            <div class="item">
+                                                <a href="#"><img src="http://placehold.it/254x150/ef5e55/f5f5f5/&amp;text=New+Collection" class="img-responsive" alt="product 2"></a>
+                                                <h4><small>Gold sandals with shiny touch</small></h4>
+                                                <button class="btn btn-primary" type="button">9,99 €</button> <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
+                                            </div><!-- End Item -->
+                                            <div class="item active">
+                                                <a href="#"><img src="http://placehold.it/254x150/2ecc71/f5f5f5/&amp;text=New+Collection" class="img-responsive" alt="product 3"></a>
+                                                <h4><small>Denin jacket stamped</small></h4>
+                                                <button class="btn btn-primary" type="button">49,99 €</button> <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
+                                            </div><!-- End Item -->
+                                        </div><!-- End Carousel Inner -->
+                                    </div><!-- /.carousel -->
+                                    <li class="divider"></li>
+                                    <li><a href="#">View all Collection <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Dresses</li>
+                                    <li><a href="#">Unique Features</a></li>
+                                    <li><a href="#">Image Responsive</a></li>
+                                    <li><a href="#">Auto Carousel</a></li>
+                                    <li><a href="#">Newsletter Form</a></li>
+                                    <li><a href="#">Four columns</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Tops</li>
+                                    <li><a href="#">Good Typography</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Jackets</li>
+                                    <li><a href="#">Easy to customize</a></li>
+                                    <li><a href="#">Glyphicons</a></li>
+                                    <li><a href="#">Pull Right Elements</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Pants</li>
+                                    <li><a href="#">Coloured Headers</a></li>
+                                    <li><a href="#">Primary Buttons &amp; Default</a></li>
+                                    <li><a href="#">Calls to action</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Accessories</li>
+                                    <li><a href="#">Default Navbar</a></li>
+                                    <li><a href="#">Lovely Fonts</a></li>
+                                    <li><a href="#">Responsive Dropdown </a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Newsletter</li>
+                                    <form class="form" role="form">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="email">Email address</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                    </form>
+                                </ul>
+                            </li>
+                        </ul>
 
-    </nav>
-</div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
