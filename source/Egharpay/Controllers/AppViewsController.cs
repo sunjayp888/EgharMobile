@@ -24,6 +24,11 @@ namespace Egharpay.Controllers
             return View();
         }
 
+        public ActionResult SweetHome()
+        {
+            return View();
+        }
+        
         public ActionResult Brand()
         {
             return View();
