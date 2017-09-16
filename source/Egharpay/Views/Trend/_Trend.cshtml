@@ -1,0 +1,34 @@
+﻿@model Egharpay.Models.TrendViewModel
+    <div class="form-control-required-example"> = Required</div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Trend.Name, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.Trend.Name, new { @class = "form-control col-md-7 col-xs-12" })
+            @Html.ValidationMessageFor(model => model.Trend.Name, "", new { @class = "help-block" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Trend.Image, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.Trend.Image, new { @class = "form-control col-md-7 col-xs-12" })
+            @Html.ValidationMessageFor(model => model.Trend.Image, "", new { @class = "help-block" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Trend.Detail, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.Trend.Detail, new { @class = "form-control col-md-7 col-xs-12" })
+            @Html.ValidationMessageFor(model => model.Trend.Detail, "", new { @class = "help-block" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Trend.ShortDescription, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            @Html.TextBoxFor(model => model.Trend.ShortDescription, new { @class = "form-control col-md-7 col-xs-12" })
+            @Html.ValidationMessageFor(model => model.Trend.ShortDescription, "", new { @class = "help-block" })
+        </div>
+    </div>

@@ -70,6 +70,8 @@
     <Compile Include="Interfaces\IPersonnelDataService.cs" />
     <Compile Include="Interfaces\IPincodeDataService.cs" />
     <Compile Include="EgharpayDatabase.cs" />
+    <Compile Include="Interfaces\ITrendCommentDataService.cs" />
+    <Compile Include="Interfaces\ITrendDataService.cs" />
     <Compile Include="Models\EgharpayDatabaseFactory.cs" />
     <Compile Include="Extensions\Ordering.cs" />
     <Compile Include="Extensions\Pagination.cs" />
@@ -83,6 +85,8 @@
     <Compile Include="Services\MobileDataService.cs" />
     <Compile Include="Services\PersonnelDataService.cs" />
     <Compile Include="Services\PincodeDataService.cs" />
+    <Compile Include="Services\TrendCommentDataService.cs" />
+    <Compile Include="Services\TrendDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -25,6 +25,8 @@ namespace Egharpay.Data
         public virtual DbSet<BrandGrid> BrandGrids { get; set; }
         public virtual DbSet<MobileGrid> MobileGrids { get; set; }
         public virtual DbSet<MobileImage> MobileImages { get; set; }
+        public virtual DbSet<Trend> Trends { get; set; }
+        public virtual DbSet<TrendComment> TrendComments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -565,6 +567,31 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<MobileImage>()
                 .Property(e => e.FilePath)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Trend>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Trend>()
+                .Property(e => e.Image)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Trend>()
+                .Property(e => e.Detail)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Trend>()
+                .Property(e => e.ShortDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Trend>()
+                .HasMany(e => e.TrendComments)
+                .WithRequired(e => e.Trend)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TrendComment>()
+                .Property(e => e.Comment)
                 .IsUnicode(false);
 
             //modelBuilder.Entity<MobileImage>()
