@@ -124,6 +124,8 @@
     <Compile Include="Interfaces\IPersonnelBusinessService.cs" />
     <Compile Include="Interfaces\IRazorService.cs" />
     <Compile Include="Interfaces\ITemplateService.cs" />
+    <Compile Include="Interfaces\ITrendBusinessService.cs" />
+    <Compile Include="Interfaces\ITrendCommentBusinessService.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\DocumentCategory.cs" />
     <Compile Include="Interfaces\MvcTemplateBase.cs" />
@@ -159,6 +161,8 @@
     <Compile Include="Services\DocumentsBusinessService.cs" />
     <Compile Include="Services\MobileBusinessService.cs" />
     <Compile Include="Services\PersonnelBusinessService.cs" />
+    <Compile Include="Services\TrendBusinessService.cs" />
+    <Compile Include="Services\TrendCommentBusinessService.cs" />
     <Compile Include="TemplateService.cs" />
   </ItemGroup>
   <ItemGroup>

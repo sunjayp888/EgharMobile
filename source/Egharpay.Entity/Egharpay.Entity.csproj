@@ -113,6 +113,8 @@
     <Compile Include="Dto\ScheduleItem.cs" />
     <Compile Include="Dto\ScheduleItemType.cs" />
     <Compile Include="Template.cs" />
+    <Compile Include="Trend.cs" />
+    <Compile Include="TrendComment.cs" />
     <Compile Include="Validation\DateGreaterThanAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
