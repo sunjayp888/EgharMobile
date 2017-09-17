@@ -25,24 +25,27 @@
 
     <!-- Wrapper-->
     <!-- PageClass give you ability to specify custom style for specific view based on action -->
-    <div id="wrapper" class="@Html.PageClass()">
+<div id="wrapper" class="@Html.PageClass()">
+    
+    <!-- Navigation -->
+    @*@Html.Partial("_Navigation")*@
 
-        <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+    <!-- Page wraper -->
+    <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
 
-            <!-- Top Navbar -->
-            @Html.Partial("_TopNavbar2")
+        <!-- Top Navbar -->
+        @Html.Partial("_TopNavbar2")
 
-            <!-- Main view  -->
-            @RenderBody()
+        <!-- Main view -->
+        @RenderBody()
 
-            <!-- Footer -->
-            @Html.Partial("_Footer")
-
-        </div>
-        <!-- End page wrapper-->
+        <!-- Footer -->
+        @Html.Partial("_Footer")
 
     </div>
+    <!-- End page wrapper-->
+
+</div>
     <!-- End wrapper-->
 
     <!-- Section for main scripts render -->

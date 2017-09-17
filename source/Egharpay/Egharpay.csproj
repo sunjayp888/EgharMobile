@@ -3856,15 +3856,12 @@
     <Content Include="Views\Brand\Index.cshtml" />
     <Content Include="Views\Brand\Mobile.cshtml" />
     <Content Include="Views\Mobile\Detail.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Trend\Index.cshtml" />
     <Content Include="Views\TrendComment\Index.cshtml" />
     <Content Include="Views\Trend\Create.cshtml" />
     <Content Include="Views\TrendComment\Create.cshtml" />
     <Content Include="Views\Trend\_Trend.cshtml" />
-=======
     <Content Include="Views\AppViews\SweetHome.cshtml" />
->>>>>>> b5a78bd82f2fc0de5b50683ba78fe1f2c3f0a35f
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

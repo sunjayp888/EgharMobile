@@ -37,7 +37,7 @@
          <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
 
              <!-- Top Navbar -->
-             @Html.Partial("_TopNavbar")
+             @Html.Partial("_TopNavbar2")
 
              <!-- Main view  -->
              @RenderBody()
@@ -71,6 +71,8 @@
      </html>
 
      <script type="text/javascript">
-         
+         $(document).on('click', '.mega-dropdown', function (e) {
+             e.stopPropagation();
+         })
      </script>
 	

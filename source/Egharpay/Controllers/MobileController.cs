@@ -430,13 +430,10 @@ namespace Egharpay.Controllers
         private void GetGoogleImages(string searchTerm)
         {
             var yahooUrl =
-<<<<<<< HEAD
-                "https://images.search.yahoo.com/search/images;_ylt=AwrTcXIUrrNZYTAAdf6LuLkF;_ylc=X1MDOTYwNTc0ODMEX3IDMgRiY2sDZjExaWRmcGNyN2JmdCUyNmIlM0QzJTI2cyUzRGNvBGZyA21jYWZlZQRncHJpZANkV3NILlhweVNfbW8yaXRfeWdDM2tBBG10ZXN0aWQDbnVsbARuX3N1Z2cDMTAEb3JpZ2luA2ltYWdlcy5zZWFyY2gueWFob28uY29tBHBvcwMwBHBxc3RyAwRwcXN0cmwDBHFzdHJsAzcEcXVlcnkDbm9raWEgNgR0X3N0bXADMTUwNDk0Nzc3MwR2dGVzdGlkA251bGw-?gprid=dWsH.XpyS_mo2it_ygC3kA&pvid=UQ63kDIwNi7whk1.WbOt_QSzMjIzLgAAAADy..36&p="+ searchTerm.Replace(' ',',')+"&ei=UTF-8&iscqry=&fr=mcafee&fr2=sb-top-images.search.yahoo.com";
-            var url = "https://www.google.co.in/search?q=" + searchTerm.Replace(' ','+') + "&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjO0NHwwJXWAhXINo8KHTurAX0Q_AUICygC&biw=1600&bih=804";
-=======
+
+           
                 "https://in.images.search.yahoo.com/search/images;_ylt=A2oKiHHojLNZ7C8AiRW8HAx.;_ylc=X1MDMjExNDcyMzAwNARfcgMyBGJjawNhdDI3YnRoY3IxcWVoJTI2YiUzRDMlMjZzJTNEOTkEZnIDBGdwcmlkA0hYdmxwRkdoUjRlWVAzZ2NWZjhtaEEEbXRlc3RpZANudWxsBG5fc3VnZwMxMARvcmlnaW4DaW4uaW1hZ2VzLnNlYXJjaC55YWhvby5jb20EcG9zAzAEcHFzdHIDBHBxc3RybAMEcXN0cmwDNwRxdWVyeQNub2tpYSA2BHRfc3RtcAMxNTA0OTM5Mjk4BHZ0ZXN0aWQDbnVsbA--?gprid=HXvlpFGhR4eYP3gcVf8mhA&pvid=_iSrdzEwNi6uiOvsWbDp0Ql9MTIzLgAAAAD40hUK&fr2=sb-top-in.images.search.yahoo.com&p=" + searchTerm.Replace(' ', '+') + "&ei=UTF-8&iscqry=&fr=sfp";
             var url = "https://www.google.co.in/search?q=" + searchTerm.Replace(' ', '+') + "&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjO0NHwwJXWAhXINo8KHTurAX0Q_AUICygC&biw=1600&bih=804";
->>>>>>> b5a78bd82f2fc0de5b50683ba78fe1f2c3f0a35f
             var htmlData = GetHtmlData(yahooUrl);
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(htmlData);
