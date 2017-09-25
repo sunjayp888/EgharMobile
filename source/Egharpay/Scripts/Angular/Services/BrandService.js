@@ -16,10 +16,10 @@
 
         return service;
 
-        function retrieveBrands(Paging, OrderBy) {
+        function retrieveBrands(OrderBy) {
             var url = "/Brand/List",
                 data = {
-                    paging: Paging,
+                    //paging: Paging,
                     orderBy: new Array(OrderBy)
                 };
             return $http.post(url, data);

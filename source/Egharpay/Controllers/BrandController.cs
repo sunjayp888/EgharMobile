@@ -46,9 +46,9 @@ namespace Egharpay.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
+        public async Task<ActionResult> List(List<OrderBy> orderBy)
         {
-            var data = await _brandBusinessService.RetrieveBrands(orderBy, paging);
+            var data = await _brandBusinessService.RetrieveBrands(orderBy);
             return this.JsonNet(data);
         }
 

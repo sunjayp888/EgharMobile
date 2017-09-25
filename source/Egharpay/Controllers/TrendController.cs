@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -64,10 +65,32 @@ namespace Egharpay.Controllers
             return View(trendViewModel);
         }
 
+        // GET: Trend/View/{id}
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //var result = await _mobileBusinessService.RetrieveMobile(id.Value);
+            var viewModel = new TrendViewModel
+            {
+                TrendId = id.Value
+            };
+            return View(viewModel);
+        }
+
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             var data = await _trendBusinessService.RetrieveTrends(orderBy, paging);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> TrendData(int id)
+        {
+            var data = await _trendBusinessService.RetrieveTrend(id);
             return this.JsonNet(data);
         }
     }

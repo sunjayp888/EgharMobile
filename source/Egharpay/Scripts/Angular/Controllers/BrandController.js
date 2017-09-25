@@ -31,11 +31,11 @@
         }
 
         function retrieveBrands() {
-            return BrandService.retrieveBrands(vm.paging, vm.orderBy)
+            return BrandService.retrieveBrands(vm.orderBy)
                 .then(function (response) {
                     vm.brands = response.data.Items;
-                    vm.paging.totalPages = response.data.TotalPages;
-                    vm.paging.totalResults = response.data.TotalResults;
+                    //vm.paging.totalPages = response.data.TotalPages;
+                    //vm.paging.totalResults = response.data.TotalResults;
                     vm.searchMessage = vm.brands.length === 0 ? "No Records Found" : "";
                     return vm.brands;
                 });
