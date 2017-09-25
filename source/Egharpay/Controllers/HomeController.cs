@@ -11,7 +11,7 @@ using Egharpay.Models;
 
 namespace Egharpay.Controllers
 {
-    [Authorize]
+   // [Authorize]
     public class HomeController : BaseController
     {
         public HomeController() : base()
