@@ -282,6 +282,7 @@
     <Compile Include="Controllers\PersonnelController.cs" />
     <Compile Include="Controllers\PersonnelDocumentsController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
+    <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TrendCommentController.cs" />
     <Compile Include="Controllers\TrendController.cs" />
@@ -316,6 +317,7 @@
     <Compile Include="Models\ScaffoldingContext.cs" />
     <Compile Include="Models\ScaffoldingController.cs" />
     <Compile Include="Models\PersonnelDocumentViewModel.cs" />
+    <Compile Include="Models\SellerViewModel.cs" />
     <Compile Include="Models\TrendCommentViewModel.cs" />
     <Compile Include="Models\TrendViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -3281,6 +3283,7 @@
     <Content Include="Scripts\Angular\Controllers\PincodeController.js" />
     <Content Include="Scripts\Angular\Controllers\RegisterController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelDocumentsController.js" />
+    <Content Include="Scripts\Angular\Controllers\SellerController.js" />
     <Content Include="Scripts\Angular\Directives\DailyScheduleDirective.js" />
     <Content Include="Scripts\Angular\Directives\DailyScheduleLegendDirective.js" />
     <Content Include="Scripts\Angular\Directives\FileUpload.js" />
@@ -3302,6 +3305,7 @@
     <Content Include="Scripts\Angular\Services\PersonnelService.js" />
     <Content Include="Scripts\Angular\Services\PincodeService.js" />
     <Content Include="Scripts\Angular\Services\PersonnelDocumentService.js" />
+    <Content Include="Scripts\Angular\Services\SellerService.js" />
     <Content Include="Scripts\Angular\Templates\PincodeModal.html" />
     <Content Include="Scripts\app\Absence.js" />
     <Content Include="Scripts\app\AbsenceType.js" />
@@ -3862,6 +3866,10 @@
     <Content Include="Views\TrendComment\Create.cshtml" />
     <Content Include="Views\Trend\_Trend.cshtml" />
     <Content Include="Views\AppViews\SweetHome.cshtml" />
+    <Content Include="Views\Seller\Index.cshtml" />
+    <Content Include="Views\Seller\Create.cshtml" />
+    <Content Include="Views\Seller\_Seller.cshtml" />
+    <Content Include="Views\Seller\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

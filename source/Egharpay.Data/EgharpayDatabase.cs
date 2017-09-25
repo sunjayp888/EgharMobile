@@ -27,6 +27,10 @@ namespace Egharpay.Data
         public virtual DbSet<MobileImage> MobileImages { get; set; }
         public virtual DbSet<Trend> Trends { get; set; }
         public virtual DbSet<TrendComment> TrendComments { get; set; }
+        public virtual DbSet<Seller> Sellers { get; set; }
+        public virtual DbSet<SellerGrid> SellerGrids { get; set; }
+        public virtual DbSet<Advertise> Advertises { get; set; }
+        public virtual DbSet<News> News { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -592,6 +596,126 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<TrendComment>()
                 .Property(e => e.Comment)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.RegistrationNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Owner)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Address1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Address2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Address3)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Address4)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Remarks)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.RegistrationNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Owner)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address3)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address4)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.SearchField)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Image1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Image2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Image3)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Image4)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Image5)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Tag)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Detail)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Advertise>()
+                .Property(e => e.Link)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<News>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<News>()
+                .Property(e => e.ShortDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<News>()
+                .Property(e => e.LongDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<News>()
+                .Property(e => e.Image)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<News>()
+                .Property(e => e.Link)
                 .IsUnicode(false);
 
             //modelBuilder.Entity<MobileImage>()

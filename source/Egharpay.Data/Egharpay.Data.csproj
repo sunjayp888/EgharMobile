@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IAdvertiseDataService.cs" />
     <Compile Include="Interfaces\IBrandDataService.cs" />
     <Compile Include="Interfaces\IDatabaseFactory.cs" />
     <Compile Include="Interfaces\IDocumentDataService.cs" />
@@ -67,9 +68,11 @@
     <Compile Include="Interfaces\IGenericDataService.cs" />
     <Compile Include="Interfaces\IMaintenanceDataService.cs" />
     <Compile Include="Interfaces\IMobileDataService.cs" />
+    <Compile Include="Interfaces\INewsDataService.cs" />
     <Compile Include="Interfaces\IPersonnelDataService.cs" />
     <Compile Include="Interfaces\IPincodeDataService.cs" />
     <Compile Include="EgharpayDatabase.cs" />
+    <Compile Include="Interfaces\ISellerDataService.cs" />
     <Compile Include="Interfaces\ITrendCommentDataService.cs" />
     <Compile Include="Interfaces\ITrendDataService.cs" />
     <Compile Include="Models\EgharpayDatabaseFactory.cs" />
@@ -77,14 +80,17 @@
     <Compile Include="Extensions\Pagination.cs" />
     <Compile Include="Partials\EgharpayDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AdvertiseDataService.cs" />
     <Compile Include="Services\BrandDataService.cs" />
     <Compile Include="Services\DocumentDataService.cs" />
     <Compile Include="Services\EgharpayDataService.cs" />
     <Compile Include="Services\EntityFrameworkGenericDataService.cs" />
     <Compile Include="Services\MaintenanceDataService.cs" />
     <Compile Include="Services\MobileDataService.cs" />
+    <Compile Include="Services\NewsDataService.cs" />
     <Compile Include="Services\PersonnelDataService.cs" />
     <Compile Include="Services\PincodeDataService.cs" />
+    <Compile Include="Services\SellerDataService.cs" />
     <Compile Include="Services\TrendCommentDataService.cs" />
     <Compile Include="Services\TrendDataService.cs" />
   </ItemGroup>
