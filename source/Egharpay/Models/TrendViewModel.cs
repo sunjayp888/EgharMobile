@@ -9,5 +9,6 @@ namespace Egharpay.Models
     public class TrendViewModel : BaseViewModel
     {
         public Trend Trend { get; set; }
+        public int TrendId { get; set; }
     }
 }

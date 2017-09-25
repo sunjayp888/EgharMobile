@@ -1,9 +1,10 @@
-﻿
+﻿@model Egharpay.Models.TrendViewModel
+
 @{
-    ViewBag.Title = "Trend";
+    ViewBag.Title = "Detail";
 }
 
-<div ng-controller="TrendController as model" ng-init="model.initialise()">
+<div ng-controller="TrendController as model" ng-init="model.detailTrend(@Model.TrendId)">
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
             <h2>Profile</h2>
@@ -107,10 +108,9 @@
 
             </div>
 
-            <div class="col-lg-5" ng-repeat="trend in model.trends">
-
+            <div class="col-lg-9">
+                
                 <div class="social-feed-box">
-
                     <div class="pull-right social-action dropdown">
                         <button data-toggle="dropdown" class="dropdown-toggle btn-white">
                             <i class="fa fa-angle-down"></i>
@@ -124,15 +124,18 @@
                             <img src="~/Images/vijay.jpg" />
                         </a>
                         <div class="media-body">
-                            <a ng-href="/Trend/Detail/{{trend.TrendId}}">
-                                <span ng-bind="trend.Name"></span>
+                            <a href="#">
+                                <span ng-bind="model.trends.Name"></span>
                             </a>
                             <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
                         </div>
                     </div>
                     <div class="social-body">
                         <p>
-                            <span ng-bind="trend.ShortDescription"></span>
+                            <span ng-bind="model.trends.ShortDescription"></span>
+                        </p>
+                        <p>
+                            <span ng-bind="model.trends.Detail"></span>
                         </p>
                         <img src="~/Images/Nokia 6.jpg" class="img-responsive">
                         <div class="btn-group">
@@ -140,23 +143,6 @@
                             <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
                             <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
                         </div>
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="#">
-                            </a>
-                            <div class="media-body">
-                                <textarea ng-id="trend.TrendId" class="form-control" placeholder="Write comment..." ng-model="model.trendComment"></textarea>
-                            </div>
-                            <br />
-                            <button id="submit" type="submit" class="btn btn-success" ng-click="model.createTrendComment(trend.TrendId,model.trendComment)">Submit</button>
-                            @*<a class="btn btn-sm btn-info" ng-click="model.createTrendComment(trend.TrendId,model.trendComment)">Post</a>*@
-                            @*<div class="form-group">
-                                    <div class="pull-right">
-                                        <button id="submit" type="submit" class="btn btn-success">Submit</button>
-                                    </div>
-                                </div>*@
-                        </div>
-
                     </div>
                     @*<div class="social-footer">
                             <div class="social-comment">
@@ -209,4 +195,3 @@
 
     </div>
 </div>
-
