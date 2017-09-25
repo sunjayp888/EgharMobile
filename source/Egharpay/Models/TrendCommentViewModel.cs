@@ -9,5 +9,7 @@ namespace Egharpay.Models
     public class TrendCommentViewModel :BaseViewModel
     {
         public TrendComment TrendComment { get; set; }
+        public int TrendId { get; set; }
+        public string Comment { get; set; }
     }
 }

@@ -31,38 +31,46 @@ namespace Egharpay.Controllers
         }
 
         // GET: TrendComment/Create
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Create()
-        {
-            var viewModel = new TrendCommentViewModel()
-            {
-                TrendComment = new TrendComment()
-            };
-            return View(viewModel);
-        }
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> Create()
+        //{
+        //    var viewModel = new TrendCommentViewModel()
+        //    {
+        //        TrendComment = new TrendComment()
+        //    };
+        //    return View(viewModel);
+        //}
 
         // POST: TrendComment/Create
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(TrendCommentViewModel trendCommentViewModel)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(TrendComment trendComment)
         {
-            if (ModelState.IsValid)
+            try
             {
-                //Create Trend
-                trendCommentViewModel.TrendComment.CreatedDateTime = DateTime.UtcNow;
-                var result = await _trendCommentBusinessService.CreateTrendComment(trendCommentViewModel.TrendComment);
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    return RedirectToAction("Index");
+                    //Create Trend
+                    trendComment.UserId = 1;
+                    trendComment.CreatedDateTime = DateTime.UtcNow;
+                    var result = await _trendCommentBusinessService.CreateTrendComment(trendComment);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    ModelState.AddModelError("", result.Exception);
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
                 }
-                ModelState.AddModelError("", result.Exception);
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error);
-                }
+                return this.JsonNet(true);
             }
-            return View(trendCommentViewModel);
+            catch (Exception e)
+            {
+                return this.JsonNet(false);
+            }
         }
 
         [HttpPost]
