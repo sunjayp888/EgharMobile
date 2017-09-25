@@ -115,14 +115,17 @@
     <Compile Include="Extensions\NodeExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\ValidationExtensions.cs" />
+    <Compile Include="Interfaces\IAdvertiseBusinessService.cs" />
     <Compile Include="Interfaces\IBrandBusinessService.cs" />
     <Compile Include="Interfaces\ICurrentUserResolver.cs" />
     <Compile Include="Interfaces\IDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IDocumentsBusinessService.cs" />
     <Compile Include="Interfaces\IMobileBusinessService.cs" />
+    <Compile Include="Interfaces\INewsBusinessService.cs" />
     <Compile Include="Interfaces\IPdfService.cs" />
     <Compile Include="Interfaces\IPersonnelBusinessService.cs" />
     <Compile Include="Interfaces\IRazorService.cs" />
+    <Compile Include="Interfaces\ISellerBusinessService.cs" />
     <Compile Include="Interfaces\ITemplateService.cs" />
     <Compile Include="Interfaces\ITrendBusinessService.cs" />
     <Compile Include="Interfaces\ITrendCommentBusinessService.cs" />
@@ -157,10 +160,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Services\AdvertiseBusinessService.cs" />
     <Compile Include="Services\BrandBusinessService.cs" />
     <Compile Include="Services\DocumentsBusinessService.cs" />
     <Compile Include="Services\MobileBusinessService.cs" />
+    <Compile Include="Services\NewsBusinessService.cs" />
     <Compile Include="Services\PersonnelBusinessService.cs" />
+    <Compile Include="Services\SellerBusinessService.cs" />
     <Compile Include="Services\TrendBusinessService.cs" />
     <Compile Include="Services\TrendCommentBusinessService.cs" />
     <Compile Include="TemplateService.cs" />
