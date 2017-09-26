@@ -10,7 +10,7 @@
         <div class="navbar-header">
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                    <input type="text" placeholder="Search for something..." class="typeahead_2 form-control">
+                    <input type="text" placeholder="item..." class="typeahead_2 form-control" />
                     @*<input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">*@
                 </div>
                 <button type="submit" class="btn btn-danger"><i class="fa fa-search"> <label> Search</label></i></button>
@@ -179,3 +179,10 @@
         </div>
     </nav>
 </div>
+@section Scripts {
+    @Scripts.Render("~/plugins/typehead")
+
+    <script type="text/javascript">
+       
+    </script>
+}
