@@ -53,5 +53,11 @@ namespace Egharpay.Controllers
         {
             return this.JsonNet(null);
         }
+
+        [HttpPost]
+        public ActionResult Search()
+        {
+            return this.JsonNet(null);
+        }
     }
 }

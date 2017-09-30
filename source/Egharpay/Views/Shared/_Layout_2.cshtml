@@ -11,86 +11,73 @@
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
 
-     <!-- Add jQuery Style direct - used for jQGrid plugin -->
-     <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
 
-     <!-- Primary Inspinia style -->
-     @Styles.Render("~/font-awesome/css")
-     @Styles.Render("~/Content/css")
-     </head>
-     <body class="top-navigation">
+    <!-- Primary Inspinia style -->
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/Content/css")
+</head>
+<body class="top-navigation">
 
-     <!-- Skin configuration box -->
-     @Html.Partial("_SkinConfig")
+    <!-- Skin configuration box -->
+    @Html.Partial("_SkinConfig")
 
-     <!-- Wrapper-->
-     <!-- PageClass give you ability to specify custom style for specific view based on action -->
-     <div id="wrapper" class="@Html.PageClass()" ng-app="Egharpay">
+    <!-- Wrapper-->
+    <!-- PageClass give you ability to specify custom style for specific view based on action -->
+    <div id="wrapper" class="@Html.PageClass()" ng-app="Egharpay">
 
-         <!-- Navigation -->
-         @*@Html.Partial("_Navigation")*@
+        <!-- Navigation -->
+        @*@Html.Partial("_Navigation")*@
 
-         <!-- Page wraper -->
-         <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
 
-             <!-- Top Navbar -->
-             @Html.Partial("_TopNavbar2")
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar2")
 
-             <!-- Main view -->
-             @RenderBody()
+            <!-- Main view -->
+            @RenderBody()
 
-             <!-- Footer -->
-             @Html.Partial("_Footer")
+            <!-- Footer -->
+            @Html.Partial("_Footer")
 
-         </div>
-         <!-- End page wrapper-->
+        </div>
+        <!-- End page wrapper-->
 
-     </div>
-     <!-- End wrapper-->
-     <!-- Section for main scripts render -->
-     @Scripts.Render("~/Scripts/bower")
-     @*@Scripts.Render("~/bundles/jquery")*@
-     @*@Scripts.Render("~/bundles/bootstrap")*@
-     @Scripts.Render("~/plugins/slimScroll")
-     @Scripts.Render("~/bundles/inspinia")
-     @Scripts.Render("~/Scripts/Application")
+    </div>
+    <!-- End wrapper-->
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/Scripts/bower")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    @Scripts.Render("~/Scripts/Application")
 
-     <!-- Skin config script - only for demo purpose-->
-     @Scripts.Render("~/bundles/skinConfig")
-    
-     @*@Scripts.Render("~/plugins/typehead")*@
+    <!-- Skin config script - only for demo purpose-->
+    @Scripts.Render("~/bundles/skinConfig")
 
-     <!-- Handler for local scripts -->
-     @RenderSection("scripts", required: false)
-     </body>
-     </html>
+    @Scripts.Render("~/plugins/typehead")
 
-     <script type="text/javascript">
-         $(document).on('click',
-             '.mega-dropdown',
-             function(e) {
-                 e.stopPropagation();
-             });
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>
 
-         $(document).ready(function () {
+<script type="text/javascript">
+    $(document).on('click',
+        '.mega-dropdown',
+        function (e) {
+            e.stopPropagation();
+        });
 
-             $('.typeahead_1').typeahead({
-                 source: ["item 1", "item 2", "item 3"]
-             });
+    $(document).ready(function () {
 
-             $.get('../Scripts/api/typehead_collection.json', function (data) {
-                 $(".typeahead_2").typeahead({ source: data.countries });
-             }, 'json');
+        $.get('../Scripts/api/typehead_collection.json', function (data) {
+            $(".typeahead_2").typeahead({ source: data.countries });
+        }, 'json');
 
-             $('.typeahead_3').typeahead({
-                 source: [
-                     { "name": "Afghanistan", "code": "AF", "ccn0": "040" },
-                     { "name": "Land Islands", "code": "AX", "ccn0": "050" },
-                     { "name": "Albania", "code": "AL", "ccn0": "060" },
-                     { "name": "Algeria", "code": "DZ", "ccn0": "070" }
-                 ]
-             });
-
-         });
-     </script>
+    });
+</script>
 

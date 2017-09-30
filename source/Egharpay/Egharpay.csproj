@@ -3870,6 +3870,10 @@
     <Content Include="Views\Seller\Create.cshtml" />
     <Content Include="Views\Seller\_Seller.cshtml" />
     <Content Include="Views\Seller\Edit.cshtml" />
+    <Content Include="Views\Mobile\_Detail.cshtml" />
+    <Content Include="Views\Mobile\_Gallery.cshtml" />
+    <Content Include="Views\Mobile\_Video.cshtml" />
+    <Content Include="Views\Mobile\_Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

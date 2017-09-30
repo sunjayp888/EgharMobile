@@ -4,17 +4,25 @@
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                 <i class="fa fa-reorder"></i>
             </button>
-            <a href="#" class="navbar-brand">Inspinia</a>
+            <div class="row">
+                <div class="col-lg-2">
+                    <a href="#" class="navbar-brand">Inspinia</a>
+                </div>
+                <div class="col-lg-10">
+                    <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="typeahead_2 form-control dropdown-menu-search" />
+                                @*<input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">*@
+                            </div>
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-search"> <label> Search</label></i></button>
+                    </form>
+                </div>
+            </div>
+
         </div>
 
         <div class="navbar-header">
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" placeholder="item..." class="typeahead_2 form-control" />
-                    @*<input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">*@
-                </div>
-                <button type="submit" class="btn btn-danger"><i class="fa fa-search"> <label> Search</label></i></button>
-            </form>
+
             @*<form role="search" class="navbar-form-custom" method="post" action="">
                     <div class="row">
                         <div class="form-group col-lg-8">
@@ -183,6 +191,6 @@
     @Scripts.Render("~/plugins/typehead")
 
     <script type="text/javascript">
-       
+
     </script>
 }
