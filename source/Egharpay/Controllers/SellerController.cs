@@ -33,8 +33,7 @@ namespace Egharpay.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create()
         {
-            HttpContext.Server.ScriptTimeout = 300000000;
-            var mobileResult = await _sellerBusinessService.RetrieveSellers();
+            var sellerResult = await _sellerBusinessService.RetrieveSellers();
             var viewModel = new SellerViewModel()
             {
                 Seller = new Seller()
@@ -109,8 +108,17 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _sellerBusinessService.RetrieveSellers(orderBy, paging);
-            return this.JsonNet(data);
+            try
+            {
+                var data = await _sellerBusinessService.RetrieveSellers(orderBy, paging);
+                return this.JsonNet(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         [HttpPost]
