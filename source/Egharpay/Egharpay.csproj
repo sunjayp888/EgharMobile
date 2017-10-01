@@ -3284,6 +3284,7 @@
     <Content Include="Scripts\Angular\Controllers\RegisterController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelDocumentsController.js" />
     <Content Include="Scripts\Angular\Controllers\SellerController.js" />
+    <Content Include="Scripts\Angular\Controllers\TrendController.js" />
     <Content Include="Scripts\Angular\Directives\DailyScheduleDirective.js" />
     <Content Include="Scripts\Angular\Directives\DailyScheduleLegendDirective.js" />
     <Content Include="Scripts\Angular\Directives\FileUpload.js" />
@@ -3870,6 +3871,7 @@
     <Content Include="Views\Seller\Create.cshtml" />
     <Content Include="Views\Seller\_Seller.cshtml" />
     <Content Include="Views\Seller\Edit.cshtml" />
+    <Content Include="Views\Trend\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

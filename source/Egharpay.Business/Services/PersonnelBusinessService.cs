@@ -68,11 +68,12 @@ namespace Egharpay.Business.Services
             var personnels = await _dataService.RetrieveAsync<Personnel>(a => a.PersonnelId == personnelId);
             return personnels.FirstOrDefault();
         }
-        //public async Task<PagedResult<PersonnelGrid>> RetrievePersonnels(int centreId, List<OrderBy> orderBy = null, Paging paging = null)
-        //{
-        //    var personnel = await _dataService.RetrievePagedResultAsync<PersonnelGrid>(a => a.CentreId == centreId, orderBy, paging);
-        //    return personnel;
-        //}
+
+        public async Task<PagedResult<Personnel>> RetrievePersonnels(List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var personnel = await _dataService.RetrievePagedResultAsync<Personnel>(e => true, orderBy, paging);
+            return personnel;
+        }
 
         private async Task<ValidationResult<Personnel>> PersonnelAlreadyExists(string email)
         {

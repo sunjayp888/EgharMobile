@@ -42,7 +42,7 @@ namespace Egharpay.Controllers
         //}
 
         // POST: TrendComment/Create
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TrendComment trendComment)
@@ -71,6 +71,14 @@ namespace Egharpay.Controllers
             {
                 return this.JsonNet(false);
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Approve(int trendCommentId)
+        {
+            var trendCommentData = await _trendCommentBusinessService.RetrieveTrendComment(trendCommentId);
+            trendCommentData.Approve = true;
+            return this.JsonNet(trendCommentData);
         }
 
         [HttpPost]
