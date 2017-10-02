@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using Configuration.Interface;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Extensions;
 using Egharpay.Models;
+using Microsoft.Owin.Security.Authorization;
 
 
 namespace Egharpay.Controllers
@@ -14,12 +16,13 @@ namespace Egharpay.Controllers
    // [Authorize]
     public class HomeController : BaseController
     {
-        public HomeController() : base()
+        private readonly IYouTubeBusinessService _youTubeBusinessService;
+        public HomeController(IYouTubeBusinessService youTubeBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService) : base(configurationManager, authorizationService)
         {
+            _youTubeBusinessService = youTubeBusinessService;
         }
 
         public ActionResult Index()
-
         {
             bool isSuperAdmin = User.IsSuperAdmin();
             if (User.IsInRole("User"))

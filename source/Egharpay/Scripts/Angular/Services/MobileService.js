@@ -11,7 +11,8 @@
         var service = {
             retrieveMobiles: retrieveMobiles,
             searchMobile: searchMobile,
-            detailMobile: detailMobile
+            detailMobile: detailMobile,
+            retrieveSearchField: retrieveSearchField
         };
 
         return service;
@@ -35,6 +36,11 @@
             return $http.post(url, data);
         }
 
+        function retrieveSearchField() {
+            var url = "/Mobile/SearchField";
+            return $http.post(url);
+        }
+
         function detailMobile(mobileId) {
             var url = "/Mobile/MobileData",
                 data = {
@@ -42,5 +48,6 @@
                 };
             return $http.post(url, data);
         }
+
     }
 })();

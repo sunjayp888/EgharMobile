@@ -96,15 +96,16 @@ namespace Egharpay.Controllers
         }
 
         // GET: Enquiry/View/{id}
-        public ActionResult Detail(int? id)
+        public async Task<ActionResult> Detail(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //var result = await _mobileBusinessService.RetrieveMobile(id.Value);
+            var result = await _mobileBusinessService.RetrieveMobile(id.Value);
             var viewModel = new MobileViewModel
             {
+                MobileName = result.Name,
                 MobileId = id.Value
             };
             return View(viewModel);
@@ -128,6 +129,14 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _mobileBusinessService.Search(searchKeyword, orderBy, paging));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SearchField()
+        {
+            var result = await _mobileBusinessService.Search();
+            var data = result.Items.Select(e => e.Name).ToList();
+            return this.JsonNet(data);
         }
 
         private List<Mobile> CreateMobileData(List<Brand> brands)

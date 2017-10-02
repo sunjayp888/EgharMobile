@@ -114,37 +114,19 @@
                         <li class=""><a data-toggle="tab" href="#tab-2"><strong> Gallery</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-3"><strong> Video</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-4"><strong> Reviews</strong></a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-5"><strong> Sellers</strong></a></li>
                     </ul>
                     <div class="tab-content">
+
                         @Html.Partial("_Detail")
                         @Html.Partial("_Gallery")
                         @Html.Partial("_Video")
                         @Html.Partial("_Review")
+                        @Html.Partial("_Seller")
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@section Scripts {
-    @Scripts.Render("~/plugins/peity")
-    <script type="text/javascript">
-        $(document).ready(function () {
 
-            $("span.pie").peity("pie", {
-                fill: ['#1ab394', '#d7d7d7', '#ffffff']
-            })
-
-            $(".line").peity("line", {
-                fill: '#1ab394',
-                stroke: '#169c81',
-            })
-
-            $(".bar").peity("bar", {
-                fill: ["#1ab394", "#d7d7d7"]
-            })
-
-
-        });
-    </script>
-}

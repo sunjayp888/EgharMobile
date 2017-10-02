@@ -52,8 +52,8 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Configuration.Core, Version=1.1.2.28033, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Configuration.Core.1.1.2.28033\lib\net40\Configuration.Core.dll</HintPath>
@@ -161,8 +161,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -246,6 +246,7 @@
     <Folder Include="Attributes\" />
     <Folder Include="Views\Maintenance\" />
     <Folder Include="Views\PersonnelDocuments\" />
+    <Folder Include="Views\YouTube\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -288,6 +289,7 @@
     <Compile Include="Controllers\TrendController.cs" />
     <Compile Include="Controllers\UIElementsController.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
+    <Compile Include="Controllers\YouTubeController.cs" />
     <Compile Include="Extensions\ControllerExtensions.cs" />
     <Compile Include="Extensions\DataTableToExcel.cs" />
     <Compile Include="Extensions\FileExtensions.cs" />
@@ -3277,6 +3279,7 @@
     <Content Include="Scripts\Angular\Controllers\CentreController.js" />
     <Content Include="Scripts\Angular\Controllers\DocumentController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
+    <Content Include="Scripts\Angular\Controllers\YouTubeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelProfileController.js" />
@@ -3284,12 +3287,14 @@
     <Content Include="Scripts\Angular\Controllers\RegisterController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelDocumentsController.js" />
     <Content Include="Scripts\Angular\Controllers\SellerController.js" />
+    <Content Include="Scripts\Angular\Controllers\TrendController.js" />
     <Content Include="Scripts\Angular\Directives\DailyScheduleDirective.js" />
     <Content Include="Scripts\Angular\Directives\DailyScheduleLegendDirective.js" />
     <Content Include="Scripts\Angular\Directives\FileUpload.js" />
     <Content Include="Scripts\Angular\Directives\Inject.js" />
     <Content Include="Scripts\Angular\Directives\Views\_schedule.html" />
     <Content Include="Scripts\Angular\Directives\Views\_scheduleLegend.html" />
+    <Content Include="Scripts\Angular\Filters\filters-module.js" />
     <Content Include="Scripts\Angular\Filters\JsonDate.js" />
     <Content Include="Scripts\Angular\Moment.js" />
     <Content Include="Scripts\Angular\Prototypes\OrderBy.js" />
@@ -3298,6 +3303,8 @@
     <Content Include="Scripts\Angular\Services\CentreService.js" />
     <Content Include="Scripts\Angular\Services\DocumentService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
+    <Content Include="Scripts\Angular\Services\TrendService.js" />
+    <Content Include="Scripts\Angular\Services\YouTubeService.js" />
     <Content Include="Scripts\Angular\Services\MobileService.js" />
     <Content Include="Scripts\Angular\Services\OrderService.js" />
     <Content Include="Scripts\Angular\Services\OrganisationalChartService.js" />
@@ -3874,6 +3881,7 @@
     <Content Include="Views\Mobile\_Gallery.cshtml" />
     <Content Include="Views\Mobile\_Video.cshtml" />
     <Content Include="Views\Mobile\_Review.cshtml" />
+    <Content Include="Views\Mobile\_Seller.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

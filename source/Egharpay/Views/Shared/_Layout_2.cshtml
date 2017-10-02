@@ -38,14 +38,19 @@
 
             <!-- Main view -->
             @RenderBody()
-
+            <br />
+            <br />
+            <br />
             <!-- Footer -->
             @Html.Partial("_Footer")
+
 
         </div>
         <!-- End page wrapper-->
 
     </div>
+
+
     <!-- End wrapper-->
     <!-- Section for main scripts render -->
     @Scripts.Render("~/Scripts/bower")
@@ -54,13 +59,19 @@
     @Scripts.Render("~/plugins/slimScroll")
     @Scripts.Render("~/bundles/inspinia")
     @Scripts.Render("~/Scripts/Application")
+    
+    
+    @Scripts.Render("~/plugins/peity")
+    @Scripts.Render("~/plugins/iCheck")
 
-    <!-- Skin config script - only for demo purpose-->
+<!-- Skin config script - only for demo purpose-->
     @Scripts.Render("~/bundles/skinConfig")
 
     @Scripts.Render("~/plugins/typehead")
+    
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
 
-    <!-- Handler for local scripts -->
+<!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)
 </body>
 </html>
@@ -74,9 +85,10 @@
 
     $(document).ready(function () {
 
-        $.get('../Scripts/api/typehead_collection.json', function (data) {
-            $(".typeahead_2").typeahead({ source: data.countries });
-        }, 'json');
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
 
     });
 </script>
