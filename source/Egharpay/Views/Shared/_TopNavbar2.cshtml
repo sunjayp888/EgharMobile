@@ -53,18 +53,18 @@
                         <li class="col-sm-3">
                             <ul>
                                 <li class="dropdown-header">Brand</li>
-                                <li><a href="#">Nokia</a></li>
-                                <li><a href="#">Samsung</a></li>
-                                <li><a href="#">Amazon</a></li>
-                                <li><a href="#">Motorola</a></li>
-                                <li><a href="#">Redmi</a></li>
-                                <li><a href="#">Apple</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=283})">Nokia</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=300})">Samsung</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=224})"></a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=278})">Motorola</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=323})">Redmi(Xiaomi)</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=226})">Apple</a></li>
                                 <li><a href="#"></a></li>
-                                <li><button type="submit" class="btn btn-primary">Show all brands</button></li>
-
+                                <li><button type="submit" class="btn btn-primary" ng-click="/Brand/Index">Show all brands</button></li>
+                                @*<li><a href="@Url.Action("Index","Brand")" class="btn btn-primary">Show all brands</a></li>*@
                                 <li class="divider"></li>
                                 @*<li class="dropdown-header">Tops</li>
-                                    <li><a href="#">Good Typography</a></li>*@
+            <li><a href="#">Good Typography</a></li>*@
                             </ul>
                         </li>
                         <li class="col-sm-3">

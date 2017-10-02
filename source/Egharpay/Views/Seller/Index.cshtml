@@ -1,10 +1,9 @@
-﻿@using Egharpay.Extensions
-
+﻿
 @{
     ViewBag.Title = "Seller";
 }
 
-<div ng-controller="SellerController as model">
+<div ng-controller="SellerController as model" ng-init="model.retrieveSellers()">
     <div class="page-title">
         <div class="title_left">
             <h3>

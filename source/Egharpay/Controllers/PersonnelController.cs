@@ -57,9 +57,13 @@ namespace Egharpay.Controllers
 
         // GET: Personnel/Profile/{id}
         [Authorize(Roles = "Admin,User")]
-        public async Task<ActionResult> Profile(int id)
+        public async Task<ActionResult> Profile(int? id)
         {
-            var personnel = await _personnelBusinessService.RetrievePersonnel(id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var personnel = await _personnelBusinessService.RetrievePersonnel(id.Value);
             if (personnel == null)
             {
                 return HttpNotFound();
@@ -258,8 +262,8 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            //var data = await _personnelBusinessService.RetrievePersonnels(1, orderBy, paging);
-            return this.JsonNet("");
+            var data = await _personnelBusinessService.RetrievePersonnels(orderBy, paging);
+            return this.JsonNet(data);
         }
 
         [HttpPost]

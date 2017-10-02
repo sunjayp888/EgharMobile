@@ -598,37 +598,7 @@ namespace Egharpay.Data
                 .Property(e => e.Comment)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Seller>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Seller>()
-                .Property(e => e.RegistrationNumber)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Seller>()
-                .Property(e => e.Owner)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Seller>()
-                .Property(e => e.Address1)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Seller>()
-                .Property(e => e.Address2)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Seller>()
-                .Property(e => e.Address3)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Seller>()
-                .Property(e => e.Address4)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Seller>()
-                .Property(e => e.Remarks)
-                .IsUnicode(false);
+            
 
             modelBuilder.Entity<SellerGrid>()
                 .Property(e => e.Name)
@@ -716,6 +686,38 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<News>()
                 .Property(e => e.Link)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.RegistrationNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Owner)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Address1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Address2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Address3)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Address4)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
+                .Property(e => e.Remarks)
                 .IsUnicode(false);
 
             //modelBuilder.Entity<MobileImage>()

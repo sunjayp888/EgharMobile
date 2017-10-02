@@ -133,103 +133,42 @@
                     </div>*@
 
             </div>
-
+        <div ng-controller="TrendController as model" ng-init="model.initialise()">
             <div class="col-lg-6">
 
-                <div class="social-feed-box">
+                <div class="social-feed-box" ng-repeat="trend in model.trends">
 
                     <div class="social-avatar">
                         <a href="" class="pull-left">
                             <img alt="image" src="/images/a6.jpg">
                         </a>
                         <div class="media-body">
-                            <a href="#">
-                                <h4>Andrew Williams</h4>
+                            <a ng-href="/Trend/Detail/{{trend.TrendId}}">
+                                <span ng-bind="trend.Name"></span>
                             </a>
                             <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
                         </div>
                     </div>
                     <div class="social-body">
                         <p>
-                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their
-                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                            default model text.
+                            <span ng-bind="trend.ShortDescription"></span>
                         </p>
-                        <p>
-                            Lorem Ipsum as their
-                            default model text, and a search for 'lorem ipsum' will uncover many web sites still
-                            in their infancy. Packages and web page editors now use Lorem Ipsum as their
-                            default model text.
-                        </p>
-                        <img src="/images/gallery/3.jpg" class="img-responsive">
-                        @*<div class="btn-group">
-                                <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
-                                <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
-                                <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
-                            </div>*@
-                    </div>
-                    <div class="social-footer">
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="/images/a1.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    Andrew Williams
-                                </a>
-                                Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words.
-                                <br>
-                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -
-                                <small class="text-muted">12.06.2014</small>
-                            </div>
-                        </div>
-
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="/images/a2.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    Andrew Williams
-                                </a>
-                                Making this the first true generator on the Internet. It uses a dictionary of.
-                                <br>
-                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
-                                <small class="text-muted">10.07.2014</small>
-                            </div>
-                        </div>
-
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="/images/a8.jpg">
-                            </a>
-                            <div class="media-body">
-                                <a href="#">
-                                    Andrew Williams
-                                </a>
-                                Making this the first true generator on the Internet. It uses a dictionary of.
-                                <br>
-                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -
-                                <small class="text-muted">10.07.2014</small>
-                            </div>
-                        </div>
 
                         <div class="social-comment">
                             <a href="" class="pull-left">
                                 <img alt="image" src="/images/a3.jpg">
                             </a>
-                            <div class="media-body">
-                                <textarea class="form-control" placeholder="Write comment..."></textarea>
-                                <button class="btn btn-warning btn-xs pull-right btn-comment"> Comment</button>
-                            </div>
-                        </div>
+                                <div class="media-body">
+                                    <textarea ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>
+                                    <button id="submit" type="submit" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createTrendComment(trend,model.trend[trend.TrendId])"> Comment</button>
+                                </div>
+</div>
                     </div>
                 </div>
-
-
             </div>
-
+        </div>
+           
+    
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -257,7 +196,7 @@
                             </a>
                         </div>
                         <div class="xs-mt-10">
-                            <button class="btn btn-danger col-lg-12">Upload Image</button>
+                        <button class="btn btn-danger col-lg-12">Upload Image</button>
                             <br />
                         </div>
                     </div>

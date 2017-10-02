@@ -9,6 +9,9 @@ namespace Egharpay.Entity
     [Table("Personnel")]
     public partial class Personnel
     {
+        [NotMapped]
+        public string FullName => Title + " " + Forenames + " " + Surname;
+
         public int PersonnelId { get; set; }
 
         [StringLength(50)]
