@@ -12,7 +12,8 @@
             retrieveMobiles: retrieveMobiles,
             searchMobile: searchMobile,
             detailMobile: detailMobile,
-            retrieveSearchField: retrieveSearchField
+            retrieveSearchField: retrieveSearchField,
+            retrieveSellers: retrieveSellers
         };
 
         return service;
@@ -45,6 +46,15 @@
             var url = "/Mobile/MobileData",
                 data = {
                     id: mobileId
+                };
+            return $http.post(url, data);
+        }
+
+        function retrieveSellers(Paging, OrderBy) {
+            var url = "/Mobile/Seller",
+                data = {
+                    paging: Paging,
+                    orderBy: new Array(OrderBy)
                 };
             return $http.post(url, data);
         }

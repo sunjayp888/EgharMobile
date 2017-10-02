@@ -18,6 +18,7 @@
         vm.orderClass = orderClass;
         vm.searchMobile = searchMobile;
         vm.detailMobile = detailMobile;
+        vm.retrieveSellers = retrieveSellers;
         vm.searchKeyword = "";
         vm.searchMessage = "";
         vm.initialise = initialise;
@@ -76,6 +77,20 @@
                 vm.mobiles = response.data;
                 return vm.mobiles;
             });
+        }
+
+        function retrieveSellers() {
+            vm.orderBy.property = "Name";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
+            return MobileService.retrieveSellers(vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.mobiles = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.mobiles.length === 0 ? "No Records Found" : "";
+                    return vm.mobiles;
+                });
         }
     }
 })();

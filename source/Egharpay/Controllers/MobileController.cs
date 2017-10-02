@@ -25,10 +25,12 @@ namespace Egharpay.Controllers
     {
         private readonly IMobileBusinessService _mobileBusinessService;
         private readonly IBrandBusinessService _brandBusinessService;
-        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService) : base(configurationManager, authorizationService)
+        private readonly ISellerBusinessService _sellerBusinessService;
+        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService,ISellerBusinessService sellerBusinessService) : base(configurationManager, authorizationService)
         {
             _mobileBusinessService = mobileBusinessService;
             _brandBusinessService = brandBusinessService;
+            _sellerBusinessService = sellerBusinessService;
         }
 
         // GET: Mobile
@@ -122,6 +124,13 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> MobileData(int id)
         {
             var data = await _mobileBusinessService.RetrieveMobile(id);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Seller(Paging paging, List<OrderBy> orderBy)
+        {
+            var data = await _sellerBusinessService.RetrieveSellers(orderBy, paging);
             return this.JsonNet(data);
         }
 
@@ -536,4 +545,6 @@ namespace Egharpay.Controllers
         public string Link { get; set; }
         public string NumberOfDevice { get; set; }
     }
+
+    
 }
