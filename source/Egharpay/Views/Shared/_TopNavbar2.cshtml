@@ -4,17 +4,25 @@
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                 <i class="fa fa-reorder"></i>
             </button>
-            <a href="#" class="navbar-brand">Inspinia</a>
+            <div class="row">
+                <div class="col-lg-2">
+                    <a href="#" class="navbar-brand">Inspinia</a>
+                </div>
+                <div class="col-lg-10">
+                    <form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="typeahead_2 form-control dropdown-menu-search" />
+                                @*<input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">*@
+                            </div>
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-search"> <label> Search</label></i></button>
+                    </form>
+                </div>
+            </div>
+
         </div>
 
         <div class="navbar-header">
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" placeholder="item..." class="typeahead_2 form-control" />
-                    @*<input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">*@
-                </div>
-                <button type="submit" class="btn btn-danger"><i class="fa fa-search"> <label> Search</label></i></button>
-            </form>
+
             @*<form role="search" class="navbar-form-custom" method="post" action="">
                     <div class="row">
                         <div class="form-group col-lg-8">
@@ -74,18 +82,18 @@
                         <li class="col-sm-3">
                             <ul>
                                 <li class="dropdown-header">Brand</li>
-                                <li><a href="#">Nokia</a></li>
-                                <li><a href="#">Samsung</a></li>
-                                <li><a href="#">Amazon</a></li>
-                                <li><a href="#">Motorola</a></li>
-                                <li><a href="#">Redmi</a></li>
-                                <li><a href="#">Apple</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=283})">Nokia</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=300})">Samsung</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=224})"></a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=278})">Motorola</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=323})">Redmi(Xiaomi)</a></li>
+                                <li><a ng-href="@Url.Action("Mobile","Brand",new {id=226})">Apple</a></li>
                                 <li><a href="#"></a></li>
-                                <li><button type="submit" class="btn btn-primary">Show all brands</button></li>
-
+                                <li><button type="submit" class="btn btn-primary" ng-click="/Brand/Index">Show all brands</button></li>
+                                @*<li><a href="@Url.Action("Index","Brand")" class="btn btn-primary">Show all brands</a></li>*@
                                 <li class="divider"></li>
                                 @*<li class="dropdown-header">Tops</li>
-                                    <li><a href="#">Good Typography</a></li>*@
+            <li><a href="#">Good Typography</a></li>*@
                             </ul>
                         </li>
                         <li class="col-sm-3">
@@ -183,6 +191,6 @@
     @Scripts.Render("~/plugins/typehead")
 
     <script type="text/javascript">
-       
+
     </script>
 }
