@@ -9,7 +9,6 @@ namespace Egharpay.Entity
     [Table("TrendComment")]
     public partial class TrendComment
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TrendCommentId { get; set; }
 
         public int TrendId { get; set; }
@@ -20,6 +19,8 @@ namespace Egharpay.Entity
         public int UserId { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
+
+        public bool Approve { get; set; }
 
         public virtual Trend Trend { get; set; }
     }

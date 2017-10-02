@@ -92,15 +92,15 @@
                                 </div>
                             </div>
                         </div>
-                        <h3>@Model.Personnel.Fullname</h3>
+                        <h3>@string.Format("{0} {1} {2}",Model.Personnel.Title, Model.Personnel.Forenames, Model.Personnel.Surname)</h3>
                         <ul class="list-unstyled user_data">
                           
-                            <li>
+                            @*<li>
                                 <i class="fa fa-map-marker user-profile-icon"></i> @Model.Personnel.AddressOverview
                             </li>
                             <li>
                                 <i class="fa fa-birthday-cake user-profile-icon"></i> @Model.Personnel.DOB.ToLongDateString()
-                            </li>
+                            </li>*@
                             @if (!string.IsNullOrWhiteSpace(Model.Personnel.Telephone))
                             {
                                 <li>
@@ -141,7 +141,7 @@
                             </div>
                         </div>
                     }
-                    @if (Model.Permissions.CanCreateAbsence)
+                    @*@if (Model.Permissions.CanCreateAbsence)
                     {
                         <a class="btn btn-lg btn-success col-md-10 col-sm-12" href="@Url.Action("Create", "Absence", new {id = Model.Personnel.PersonnelId})">
                             Request Absence
@@ -156,7 +156,7 @@
                                 Edit Profile
                         </a>
                         <br />
-                    }
+                    }*@
                 </div>
             </div>
         </div>
@@ -556,12 +556,12 @@
             </div>
         </div>
     </div>*@
-    @if (Model.Permissions.IsAdmin)
-    {
+    @*@if (Model.Permissions.IsAdmin)
+    {*@
         <div>
             <a href="@Url.Action("Index")" class="btn btn-primary" role="button">
                 <span class="fa fa-chevron-left"></span>&nbsp;Personnel List
             </a>
         </div>
-    }
+    @*}*@
 </div>

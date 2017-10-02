@@ -19,7 +19,7 @@ namespace Egharpay.Business.Interfaces
         Task<bool> CanDeletePersonnel(int personnelId);
         Task<Personnel> RetrievePersonnel(int centreId, int personnelId);
         Task<Personnel> RetrievePersonnel(int personnelId);
-        //Task<PagedResult<PersonnelGrid>> RetrievePersonnels(int centreId, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Personnel>> RetrievePersonnels(List<OrderBy> orderBy = null, Paging paging = null);
         //Task<PagedResult<PersonnelGrid>> Search(int centreId,string term, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<Models.Document>> RetrievePersonnelDocuments(int personnelId, Paging paging = null, List<OrderBy> orderBy = null);
         //Update

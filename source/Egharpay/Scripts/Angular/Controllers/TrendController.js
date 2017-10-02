@@ -59,10 +59,10 @@
             });
         }
 
-        function createTrendComment(trendId, trendComment) {
-            vm.trendComment = trendComment;
+        function createTrendComment(trend, trendComment) {
+          //  vm.trendComment = trendComment;
             var trendCommentData= {
-                TrendId:trendId,
+                TrendId: trend.TrendId,
                 Comment:trendComment
             }
             return TrendService.createTrendComment(trendCommentData);
