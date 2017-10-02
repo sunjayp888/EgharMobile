@@ -20,6 +20,7 @@
         vm.searchKeyword = "";
         vm.searchMessage = "";
         vm.initialise = initialise;
+        vm.retrieveSellers = retrieveSellers;
 
         function initialise() {
             vm.orderBy.property = "Name";
