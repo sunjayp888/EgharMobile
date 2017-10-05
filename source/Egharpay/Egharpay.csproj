@@ -79,8 +79,8 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.5.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.5.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.5.5.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.5.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MappingRepository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -1385,6 +1385,7 @@
     <Content Include="Scripts\Angular\Controllers\CentreController.js" />
     <Content Include="Scripts\Angular\Controllers\DocumentController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
+    <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileGalleryController.js" />
     <Content Include="Scripts\Angular\Controllers\YouTubeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileController.js" />
@@ -1410,6 +1411,7 @@
     <Content Include="Scripts\Angular\Services\CentreService.js" />
     <Content Include="Scripts\Angular\Services\DocumentService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
+    <Content Include="Scripts\Angular\Services\TrendCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendService.js" />
     <Content Include="Scripts\Angular\Services\YouTubeService.js" />
     <Content Include="Scripts\Angular\Services\MobileService.js" />
