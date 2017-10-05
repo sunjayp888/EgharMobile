@@ -15,6 +15,8 @@
             retrieveSearchField: retrieveSearchField,
             //retrieveSellers: retrieveSellers,
             searchSeller: searchSeller
+            retrieveGalleryImages: retrieveGalleryImages,
+            retrieveYoutubeVideos: retrieveYoutubeVideos
         };
 
         return service;
@@ -70,5 +72,20 @@
             return $http.post(url, data);
         }
 
+        function retrieveGalleryImages(mobileId) {
+            var url = "/Mobile/MobileGalleryImage",
+            data = {
+                id: mobileId
+            };
+            return $http.post(url, data);
+        }
+
+        function retrieveYoutubeVideos(mobileId) {
+            var url = "/Mobile/Youtube",
+                  data = {
+                      id: mobileId
+                  };
+            return $http.post(url, data);
+        }
     }
 })();

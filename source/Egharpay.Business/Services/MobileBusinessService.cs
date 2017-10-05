@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,25 @@ namespace Egharpay.Business.Services
         {
             var mobile = await _dataService.RetrieveAsync<Mobile>(a => a.MobileId == mobileId);
             return mobile.FirstOrDefault();
+        }
+
+        public async Task<List<MobileImage>> RetrieveMobileGalleryImages(int mobileId)
+        {
+            var category = await _dataService.RetrieveAsync<Entity.DocumentCategory>(e=>e.Name.ToLower() == "mobilegalleryimage");
+            var basePath = category.ToList().FirstOrDefault()?.BasePath;
+            var mobile = await _dataService.RetrieveByIdAsync<Mobile>(mobileId);
+            var mobileImageList = new List<MobileImage>();
+            if (!string.IsNullOrEmpty(basePath))
+            {
+                var mobilePath = Path.Combine(basePath, mobile?.Name);
+                var fileNames = Directory.GetFiles(mobilePath).ToList();
+                mobileImageList.AddRange(fileNames.Select(item => new MobileImage
+                {
+                    ImagePath = item
+                }));
+                return mobileImageList;
+            }
+            return mobileImageList;
         }
 
         public async Task<PagedResult<Mobile>> RetrieveMobiles(List<OrderBy> orderBy = null, Paging paging = null)

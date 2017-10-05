@@ -50,6 +50,23 @@ namespace Egharpay.Business.Services
             return trendComments;
         }
 
+        public async Task<ValidationResult<TrendComment>> UpdateTrendComment(TrendComment trendComment)
+        {
+            ValidationResult<TrendComment> validationResult = new ValidationResult<TrendComment>();
+            try
+            {
+                await _dataService.UpdateAsync(trendComment);
+                validationResult.Entity = trendComment;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Errors = new List<string> { ex.InnerMessage() };
+                validationResult.Exception = ex;
+            }
+            return validationResult;
+        }
+
         //public async Task<PagedResult<TrendComment>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
         //{
         //    throw new NotImplementedException();
