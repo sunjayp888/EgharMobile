@@ -24,7 +24,6 @@ namespace Egharpay.Data
         public virtual DbSet<Template> Templates { get; set; }
         public virtual DbSet<BrandGrid> BrandGrids { get; set; }
         public virtual DbSet<MobileGrid> MobileGrids { get; set; }
-        public virtual DbSet<MobileImage> MobileImages { get; set; }
         public virtual DbSet<Trend> Trends { get; set; }
         public virtual DbSet<TrendComment> TrendComments { get; set; }
         public virtual DbSet<Seller> Sellers { get; set; }
@@ -565,15 +564,7 @@ namespace Egharpay.Data
                 .Property(e => e.SearchField)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<MobileImage>()
-                .Property(e => e.GSMLink)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MobileImage>()
-                .Property(e => e.FilePath)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Trend>()
+         modelBuilder.Entity<Trend>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
 

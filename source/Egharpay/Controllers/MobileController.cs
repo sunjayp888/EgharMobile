@@ -126,6 +126,13 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult> MobileGalleryImage(int id)
+        {
+            var data = await _mobileBusinessService.RetrieveMobileGalleryImages(id);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _mobileBusinessService.Search(searchKeyword, orderBy, paging));
@@ -205,70 +212,70 @@ namespace Egharpay.Controllers
             return mobileList;
         }
 
-        private List<MobileImage> CreateMobileImageData(Brand brand, List<Mobile> mobile)
-        {
-            // var brands = GetAllBrandlink();
+        //private List<MobileImage> CreateMobileImageData(Brand brand, List<Mobile> mobile)
+        //{
+        //    // var brands = GetAllBrandlink();
 
-            //For eg acer phone
+        //    //For eg acer phone
 
-            var mobileList = new List<MobileImage>();
+        //    var mobileList = new List<MobileImage>();
 
-            var htmlData = GetHtmlData(string.Format("http://www.gsmarena.com{0}{1}", "/", brand.Link));
-            var htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(htmlData);
+        //    var htmlData = GetHtmlData(string.Format("http://www.gsmarena.com{0}{1}", "/", brand.Link));
+        //    var htmlDocument = new HtmlDocument();
+        //    htmlDocument.LoadHtml(htmlData);
 
-            foreach (var item in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'makers')]"))
-            {
-                //Get Data For FirstPage
-                foreach (var element in item.SelectNodes(".//li"))
-                {
-                    var homeImage = element.Descendants("img").ToList();
-                    var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
-                    var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
-                    var htmlMobileDetailDocument = new HtmlDocument();
-                    htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
-                    var testingObject = htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
-                    //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
-                    mobileList.Add(CreateMobileImage(testingObject, brand.Name, brand.BrandId, homeImage[0].Attributes[0].Value, mobile));
+        //    foreach (var item in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'makers')]"))
+        //    {
+        //        //Get Data For FirstPage
+        //        foreach (var element in item.SelectNodes(".//li"))
+        //        {
+        //            var homeImage = element.Descendants("img").ToList();
+        //            var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
+        //            var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
+        //            var htmlMobileDetailDocument = new HtmlDocument();
+        //            htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
+        //            var testingObject = htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
+        //            //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+        //            mobileList.Add(CreateMobileImage(testingObject, brand.Name, brand.BrandId, homeImage[0].Attributes[0].Value, mobile));
 
-                }
+        //        }
 
-                //Get data For Next Pages
-                if (htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'nav-pages')]") != null)
-                {
-                    foreach (var nextPageItem in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'nav-pages')]"))
-                    {
-                        var linkList = nextPageItem.Descendants("a").ToList();
-                        foreach (var singleLink in linkList)
-                        {
-                            var linkForNextPage = singleLink.Attributes[0].Value;
-                            var appendLinkForNextPage =
-                                string.Format("http://www.gsmarena.com{0}{1}", "/", linkForNextPage);
-                            var htmlMobileNextPageDetailDocument = new HtmlDocument();
-                            htmlMobileNextPageDetailDocument.LoadHtml(GetHtmlData(appendLinkForNextPage));
-                            foreach (var nextPageitem in htmlMobileNextPageDetailDocument.DocumentNode.SelectNodes("//div[contains(@class, 'makers')]"))
-                            {
-                                //Get Data For FirstPage
-                                foreach (var element in nextPageitem.SelectNodes(".//li"))
-                                {
-                                    var homeImage = element.Descendants("img").ToList();
-                                    var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
-                                    var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
-                                    var htmlMobileDetailDocument = new HtmlDocument();
-                                    htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
-                                    var testingObject =
-                                        htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
-                                    //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
-                                    mobileList.Add(CreateMobileImage(testingObject, brand.Name, brand.BrandId, homeImage[0].Attributes[0].Value, mobile));
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        //        //Get data For Next Pages
+        //        if (htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'nav-pages')]") != null)
+        //        {
+        //            foreach (var nextPageItem in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'nav-pages')]"))
+        //            {
+        //                var linkList = nextPageItem.Descendants("a").ToList();
+        //                foreach (var singleLink in linkList)
+        //                {
+        //                    var linkForNextPage = singleLink.Attributes[0].Value;
+        //                    var appendLinkForNextPage =
+        //                        string.Format("http://www.gsmarena.com{0}{1}", "/", linkForNextPage);
+        //                    var htmlMobileNextPageDetailDocument = new HtmlDocument();
+        //                    htmlMobileNextPageDetailDocument.LoadHtml(GetHtmlData(appendLinkForNextPage));
+        //                    foreach (var nextPageitem in htmlMobileNextPageDetailDocument.DocumentNode.SelectNodes("//div[contains(@class, 'makers')]"))
+        //                    {
+        //                        //Get Data For FirstPage
+        //                        foreach (var element in nextPageitem.SelectNodes(".//li"))
+        //                        {
+        //                            var homeImage = element.Descendants("img").ToList();
+        //                            var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
+        //                            var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
+        //                            var htmlMobileDetailDocument = new HtmlDocument();
+        //                            htmlMobileDetailDocument.LoadHtml(GetHtmlData(appendLink));
+        //                            var testingObject =
+        //                                htmlMobileDetailDocument.DocumentNode.SelectNodes("//*[@data-spec]");
+        //                            //  var columnName = testingObject.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+        //                            mobileList.Add(CreateMobileImage(testingObject, brand.Name, brand.BrandId, homeImage[0].Attributes[0].Value, mobile));
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
 
-            return mobileList;
-        }
+        //    return mobileList;
+        //}
 
         private Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection, int brandId)
         {
@@ -375,66 +382,66 @@ namespace Egharpay.Controllers
             return mobile;
         }
 
-        public MobileImage CreateMobileImage(HtmlNodeCollection htmlNodeCollection, string brandName, int brandId, string imageLink, List<Mobile> mobile)
-        {
-            var rootDirectory = @"G:\MobileImage";
-            var modelName = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
-            var mobileId = mobile.FirstOrDefault(e => e.Name.ToLower() == modelName.InnerHtml.ToLower()) == null ? -1 :
-                mobile.FirstOrDefault(e => e.Name.ToLower() == modelName.InnerHtml.ToLower()).MobileId;
+        //public MobileImage CreateMobileImage(HtmlNodeCollection htmlNodeCollection, string brandName, int brandId, string imageLink, List<Mobile> mobile)
+        //{
+        //    var rootDirectory = @"G:\MobileImage";
+        //    var modelName = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+        //    var mobileId = mobile.FirstOrDefault(e => e.Name.ToLower() == modelName.InnerHtml.ToLower()) == null ? -1 :
+        //        mobile.FirstOrDefault(e => e.Name.ToLower() == modelName.InnerHtml.ToLower()).MobileId;
 
-            //Create brand Directory
-            var brandDirectory = Path.Combine(rootDirectory, brandName);
+        //    //Create brand Directory
+        //    var brandDirectory = Path.Combine(rootDirectory, brandName);
 
-            if (!Directory.Exists(brandDirectory))
-                Directory.CreateDirectory(brandDirectory);
+        //    if (!Directory.Exists(brandDirectory))
+        //        Directory.CreateDirectory(brandDirectory);
 
-            //Create modelName Directory
-            if (modelName?.InnerHtml != "Samsung :) Smiley")
-            {
-                var mobileDirectory = Path.Combine(brandDirectory, modelName?.InnerHtml);
-                if (!Directory.Exists(mobileDirectory))
-                {
-                    try
-                    {
-                        Directory.CreateDirectory(mobileDirectory);
-                    }
-                    catch (Exception Ex)
-                    {
-                        Directory.CreateDirectory(mobileDirectory);
-                    }
+        //    //Create modelName Directory
+        //    if (modelName?.InnerHtml != "Samsung :) Smiley")
+        //    {
+        //        var mobileDirectory = Path.Combine(brandDirectory, modelName?.InnerHtml);
+        //        if (!Directory.Exists(mobileDirectory))
+        //        {
+        //            try
+        //            {
+        //                Directory.CreateDirectory(mobileDirectory);
+        //            }
+        //            catch (Exception Ex)
+        //            {
+        //                Directory.CreateDirectory(mobileDirectory);
+        //            }
 
-                }
+        //        }
 
-                //Write File
-                var uri = new Uri(imageLink);
-                var filename = imageLink.Split('/').Last();
-                if (uri.IsFile)
-                    filename = System.IO.Path.GetFileName(uri.LocalPath);
+        //        //Write File
+        //        var uri = new Uri(imageLink);
+        //        var filename = imageLink.Split('/').Last();
+        //        if (uri.IsFile)
+        //            filename = System.IO.Path.GetFileName(uri.LocalPath);
 
-                var saveImageFullPath = Path.Combine(mobileDirectory, filename);
-                using (var client = new WebClient())
-                {
-                    client.DownloadFile(new Uri(imageLink), saveImageFullPath);
-                }
+        //        var saveImageFullPath = Path.Combine(mobileDirectory, filename);
+        //        using (var client = new WebClient())
+        //        {
+        //            client.DownloadFile(new Uri(imageLink), saveImageFullPath);
+        //        }
 
-                //Return object
+        //        //Return object
 
-                return new MobileImage()
-                {
-                    BrandId = brandId,
-                    FilePath = saveImageFullPath,
-                    GSMLink = imageLink,
-                    MobileId = mobileId
-                };
-            }
-            return new MobileImage()
-            {
-                BrandId = 300,
-                FilePath = "",
-                GSMLink = "",
-                MobileId = mobileId
-            };
-        }
+        //        return new MobileImage()
+        //        {
+        //            BrandId = brandId,
+        //            FilePath = saveImageFullPath,
+        //            GSMLink = imageLink,
+        //            MobileId = mobileId
+        //        };
+        //    }
+        //    return new MobileImage()
+        //    {
+        //        BrandId = 300,
+        //        FilePath = "",
+        //        GSMLink = "",
+        //        MobileId = mobileId
+        //    };
+        //}
 
         private void GetGoogleImages(string searchTerm)
         {
