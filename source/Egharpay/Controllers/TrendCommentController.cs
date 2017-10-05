@@ -78,6 +78,7 @@ namespace Egharpay.Controllers
         {
             var trendCommentData = await _trendCommentBusinessService.RetrieveTrendComment(trendCommentId);
             trendCommentData.Approve = true;
+            await _trendCommentBusinessService.UpdateTrendComment(trendCommentData);
             return this.JsonNet(trendCommentData);
         }
 
