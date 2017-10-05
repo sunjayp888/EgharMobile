@@ -1389,6 +1389,7 @@
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
+    <Content Include="Scripts\Angular\Controllers\MobileGalleryController.js" />
     <Content Include="Scripts\Angular\Controllers\YouTubeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelController.js" />

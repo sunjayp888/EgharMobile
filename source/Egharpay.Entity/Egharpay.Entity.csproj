@@ -107,7 +107,6 @@
     <Compile Include="Mobile.cs" />
     <Compile Include="MobileComment.cs" />
     <Compile Include="MobileGrid.cs" />
-    <Compile Include="MobileImage.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Partials\Template.cs" />
     <Compile Include="Personnel.cs" />
