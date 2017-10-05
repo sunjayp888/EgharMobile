@@ -127,10 +127,17 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
+        //[HttpPost]
+        //public async Task<ActionResult> Seller(Paging paging, List<OrderBy> orderBy)
+        //{
+        //    var data = await _sellerBusinessService.RetrieveSellers(orderBy, paging);
+        //    return this.JsonNet(data);
+        //}
+
         [HttpPost]
-        public async Task<ActionResult> Seller(Paging paging, List<OrderBy> orderBy)
+        public async Task<ActionResult> SellerSearch(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _sellerBusinessService.RetrieveSellers(orderBy, paging);
+            var data = await _sellerBusinessService.Search(searchKeyword,orderBy, paging);
             return this.JsonNet(data);
         }
 

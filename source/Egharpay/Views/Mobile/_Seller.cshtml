@@ -1,6 +1,6 @@
 ﻿
-    <div id="tab-5" class="tab-pane">
-    <div class="panel-body" ng-controller="MobileController as model" ng-init="model.retrieveSellers()">
+<div id="tab-5" class="tab-pane">
+    <div class="panel-body" ng-controller="MobileController as model">
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-12">
@@ -12,23 +12,24 @@
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="input-group">
-                                        <input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                                            <button type="button" class="btn btn-sm btn-danger"> Go!</button>
+                                        <input type="text" placeholder="Search" id="txtSearchPincode" ng-model="searchField" class="input-sm form-control"> <span class="input-group-btn">
+                                            <button type="button" class="btn btn-sm btn-danger" ng-click="model.searchSeller(searchField)"> Go!</button>
                                         </span>
                                     </div>
                                 </div>
+                                <a ng-click="model.addPincode();" id="findZipCode">Get pincode from current location</a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
-                                    <tr>
-                                        <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
-                                        <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
-                                        <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
-                                        <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
-                                        <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <tr>
+                                            <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
+                                            <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
+                                            <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
+                                            <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
+                                            <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tr ng-repeat="mobile in model.mobiles" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
                                         <td><span ng-bind="mobile.Name"></span></td>
@@ -59,4 +60,4 @@
             </div>
         </div>
     </div>
-        </div>
+</div>

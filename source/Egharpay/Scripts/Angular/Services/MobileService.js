@@ -13,7 +13,8 @@
             searchMobile: searchMobile,
             detailMobile: detailMobile,
             retrieveSearchField: retrieveSearchField,
-            retrieveSellers: retrieveSellers
+            //retrieveSellers: retrieveSellers,
+            searchSeller: searchSeller
         };
 
         return service;
@@ -50,9 +51,19 @@
             return $http.post(url, data);
         }
 
-        function retrieveSellers(Paging, OrderBy) {
-            var url = "/Mobile/Seller",
+        //function retrieveSellers(Paging, OrderBy) {
+        //    var url = "/Mobile/Seller",
+        //        data = {
+        //            paging: Paging,
+        //            orderBy: new Array(OrderBy)
+        //        };
+        //    return $http.post(url, data);
+        //}
+
+        function searchSeller(SearchKeyword, Paging, OrderBy) {
+            var url = "/Mobile/SellerSearch",
                 data = {
+                    searchKeyword: SearchKeyword,
                     paging: Paging,
                     orderBy: new Array(OrderBy)
                 };
