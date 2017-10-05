@@ -1,21 +1,9 @@
 ﻿<div id="tab-2" class="tab-pane">
-    <div class="panel-body">
+    <div class="panel-body" ng-controller="MobileGalleryController as model" ng-init="model.retrieveGalleryImages('@Model.MobileId')">
         <div class="ibox float-e-margins">
-
             <div class="ibox-content">
-
                 <div class="lightBoxGallery">
-                    <a href="/Images/gallery/1.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/1s.jpg"></a>
-                    <a href="/Images/gallery/2.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/2s.jpg"></a>
-                    <a href="/Images/gallery/3.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/3s.jpg"></a>
-                    <a href="/Images/gallery/4.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/4s.jpg"></a>
-                    <a href="/Images/gallery/5.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/5s.jpg"></a>
-                    <a href="/Images/gallery/6.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/6s.jpg"></a>
-                    <a href="/Images/gallery/7.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/7s.jpg"></a>
-                    <a href="/Images/gallery/8.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/8s.jpg"></a>
-                    <a href="/Images/gallery/9.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/9s.jpg"></a>
-                    <a href="/Images/gallery/10.jpg" title="Image from Unsplash" data-gallery=""><img src="/Images/gallery/10s.jpg"></a>
-
+                    <a ng-repeat="mobileGallery in model.galleryImages" href="/Images/gallery/1.jpg" title="Image from Unsplash" data-gallery=""><img ng-src="{{mobileGallery.ImagePath | trustAsResourceUrl}}"></a>
                     <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
                     <div id="blueimp-gallery" class="blueimp-gallery">
                         <div class="slides"></div>
@@ -26,9 +14,7 @@
                         <a class="play-pause"></a>
                         <ol class="indicator"></ol>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
