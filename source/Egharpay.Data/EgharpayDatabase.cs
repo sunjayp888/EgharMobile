@@ -31,6 +31,7 @@ namespace Egharpay.Data
         public virtual DbSet<SellerGrid> SellerGrids { get; set; }
         public virtual DbSet<Advertise> Advertises { get; set; }
         public virtual DbSet<News> News { get; set; }
+        public virtual DbSet<MobileComment> MobileComments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -718,6 +719,10 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<Seller>()
                 .Property(e => e.Remarks)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileComment>()
+                .Property(e => e.Comment)
                 .IsUnicode(false);
 
             //modelBuilder.Entity<MobileImage>()

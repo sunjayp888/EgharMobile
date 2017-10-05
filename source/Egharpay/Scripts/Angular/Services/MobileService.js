@@ -48,6 +48,5 @@
                 };
             return $http.post(url, data);
         }
-
     }
 })();
