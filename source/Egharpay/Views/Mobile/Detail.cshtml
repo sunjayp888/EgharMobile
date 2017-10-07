@@ -129,3 +129,14 @@
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        
+        var checkBoxes = $('tbody .myCheckBox');
+        $('tbody .myCheckBox').change(function () {
+            $('#btnRequestSeller').prop('disabled', checkBoxes.filter(':checked').length < 1);
+        });
+        //$('tbody .myCheckBox').change();
+    </script>
+}
+
