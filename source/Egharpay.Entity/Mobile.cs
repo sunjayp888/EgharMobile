@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Egharpay.Entity
 {
     using System.ComponentModel.DataAnnotations;
@@ -6,6 +8,10 @@ namespace Egharpay.Entity
     [Table("Mobile")]
     public partial class Mobile
     {
+        public Mobile()
+        {
+            MobileComments = new HashSet<MobileComment>();
+        }
         public int MobileId { get; set; }
 
         public int BrandId { get; set; }
@@ -198,5 +204,8 @@ namespace Egharpay.Entity
         public string VideoPixel { get; set; }
 
         public bool? AllImage { get; set; }
+        
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MobileComment> MobileComments { get; set; }
     }
 }

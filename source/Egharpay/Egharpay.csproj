@@ -278,6 +278,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\MiscellaneousController.cs" />
+    <Compile Include="Controllers\MobileCommentController.cs" />
     <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PersonnelController.cs" />
@@ -314,6 +315,7 @@
     <Compile Include="Models\JsonNetResult.cs" />
     <Compile Include="Models\MaintenanceViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MobileCommentViewModel.cs" />
     <Compile Include="Models\MobileViewModel.cs" />
     <Compile Include="Models\PersonnelProfileViewModel.cs" />
     <Compile Include="Models\ScaffoldingContext.cs" />
@@ -1385,6 +1387,7 @@
     <Content Include="Scripts\Angular\Controllers\CentreController.js" />
     <Content Include="Scripts\Angular\Controllers\DocumentController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
+    <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileGalleryController.js" />
     <Content Include="Scripts\Angular\Controllers\YouTubeController.js" />
@@ -1411,6 +1414,7 @@
     <Content Include="Scripts\Angular\Services\CentreService.js" />
     <Content Include="Scripts\Angular\Services\DocumentService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
+    <Content Include="Scripts\Angular\Services\MobileCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendService.js" />
     <Content Include="Scripts\Angular\Services\YouTubeService.js" />
@@ -1992,6 +1996,7 @@
     <Content Include="Views\Mobile\_Video.cshtml" />
     <Content Include="Views\Mobile\_Review.cshtml" />
     <Content Include="Views\Mobile\_Seller.cshtml" />
+    <Content Include="Views\MobileComment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

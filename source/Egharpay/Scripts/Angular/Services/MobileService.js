@@ -53,6 +53,7 @@
             return $http.post(url, data);
         }
 
+
         //function retrieveSellers(Paging, OrderBy) {
         //    var url = "/Mobile/Seller",
         //        data = {

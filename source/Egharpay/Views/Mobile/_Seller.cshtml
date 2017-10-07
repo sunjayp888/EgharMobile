@@ -22,16 +22,18 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
-                                        <tr>
-                                            <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
-                                            <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
-                                            <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
-                                            <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
-                                            <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
-                                            <th>Action</th>
-                                        </tr>
+                                    <tr>
+                                        <th><input type="checkbox" class="myCheckBox"/> All</th>
+                                        <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
+                                        <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
+                                        <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
+                                        <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
+                                        <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
+                                        <th>Action</th>
+                                    </tr>
                                     </thead>
                                     <tr ng-repeat="mobile in model.mobiles" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
+                                        <td><input type="checkbox" class="myCheckBox"></td>
                                         <td><span ng-bind="mobile.Name"></span></td>
                                         <td><span ng-bind="mobile.RegistrationNumber"></span></td>
                                         <td><span ng-bind="mobile.Owner"></span></td>
@@ -53,6 +55,7 @@
                                         </td>
                                     </tr>
                                 </table>
+                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" disabled="disabled">Request Seller</button>
                             </div>
                         </div>
                     </div>
