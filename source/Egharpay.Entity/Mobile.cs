@@ -196,5 +196,7 @@ namespace Egharpay.Entity
 
         [StringLength(500)]
         public string VideoPixel { get; set; }
+
+        public bool? AllImage { get; set; }
     }
 }
