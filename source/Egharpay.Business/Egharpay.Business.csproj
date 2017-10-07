@@ -157,6 +157,7 @@
     <Compile Include="Interfaces\IDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IDocumentsBusinessService.cs" />
     <Compile Include="Interfaces\IMobileBusinessService.cs" />
+    <Compile Include="Interfaces\IMobileCommentBusinessService.cs" />
     <Compile Include="Interfaces\INewsBusinessService.cs" />
     <Compile Include="Interfaces\IPdfService.cs" />
     <Compile Include="Interfaces\IPersonnelBusinessService.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Services\BrandBusinessService.cs" />
     <Compile Include="Services\DocumentsBusinessService.cs" />
     <Compile Include="Services\MobileBusinessService.cs" />
+    <Compile Include="Services\MobileCommentBusinessService.cs" />
     <Compile Include="Services\NewsBusinessService.cs" />
     <Compile Include="Services\PersonnelBusinessService.cs" />
     <Compile Include="Services\SellerBusinessService.cs" />

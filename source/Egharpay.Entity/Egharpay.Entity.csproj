@@ -105,6 +105,7 @@
     <Compile Include="Dto\PagedResult.cs" />
     <Compile Include="Dto\Paging.cs" />
     <Compile Include="Mobile.cs" />
+    <Compile Include="MobileComment.cs" />
     <Compile Include="MobileGrid.cs" />
     <Compile Include="MobileImage.cs" />
     <Compile Include="Model1.cs" />

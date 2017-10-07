@@ -1,4 +1,4 @@
-﻿<div id="tab-4" class="tab-pane">
+﻿<div id="tab-4" class="tab-pane" ng-controller="MobileCommentController as model" ng-init="model.initialise()">
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-12">
@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="chat-discussion">
-                                    <div class="chat-message left">
+                                    <div class="chat-message left" >
                                         <img class="message-avatar" src="/Images/a1.jpg" alt="">
                                         <div class="message">
                                             <a class="message-author" href="#"> Michael Smith </a>
@@ -17,7 +17,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="chat-message right">
+                                    @*<div class="chat-message right">
                                         <img class="message-avatar" src="/Images/a4.jpg" alt="">
                                         <div class="message">
                                             <a class="message-author" href="#"> Karl Jordan </a>
@@ -26,39 +26,7 @@
                                                 Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover.
                                             </span>
                                         </div>
-                                    </div>
-                                    <div class="chat-message left">
-                                        <img class="message-avatar" src="/Images/a2.jpg" alt="">
-                                        <div class="message">
-                                            <a class="message-author" href="#"> Michael Smith </a>
-                                            <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                            <span class="message-content">
-                                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="chat-message right">
-                                        <img class="message-avatar" src="/Images/a5.jpg" alt="">
-                                        <div class="message">
-                                            <a class="message-author" href="#"> Alice Jordan </a>
-                                            <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                            <span class="message-content">
-                                                All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                                                It uses a dictionary of over 200 Latin words.
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="chat-message left">
-                                        <img class="message-avatar" src="/Images/a6.jpg" alt="">
-                                        <div class="message">
-                                            <a class="message-author" href="#"> Mark Smith </a>
-                                            <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                            <span class="message-content">
-                                                All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                                                It uses a dictionary of over 200 Latin words.
-                                            </span>
-                                        </div>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>
@@ -66,8 +34,8 @@
                             <div class="col-lg-12">
                                 <div class="chat-message-form">
                                     <div class="form-group">
-                                        <textarea class="form-control message-input" name="message" placeholder="Enter comment here..."></textarea>
-                                        <button type="button" class="btn btn-danger pull-right">Comment</button>
+                                        <textarea ng-model="model.mobileComment" class="form-control message-input" name="message" placeholder="Enter comment here..."></textarea>
+                                        <button type="button" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createMobileComment(@Model.MobileId,model.mobileComment)">Comment</button>
                                     </div>
                                 </div>
                             </div>
