@@ -13,6 +13,8 @@
             searchMobile: searchMobile,
             detailMobile: detailMobile,
             retrieveSearchField: retrieveSearchField,
+            //retrieveSellers: retrieveSellers,
+            searchSeller: searchSeller
             retrieveGalleryImages: retrieveGalleryImages,
             retrieveYoutubeVideos: retrieveYoutubeVideos
         };
@@ -50,6 +52,27 @@
                 };
             return $http.post(url, data);
         }
+
+
+        //function retrieveSellers(Paging, OrderBy) {
+        //    var url = "/Mobile/Seller",
+        //        data = {
+        //            paging: Paging,
+        //            orderBy: new Array(OrderBy)
+        //        };
+        //    return $http.post(url, data);
+        //}
+
+        function searchSeller(SearchKeyword, Paging, OrderBy) {
+            var url = "/Mobile/SellerSearch",
+                data = {
+                    searchKeyword: SearchKeyword,
+                    paging: Paging,
+                    orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
         function retrieveGalleryImages(mobileId) {
             var url = "/Mobile/MobileGalleryImage",
             data = {

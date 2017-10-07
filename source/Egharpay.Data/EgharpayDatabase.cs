@@ -589,9 +589,7 @@ namespace Egharpay.Data
             modelBuilder.Entity<TrendComment>()
                 .Property(e => e.Comment)
                 .IsUnicode(false);
-
             
-
             modelBuilder.Entity<SellerGrid>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
