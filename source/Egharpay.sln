@@ -12,9 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Egharpay.Entity", "Egharpay.Entity\Egharpay.Entity.csproj", "{4829285D-04B9-46DD-A961-5B90E7200473}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{09B23D92-4C82-4369-A4E4-B99533A44CFA}"
-	ProjectSection(SolutionItems) = preProject
-		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,8 +38,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A5859E0E-3C08-4045-B8DC-B3FB13655B00} = {09B23D92-4C82-4369-A4E4-B99533A44CFA}
 	EndGlobalSection
 EndGlobal
