@@ -14,7 +14,7 @@
             detailMobile: detailMobile,
             retrieveSearchField: retrieveSearchField,
             //retrieveSellers: retrieveSellers,
-            searchSeller: searchSeller
+            searchSeller: searchSeller,
             retrieveGalleryImages: retrieveGalleryImages,
             retrieveYoutubeVideos: retrieveYoutubeVideos
         };

@@ -11819,7 +11819,7 @@ body.tour-open .animated {
 .stream .stream-badge i.bg-warning {
   color: #ffffff;
   background-color: #f8ac59;
-  borderf-color: #f8ac59;
+  border-color: #f8ac59;
 }
 .stream .stream-badge i.bg-info {
   color: #ffffff;
@@ -17322,8 +17322,23 @@ body.md-skin {
 }
 .lightBoxGallery img {
   margin: 5px;
-  width: 222px!important;
+  width: 222px !important;
 }
 .page-margin {
   margin-top: 55px;
+}
+.product-imitation-brand {
+  text-align: center;
+  background-color: #f8f8f9;
+  color: #bebec3;
+  font-weight: 600;
+}
+.ibox-content-brand-search {
+  background-color: #ffffff;
+  color: inherit;
+  padding: 0px 20px 0px 10px;
+  border-color: #e7eaec;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 1px 0;
 }

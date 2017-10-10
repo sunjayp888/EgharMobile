@@ -171,7 +171,7 @@ namespace Egharpay.Controllers
             var mobileList = new List<Mobile>();
             foreach (var brand in brands)
             {
-                var htmlData = GetHtmlData(string.Format("http://www.gsmarena.com{0}{1}", "/", brand.Link));
+                var htmlData = GetHtmlData(string.Format("http://www.gsmarena.com{0}{1}", "/", ""));
                 var htmlDocument = new HtmlDocument();
                 htmlDocument.LoadHtml(htmlData);
 
@@ -503,7 +503,7 @@ namespace Egharpay.Controllers
                     var links = element.Descendants("a").ToList()[0].Attributes[0].Value;
                     var appendLink = string.Format("http://www.gsmarena.com{0}{1}", "/", links);
                     brandList.Add(new BrandData() { Link = appendLink, Name = brandName, NumberOfDevice = numberOfdevice });
-                    brands.Add(new Brand() { Name = brandName, Link = links, NumberOfDevice = numberOfdevice });
+                    brands.Add(new Brand() { Name = brandName,  NumberOfDevice = numberOfdevice });
                 }
             }
             _mobileBusinessService.CreateBrand(brands);
