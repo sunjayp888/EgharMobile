@@ -8,13 +8,13 @@
                         <div class="navbar-header page-scroll">
                             <a class="navbar-brand">eGharpay</a>
                         </div>
-                        <div class="navbar-header">
+                        <div class="navbar-header" ng-controller="HomeController as model">
                             <form role="search" class="navbar-form-custom" method="post" action="">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                                    <input type="text" placeholder="Search for something..." ng-model="searchField" class="form-control" name="top-search" id="top-search">
                                 </div>
                             </form>
-                            <button class="btn btn-primary">Search</button>
+                            <button class="btn btn-primary" ng-click="model.searchMobile(searchField)">Search</button>
                         </div>
                     </div>
                 </nav>
