@@ -11,10 +11,10 @@
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left" role="search">
                             <div class="form-group">
-                                <input type="text" placeholder="Search for something..."  class="typeahead_2 form-control dropdown-menu-search" />
+                                <input type="text" placeholder="Search for something..." ng-model="model.searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)" class="typeahead_2 form-control dropdown-menu-search" />
                             </div>
-                        <button class="btn btn-danger" type="button">
-                            <span class="glyphicon glyphicon-search"></span>
+                        <button class="btn btn-danger" type="button" ng-click="model.searchMobile(searchField)">
+                            <span class="glyphicon glyphicon-search">Search</span>
                         </button>
                     </form>
                 </div>

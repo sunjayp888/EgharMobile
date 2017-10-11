@@ -11,7 +11,9 @@
         /* jshint validthis:true */
         var vm = this;
         vm.SearchFields = [];
+        //vm.mobiles = [];
         vm.retrieveSearchField = retrieveSearchField;
+        vm.searchMobile = searchMobile;
         vm.change = change;
 
         initialise();
@@ -21,15 +23,29 @@
         }
 
         function retrieveSearchField() {
-            MobileService.retrieveSearchField().then(function(response) {
+            MobileService.retrieveSearchField().then(function (response) {
                 vm.SearchFields = response.data;
                 $(".typeahead_2").typeahead({ source: vm.SearchFields });
             });
         };
 
+        function searchMobile(searchKeyword) {
+            vm.searchKeyword = searchKeyword;
+            return MobileService.searchMobile(vm.searchKeyword, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.SearchFields = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.SearchFields.length === 0 ? "No Records Found" : "";
+                    return vm.SearchFields;
+                });
+        }
+
         function change(centreId) {
             retrieveStatisticsByCentre(centreId);
         }
     }
+
+
 
 })();
