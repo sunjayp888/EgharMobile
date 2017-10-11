@@ -86,13 +86,21 @@ namespace Egharpay.Business.Services
 
         public async Task<List<MobileImage>> RetrieveMobileGalleryImages(int mobileId)
         {
-            var category = await _dataService.RetrieveAsync<Entity.DocumentCategory>(e=>e.Name.ToLower() == "mobilegalleryimage");
+            var category = await _dataService.RetrieveAsync<Entity.DocumentCategory>(e => e.Name.ToLower() == "mobilegalleryimage");
             var basePath = category.ToList().FirstOrDefault()?.BasePath;
             var mobile = await _dataService.RetrieveByIdAsync<Mobile>(mobileId);
             var mobileImageList = new List<MobileImage>();
             if (!string.IsNullOrEmpty(basePath))
             {
-                var mobilePath = Path.Combine(basePath, mobile?.Name);
+                var mobilePath = Path.Combine(basePath, mobile.Brand.Name, mobile?.Name);
+                try
+                {
+                    var fileNamest = Directory.GetFiles(mobilePath).ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
                 var fileNames = Directory.GetFiles(mobilePath).ToList();
                 mobileImageList.AddRange(fileNames.Select(item => new MobileImage
                 {
