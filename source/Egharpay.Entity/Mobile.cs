@@ -207,5 +207,8 @@ namespace Egharpay.Entity
         
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MobileComment> MobileComments { get; set; }
+
+        public virtual Brand Brand { get; set; }
+
     }
 }
