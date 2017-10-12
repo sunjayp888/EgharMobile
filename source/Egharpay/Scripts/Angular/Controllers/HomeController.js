@@ -11,7 +11,7 @@
         /* jshint validthis:true */
         var vm = this;
         vm.SearchFields = [];
-        //vm.mobiles = [];
+        vm.listMobile = listMobile;
         vm.retrieveSearchField = retrieveSearchField;
         vm.searchMobile = searchMobile;
         vm.change = change;
@@ -39,6 +39,18 @@
                     vm.searchMessage = vm.SearchFields.length === 0 ? "No Records Found" : "";
                     return vm.SearchFields;
                 });
+        }
+
+        function listMobile(searchKeyword) {
+            vm.searchKeyword = searchKeyword;
+            return HomeService.listMobile(vm.searchKeyword, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.SearchFields = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.SearchFields.length === 0 ? "No Records Found" : "";
+                    return vm.SearchFields;
+            });
         }
 
         function change(centreId) {

@@ -11,9 +11,9 @@
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left" role="search">
                             <div class="form-group">
-                                <input type="text" placeholder="Search for something..." ng-model="model.searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)" class="typeahead_2 form-control dropdown-menu-search" />
+                                <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchField" class="typeahead_2 form-control dropdown-menu-search" />
                             </div>
-                        <button class="btn btn-danger" type="button" ng-click="model.searchMobile(searchField)">
+                        <button class="btn btn-danger" type="button" ng-href="/Home/Mobile/{{searchField}}">
                             <span class="glyphicon glyphicon-search">Search</span>
                         </button>
                     </form>
