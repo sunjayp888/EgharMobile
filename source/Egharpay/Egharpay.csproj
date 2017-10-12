@@ -1997,6 +1997,7 @@
     <Content Include="Views\Mobile\_Review.cshtml" />
     <Content Include="Views\Mobile\_Seller.cshtml" />
     <Content Include="Views\MobileComment\Index.cshtml" />
+    <Content Include="Views\Mobile\_Compare.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

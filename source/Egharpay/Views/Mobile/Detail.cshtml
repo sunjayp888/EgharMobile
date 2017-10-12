@@ -8,7 +8,6 @@
 <div ng-controller="MobileController as model" ng-init="model.detailMobile(@Model.MobileId)">
     <div class="row wrapper border-bottom white-bg page-heading page-margin">
         <div class="col-lg-10">
-            <h2>Profile</h2>
             <ol class="breadcrumb">
                 <li>
                     <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
@@ -17,7 +16,7 @@
                     <a>Extra Pages</a>
                 </li>
                 <li class="active">
-                    <strong>Product Detail</strong>
+                    <strong><span ng-bind="model.Name"></span></strong>
                 </li>
             </ol>
         </div>
@@ -93,7 +92,7 @@
                                 Also known as Samsung Galaxy Note8 Duos with Dual SIM card slots.
                             </p>
 
-                            <div class="user-button">
+                            @*<div class="user-button">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fa fa-envelope"></i> Request to buy</button>
@@ -102,7 +101,7 @@
                                         <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fa fa-mobile"></i> Compare</button>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -114,7 +113,8 @@
                         <li class=""><a data-toggle="tab" href="#tab-2"><strong> Gallery</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-3"><strong> Video</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-4"><strong> Reviews</strong></a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-5"><strong> Sellers</strong></a></li>
+                        <li class=""><button class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to buy</strong></button></li>
+                        <li class=""><button class="btn btn-compare" data-toggle="tab" href="#tab-5"><strong> Compare</strong></button></li>
                     </ul>
                     <div class="tab-content">
                         @Html.Partial("_Detail")
