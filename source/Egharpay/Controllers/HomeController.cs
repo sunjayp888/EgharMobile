@@ -67,17 +67,24 @@ namespace Egharpay.Controllers
         {
             return this.JsonNet(null);
         }
-
-        public ActionResult Mobile(string searchKeyword)
+        
+        //[HttpPost]
+        public async Task<ActionResult> Mobile(string searchKeyword)
         {
-            //var result = await _mobileBusinessService.Search(searchKeyword);
-            return View(new MobileViewModel());
+            var viewModel = new HomeViewModel()
+            {
+                SearchKeyword = searchKeyword
+            };
+
+
+            return View(viewModel);
         }
 
         [HttpPost]
         public async Task<ActionResult> SearchMobile(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
-            return this.JsonNet(await _mobileBusinessService.Search(searchKeyword, orderBy, paging));
+            var data = await _mobileBusinessService.Search(searchKeyword, orderBy, paging);
+            return this.JsonNet(data);
         }
     }
 }

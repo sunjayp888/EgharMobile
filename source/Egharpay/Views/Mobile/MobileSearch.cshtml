@@ -1,6 +1,7 @@
-﻿@model Egharpay.Models.HomeViewModel
+﻿@model Egharpay.Models.MobileViewModel
+
 @{
-    ViewBag.Title = "Mobile";
+    ViewBag.Title = "MobileSearch";
 }
 
 <div ng-controller="MobileController as model" ng-init="model.searchMobile(@Model.SearchKeyword)">
@@ -13,28 +14,28 @@
     </div>
 
     @*<div class="row">
-        @if (User.IsInAnyRoles("Admin"))
-        {
-            <div class="col-lg-12">
-                <a class="btn btn-primary btn-lg" href="@Url.Action("Create", "Mobile")">
-                    <i class="fa fa-user"></i> Create
-                </a>
-            </div>
-        }
-    </div>*@
+            @if (User.IsInAnyRoles("Admin"))
+            {
+                <div class="col-lg-12">
+                    <a class="btn btn-primary btn-lg" href="@Url.Action("Create", "Mobile")">
+                        <i class="fa fa-user"></i> Create
+                    </a>
+                </div>
+            }
+        </div>*@
     <br />
     <div class="ibox-content">
         @*<div class="row m-b-sm m-t-sm">
-            <div class="col-md-12">
-                <div class="input-group">
-                    <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)"> <span class="input-group-btn">
-                        <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchMobile(searchField)"> Go!</button>
-                    </span>
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)"> <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchMobile(searchField)"> Go!</button>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="project-list">
-            </div>
-        </div>*@
+                <div class="project-list">
+                </div>
+            </div>*@
         <div class="row m-b-sm m-t-sm">
             <div class="col-md-3 form-inline">
                 @Html.Partial("Pagination/_pageSize")
@@ -93,5 +94,7 @@
         </div>
     </div>
 </div>
+
+
 
 

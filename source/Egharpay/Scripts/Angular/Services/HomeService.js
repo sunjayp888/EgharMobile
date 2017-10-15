@@ -14,7 +14,8 @@
             retrieveBarGraphStatistics: retrieveBarGraphStatistics,
             retrieveCentres: retrieveCentres,
             listMobile: listMobile,
-            change: change
+            change: change,
+            searchMobiles: searchMobiles
         };
 
         return service;
@@ -72,5 +73,12 @@
             return $http.post(url, data);
         }
 
+        function searchMobiles(searchKeyword) {
+            var url = "/Mobile/MobileSearch",
+                data = {
+                    searchKeyword: searchKeyword
+                };
+            return $http.post(url, data);
+        }
     }
 })();

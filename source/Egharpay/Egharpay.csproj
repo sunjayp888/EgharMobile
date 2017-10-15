@@ -1999,6 +1999,7 @@
     <Content Include="Views\MobileComment\Index.cshtml" />
     <Content Include="Views\Mobile\_Compare.cshtml" />
     <Content Include="Views\Home\Mobile.cshtml" />
+    <Content Include="Views\Mobile\MobileSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
