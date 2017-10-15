@@ -158,7 +158,7 @@
                                     <img alt="image" src="/images/a3.jpg">
                                 </a>
                                 <div class="media-body">
-                                    <textarea ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>
+                                    <textarea id="txtArea" ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>
                                     <button id="submit" type="submit" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createTrendComment(trend,model.trend[trend.TrendId])"> Comment</button>
                                 </div>
                             </div>
@@ -249,7 +249,14 @@
         </div>
     </div>
 </div>
-
+@section scripts {
+    <script>
+        $('#submit').click(function() {
+            $('#txtArea').val('');
+        });
+        
+    </script>
+}
 
 
 

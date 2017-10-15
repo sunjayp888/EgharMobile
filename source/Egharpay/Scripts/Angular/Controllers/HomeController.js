@@ -45,7 +45,4 @@
             retrieveStatisticsByCentre(centreId);
         }
     }
-
-
-
 })();

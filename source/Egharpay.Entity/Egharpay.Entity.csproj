@@ -106,6 +106,7 @@
     <Compile Include="Dto\Paging.cs" />
     <Compile Include="Mobile.cs" />
     <Compile Include="MobileComment.cs" />
+    <Compile Include="MobileCommentGrid.cs" />
     <Compile Include="MobileGrid.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Partials\Template.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Template.cs" />
     <Compile Include="Trend.cs" />
     <Compile Include="TrendComment.cs" />
+    <Compile Include="TrendCommentGrid.cs" />
     <Compile Include="Validation\DateGreaterThanAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

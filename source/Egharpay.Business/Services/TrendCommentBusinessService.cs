@@ -35,6 +35,7 @@ namespace Egharpay.Business.Services
                 validationResult.Errors = new List<string> { ex.InnerMessage() };
                 validationResult.Exception = ex;
             }
+            validationResult.Succeeded = true;
             return validationResult;
         }
 
@@ -44,9 +45,9 @@ namespace Egharpay.Business.Services
             return trendComment.FirstOrDefault();
         }
 
-        public async Task<PagedResult<TrendComment>> RetrieveTrendComments(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<TrendCommentGrid>> RetrieveTrendComments(List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var trendComments = await _dataService.RetrievePagedResultAsync<TrendComment>(a => true, orderBy, paging);
+            var trendComments = await _dataService.RetrievePagedResultAsync<TrendCommentGrid>(a => true, orderBy, paging);
             return trendComments;
         }
 

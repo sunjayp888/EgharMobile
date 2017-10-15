@@ -31,6 +31,8 @@ namespace Egharpay.Data
         public virtual DbSet<Advertise> Advertises { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<MobileComment> MobileComments { get; set; }
+        public virtual DbSet<MobileCommentGrid> MobileCommentGrids { get; set; }
+        public virtual DbSet<TrendCommentGrid> TrendCommentGrids { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -711,6 +713,22 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileComment>()
+                .Property(e => e.Comment)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileCommentGrid>()
+                .Property(e => e.MobileName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileCommentGrid>()
+                .Property(e => e.Comment)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TrendCommentGrid>()
+                .Property(e => e.TrendName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TrendCommentGrid>()
                 .Property(e => e.Comment)
                 .IsUnicode(false);
 
