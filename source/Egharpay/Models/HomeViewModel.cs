@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Egharpay.Entity;
 using HR.Entity;
 
 namespace Egharpay.Models
@@ -11,6 +12,7 @@ namespace Egharpay.Models
         public int RegistraionCount { get; set; }
         public int MobilizationCount { get; set; }
         public int AdmissionCount { get; set; }
+        public string SearchKeyword { get; set; }
 
         public IEnumerable<int> SelectedCompanyIds { get; set; }
         public string CompanyIdsArray => SelectedCompanyIds != null ? string.Format("[{0}]", string.Join(",", SelectedCompanyIds)) : "null";
