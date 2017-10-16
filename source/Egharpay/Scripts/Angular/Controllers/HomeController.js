@@ -73,7 +73,4 @@
             //return HomeService.searchMobiles(searchKeyword);
         }
     }
-
-
-
 })();

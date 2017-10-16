@@ -35,6 +35,7 @@ namespace Egharpay.Business.Services
                 validationResult.Errors = new List<string> { ex.InnerMessage() };
                 validationResult.Exception = ex;
             }
+            validationResult.Succeeded = true;
             return validationResult;
         }
 

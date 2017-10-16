@@ -1,7 +1,7 @@
 USE [Egharpay]
 GO
 
-/****** Object:  Table [dbo].[TrendComment]    Script Date: 25-09-2017 11:28:53 PM ******/
+/****** Object:  Table [dbo].[TrendComment]    Script Date: 15-10-2017 06:50:07 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,6 +17,7 @@ CREATE TABLE [dbo].[TrendComment](
 	[Comment] [varchar](max) NOT NULL,
 	[UserId] [int] NOT NULL,
 	[CreatedDateTime] [datetime] NOT NULL,
+	[Approve] [bit] NOT NULL,
  CONSTRAINT [PK_TrendComment] PRIMARY KEY CLUSTERED 
 (
 	[TrendCommentId] ASC

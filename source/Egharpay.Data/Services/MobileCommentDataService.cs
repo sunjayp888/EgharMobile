@@ -8,7 +8,7 @@ using Egharpay.Data.Interfaces;
 
 namespace Egharpay.Data.Services
 {
-    public class MobileCommentDataService : EgharpayDataService,IMobileDataService
+    public class MobileCommentDataService : EgharpayDataService,IMobileCommentDataService
     {
         public MobileCommentDataService(IDatabaseFactory<EgharpayDatabase> databaseFactory, IGenericDataService<DbContext> genericDataService) : base(databaseFactory, genericDataService)
         {
