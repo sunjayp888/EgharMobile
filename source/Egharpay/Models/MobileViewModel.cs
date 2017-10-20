@@ -13,5 +13,6 @@ namespace Egharpay.Models
         public string MobileName { get; set; }
         public int MobileId { get; set; }
         public SelectList Brands { get; set; }
+        public string SearchKeyword { get; set; }
     }
 }
