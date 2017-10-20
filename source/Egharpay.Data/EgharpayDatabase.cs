@@ -33,6 +33,8 @@ namespace Egharpay.Data
         public virtual DbSet<MobileComment> MobileComments { get; set; }
         public virtual DbSet<MobileCommentGrid> MobileCommentGrids { get; set; }
         public virtual DbSet<TrendCommentGrid> TrendCommentGrids { get; set; }
+        public virtual DbSet<HomeBanner> HomeBanners { get; set; }
+        public virtual DbSet<HomeBannerGrid> HomeBannerGrids { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -730,6 +732,50 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<TrendCommentGrid>()
                 .Property(e => e.Comment)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBanner>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBanner>()
+                .Property(e => e.SubTitle)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBanner>()
+                .Property(e => e.Tag)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBanner>()
+                .Property(e => e.Pincode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBanner>()
+                .Property(e => e.Link)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBannerGrid>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBannerGrid>()
+                .Property(e => e.SubTitle)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBannerGrid>()
+                .Property(e => e.Tag)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBannerGrid>()
+                .Property(e => e.Pincode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBannerGrid>()
+                .Property(e => e.Link)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBannerGrid>()
+                .Property(e => e.MobileName)
                 .IsUnicode(false);
 
             //modelBuilder.Entity<MobileImage>()

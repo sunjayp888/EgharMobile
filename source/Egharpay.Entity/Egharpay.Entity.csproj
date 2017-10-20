@@ -99,6 +99,8 @@
     <Compile Include="Dto\Permissions.cs" />
     <Compile Include="Dto\TenantOrganisation.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="HomeBanner.cs" />
+    <Compile Include="HomeBannerGrid.cs" />
     <Compile Include="Interfaces\INotAbsenceDay.cs" />
     <Compile Include="Interfaces\IOrganisationFilterable.cs" />
     <Compile Include="Dto\OrderBy.cs" />

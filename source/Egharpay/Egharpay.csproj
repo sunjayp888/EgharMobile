@@ -270,6 +270,7 @@
     <Compile Include="Controllers\GraphsController.cs" />
     <Compile Include="Controllers\GridOptionsController.cs" />
     <Compile Include="Controllers\DashboardsController.cs" />
+    <Compile Include="Controllers\HomeBannerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\LandingController.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="Models\BrandViewModel.cs" />
     <Compile Include="Models\CentreViewModel.cs" />
     <Compile Include="Models\DocumentViewModel.cs" />
+    <Compile Include="Models\HomeBannerViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Identity\IdentityModels.cs" />
     <Compile Include="Models\JsonHttpStatusResult.cs" />
@@ -1386,6 +1388,7 @@
     <Content Include="Scripts\Angular\Controllers\BrandController.js" />
     <Content Include="Scripts\Angular\Controllers\CentreController.js" />
     <Content Include="Scripts\Angular\Controllers\DocumentController.js" />
+    <Content Include="Scripts\Angular\Controllers\HomeBannerController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
@@ -1413,6 +1416,7 @@
     <Content Include="Scripts\Angular\Services\BrandService.js" />
     <Content Include="Scripts\Angular\Services\CentreService.js" />
     <Content Include="Scripts\Angular\Services\DocumentService.js" />
+    <Content Include="Scripts\Angular\Services\HomeBannerService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
     <Content Include="Scripts\Angular\Services\MobileCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendCommentService.js" />
@@ -1998,6 +2002,10 @@
     <Content Include="Views\Mobile\_Seller.cshtml" />
     <Content Include="Views\MobileComment\Index.cshtml" />
     <Content Include="Views\Mobile\_Compare.cshtml" />
+    <Content Include="Views\HomeBanner\Index.cshtml" />
+    <Content Include="Views\HomeBanner\Create.cshtml" />
+    <Content Include="Views\HomeBanner\Edit.cshtml" />
+    <Content Include="Views\HomeBanner\_HomeBanner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

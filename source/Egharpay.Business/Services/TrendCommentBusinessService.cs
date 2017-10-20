@@ -28,6 +28,7 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.CreateAsync(trendComment);
                 validationResult.Entity = trendComment;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
@@ -35,7 +36,6 @@ namespace Egharpay.Business.Services
                 validationResult.Errors = new List<string> { ex.InnerMessage() };
                 validationResult.Exception = ex;
             }
-            validationResult.Succeeded = true;
             return validationResult;
         }
 
@@ -58,6 +58,7 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.UpdateAsync(trendComment);
                 validationResult.Entity = trendComment;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
