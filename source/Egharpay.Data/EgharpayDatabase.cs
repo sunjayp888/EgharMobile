@@ -94,7 +94,7 @@ namespace Egharpay.Data
                 .WithRequired(e => e.DocumentCategory)
                 .HasForeignKey(e => e.DocumentTypeId)
                 .WillCascadeOnDelete(false);
-            
+
             modelBuilder.Entity<Personnel>()
                 .Property(e => e.PANNumber)
                 .IsUnicode(false);
@@ -163,7 +163,7 @@ namespace Egharpay.Data
             modelBuilder.Entity<TrendComment>()
                 .Property(e => e.Comment)
                 .IsUnicode(false);
-            
+
             modelBuilder.Entity<SellerGrid>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -743,12 +743,7 @@ namespace Egharpay.Data
             modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.Price)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<MobileGrid>()
-                .Property(e => e.SearchField)
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
+            
             modelBuilder.Entity<Brand>()
                 .Property(e => e.Name)
                 .IsUnicode(false);

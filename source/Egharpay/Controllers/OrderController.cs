@@ -67,13 +67,13 @@ namespace Egharpay.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var viewModel = new OrderViewModel()
+            var order = new Order()
             {
                 MobileId = id.Value,
                 CreatedDate = DateTime.UtcNow,
-                RequestTypeId = 1
+                RequestTypeId = 1,
             };
-            var result = await _orderBusinessService.CreateOrder(viewModel.Order);
+            var result = await _orderBusinessService.CreateOrder(order);
             return this.JsonNet(result);
         }
     }
