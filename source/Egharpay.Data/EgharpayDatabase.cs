@@ -31,6 +31,8 @@ namespace Egharpay.Data
         public virtual DbSet<Advertise> Advertises { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<MobileComment> MobileComments { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<RequestType> RequestTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -744,6 +746,10 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.SearchField)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<RequestType>()
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             //modelBuilder.Entity<MobileImage>()

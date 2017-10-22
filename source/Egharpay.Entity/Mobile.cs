@@ -12,8 +12,8 @@ namespace Egharpay.Entity
         public Mobile()
         {
             MobileComments = new HashSet<MobileComment>();
+            Orders=new HashSet<Order>();
         }
-
 
         public int MobileId { get; set; }
 
@@ -210,6 +210,9 @@ namespace Egharpay.Entity
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MobileComment> MobileComments { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
 
         public virtual Brand Brand { get; set; }
     }

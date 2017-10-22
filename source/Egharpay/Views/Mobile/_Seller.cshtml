@@ -1,4 +1,4 @@
-﻿
+﻿@model Egharpay.Models.MobileViewModel
 <div id="tab-5" class="tab-pane">
     <div class="panel-body" ng-controller="MobileController as model">
         <div class="panel-body">
@@ -23,7 +23,7 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th><input type="checkbox" class="myCheckBox"/> All</th>
+                                        <th></th>
                                         <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
                                         <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
                                         <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
@@ -55,7 +55,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" disabled="disabled">Request Seller</button>
+                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestMobile(@Model.MobileId)">Request Seller</button>
                             </div>
                         </div>
                     </div>

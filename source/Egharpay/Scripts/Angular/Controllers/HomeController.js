@@ -7,14 +7,22 @@
 
     HomeController.$inject = ['$window', 'HomeService', 'MobileService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$uibModal'];
 
-    function HomeController($window, HomeService, MobileService, Paging, OrderService, OrderBy, Order, $uibModal, $modalInstance) {
+    function HomeController($window,
+        HomeService,
+        MobileService,
+        Paging,
+        OrderService,
+        OrderBy,
+        Order,
+        $uibModal,
+        $modalInstance) {
         /* jshint validthis:true */
         var vm = this;
         vm.SearchFields = [];
         vm.paging = new Paging;
         //vm.pageChanged = pageChanged;
         vm.orderBy = new OrderBy;
-       // vm.order = order;
+        // vm.order = order;
         //vm.orderClass = orderClass;
         vm.searchKeyword = "";
         vm.searchMessage = "";
@@ -60,7 +68,7 @@
                     vm.paging.totalResults = response.data.TotalResults;
                     vm.searchMessage = vm.SearchFields.length === 0 ? "No Records Found" : "";
                     return vm.SearchFields;
-            });
+                });
         }
 
         function change(centreId) {
@@ -73,7 +81,5 @@
             //return HomeService.searchMobiles(searchKeyword);
         }
     }
-
-
 
 })();

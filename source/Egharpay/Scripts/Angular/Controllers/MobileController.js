@@ -20,6 +20,7 @@
         vm.detailMobile = detailMobile;
         vm.addPincode = addPincode;
         vm.searchSeller = searchSeller;
+        vm.requestMobile = requestMobile;
         vm.searchKeyword = "";
         vm.searchMessage = "";
         vm.currentAddress;
@@ -165,6 +166,14 @@
                     vm.searchMessage = vm.mobiles.length === 0 ? "No Records Found" : "";
                     return vm.mobiles;
                 });
+        }
+
+        function requestMobile(mobileId) {
+            //$window.location.href = "/Order/Create/" + mobileId;
+            return MobileService.requestMobile(mobileId).then(function (response) {
+                vm.mobiles = response.data;
+                return vm.mobiles;
+            });
         }
     }
 })();

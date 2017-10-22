@@ -74,7 +74,7 @@
         }
 
         function searchMobiles(searchKeyword) {
-            var url = "/Mobile/MobileSearch",
+            var url = "/Home/Mobile",
                 data = {
                     searchKeyword: searchKeyword
                 };
