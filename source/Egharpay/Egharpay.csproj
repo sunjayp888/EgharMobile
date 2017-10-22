@@ -2006,6 +2006,8 @@
     <Content Include="Views\HomeBanner\Create.cshtml" />
     <Content Include="Views\HomeBanner\Edit.cshtml" />
     <Content Include="Views\HomeBanner\_HomeBanner.cshtml" />
+    <Content Include="Views\Home\Mobile.cshtml" />
+    <Content Include="Views\Mobile\MobileSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -2048,7 +2050,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59003</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58893/</IISUrl>
+          <IISUrl>http://localhost:58894/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

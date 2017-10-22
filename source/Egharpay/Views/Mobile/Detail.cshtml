@@ -8,6 +8,7 @@
 <div ng-controller="MobileController as model" ng-init="model.detailMobile(@Model.MobileId)">
     <div class="row wrapper border-bottom white-bg page-heading page-margin">
         <div class="col-lg-10">
+            <br/>
             <ol class="breadcrumb">
                 <li>
                     <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
@@ -16,7 +17,7 @@
                     <a>Extra Pages</a>
                 </li>
                 <li class="active">
-                    <strong><span ng-bind="model.Name"></span></strong>
+                    <strong><span ng-bind="model.mobiles.Name"></span></strong>
                 </li>
             </ol>
         </div>
@@ -139,4 +140,6 @@
         //$('tbody .myCheckBox').change();
     </script>
 }
+
+
 

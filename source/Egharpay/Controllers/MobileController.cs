@@ -162,6 +162,9 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
+        
+
+
         private List<Mobile> CreateMobileData(List<Brand> brands)
         {
             // var brands = GetAllBrandlink();
