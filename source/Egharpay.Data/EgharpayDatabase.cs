@@ -754,6 +754,10 @@ namespace Egharpay.Data
                 .Property(e => e.Link)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<HomeBanner>()
+                .Property(e => e.ImagePath)
+                .IsUnicode(false);
+
             modelBuilder.Entity<HomeBannerGrid>()
                 .Property(e => e.Name)
                 .IsUnicode(false);

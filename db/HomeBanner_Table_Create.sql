@@ -1,7 +1,7 @@
 USE [Egharpay]
 GO
 
-/****** Object:  Table [dbo].[HomeBanner]    Script Date: 21-10-2017 12:18:33 AM ******/
+/****** Object:  Table [dbo].[HomeBanner]    Script Date: 23-10-2017 12:13:19 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -21,6 +21,8 @@ CREATE TABLE [dbo].[HomeBanner](
 	[Pincode] [varchar](10) NULL,
 	[Link] [varchar](1000) NULL,
 	[MobileId] [int] NULL,
+	[ImagePath] [varchar](4000) NULL,
+	[IsActive] [bit] NOT NULL,
  CONSTRAINT [PK_HomeBanner] PRIMARY KEY CLUSTERED 
 (
 	[HomeBannerId] ASC

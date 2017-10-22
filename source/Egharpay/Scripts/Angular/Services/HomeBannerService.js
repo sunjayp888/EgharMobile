@@ -9,7 +9,8 @@
 
     function HomeBannerService($http) {
         var service = {
-            retrieveHomeBanner: retrieveHomeBanner
+            retrieveHomeBanner: retrieveHomeBanner,
+            retrieveHomeBannerImage: retrieveHomeBannerImage
         };
 
         return service;
@@ -19,6 +20,16 @@
                 data = {
                     paging: Paging,
                     orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function retrieveHomeBannerImage(startDate, endDate, pincode) {
+            var url = "/HomeBanner/HomeBannerImage",
+                data = {
+                    startDateTime: startDate,
+                    endDateTime: endDate,
+                    pincode: pincode
                 };
             return $http.post(url, data);
         }

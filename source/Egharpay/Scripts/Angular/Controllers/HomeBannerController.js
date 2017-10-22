@@ -11,6 +11,7 @@
         /* jshint validthis:true */
         var vm = this;
         vm.homeBanners = [];
+        vm.homeBannerImages = [];
         vm.paging = new Paging;
         vm.pageChanged = pageChanged;
         vm.orderBy = new OrderBy;
@@ -20,7 +21,8 @@
         //vm.searchApartment = searchApartment;
         vm.searchKeyword = "";
         vm.searchMessage = "";
-        initialise();
+        vm.initialise = initialise;
+        vm.retrieveHomeBannerImage = retrieveHomeBannerImage;
 
         function initialise() {
             order("Name");
@@ -72,5 +74,15 @@
             $window.location.href = "/HomeBanner/Edit/" + homeBannerId;
         }
 
+        function retrieveHomeBannerImage(startDate,endDate,pincode) {
+            return HomeBannerService.retrieveHomeBannerImage(startDate, endDate, pincode)
+                .then(function (response) {
+                    vm.homeBannerImages = response.data;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.homeBannerImages.length === 0 ? "No Records Found" : "";
+                    return vm.homeBannerImages;
+                });
+        }
     }
 })();

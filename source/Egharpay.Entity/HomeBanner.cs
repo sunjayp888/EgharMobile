@@ -34,5 +34,10 @@ namespace Egharpay.Entity
         public string Link { get; set; }
 
         public int? MobileId { get; set; }
+
+        [StringLength(4000)]
+        public string ImagePath { get; set; }
+
+        public bool? IsActive { get; set; }
     }
 }

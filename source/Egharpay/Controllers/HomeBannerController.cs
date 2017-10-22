@@ -119,5 +119,12 @@ namespace Egharpay.Controllers
             var data = await _homeBannerBusinessService.RetrieveHomeBanners(orderBy, paging);
             return this.JsonNet(data);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> HomeBannerImage(DateTime startDateTime, DateTime endDateTime, string pincode)
+        {
+            var data = await _homeBannerBusinessService.RetrieveHomeBannerImages(startDateTime, endDateTime, pincode);
+            return this.JsonNet(data);
+        }
     }
 }

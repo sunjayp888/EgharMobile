@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.Extensions;
@@ -9,10 +11,11 @@ using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
+using Document = Egharpay.Entity.Document;
 
 namespace Egharpay.Business.Services
 {
-    public partial class HomeBannerBusinessService:IHomeBannerBusinessService
+    public partial class HomeBannerBusinessService : IHomeBannerBusinessService
     {
         protected IHomeBannerDataService _dataService;
 
@@ -49,6 +52,25 @@ namespace Egharpay.Business.Services
         {
             var homeBanners = await _dataService.RetrievePagedResultAsync<HomeBannerGrid>(a => true, orderBy, paging);
             return homeBanners;
+        }
+
+        public async Task<List<HomeBannerImage>> RetrieveHomeBannerImages(DateTime startDateTime, DateTime endDateTime, string pincode)
+        {
+            var category = await _dataService.RetrieveAsync<Entity.DocumentCategory>(e => e.Name.ToLower() == "homebanner");
+            var basePath = category.ToList().FirstOrDefault()?.BasePath;
+            var homeBanners = await _dataService.RetrievePagedResultAsync<HomeBanner>(e => e.StartDateTime == startDateTime && e.EndDateTime == endDateTime && e.Pincode == pincode);
+            var homeBannerList = homeBanners.Items.ToList();
+            var homeBannerImageList = new List<HomeBannerImage>();
+            if (!string.IsNullOrEmpty(basePath))
+            {
+                    homeBannerImageList.AddRange(homeBannerList.Select(item => new HomeBannerImage()
+                    {
+                        ImagePath = Path.Combine(basePath, item.ImagePath)
+                }));
+                
+                return homeBannerImageList;
+            }
+            return homeBannerImageList;
         }
 
         public async Task<ValidationResult<HomeBanner>> UpdateHomeBanner(HomeBanner homeBanner)
