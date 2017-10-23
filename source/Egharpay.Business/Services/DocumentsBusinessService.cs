@@ -9,6 +9,8 @@ using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data;
 using Egharpay.Data.Interfaces;
+using Egharpay.Entity;
+using DocumentCategory = Egharpay.Business.Models.DocumentCategory;
 
 namespace Egharpay.Business.Services
 {
@@ -16,12 +18,15 @@ namespace Egharpay.Business.Services
     {
         private readonly IMapper _mapper;
         private readonly IDocumentDataService _documentDataService;
-        public DocumentsBusinessService(IMapper mapper, IDocumentDataService documentDataService)
+        private readonly IProductDataService _productDataService;
+        private string Product => "Egharpay";
+
+        public DocumentsBusinessService(IMapper mapper, IDocumentDataService documentDataService, IProductDataService productDataService)
         {
             _mapper = mapper;
             _documentDataService = documentDataService;
+            _productDataService = productDataService;
         }
-
 
         public async Task<IEnumerable<DocumentCategory>> RetrieveDocumentCategoriesAsync()
         {
@@ -35,7 +40,7 @@ namespace Egharpay.Business.Services
             //  var workerId = await _workerBusinessService.RetrieveWorkerIdByUserId(userId);
             //  if (workerId == 0) return validationResult.Error("No worker found for logged in user");
 
-            var document = await _documentDataService.RetrieveAsync<Entity.Document>(e => e.Guid == documentGuid);
+            var document = await _documentDataService.RetrieveAsync<Entity.DocumentDetail>(e => e.DocumentGUID == documentGuid);
             var result = _mapper.Map<IEnumerable<Document>>(document);
             return validationResult.Success(result.FirstOrDefault(), "");
         }
@@ -46,20 +51,11 @@ namespace Egharpay.Business.Services
             return null;
         }
 
-        public async Task<ValidationResult<Document[]>> RetrieveDocumentsAsync(string userId, int? clientPersonnelId)
+        public async Task<ValidationResult<Document[]>> RetrieveDocumentsAsync(string userId, int? personnelId)
         {
             var validationResult = new ValidationResult<Document[]>();
-            //var workerId = await _workerBusinessService.RetrieveWorkerIdByUserId(userId);
-            //if (workerId == 0)
-            //    return validationResult.Error("No worker found for logged in user");
-
-            //var documentPredicate = PredicateBuilder.New<Entity.Document>(e => e. == workerId && e.GenericDocument);
-            //documentPredicate = documentPredicate.And(e => e.ClientPersonnelId == clientPersonnelId);
-
-            var documents = await _documentDataService.RetrieveAsync<Entity.Document>(e => e.PersonnelId == clientPersonnelId);
-
+            var documents = await _documentDataService.RetrieveAsync<Entity.DocumentDetail>(e => e.PersonnelId == personnelId.ToString());
             var result = _mapper.MapToList<Document>(documents).ToArray();
-
             return validationResult.Success(result, string.Empty);
         }
 
@@ -72,94 +68,107 @@ namespace Egharpay.Business.Services
             //var documentCategory = await RetrieveDocumentCategoryAsync(documentCategoryId);
             //if (documentCategory == null) return validationResult.Error("Invalid Document Category");
 
-            var documents = await _documentDataService.RetrieveAsync<Entity.Document>(e => e.DocumentTypeId == documentCategoryId);
+            var documents = await _documentDataService.RetrieveAsync<Entity.DocumentDetail>(e => e.CategoryId == documentCategoryId);
             var result = _mapper.MapToList<Document>(documents).ToArray();
             return validationResult.Success(result, string.Empty);
         }
 
-        public async Task<ValidationResult<Document>> CreatePersonnelDocument(Document documentMeta, int personnelId, string userId)
-        {
-
-            // TODO Ensure Logged in User has access to this Worker resource at the controller level
-            // We may be creating a document as admin on behalf of <userId>
-
-            return await CreateWorkerDocument(documentMeta, personnelId, null, userId);
-        }
-
-        private async Task<ValidationResult<Document>> CreateWorkerDocument(Document documentMeta, int personnelId, List<int> clientPersonnelIds, string userId)
+        public async Task<ValidationResult<Document>> CreatePersonnelDocument(string documentCategory, int personnelId, string fullName, string userId, byte[] bytes)
         {
             var validationResult = new ValidationResult<Document>();
-
             //upload document to document service
-            var documentCategoryId = documentMeta.DocumentCategoryId;
             var documentCategories = await this.RetrieveDocumentCategoriesAsync();
-            var documentCategory = documentCategories.FirstOrDefault(e => e.DocumentCategoryId == documentCategoryId);
-            if (documentCategory == null) return validationResult.Error("Document category not found");
+            var category = documentCategories.FirstOrDefault(e => e.Name.ToLower() == documentCategory.ToLower());
+            if (category == null) return validationResult.Error("Document category not found");
+            var products = _productDataService.RetrieveAll<Product>();
+            var productId = products.Single(p => p.Name.ToLower() == Product.ToLower()).ProductId;
+            var documentData = new Document()
+            {
+                CategoryId = category.DocumentCategoryId,
+                ProductId = productId,
+                PersonnelName = fullName,
+                CreatedDateUtc = DateTime.UtcNow,
+                CreatedBy = userId,
+                PersonnelId = personnelId.ToString(),
+                Content = bytes,
+            };
 
-            var apiDocument = _mapper.Map<Entity.Document>(documentMeta);
-            apiDocument.Product = "Egharpay";
-            apiDocument.PersonnelId = personnelId;
-            apiDocument.CreatedBy = userId;
-            apiDocument.CreatedDateTime = DateTime.UtcNow;
-
-            var documentGuid = CreateDocument(documentCategory, personnelId, "Test", documentMeta.Description, documentMeta.Filename, documentMeta.Bytes);
+            var documentGuid = CreateDocument(documentData);
 
             if (documentGuid == null)
                 return validationResult.Error("Document could not be saved, please try again");
 
             // create a worker document - if we have clientPersonnelIds, we need a worker document for each one
-            var personnelDocument = new Entity.Document()
+            try
             {
-                DocumentTypeId = documentCategoryId.Value,
-                Guid = documentGuid,
-                PersonnelId = personnelId,
-                FileName = documentMeta.Filename
-            };
-
-
+                var entity = await CreateDocument(documentData);
+                validationResult.Entity = _mapper.Map<Document>(entity);
+                validationResult.Succeeded = true;
+            }
+            catch (Exception)
+            {
+                validationResult.Succeeded = false;
+            }
             return validationResult;
         }
 
-        //public async Task<ValidationResult<DocumentMeta>> CreateDocument(DocumentMeta documentMeta, DocumentServiceProduct product)
-        //{
-        //    var validationResult = new ValidationResult<DocumentMeta>();
-        //    var documentCategoryId = documentMeta.DocumentTypeId;
-        //    var documentCategory = await this.RetrieveDocumentCategoryAsync(documentCategoryId);
-        //    if (documentCategory == null) return validationResult.Error("Document category not found");
-
-        //    var document = Create(documentMeta, product.ToString(), documentCategory.Name, documentMeta.PayrollId);
-
-        //    if (document == null) return validationResult.Error("Document could not be saved, please try again");
-        //    var apiDocument = _mapper.Map<DocumentMeta>(document);
-        //    return validationResult.Success(apiDocument, "Document Created");
-        //}
-
-
-        public Guid CreateDocument(DocumentCategory documentCategory, int personnelId, string userName, string description, string fileName, byte[] contents)
+        public async Task<DocumentDetail> CreateDocument(Document document)
         {
             var newGuid = Guid.NewGuid();
-            var basePath = CreateCentreBase(documentCategory.BasePath, "Egharpay");
-            var categoryFileName = string.Concat(documentCategory.Name, "_", newGuid, "_", fileName);
-            var employeeDirectory = GetPersonnelDirectory(basePath, personnelId.ToString()) ?? CreateStudentDirectory(basePath, userName, personnelId.ToString());
-            var categoryDirectory = Path.Combine(employeeDirectory, documentCategory.Name);
+            // this categoryFileName ensures uniqueness of file in folder and is critical
+            var categoryFileName = string.Format("{0}_{1}_{2}", document.Category, newGuid, document.FileName);
+            var basePath = GetBasePath(document.Product);
+            // sjp retain compatibility with existing DocumentService
+            var employeeDirectory = CreatePersonnelDirectory(basePath, document.PersonnelName, document.PersonnelId);
+            var categoryDirectory = Path.Combine(employeeDirectory, document.Category);
             var filePath = Path.Combine(categoryDirectory, categoryFileName);
+
+            var documentDetail = new DocumentDetail
+            {
+                DocumentGUID = newGuid,
+                ProductId = document.ProductId,
+                CategoryId = document.CategoryId,
+                PersonnelId = document.PersonnelId,
+                Description = document.Description,
+                FileName = document.FileName,
+                ClientFileName = document.ClientFileName,
+                CreatedDateUTC = DateTime.UtcNow,
+                CreatedBy = document.CreatedBy,
+                RequireApproval = document.RequireApproval,
+                UncPath = basePath,
+                RelativePath = filePath.Replace(basePath, string.Empty),
+                DocumentBatchId = document.DocumentBatchId,
+                DownloadedDateUtc = document.DownloadedDateUtc,
+                EmailSentDateUtc = document.EmailSentDateUtc
+            };
+
             Directory.CreateDirectory(categoryDirectory);
-            File.WriteAllBytes(filePath, contents);
-            return newGuid;
+
+            if (document.Content != null)
+            {
+                File.WriteAllBytes(filePath, document.Content);
+            }
+            else if (!string.IsNullOrEmpty(document.ContentBase64))
+            {
+                byte[] content = Convert.FromBase64String(document.ContentBase64);
+                File.WriteAllBytes(filePath, content);
+            }
+            documentDetail = await _documentDataService.CreateGetAsync(documentDetail);
+            // update the DTO
+            document.DocumentGuid = documentDetail.DocumentGUID;
+            document.CreatedDateUtc = documentDetail.CreatedDateUTC;
+            document.CreatedBy = documentDetail.CreatedBy;
+
+            return documentDetail;
         }
 
-        private static string CreateCentreBase(string basepath, string centreName)
+        private string GetBasePath(string productName)
         {
-            if (!Directory.Exists(Path.Combine(basepath, centreName)))
-                Directory.CreateDirectory(Path.Combine(basepath, centreName));
-            return Path.Combine(basepath, centreName);
-        }
-
-        private static string CreateStudentDirectory(string basePath, string studentName, string studentCode)
-        {
-            var directoryName = Path.Combine(basePath, CleanFilename(String.Format("{0}_{1}", studentName, studentCode)));
-            Directory.CreateDirectory(directoryName);
-            return directoryName;
+            var products = _productDataService.RetrieveAll<Product>();
+            var prod = products.FirstOrDefault(p => p.Name.ToLower() == productName.ToLower());
+            if (prod == null)
+                throw new Exception("Invalid product");
+            return prod.UncPath;
         }
 
         private static string CleanFilename(string filename)
@@ -167,24 +176,12 @@ namespace Egharpay.Business.Services
             return Path.GetInvalidFileNameChars().Aggregate(filename, (current, chr) => current.Replace(chr, '_')).Replace(' ', '_');
         }
 
-        private static string GetPersonnelDirectory(string basePath, string studentCode)
-        {
-
-            var employeeDirectories = Directory.GetDirectories(basePath, String.Format("*_{0}", studentCode));
-            if (!employeeDirectories.Any())
-                return null;
-            if (employeeDirectories.Count() > 1)
-                throw new Exception("Unable to identify employee");
-            return employeeDirectories[0];
-        }
-
-        private static string CreateEmployeeDirectory(string basePath, string employeeName, string payrollId)
+        private static string CreatePersonnelDirectory(string basePath, string employeeName, string payrollId)
         {
             var directoryName = Path.Combine(basePath, CleanFilename(String.Format("{0}_{1}", employeeName, payrollId)));
             Directory.CreateDirectory(directoryName);
             return directoryName;
         }
-
 
     }
 

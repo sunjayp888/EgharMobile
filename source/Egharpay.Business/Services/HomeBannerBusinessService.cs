@@ -11,7 +11,6 @@ using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
-using Document = Egharpay.Entity.Document;
 
 namespace Egharpay.Business.Services
 {
@@ -57,7 +56,7 @@ namespace Egharpay.Business.Services
         public async Task<List<HomeBannerImage>> RetrieveHomeBannerImages(DateTime startDateTime, DateTime endDateTime, string pincode)
         {
             var category = await _dataService.RetrieveAsync<Entity.DocumentCategory>(e => e.Name.ToLower() == "homebanner");
-            var basePath = category.ToList().FirstOrDefault()?.BasePath;
+            var basePath = "Need Changes";
             var homeBanners = await _dataService.RetrievePagedResultAsync<HomeBanner>(e => e.StartDateTime == startDateTime && e.EndDateTime == endDateTime && e.Pincode == pincode);
             var homeBannerList = homeBanners.Items.ToList();
             var homeBannerImageList = new List<HomeBannerImage>();

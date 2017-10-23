@@ -8,6 +8,5 @@ namespace Egharpay.Models
 {
     public class CentreViewModel : BaseViewModel
     {
-        public Centre Centre { get; set; }
     }
 }

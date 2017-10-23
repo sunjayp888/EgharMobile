@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Egharpay.Business.Models;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
-using Document = Egharpay.Entity.Document;
 
 namespace Egharpay.Business.Interfaces
 {

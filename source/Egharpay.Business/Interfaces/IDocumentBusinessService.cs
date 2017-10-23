@@ -11,7 +11,15 @@ namespace Egharpay.Business.Interfaces
 {
     public interface IDocumentBusinessService
     {
+        #region Create
+        Guid Create(int categoryId, int personnelId, string personnelName, string description, string fileName, byte[] contents); 
+        #endregion
+
+        #region Retrieve
         IEnumerable<DocumentCategory> RetrieveDocumentTypes();
-        PagedResult<Document> RetrieveDocuments(Expression<Func<Document, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null);
+        PagedResult<DocumentDetail> RetrieveDocuments(Expression<Func<DocumentDetail, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null);
+        byte[] GetDocumentBytes(string path);
+        List<DocumentDetail> RetrieveDocuments(string category, int personnelId); 
+        #endregion
     }
 }

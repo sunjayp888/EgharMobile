@@ -6,9 +6,7 @@ namespace Egharpay.Document.Interfaces
     public interface IDocumentService
     {
         Guid Create(int categoryId, int personnelId, string personnelName, string description, string fileName, byte[] contents);
-
         byte[] GetDocumentBytes(string path);
-
         List<Entity.Document> RetrieveDocuments(string category, int personnelId);
     }
 

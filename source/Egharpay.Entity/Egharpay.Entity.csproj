@@ -93,8 +93,7 @@
     <Compile Include="AspNetUsersAlertSchedule.cs" />
     <Compile Include="Brand.cs" />
     <Compile Include="BrandGrid.cs" />
-    <Compile Include="Centre.cs" />
-    <Compile Include="Document.cs" />
+    <Compile Include="DocumentDetail.cs" />
     <Compile Include="DocumentCategory.cs" />
     <Compile Include="Dto\Permissions.cs" />
     <Compile Include="Dto\TenantOrganisation.cs" />
@@ -114,6 +113,7 @@
     <Compile Include="Order.cs" />
     <Compile Include="Partials\Template.cs" />
     <Compile Include="Personnel.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dto\Role.cs" />
     <Compile Include="Dto\Schedule.cs" />
