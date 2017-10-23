@@ -13,6 +13,7 @@
         'wt.responsive',
         'ngBootbox',
         'moment-module',
+        'angular-img-cropper',
         'ui.select'
     ]);
 
