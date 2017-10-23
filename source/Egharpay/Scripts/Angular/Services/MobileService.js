@@ -16,7 +16,8 @@
             //retrieveSellers: retrieveSellers,
             searchSeller: searchSeller,
             retrieveGalleryImages: retrieveGalleryImages,
-            retrieveYoutubeVideos: retrieveYoutubeVideos
+            retrieveYoutubeVideos: retrieveYoutubeVideos,
+            requestMobile: requestMobile
         };
 
         return service;
@@ -54,14 +55,13 @@
         }
 
 
-        //function retrieveSellers(Paging, OrderBy) {
-        //    var url = "/Mobile/Seller",
-        //        data = {
-        //            paging: Paging,
-        //            orderBy: new Array(OrderBy)
-        //        };
-        //    return $http.post(url, data);
-        //}
+        function requestMobile(mobileId) {
+            var url = "/Order/RequestMobile",
+                data = {
+                    id: mobileId
+                };
+            return $http.post(url, data);
+        }
 
         function searchSeller(SearchKeyword, Paging, OrderBy) {
             var url = "/Mobile/SellerSearch",

@@ -9,6 +9,12 @@ namespace Egharpay.Entity
     [Table("Personnel")]
     public partial class Personnel
     {
+
+        public Personnel()
+        {
+            Orders = new HashSet<Order>();
+        }
+
         [NotMapped]
         public string FullName => Title + " " + Forenames + " " + Surname;
 
@@ -66,5 +72,8 @@ namespace Egharpay.Entity
 
         [StringLength(128)]
         public string UserId { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

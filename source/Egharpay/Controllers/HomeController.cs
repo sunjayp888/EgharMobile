@@ -67,9 +67,9 @@ namespace Egharpay.Controllers
         {
             return this.JsonNet(null);
         }
-        
+
         //[HttpPost]
-        public async Task<ActionResult> Mobile(string searchKeyword)
+        public ActionResult Mobile(string searchKeyword)
         {
             var viewModel = new HomeViewModel()
             {

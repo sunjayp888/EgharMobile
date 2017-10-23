@@ -70,9 +70,11 @@
     <Compile Include="Interfaces\IMobileCommentDataService.cs" />
     <Compile Include="Interfaces\IMobileDataService.cs" />
     <Compile Include="Interfaces\INewsDataService.cs" />
+    <Compile Include="Interfaces\IOrderDataService.cs" />
     <Compile Include="Interfaces\IPersonnelDataService.cs" />
     <Compile Include="Interfaces\IPincodeDataService.cs" />
     <Compile Include="EgharpayDatabase.cs" />
+    <Compile Include="Interfaces\IRequestTypeDataService.cs" />
     <Compile Include="Interfaces\ISellerDataService.cs" />
     <Compile Include="Interfaces\ITrendCommentDataService.cs" />
     <Compile Include="Interfaces\ITrendDataService.cs" />
@@ -90,8 +92,10 @@
     <Compile Include="Services\MobileCommentDataService.cs" />
     <Compile Include="Services\MobileDataService.cs" />
     <Compile Include="Services\NewsDataService.cs" />
+    <Compile Include="Services\OrderDataService.cs" />
     <Compile Include="Services\PersonnelDataService.cs" />
     <Compile Include="Services\PincodeDataService.cs" />
+    <Compile Include="Services\RequestTypeDataService.cs" />
     <Compile Include="Services\SellerDataService.cs" />
     <Compile Include="Services\TrendCommentDataService.cs" />
     <Compile Include="Services\TrendDataService.cs" />

@@ -109,6 +109,7 @@
     <Compile Include="MobileCommentGrid.cs" />
     <Compile Include="MobileGrid.cs" />
     <Compile Include="News.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Partials\Template.cs" />
     <Compile Include="Personnel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Dto\Schedule.cs" />
     <Compile Include="Dto\ScheduleItem.cs" />
     <Compile Include="Dto\ScheduleItemType.cs" />
+    <Compile Include="RequestType.cs" />
     <Compile Include="Seller.cs" />
     <Compile Include="SellerGrid.cs" />
     <Compile Include="Template.cs" />
