@@ -62,7 +62,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="mobileComment in model.mobileComments" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled || model.editMobileComment(mobileComment.MobileCommentId)">
-                                            <td><span ng-bind="mobileComment.Mobile.Name"></span></td>
+                                            <td><span ng-bind="mobileComment.MobileName"></span></td>
                                             <td><span ng-bind="mobileComment.Comment"></span></td>
                                             <td class="col-lg-1">
                                                 <button ng-if="!mobileComment.Approve" type="button" class="btn btn-danger btn-rounded btn-xs">No</button>

@@ -245,6 +245,7 @@
     <Folder Include="App_Data\uploads\" />
     <Folder Include="Attributes\" />
     <Folder Include="Views\Maintenance\" />
+    <Folder Include="Views\Order\" />
     <Folder Include="Views\PersonnelDocuments\" />
     <Folder Include="Views\YouTube\" />
   </ItemGroup>
@@ -270,6 +271,7 @@
     <Compile Include="Controllers\GraphsController.cs" />
     <Compile Include="Controllers\GridOptionsController.cs" />
     <Compile Include="Controllers\DashboardsController.cs" />
+    <Compile Include="Controllers\HomeBannerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\LandingController.cs" />
@@ -280,6 +282,7 @@
     <Compile Include="Controllers\MiscellaneousController.cs" />
     <Compile Include="Controllers\MobileCommentController.cs" />
     <Compile Include="Controllers\MobileController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PersonnelController.cs" />
     <Compile Include="Controllers\PersonnelDocumentsController.cs" />
@@ -310,6 +313,7 @@
     <Compile Include="Models\BrandViewModel.cs" />
     <Compile Include="Models\CentreViewModel.cs" />
     <Compile Include="Models\DocumentViewModel.cs" />
+    <Compile Include="Models\HomeBannerViewModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Identity\IdentityModels.cs" />
     <Compile Include="Models\JsonHttpStatusResult.cs" />
@@ -318,7 +322,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MobileCommentViewModel.cs" />
     <Compile Include="Models\MobileViewModel.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\PersonnelProfileViewModel.cs" />
+    <Compile Include="Models\RequestTypeViewModel.cs" />
     <Compile Include="Models\ScaffoldingContext.cs" />
     <Compile Include="Models\ScaffoldingController.cs" />
     <Compile Include="Models\PersonnelDocumentViewModel.cs" />
@@ -1387,6 +1393,7 @@
     <Content Include="Scripts\Angular\Controllers\BrandController.js" />
     <Content Include="Scripts\Angular\Controllers\CentreController.js" />
     <Content Include="Scripts\Angular\Controllers\DocumentController.js" />
+    <Content Include="Scripts\Angular\Controllers\HomeBannerController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
@@ -1414,6 +1421,7 @@
     <Content Include="Scripts\Angular\Services\BrandService.js" />
     <Content Include="Scripts\Angular\Services\CentreService.js" />
     <Content Include="Scripts\Angular\Services\DocumentService.js" />
+    <Content Include="Scripts\Angular\Services\HomeBannerService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
     <Content Include="Scripts\Angular\Services\MobileCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendCommentService.js" />
@@ -1999,6 +2007,12 @@
     <Content Include="Views\Mobile\_Seller.cshtml" />
     <Content Include="Views\MobileComment\Index.cshtml" />
     <Content Include="Views\Mobile\_Compare.cshtml" />
+    <Content Include="Views\HomeBanner\Index.cshtml" />
+    <Content Include="Views\HomeBanner\Create.cshtml" />
+    <Content Include="Views\HomeBanner\Edit.cshtml" />
+    <Content Include="Views\HomeBanner\_HomeBanner.cshtml" />
+    <Content Include="Views\Home\Mobile.cshtml" />
+    <Content Include="Views\Mobile\MobileSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -2041,7 +2055,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59003</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58893/</IISUrl>
+          <IISUrl>http://localhost:58894/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

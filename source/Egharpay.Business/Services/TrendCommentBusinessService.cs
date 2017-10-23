@@ -28,6 +28,7 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.CreateAsync(trendComment);
                 validationResult.Entity = trendComment;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
@@ -44,9 +45,9 @@ namespace Egharpay.Business.Services
             return trendComment.FirstOrDefault();
         }
 
-        public async Task<PagedResult<TrendComment>> RetrieveTrendComments(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<TrendCommentGrid>> RetrieveTrendComments(List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var trendComments = await _dataService.RetrievePagedResultAsync<TrendComment>(a => true, orderBy, paging);
+            var trendComments = await _dataService.RetrievePagedResultAsync<TrendCommentGrid>(a => true, orderBy, paging);
             return trendComments;
         }
 
@@ -57,6 +58,7 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.UpdateAsync(trendComment);
                 validationResult.Entity = trendComment;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {

@@ -38,6 +38,7 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.CreateAsync(personnel);
                 validationResult.Entity = personnel;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {

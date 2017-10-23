@@ -1,4 +1,4 @@
-﻿<div class="row border-bottom white-bg" ng-controller="HomeController as model">
+﻿<div class="row border-bottom white-bg" ng-controller="HomeController as model" ng-init="model.retrieveSearchField()">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
@@ -11,9 +11,9 @@
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" placeholder="Search for something..." ng-model="model.searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)" class="typeahead_2 form-control dropdown-menu-search" />
+                                <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchField" class="typeahead_2 form-control dropdown-menu-search" />
                         </div>
-                        <button class="btn btn-danger" type="button" ng-click="model.searchMobile(searchField)">
+                        <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
                             <span class="glyphicon glyphicon-search">Search</span>
                         </button>
                     </form>

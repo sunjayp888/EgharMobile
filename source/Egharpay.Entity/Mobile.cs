@@ -1,9 +1,10 @@
-using System.Collections.Generic;
-
 namespace Egharpay.Entity
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("Mobile")]
     public partial class Mobile
@@ -11,7 +12,9 @@ namespace Egharpay.Entity
         public Mobile()
         {
             MobileComments = new HashSet<MobileComment>();
+            Orders=new HashSet<Order>();
         }
+
         public int MobileId { get; set; }
 
         public int BrandId { get; set; }
@@ -35,19 +38,19 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string DisplayResolution { get; set; }
 
-        [StringLength(500)]
+        [StringLength(10)]
         public string CameraPixel { get; set; }
 
-        [StringLength(500)]
+        [StringLength(10)]
         public string RAM { get; set; }
 
-        [StringLength(500)]
+        [StringLength(100)]
         public string Chipset { get; set; }
 
-        [StringLength(500)]
+        [StringLength(10)]
         public string BatterySize { get; set; }
 
-        [StringLength(500)]
+        [StringLength(10)]
         public string BatteryType { get; set; }
 
         [StringLength(500)]
@@ -200,15 +203,17 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string BatteryMusicPlay { get; set; }
 
-        [StringLength(500)]
+        [StringLength(100)]
         public string VideoPixel { get; set; }
 
-        public bool? AllImage { get; set; }
-        
+        public string MetaSearch { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MobileComment> MobileComments { get; set; }
 
-        public virtual Brand Brand { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
 
+        public virtual Brand Brand { get; set; }
     }
 }

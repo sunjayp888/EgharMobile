@@ -99,6 +99,8 @@
     <Compile Include="Dto\Permissions.cs" />
     <Compile Include="Dto\TenantOrganisation.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="HomeBanner.cs" />
+    <Compile Include="HomeBannerGrid.cs" />
     <Compile Include="Interfaces\INotAbsenceDay.cs" />
     <Compile Include="Interfaces\IOrganisationFilterable.cs" />
     <Compile Include="Dto\OrderBy.cs" />
@@ -106,8 +108,10 @@
     <Compile Include="Dto\Paging.cs" />
     <Compile Include="Mobile.cs" />
     <Compile Include="MobileComment.cs" />
+    <Compile Include="MobileCommentGrid.cs" />
     <Compile Include="MobileGrid.cs" />
     <Compile Include="News.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Partials\Template.cs" />
     <Compile Include="Personnel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,11 +119,13 @@
     <Compile Include="Dto\Schedule.cs" />
     <Compile Include="Dto\ScheduleItem.cs" />
     <Compile Include="Dto\ScheduleItemType.cs" />
+    <Compile Include="RequestType.cs" />
     <Compile Include="Seller.cs" />
     <Compile Include="SellerGrid.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Trend.cs" />
     <Compile Include="TrendComment.cs" />
+    <Compile Include="TrendCommentGrid.cs" />
     <Compile Include="Validation\DateGreaterThanAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

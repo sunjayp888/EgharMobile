@@ -13,7 +13,9 @@
             retrieveStatisticsByCentre: retrieveStatisticsByCentre,
             retrieveBarGraphStatistics: retrieveBarGraphStatistics,
             retrieveCentres: retrieveCentres,
-            change: change
+            listMobile: listMobile,
+            change: change,
+            searchMobiles: searchMobiles
         };
 
         return service;
@@ -28,7 +30,7 @@
 
             var url = "/Home/StatisticsByCentre",
                 data = {
-                    id:centreId
+                    id: centreId
                 };
 
             return $http.post(url, data);
@@ -58,6 +60,24 @@
                     centreId: centreId
                 };
 
+            return $http.post(url, data);
+        }
+
+        function listMobile(SearchKeyword, Paging, OrderBy) {
+            var url = "/Home/SearchMobile",
+                data = {
+                    searchKeyword: SearchKeyword,
+                    paging: Paging,
+                    orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function searchMobiles(searchKeyword) {
+            var url = "/Home/Mobile",
+                data = {
+                    searchKeyword: searchKeyword
+                };
             return $http.post(url, data);
         }
     }

@@ -177,6 +177,8 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Price { get; set; }
 
+        public string MetaSearch { get; set; }
+
         [Key]
         [Column(Order = 3)]
         [StringLength(8000)]

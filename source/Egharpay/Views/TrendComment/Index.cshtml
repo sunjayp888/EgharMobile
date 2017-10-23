@@ -62,7 +62,7 @@
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="trendComment in model.trendComments" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled || model.editTrendComment(trendComment.TrendCommentId)">
-                                        <td><span ng-bind="trendComment.Trend.Name"></span></td>
+                                        <td><span ng-bind="trendComment.TrendName"></span></td>
                                         <td><span ng-bind="trendComment.Comment"></span></td>
                                         <td class="col-lg-1">
                                             <button ng-if="!trendComment.Approve" type="button" class="btn btn-danger btn-rounded btn-xs">No</button>

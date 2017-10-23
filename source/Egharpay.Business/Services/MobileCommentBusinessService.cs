@@ -28,6 +28,7 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.CreateAsync(mobileComment);
                 validationResult.Entity = mobileComment;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
@@ -35,6 +36,7 @@ namespace Egharpay.Business.Services
                 validationResult.Errors = new List<string> { ex.InnerMessage() };
                 validationResult.Exception = ex;
             }
+
             return validationResult;
         }
 
@@ -44,9 +46,9 @@ namespace Egharpay.Business.Services
             return mobileComment.FirstOrDefault();
         }
 
-        public async Task<PagedResult<MobileComment>> RetrieveMobileComments(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<MobileCommentGrid>> RetrieveMobileComments(List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var mobileComments = await _dataService.RetrievePagedResultAsync<MobileComment>(a => true, orderBy, paging);
+            var mobileComments = await _dataService.RetrievePagedResultAsync<MobileCommentGrid>(a => true, orderBy, paging);
             return mobileComments;
         }
 
@@ -57,6 +59,7 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.UpdateAsync(mobileComment);
                 validationResult.Entity = mobileComment;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
