@@ -9,12 +9,11 @@ namespace Egharpay.Entity
     [Table("DocumentDetail")]
     public partial class DocumentDetail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-
         public int DocumentDetailId { get; set; }
 
         public Guid DocumentGUID { get; set; }
 
+        [StringLength(128)]
         public string PersonnelId { get; set; }
 
         [StringLength(500)]
@@ -54,7 +53,7 @@ namespace Egharpay.Entity
 
         public int? DocumentBatchId { get; set; }
 
-        public virtual DocumentCategory Category { get; set; }
+        public virtual DocumentCategory DocumentCategory { get; set; }
 
         public virtual Product Product { get; set; }
     }

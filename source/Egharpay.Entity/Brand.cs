@@ -9,12 +9,6 @@ namespace Egharpay.Entity
     [Table("Brand")]
     public partial class Brand
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Brand()
-        {
-            Mobiles = new HashSet<Mobile>();
-        }
-
         public int BrandId { get; set; }
 
         [Required]
@@ -23,11 +17,5 @@ namespace Egharpay.Entity
 
         [StringLength(50)]
         public string NumberOfDevice { get; set; }
-
-        [StringLength(50)]
-        public string ImagePath { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mobile> Mobiles { get; set; }
     }
 }

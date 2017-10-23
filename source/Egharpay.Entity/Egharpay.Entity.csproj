@@ -93,8 +93,8 @@
     <Compile Include="AspNetUsersAlertSchedule.cs" />
     <Compile Include="Brand.cs" />
     <Compile Include="BrandGrid.cs" />
-    <Compile Include="DocumentDetail.cs" />
     <Compile Include="DocumentCategory.cs" />
+    <Compile Include="DocumentDetail.cs" />
     <Compile Include="Dto\Permissions.cs" />
     <Compile Include="Dto\TenantOrganisation.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />

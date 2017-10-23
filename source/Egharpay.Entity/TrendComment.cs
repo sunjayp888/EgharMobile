@@ -9,6 +9,7 @@ namespace Egharpay.Entity
     [Table("TrendComment")]
     public partial class TrendComment
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TrendCommentId { get; set; }
 
         public int TrendId { get; set; }

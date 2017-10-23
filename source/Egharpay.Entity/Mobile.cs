@@ -9,10 +9,12 @@ namespace Egharpay.Entity
     [Table("Mobile")]
     public partial class Mobile
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Mobile()
         {
+            HomeBanners = new HashSet<HomeBanner>();
             MobileComments = new HashSet<MobileComment>();
-            Orders=new HashSet<Order>();
+            Orders = new HashSet<Order>();
         }
 
         public int MobileId { get; set; }
@@ -38,19 +40,19 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string DisplayResolution { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string CameraPixel { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string RAM { get; set; }
 
-        [StringLength(100)]
+        [StringLength(500)]
         public string Chipset { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string BatterySize { get; set; }
 
-        [StringLength(10)]
+        [StringLength(500)]
         public string BatteryType { get; set; }
 
         [StringLength(500)]
@@ -203,10 +205,15 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string BatteryMusicPlay { get; set; }
 
-        [StringLength(100)]
+        [StringLength(500)]
         public string VideoPixel { get; set; }
 
+        public bool? AllImage { get; set; }
+
         public string MetaSearch { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HomeBanner> HomeBanners { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MobileComment> MobileComments { get; set; }

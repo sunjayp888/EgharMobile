@@ -20,10 +20,6 @@ namespace Egharpay.Entity
 
         public int MobileId { get; set; }
 
-        public virtual Personnel Personnel { get; set; }
-
         public virtual Mobile Mobile { get; set; }
-
-        public virtual RequestType RequestType { get; set; }
     }
 }

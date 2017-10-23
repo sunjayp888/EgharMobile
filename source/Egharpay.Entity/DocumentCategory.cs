@@ -17,9 +17,11 @@ namespace Egharpay.Entity
 
         public int DocumentCategoryId { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string FileNameRegex { get; set; }
 

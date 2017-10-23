@@ -38,6 +38,8 @@ namespace Egharpay.Entity
         [StringLength(4000)]
         public string ImagePath { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
+
+        public virtual Mobile Mobile { get; set; }
     }
 }

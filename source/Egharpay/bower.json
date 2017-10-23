@@ -22,6 +22,7 @@
     "Chart.js": "^2.6.0",
     "bootstrap-daterangepicker": "^2.1.25",
     "angular-daterangepicker": "^0.2.2",
-    "cookieconsent": "3.0"
+    "cookieconsent": "3.0",
+    "cropper": "2.3.0"
   }
 }
