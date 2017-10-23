@@ -66,6 +66,7 @@
     <Compile Include="Interfaces\IDocumentDataService.cs" />
     <Compile Include="Interfaces\IEgharpayDataService.cs" />
     <Compile Include="Interfaces\IGenericDataService.cs" />
+    <Compile Include="Interfaces\IHomeBannerDataService.cs" />
     <Compile Include="Interfaces\IMaintenanceDataService.cs" />
     <Compile Include="Interfaces\IMobileCommentDataService.cs" />
     <Compile Include="Interfaces\IMobileDataService.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Services\DocumentDataService.cs" />
     <Compile Include="Services\EgharpayDataService.cs" />
     <Compile Include="Services\EntityFrameworkGenericDataService.cs" />
+    <Compile Include="Services\HomeBannerDataService.cs" />
     <Compile Include="Services\MaintenanceDataService.cs" />
     <Compile Include="Services\MobileCommentDataService.cs" />
     <Compile Include="Services\MobileDataService.cs" />
