@@ -301,10 +301,7 @@ namespace Egharpay.Data
                 .Property(e => e.Price)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Personnel>()
-                .Property(e => e.Telephone)
-                .IsUnicode(false);
-
+            
             modelBuilder.Entity<Personnel>()
                 .Property(e => e.Mobile)
                 .IsUnicode(false);
@@ -313,11 +310,7 @@ namespace Egharpay.Data
                 .Property(e => e.PANNumber)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Personnel>()
-                .Property(e => e.BankTelephone)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Personnel>()
+           modelBuilder.Entity<Personnel>()
                 .Property(e => e.Email)
                 .IsUnicode(false);
 
@@ -325,11 +318,7 @@ namespace Egharpay.Data
                 .Property(e => e.Name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Personnel>()
-                .Property(e => e.Telephone)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Personnel>()
+           modelBuilder.Entity<Personnel>()
                 .Property(e => e.Mobile)
                 .IsUnicode(false);
 
@@ -337,11 +326,7 @@ namespace Egharpay.Data
                 .Property(e => e.PANNumber)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Personnel>()
-                .Property(e => e.BankTelephone)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Personnel>()
+          modelBuilder.Entity<Personnel>()
                 .Property(e => e.Email)
                 .IsUnicode(false);
 

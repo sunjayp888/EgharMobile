@@ -61,6 +61,8 @@ namespace Egharpay.Controllers
             }
         }
 
+        protected int UserPersonnelId => ApplicationUser?.PersonnelId ?? 0;
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             //Don't redirect to Terms and conditions for Account controller actions

@@ -291,6 +291,7 @@
     <Compile Include="Controllers\UIElementsController.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
     <Compile Include="Controllers\YouTubeController.cs" />
+    <Compile Include="Enum\Role.cs" />
     <Compile Include="Extensions\ControllerExtensions.cs" />
     <Compile Include="Extensions\DataTableToExcel.cs" />
     <Compile Include="Extensions\FileExtensions.cs" />

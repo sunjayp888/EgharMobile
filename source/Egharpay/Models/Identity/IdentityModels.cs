@@ -26,6 +26,7 @@ namespace Egharpay.Models.Identity
         }
 
         public string Name { get; set; }
+        public int? PersonnelId { get; set; }
     }
 
     #region Permissions May possible moved

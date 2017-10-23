@@ -10,9 +10,9 @@
                 </div>
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left" role="search">
-                            <div class="form-group">
-                                <input type="text" placeholder="Search for something..." ng-model="model.searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)" class="typeahead_2 form-control dropdown-menu-search" />
-                            </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Search for something..." ng-model="model.searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)" class="typeahead_2 form-control dropdown-menu-search" />
+                        </div>
                         <button class="btn btn-danger" type="button" ng-click="model.searchMobile(searchField)">
                             <span class="glyphicon glyphicon-search">Search</span>
                         </button>
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-      <div class="navbar-collapse collapse" id="navbar">
+        <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li class="dropdown mega-dropdown">
                     <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown">In Store<span class="caret"></span></a>
@@ -66,7 +66,7 @@
                                 @*<li><a href="@Url.Action("Index","Brand")" class="btn btn-primary">Show all brands</a></li>*@
                                 <li class="divider"></li>
                                 @*<li class="dropdown-header">Tops</li>
-            <li><a href="#">Good Typography</a></li>*@
+                                    <li><a href="#">Good Typography</a></li>*@
                             </ul>
                         </li>
                         <li class="col-sm-3">
@@ -109,13 +109,18 @@
             </ul>
             @if (User.Identity.IsAuthenticated)
             {
-                <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <a href="@Url.Action("Logout", "Account")">
-                            <i class="fa fa-sign-out"></i> Log out
-                        </a>
-                    </li>
-                </ul>
+                using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        <li>
+                            <a class="right-sidebar-toggle">
+                                <i class="fa fa-tasks"></i>
+                            </a>
+                        </li>
+                    </ul>
+                }
             }
             else
             {

@@ -1,10 +1,14 @@
 ﻿@using Egharpay.Extensions
 @model Egharpay.Models.PersonnelProfileViewModel
-<div class="form-control-required-example"> = Required</div>
-
+<div class="form-control-required-example">&nbsp; = Required</div>
+<br />
+<div class="alert alert-danger alert-dismissable">
+    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+   Your profile updated successfully.
+</div>
 @*@if (User.IsInAnyRoles("SuperAdmin"))
-{*@
-    @*<div class="form-group">
+    {*@
+@*<div class="form-group">
         @Html.LabelFor(model => model.Personnel.CentreId, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
         <div class="col-md-6 col-sm-6 col-xs-12">
             @Html.DropDownListFor(model => model.Personnel.CentreId, Model.Centres, new {@class = "form-control col-md-7 col-xs-12"})
@@ -14,40 +18,30 @@
 @*}*@
 
 <div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Title, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
-        @Html.TextBoxFor(model => model.Personnel.Title, new { @class = "form-control col-md-7 col-xs-12" })
-        @Html.ValidationMessageFor(model => model.Personnel.Title, "", new { @class = "help-block" })
-    </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Forenames, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Forenames, new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-3 col-xs-12">
         @Html.TextBoxFor(model => model.Personnel.Forenames, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Forenames, "", new { @class = "help-block" })
     </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Surname, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Surname, new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-3 col-xs-12">
         @Html.TextBoxFor(model => model.Personnel.Surname, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Surname, "", new { @class = "help-block" })
     </div>
 </div>
 <div class="form-group">
-    @Html.LabelFor(model => model.Personnel.DOB, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12 dob">
+    @Html.LabelFor(model => model.Personnel.DOB, new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-3 col-xs-12 dob">
         @Html.TextBoxFor(model => model.Personnel.DOB, "{0:dd MMMM yyyy}", new { @class = "form-control col-md-7 col-xs-12 date" })
         @Html.ValidationMessageFor(model => model.Personnel.DOB, "", new { @class = "help-block" })
     </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Email, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Email, new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-3 col-xs-12">
         @Html.TextBoxFor(model => model.Personnel.Email, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Email, "", new { @class = "help-block" })
     </div>
 </div>
+
 @*<div class="form-group">
         @Html.LabelFor(model => model.Personnel.CountryId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -56,51 +50,45 @@
         </div>
     </div>*@
 <div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Address1, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Address1, new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-6 col-xs-12">
         @Html.TextBoxFor(model => model.Personnel.Address1, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Address1, "", new { @class = "help-block" })
     </div>
+   
 </div>
 <div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Address2, " ", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Address2, " ", new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-6 col-xs-12">
         @Html.TextBoxFor(model => model.Personnel.Address2, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Address2, "", new { @class = "help-block" })
     </div>
 </div>
 <div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Address3, " ", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Address3, " ", new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-6 col-xs-12">
         @Html.TextBoxFor(model => model.Personnel.Address3, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Address3, "", new { @class = "help-block" })
     </div>
 </div>
 <div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Address4, " ", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Address4, " ", new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-6 col-xs-12">
         @Html.TextBoxFor(model => model.Personnel.Address4, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Address4, "", new { @class = "help-block" })
     </div>
 </div>
 <div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Postcode, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Postcode, new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-6 col-xs-12">
 
         @Html.TextBoxFor(model => model.Personnel.Postcode, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Postcode, "", new { @class = "help-block" })
     </div>
 </div>
 <div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Telephone, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
-        @Html.TextBoxFor(model => model.Personnel.Telephone, new { @class = "form-control col-md-7 col-xs-12" })
-        @Html.ValidationMessageFor(model => model.Personnel.Telephone, "", new { @class = "help-block" })
-    </div>
-</div>
-<div class="form-group">
-    @Html.LabelFor(model => model.Personnel.Mobile, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    @Html.LabelFor(model => model.Personnel.Mobile, new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+    <div class="col-md-4 col-sm-6 col-xs-12">
         @Html.TextBoxFor(model => model.Personnel.Mobile, new { @class = "form-control col-md-7 col-xs-12" })
         @Html.ValidationMessageFor(model => model.Personnel.Mobile, "", new { @class = "help-block" })
     </div>

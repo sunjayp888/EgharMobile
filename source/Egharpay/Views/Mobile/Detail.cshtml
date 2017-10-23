@@ -8,7 +8,7 @@
 <div ng-controller="MobileController as model" ng-init="model.detailMobile(@Model.MobileId)">
     <div class="row wrapper border-bottom white-bg page-heading page-margin">
         <div class="col-lg-10">
-            <br/>
+            <br />
             <ol class="breadcrumb">
                 <li>
                     <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
@@ -24,76 +24,77 @@
         <div class="col-lg-2">
         </div>
     </div>
-    <div class="wrapper wrapper-content">
-        <div class="row animated fadeInRight">
-            <div class="col-md-4">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h1><span ng-bind="model.mobiles.Name"></span></h1>
+    <div/*
+    lass="wrapper wrapper-content">
+    <div class="row animated fadeInRight">
+        <div class="col-md-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h1><span ng-bind="model.mobiles.Name"></span></h1>
+                </div>
+                <div>
+                    <div class="ibox-content no-padding border-left-right">
+                        <img alt="image" class="img-responsive" src="~/Images/profile_big.jpg">
                     </div>
-                    <div>
-                        <div class="ibox-content no-padding border-left-right">
-                            <img alt="image" class="img-responsive" src="~/Images/profile_big.jpg">
+
+                    <div class="ibox-content profile-content">
+                        <div class="row m-t-lg">
+                            <div class="col-md-4">
+                                <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-camera"></i></button>
+                                <p>
+                                    <h3>
+                                        <strong><span ng-bind="model.mobiles.CameraPixel"></span>MP</strong>
+                                    </h3><span ng-bind="model.mobiles.VideoPixel"></span>
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-microchip"></i></button>
+                                <p><h3><strong><span ng-bind="model.mobiles.RAM"></span> GB RAM</strong></h3>GB ROM</p>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-mobile"></i></button>
+                                <p><h3><strong>"</strong></h3> Display</p>
+                            </div>
                         </div>
-
-                        <div class="ibox-content profile-content">
-                            <div class="row m-t-lg">
-                                <div class="col-md-4">
-                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-camera"></i></button>
-                                    <p>
-                                        <h3>
-                                            <strong><span ng-bind="model.mobiles.CameraPixel"></span>MP</strong>
-                                        </h3><span ng-bind="model.mobiles.VideoPixel"></span>
-                                    </p>
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-microchip"></i></button>
-                                    <p><h3><strong><span ng-bind="model.mobiles.RAM"></span> GB RAM</strong></h3>GB ROM</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-mobile"></i></button>
-                                    <p><h3><strong>"</strong></h3> Display</p>
-                                </div>
+                        <div class="row m-t-lg">
+                            <div class="col-md-4">
+                                <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-floppy-o"></i></button>
+                                <p><h3><strong>GB</strong></h3> Internal Memory</p>
                             </div>
-                            <div class="row m-t-lg">
-                                <div class="col-md-4">
-                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-floppy-o"></i></button>
-                                    <p><h3><strong>GB</strong></h3> Internal Memory</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-wrench"></i></button>
-                                    <p><h3><strong>ProcessorName</strong></h3> Processor</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-thermometer-2"></i></button>
-                                    <p>
-                                        <h3>
-                                            <strong><span ng-bind="model.mobiles.BatterySize"></span> mAh</strong>
-                                        </h3><span ng-bind="model.mobiles.BatteryType"></span> Battery
-                                    </p>
-                                </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-wrench"></i></button>
+                                <p><h3><strong>ProcessorName</strong></h3> Processor</p>
                             </div>
-                            <h4><span ng-bind="model.mobiles.Name"></span></h4>
-                            <p>
-                                <i class="fa fa-briefcase"></i><strong> <span ng-bind="model.mobiles.ReleasedDate"></span></strong>
-                            </p>
-                            <p>
-                                <i class="fa fa-android"></i><strong> <span ng-bind="model.mobiles.OS"></span></strong>
-                            </p>
-                            <p>
-                                <i class="fa fa-android"></i><strong> <span ng-bind="model.mobiles.BodyDimension"></span></strong>
-                            </p>
-                            <p>
-                                <i class="fa fa-briefcase"></i><strong> <span ng-bind="model.mobiles.Storage"></span></strong>
-                            </p>
-                            <h5>
-                                About me
-                            </h5>
-                            <p>
-                                Also known as Samsung Galaxy Note8 Duos with Dual SIM card slots.
-                            </p>
+                            <div class="col-md-4">
+                                <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-thermometer-2"></i></button>
+                                <p>
+                                    <h3>
+                                        <strong><span ng-bind="model.mobiles.BatterySize"></span> mAh</strong>
+                                    </h3><span ng-bind="model.mobiles.BatteryType"></span> Battery
+                                </p>
+                            </div>
+                        </div>
+                        <h4><span ng-bind="model.mobiles.Name"></span></h4>
+                        <p>
+                            <i class="fa fa-briefcase"></i><strong> <span ng-bind="model.mobiles.ReleasedDate"></span></strong>
+                        </p>
+                        <p>
+                            <i class="fa fa-android"></i><strong> <span ng-bind="model.mobiles.OS"></span></strong>
+                        </p>
+                        <p>
+                            <i class="fa fa-android"></i><strong> <span ng-bind="model.mobiles.BodyDimension"></span></strong>
+                        </p>
+                        <p>
+                            <i class="fa fa-briefcase"></i><strong> <span ng-bind="model.mobiles.Storage"></span></strong>
+                        </p>
+                        <h5>
+                            About me
+                        </h5>
+                        <p>
+                            Also known as Samsung Galaxy Note8 Duos with Dual SIM card slots.
+                        </p>
 
-                            @*<div class="user-button">
+                        @*<div class="user-button">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fa fa-envelope"></i> Request to buy</button>
@@ -103,36 +104,36 @@
                                     </div>
                                 </div>
                             </div>*@
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div class="tabs-container">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab-1"><strong> Detail</strong></a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-2"><strong> Gallery</strong></a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-3"><strong> Video</strong></a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-4"><strong> Reviews</strong></a></li>
-                        <li class=""><button class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to buy</strong></button></li>
-                        <li class=""><button class="btn btn-compare" data-toggle="tab" href="#tab-5"><strong> Compare</strong></button></li>
-                    </ul>
-                    <div class="tab-content">
-                        @Html.Partial("_Detail")
-                        @Html.Partial("_Gallery")
-                        @Html.Partial("_Video")
-                        @Html.Partial("_Review")
-                        @Html.Partial("_Seller")
-                    </div>
+        </div>
+        <div class="col-md-8">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1"><strong> Detail</strong></a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2"><strong> Gallery</strong></a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3"><strong> Video</strong></a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4"><strong> Reviews</strong></a></li>
+                    <li class=""><button class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to buy</strong></button></li>
+                    <li class=""><button class="btn btn-compare" data-toggle="tab" href="#tab-5"><strong> Compare</strong></button></li>
+                </ul>
+                <div class="tab-content">
+                    @Html.Partial("_Detail")
+                    @Html.Partial("_Gallery")
+                    @Html.Partial("_Video")
+                    @Html.Partial("_Review")
+                    @Html.Partial("_Seller")
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 
 @section Scripts{
     <script>
-        
+
         var checkBoxes = $('tbody .myCheckBox');
         $('tbody .myCheckBox').change(function () {
             $('#btnRequestSeller').prop('disabled', checkBoxes.filter(':checked').length < 1);

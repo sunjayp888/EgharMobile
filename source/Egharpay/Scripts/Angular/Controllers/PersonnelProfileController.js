@@ -60,8 +60,8 @@
                 return PersonnelProfileService.UploadPhoto(vm.personnelId, blob)
                         .then(function (response) {
                             $('#ProfilePicture').attr('src', URL.createObjectURL(blob));
-                            $("#ProfilePictureModal").modal("hide")
-                        });
+                        $("#ProfilePictureModal").modal("hide");
+                    });
             });
         }
 

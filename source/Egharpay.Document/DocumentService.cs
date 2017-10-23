@@ -23,7 +23,7 @@ namespace Egharpay.Document
             throw new NotImplementedException();
         }
 
-        public Guid Create(int organisationId, int centreId, int categoryId, string studentCode, string studentName, string description, string fileName, byte[] contents)
+        public Guid Create(int categoryId, int personnelId, string personnelName, string description, string fileName, byte[] contents)
         {
             var newGuid = Guid.NewGuid();
             var category =
@@ -40,18 +40,15 @@ namespace Egharpay.Document
             File.WriteAllBytes(filePath, contents);
             var document = new Entity.Document()
             {
-                CentreId = centreId,
                 DocumentTypeId = categoryId,
-                StudentCode = studentCode,
                 CreatedDateTime = DateTime.UtcNow.Date,
                 Description = description,
                 FileName = fileName,
                 Location = filePath,
-                StudentName = studentName,
                 Guid = newGuid
             };
 
-            PersonnelDataService.Create<Entity.Document>(organisationId, document);
+            PersonnelDataService.Create<Entity.Document>(document);
             return newGuid;
         }
 

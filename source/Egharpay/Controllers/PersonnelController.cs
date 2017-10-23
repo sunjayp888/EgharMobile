@@ -153,14 +153,32 @@ namespace Egharpay.Controllers
             return result;
         }
 
+        //[Authorize(Roles = "Admin,User")]
+        //public async Task<ActionResult> Edit(int id)
+        //{
+        //    var personnel = await _personnelBusinessService.RetrievePersonnel(id);
+        //    if (personnel == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    //   var centres = EgharpayBusinessService.RetrieveCentres(UserOrganisationId, e => true);
+        //    // personnel.Email = UserManager.FindByPersonnelId(personnel.PersonnelId)?.Email;
+        //    var viewModel = new PersonnelProfileViewModel
+        //    {
+        //        //        Centres = new SelectList(centres, "CentreId", "Name"),
+        //        Personnel = personnel
+        //    };
+        //    return View(viewModel);
+        //}
+
         [Authorize(Roles = "Admin,User")]
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit()
         {
-            if (id == null)
+            if (!User.Identity.IsAuthenticated)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var personnel = await _personnelBusinessService.RetrievePersonnel(id.Value);
+            var personnel = await _personnelBusinessService.RetrievePersonnel(UserPersonnelId);
             if (personnel == null)
             {
                 return HttpNotFound();
@@ -189,10 +207,9 @@ namespace Egharpay.Controllers
                 {
                     //var editUser = UserManager.FindByPersonnelId(personnelViewModel.Personnel.PersonnelId);
                     //editUser.Email = personnelViewModel.Personnel.Email;
-
                     //var result = UserManager.Update(editUser);
                     //if (result.Succeeded)
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Profile", new { id = personnelViewModel.Personnel.PersonnelId });
                 }
                 ModelState.AddModelError("", resultData.Exception);
                 foreach (var error in resultData.Errors)

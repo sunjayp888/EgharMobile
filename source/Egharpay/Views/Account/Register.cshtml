@@ -18,12 +18,17 @@
     <link href="~/Content/css/Site.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="top-navigation">
     <div id="page-top" class="navbar-wrapper landing-page">
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header page-scroll">
-                    <a class="navbar-brand">eGharpay</a>
+        <nav class="navbar navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <a href="~/Home" class="navbar-brand"><strong>mumbile</strong></a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -31,7 +36,7 @@
     <div class="loginColumns animated fadeInDown" ng-app="Egharpay" ng-controller="RegisterController as model">
         <div class="row">
             <div class="col-md-6">
-                <h2 class="font-bold">Welcome to eGharpay</h2>
+                <h2 class="font-bold">Welcome to mumbile</h2>
                 <p>
                     Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
                 </p>
@@ -49,10 +54,11 @@
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
-                    @Html.AntiForgeryToken()
+
                     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "m-t", role = "form" }))
                     {
-                        <h1>Register to Egharpay</h1>
+                        @Html.AntiForgeryToken()
+                        <h1>Register to mumbile</h1>
                         <p>Create account to see it in action.</p>
                         if (ViewContext.ViewData.ModelState.Any(x => x.Key == ""))
                         {
@@ -73,134 +79,56 @@
                             </div>
                         </div>
 
-                                    <div class="form-group">
-                                        <div>
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
-                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div>
-                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
-                                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div>
-                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "ConfirmPassword" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div>
-                                            @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @placeholder = "Pincode" })
-                                            @Html.ValidationMessageFor(m => m.Pincode, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <p class="text-muted text-left">
-                                        <small>
-                                            <a ng-href="/Pincode/Index">Find pincode?&nbsp;&nbsp;&nbsp;</a>
-                                            OR <a ng-click="model.addPincode();" id="findZipCode">&nbsp;&nbsp;&nbsp; Get pincode from current location</a>
-                                        </small>
-                                    </p>
-                                    <p class="text-muted text-right">
-                                        <small></small>
-                                    </p>
-                                    <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
+                        <div class="form-group">
+                            <div>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "ConfirmPassword" })
+                            </div>
+                        </div>
 
-                                    <p class="text-muted text-center">
-                                        <small>Already have an account?</small>
-                                    </p>
-                                    <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Login", "Pages")">Login</a>
+                        <div class="form-group">
+                            <div>
+                                @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @placeholder = "Pincode" })
+                                @Html.ValidationMessageFor(m => m.Pincode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <p class="text-muted text-left">
+                            <small>
+                                @*<a ng-href="/Pincode/Index">Find pincode?&nbsp;&nbsp;&nbsp;</a>
+                                    OR*@
+                                <a ng-click="model.addPincode();" id="findZipCode">&nbsp;&nbsp;&nbsp; Get pincode from current location</a>
+                            </small>
+                        </p>
+                        <div class="form-group">
+                            <label> <input type="checkbox" class="i-checks" name="IsSeller"> I am a seller.</label>
+                        </div>
+                        <p class="text-muted text-right">
+                            <small></small>
+                        </p>
+                        <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
+
+                        <p class="text-muted text-center">
+                            <small>Already have an account?</small>
+                        </p>
+                        <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Login", "Pages")">Login</a>
                     }
                 </div>
             </div>
         </div>
     </div>
 </body>
-
-
-
 </html>
 @Scripts.Render("~/Scripts/bower")
 @Scripts.Render("~/Scripts/Application")
-
-
-
-@*<script src="~/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcqnWhG3ozWTY6ONe-u4_Y2pk_iTiST9Y" async defer></script>*@
-
-<script>
-    //jQuery(function () {
-    //    jQuery(".end-date, .termination-date").remove();
-    //});
-
-    //var country, state, city, pinCode, map, latitude, longitude, count, pin;
-
-    //function initMap() {
-    //    var mapCenter = new google.maps.LatLng(47.6145, -122.3418); //Google map Coordinates
-    //    map = new google.maps.Map($("#map")[0], {
-    //        center: mapCenter,
-    //        zoom: 8
-    //    });
-    //}
-
-    //jQuery("#findZipCode").click(function () {
-    //    if ("geolocation" in navigator) {
-    //        navigator.geolocation.getCurrentPosition(function (position) {
-    //            latitude = position.coords.latitude;
-    //            longitude = position.coords.longitude;
-    //            getLocationDetails();
-    //        });
-    //    } else {
-    //        console.log("Browser doesn't support geolocation!");
-    //    }
-    //});
-
-    //function createCORSRequest(method, url) {
-    //    var xhr = new XMLHttpRequest();
-    //    if ("withCredentials" in xhr) {
-    //        // XHR for Chrome/Firefox/Opera/Safari.
-    //        xhr.open(method, url, true);
-    //    } else if (typeof XDomainRequest != "undefined") {
-    //        // XDomainRequest for IE.
-    //        xhr = new XDomainRequest();
-    //        xhr.open(method, url);
-    //    } else {
-    //        // CORS not supported.
-    //        xhr = null;
-    //    }
-    //    return xhr;
-    //}
-
-    //function getLocationDetails() {
-    //    var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-    //            latitude + "," + longitude + "&sensor=true";
-    //    var xhr = createCORSRequest('POST', url);
-    //    if (!xhr) {
-    //        alert('CORS not supported');
-    //    }
-    //    xhr.onload = function () {
-    //        var data = JSON.parse(xhr.responseText);
-    //        if (data.results.length > 0) {
-    //            var locationDetails = data.results[0].formatted_address;
-    //            var value = locationDetails.split(",");
-    //            count = value.length;
-    //            country = value[count - 1];
-    //            state = value[count - 2];
-    //            city = value[count - 3];
-    //            pin = state.split(" ");
-    //            pinCode = pin[pin.length - 1];
-    //            state = state.replace(pinCode, ' ');
-    //            alert(pinCode);
-    //        }
-    //        else {
-    //            alert("No location available for provided details.");
-    //        }
-    //    };
-    //    xhr.onerror = function () {
-    //        alert('Woops, there was an error making the request.');
-
-    //    };
-    //    xhr.send();
-    //}
-</script>

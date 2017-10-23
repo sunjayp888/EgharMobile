@@ -12,6 +12,9 @@ namespace Egharpay.Entity
         [NotMapped]
         public string FullName => Title + " " + Forenames + " " + Surname;
 
+        [NotMapped]
+        public string FullAddress => Address1 + " " + Address2 + " " + Address3 + " " + Address4;
+
         public int PersonnelId { get; set; }
 
         [StringLength(50)]
@@ -45,26 +48,18 @@ namespace Egharpay.Entity
         public string Postcode { get; set; }
 
         [StringLength(15)]
-        public string Telephone { get; set; }
-
-        [StringLength(15)]
         public string Mobile { get; set; }
 
         [StringLength(10)]
         public string PANNumber { get; set; }
 
-        [StringLength(15)]
-        public string BankTelephone { get; set; }
-
         [Required]
         [StringLength(256)]
         public string Email { get; set; }
 
-        public int? CentreId { get; set; }
-
-        public int? CustomerId { get; set; }
-
         [StringLength(128)]
         public string UserId { get; set; }
+
+        public bool? IsSeller { get; set; }
     }
 }

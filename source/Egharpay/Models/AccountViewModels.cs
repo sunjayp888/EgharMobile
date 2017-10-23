@@ -100,6 +100,9 @@ namespace Egharpay.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "I am Seller")]
+        public bool IsSeller { get; set; }
     }
 
     public class ResetPasswordViewModel

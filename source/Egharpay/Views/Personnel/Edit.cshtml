@@ -1,15 +1,15 @@
 ﻿@model Egharpay.Models.PersonnelProfileViewModel
 @{
-    ViewBag.Title = string.Format("Edit Personnel ({0})", Model.Personnel.Fullname);
+    ViewBag.Title = string.Format("Edit Personnel ({0})", Model.Personnel.FullName);
 }
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>@Model.Personnel.Fullname<small>Edit personnel</small></h2>
+                <h2>@Model.Personnel.FullName<small>Edit personnel</small></h2>
                 <div class="clearfix"></div>
             </div>
-            <div class="x_content">
+            <div class="x_content">FullName
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
@@ -53,7 +53,7 @@
                 showDropdowns: true,
                 showCustomRangeLabel: false,
                 opens: 'left',
-                startDate: '@Model.Personnel.DOB.ToString("dd/MMMM/yyyy")',
+                @*startDate: '@Model.Personnel.DOB.ToString("dd/MMMM/yyyy")',*@
                 locale: {
                     format: 'DD MMMM YYYY'
                 }

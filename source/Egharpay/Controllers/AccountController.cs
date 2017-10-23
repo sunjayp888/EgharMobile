@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.Owin.Security;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Entity;
+using Egharpay.Enum;
 using Egharpay.Models;
 using Egharpay.Models.Authorization;
 using Egharpay.Models.Identity;
@@ -157,8 +159,9 @@ namespace Egharpay.Controllers
                 var personnelResult = await CreatePersonnel(model);
                 if (personnelResult.Succeeded)
                 {
-                  //  user.PersonnelId = personnelResult.Entity.PersonnelId;
-                    var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == "User").Id;
+                    user.PersonnelId = personnelResult.Entity.PersonnelId;
+                    var role = model.IsSeller ? Role.Seller.ToString() : Role.User.ToString();
+                    var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
                     user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
@@ -188,7 +191,8 @@ namespace Egharpay.Controllers
                 Email = model.Email,
                 Forenames = model.FirstName,
                 Surname = model.LastName,
-                Postcode = model.Pincode
+                Postcode = model.Pincode,
+                IsSeller = model.IsSeller
             };
             return await PersonnelBusinessService.CreatePersonnel(personnel);
         }
@@ -412,8 +416,14 @@ namespace Egharpay.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        private void SignOut()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
         }
 
         //

@@ -24,15 +24,7 @@ namespace Egharpay.Controllers
 
         public ActionResult Index()
         {
-            bool isSuperAdmin = User.IsSuperAdmin();
-            if (User.IsInRole("User"))
-                return RedirectToAction("Profile", "Personnel");
-
-            var viewModel = new HomeViewModel
-            {
-            };
-
-            return View(viewModel);
+            return View();
         }
 
         [AllowAnonymous]

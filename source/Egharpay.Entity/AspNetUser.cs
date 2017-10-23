@@ -53,8 +53,6 @@ namespace Egharpay.Entity
 
         public int? PersonnelId { get; set; }
 
-        public int? CentreId { get; set; }
-
         [StringLength(100)]
         public string Name { get; set; }
     }

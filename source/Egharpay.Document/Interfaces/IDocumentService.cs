@@ -5,12 +5,11 @@ namespace Egharpay.Document.Interfaces
 {
     public interface IDocumentService
     {
-        Guid Create(int organisationId, int centreId, int categoryId, string studentCode, string studentName,
-            string description, string fileName, byte[] contents);
+        Guid Create(int categoryId, int personnelId, string personnelName, string description, string fileName, byte[] contents);
 
         byte[] GetDocumentBytes(string path);
 
-        List<Entity.Document> RetrieveDocuments(int organisationId, int centreId, string category, string studentCode);
+        List<Entity.Document> RetrieveDocuments(string category, int personnelId);
     }
 
     //public class Document

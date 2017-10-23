@@ -59,7 +59,7 @@ namespace Egharpay.Business.Services
 
         public async Task<Personnel> RetrievePersonnel(int centreId, int personnelId)
         {
-            var personnels = await _dataService.RetrieveAsync<Personnel>(a => a.PersonnelId == personnelId && (a.CentreId == centreId));
+            var personnels = await _dataService.RetrieveAsync<Personnel>(a => a.PersonnelId == personnelId);
             return personnels.FirstOrDefault();
         }
 
@@ -105,15 +105,12 @@ namespace Egharpay.Business.Services
 
         public async Task<ValidationResult<Personnel>> UpdatePersonnel(Personnel personnel)
         {
-            var validationResult = await PersonnelAlreadyExists(personnel.Email);
-            if (!validationResult.Succeeded)
-            {
-                return validationResult;
-            }
+            var validationResult = new ValidationResult<Personnel>();
             try
             {
                 await _dataService.UpdateAsync(personnel);
                 validationResult.Entity = personnel;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
