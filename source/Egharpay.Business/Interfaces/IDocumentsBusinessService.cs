@@ -9,11 +9,19 @@ namespace Egharpay.Business.Interfaces
 {
     public interface IDocumentsBusinessService
     {
-        Task<ValidationResult<Document>> CreatePersonnelDocument(string documentCategory, int personnelId, string fullName, string userId, byte[] bytes);
+        #region Create
+        Task<ValidationResult<Document>> CreateDocument(Document document);
         byte[] DownloadDocument(Guid documentGuid);
+        #endregion
+
+        #region Retrieve
         Task<IEnumerable<DocumentCategory>> RetrieveDocumentCategoriesAsync();
         Task<ValidationResult<Document>> RetrieveDocumentByGuid(Guid documentGuid, string userId);
-        Task<ValidationResult<Document[]>> RetrieveDocumentsAsync(string userId, int? personnelId);
-        Task<ValidationResult<Document[]>> RetrieveDocumentsByCategoryAsync(string userId, int documentCategoryId);
+        Task<ValidationResult<Document[]>> RetrieveDocuments(int personnelId, Enum.DocumentCategory category);
+        #endregion
+
+        #region Delete
+        Task<bool> DeleteDocument(List<Guid> guid);
+        #endregion
     }
 }

@@ -51,7 +51,7 @@ namespace Egharpay.Business.Services
 
         public async Task UploadProfilePhoto(int personnelId, byte[] bytes)
         {
-            
+
         }
         #endregion
 
@@ -68,10 +68,24 @@ namespace Egharpay.Business.Services
             return personnels.FirstOrDefault();
         }
 
-        public async Task<Personnel> RetrievePersonnel(int personnelId)
+        public async Task<ValidationResult<Personnel>> RetrievePersonnel(int personnelId)
         {
-            var personnels = await _dataService.RetrieveAsync<Personnel>(a => a.PersonnelId == personnelId);
-            return personnels.FirstOrDefault();
+            var personnel = await _dataService.RetrieveByIdAsync<Personnel>(personnelId);
+            if (personnel != null)
+            {
+                var validationResult = new ValidationResult<Personnel>
+                {
+                    Entity = personnel,
+                    Succeeded = true
+                };
+                return validationResult;
+            }
+
+            return new ValidationResult<Personnel>
+            {
+                Succeeded = false,
+                Errors = new[] { string.Format("No Worker found with Id: {0}", personnelId) }
+            };
         }
 
         public async Task<PagedResult<Personnel>> RetrievePersonnels(List<OrderBy> orderBy = null, Paging paging = null)

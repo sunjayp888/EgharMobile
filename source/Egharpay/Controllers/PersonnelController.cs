@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Egharpay.Business.Interfaces;
+using Egharpay.Business.Models;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
@@ -40,12 +41,17 @@ namespace Egharpay.Controllers
         }
 
         private readonly IPersonnelBusinessService _personnelBusinessService;
+        private readonly IPersonnelDocumentBusinessService _personnelDocumentBusinessService;
+        private readonly IDocumentsBusinessService _documentsBusinessService;
+
         // protected IAuthorizationService AuthorizationService { get; private set; }
         const string UserNotExist = "User does not exist.";
 
-        public PersonnelController(IPersonnelBusinessService personnelBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService) : base(configurationManager, authorizationService)
+        public PersonnelController(IPersonnelBusinessService personnelBusinessService, IPersonnelDocumentBusinessService personnelDocumentBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService, IDocumentsBusinessService documentsBusinessService1) : base(configurationManager, authorizationService)
         {
             _personnelBusinessService = personnelBusinessService;
+            _personnelDocumentBusinessService = personnelDocumentBusinessService;
+            _documentsBusinessService = documentsBusinessService1;
         }
 
         // GET: Personnel
@@ -74,7 +80,7 @@ namespace Egharpay.Controllers
             }
             var viewModel = new PersonnelProfileViewModel
             {
-                Personnel = personnel,
+                Personnel = personnel.Entity,
                 //Permissions = EgharpayBusinessService.RetrievePersonnelPermissions(isAdmin, UserOrganisationId, UserPersonnelId, id),
                 //PhotoBytes = EgharpayBusinessService.RetrievePhoto(organisationId, id)
             };
@@ -188,7 +194,7 @@ namespace Egharpay.Controllers
             var viewModel = new PersonnelProfileViewModel
             {
                 //        Centres = new SelectList(centres, "CentreId", "Name"),
-                Personnel = personnel
+                Personnel = personnel.Entity
             };
             return View(viewModel);
         }
@@ -225,27 +231,45 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPhoto(int? id)
+        public async Task<ActionResult> UploadPhoto(int? id)
         {
             try
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+                var getPersonnelResult = await _personnelBusinessService.RetrievePersonnel(id.Value);
+                if (!getPersonnelResult.Succeeded)
+                    return HttpNotFound(string.Join(";", getPersonnelResult.Errors));
+
+                var person = getPersonnelResult.Entity;
+
                 if (Request.Files.Count > 0)
                 {
                     var file = Request.Files[0];
 
                     if (file != null && file.ContentLength > 0)
                     {
+                        var personnelProfile = await _personnelDocumentBusinessService.RetrievePersonnelProfileImage(getPersonnelResult.Entity.PersonnelId);
+                        if (personnelProfile.Succeeded)
+                            await _documentsBusinessService.DeleteDocument(new List<Guid> { personnelProfile.Entity.DocumentGuid.Value });
 
                         byte[] fileData = null;
                         using (var binaryReader = new BinaryReader(file.InputStream))
                         {
                             fileData = binaryReader.ReadBytes(file.ContentLength);
                         }
-                        //EgharpayBusinessService.UploadPhoto(UserOrganisationId, id.Value,  fileData);
+                        var documentMeta = new Document()
+                        {
+                            Content = fileData,
+                            Description = string.Format("{0} Profile Image", person.FullName),
+                            FileName = file.FileName.Split('\\').Last() + ".png",
+                            PersonnelName = person.FullName,
+                            CreatedBy = User.Identity.Name,
+                            PersonnelId = person.PersonnelId.ToString(),
+                            CategoryId = (int)Business.Enum.DocumentCategory.ProfilePhoto
+                        };
+
+                        var result = await _documentsBusinessService.CreateDocument(documentMeta);
+                        if (!result.Succeeded)
+                            return this.JsonNet("SaveError");
                     }
                 }
                 return this.JsonNet("");
@@ -254,7 +278,6 @@ namespace Egharpay.Controllers
             {
                 return this.JsonNet(ex);
             }
-
         }
 
         [HttpPost]

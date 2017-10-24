@@ -143,6 +143,7 @@
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Dto\Extensions.cs" />
     <Compile Include="EmailService.cs" />
+    <Compile Include="Enum\DocumentCategory.cs" />
     <Compile Include="Enum\FeeType.cs" />
     <Compile Include="Extensions\AutoMapperExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
@@ -154,7 +155,6 @@
     <Compile Include="Interfaces\IAdvertiseBusinessService.cs" />
     <Compile Include="Interfaces\IBrandBusinessService.cs" />
     <Compile Include="Interfaces\ICurrentUserResolver.cs" />
-    <Compile Include="Interfaces\IDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IDocumentsBusinessService.cs" />
     <Compile Include="Interfaces\IHomeBannerBusinessService.cs" />
     <Compile Include="Interfaces\IMobileBusinessService.cs" />
@@ -163,6 +163,7 @@
     <Compile Include="Interfaces\IOrderBusinessService.cs" />
     <Compile Include="Interfaces\IPdfService.cs" />
     <Compile Include="Interfaces\IPersonnelBusinessService.cs" />
+    <Compile Include="Interfaces\IPersonnelDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IRazorService.cs" />
     <Compile Include="Interfaces\IRequestTypeBusinessService.cs" />
     <Compile Include="Interfaces\ISellerBusinessService.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Services\NewsBusinessService.cs" />
     <Compile Include="Services\OrderBusinessService.cs" />
     <Compile Include="Services\PersonnelBusinessService.cs" />
+    <Compile Include="Services\PersonnelDocumentBusinessService.cs" />
     <Compile Include="Services\RequestTypeBusinessService.cs" />
     <Compile Include="Services\SellerBusinessService.cs" />
     <Compile Include="Services\TrendBusinessService.cs" />
