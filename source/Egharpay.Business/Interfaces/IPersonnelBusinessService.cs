@@ -14,6 +14,7 @@ namespace Egharpay.Business.Interfaces
     {
         //Create
         Task<ValidationResult<Personnel>> CreatePersonnel(Personnel personnel);
+        Task UploadProfilePhoto(int personnelId, byte[] bytes);
 
         //Retrieve
         Task<bool> CanDeletePersonnel(int personnelId);

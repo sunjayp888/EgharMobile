@@ -49,6 +49,10 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
+        public async Task UploadProfilePhoto(int personnelId, byte[] bytes)
+        {
+            
+        }
         #endregion
 
         #region Retrieve
