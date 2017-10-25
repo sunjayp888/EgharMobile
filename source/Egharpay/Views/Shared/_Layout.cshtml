@@ -31,14 +31,15 @@
      <div id="wrapper" class="@Html.PageClass()" ng-app="Egharpay">
 
          <!-- Navigation -->
-         @*@Html.Partial("_Navigation")*@
+         @Html.Partial("_Navigation")
 
          <!-- Page wraper -->
          <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
 
              <!-- Top Navbar -->
-             @Html.Partial("_TopNavbar2")
-
+             @Html.Partial("_TopNavbar")
+             <br />
+             <br />
              <!-- Main view  -->
              @RenderBody()
 
@@ -47,7 +48,6 @@
 
          </div>
          <!-- End page wrapper-->
-
          <!-- Right Sidebar -->
          @Html.Partial("_RightSidebar")
 

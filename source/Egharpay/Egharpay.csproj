@@ -3246,6 +3246,8 @@
     <Content Include="Views\HomeBanner\_HomeBanner.cshtml" />
     <Content Include="Views\Home\Mobile.cshtml" />
     <Content Include="Views\Mobile\MobileSearch.cshtml" />
+    <Content Include="Views\Home\_User.cshtml" />
+    <Content Include="Views\Home\_Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
