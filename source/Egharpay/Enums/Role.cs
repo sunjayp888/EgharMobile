@@ -7,9 +7,8 @@ namespace Egharpay.Enum
 {
     public enum Role
     {
-        User,
-        Seller,
-        Admin,
-        SuperAdmin
+        SuperUser = 1,
+        Admin = 2,
+        Personnel = 3
     }
 }

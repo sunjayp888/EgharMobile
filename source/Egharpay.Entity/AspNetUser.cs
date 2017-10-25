@@ -8,6 +8,12 @@ namespace Egharpay.Entity
 
     public partial class AspNetUser
     {
+        public AspNetUser()
+        {
+            AspNetPermissions = new HashSet<AspNetPermission>();
+            AspNetRoles = new HashSet<AspNetRole>();
+        }
+
         [Key]
         [Column(Order = 0)]
         public string Id { get; set; }
@@ -53,5 +59,11 @@ namespace Egharpay.Entity
 
         [StringLength(100)]
         public string Name { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetPermission> AspNetPermissions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRole> AspNetRoles { get; set; }
     }
 }

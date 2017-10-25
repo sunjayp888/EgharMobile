@@ -160,7 +160,7 @@ namespace Egharpay.Controllers
                 if (personnelResult.Succeeded)
                 {
                     user.PersonnelId = personnelResult.Entity.PersonnelId;
-                    var role = model.IsSeller ? Role.Seller.ToString() : Role.User.ToString();
+                    var role = model.IsSeller ? Enum.Role.Admin.ToString() : Role.Personnel.ToString();
                     var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
                     user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
                     var result = await UserManager.CreateAsync(user, model.Password);

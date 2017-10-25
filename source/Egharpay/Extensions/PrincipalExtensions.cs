@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Security.Principal;
-
+using Egharpay.Enum;
 namespace Egharpay.Extensions
 {
     public static class PrincipalExtensions
@@ -15,9 +15,19 @@ namespace Egharpay.Extensions
             return roles.Any(r => principal.IsInRole(r));
         }
 
+        public static bool IsSuperUser(this IPrincipal principal)
+        {
+            return principal.IsInRole(nameof(Role.SuperUser));
+        }
+
+        public static bool IsPersonnel(this IPrincipal principal)
+        {
+            return principal.IsInRole(nameof(Role.Personnel));
+        }
+
         public static bool IsSuperAdmin(this IPrincipal principal)
         {
-            var roles = new string[] { "SuperAdmin" };
+            var roles = new string[] { "SuperUser" };
             return roles.Any(r => principal.IsInRole(r));
         }
     }

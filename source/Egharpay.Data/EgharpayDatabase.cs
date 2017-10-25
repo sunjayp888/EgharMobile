@@ -37,6 +37,7 @@ namespace Egharpay.Data
         public virtual DbSet<MobileGrid> MobileGrids { get; set; }
         public virtual DbSet<SellerGrid> SellerGrids { get; set; }
         public virtual DbSet<TrendCommentGrid> TrendCommentGrids { get; set; }
+        public virtual DbSet<AspNetPermission> AspNetPermissions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -62,18 +62,35 @@ namespace Egharpay
             container.RegisterType<HttpContextBase>(new PerRequestLifetimeManager(), new InjectionFactory(_ => new HttpContextWrapper(HttpContext.Current)));
             container.RegisterType<HttpRequestBase>(new PerRequestLifetimeManager(), new InjectionFactory(_ => new HttpRequestWrapper(HttpContext.Current.Request)));
 
+            // Register everything in these namespaces based on convention:
+            var conventionBasedMappings = new[]
+            {
+                "Egharpay.Data.Services",
+                "Egharpay.Data.Interfaces",
+                "Egharpay.Business.Services",
+                "Egharpay.Business.Interfaces"
+            };
+
+            container.RegisterTypes(
+              AllClasses.FromLoadedAssemblies().Where(tt => conventionBasedMappings.Any(n => n == tt.Namespace)),
+              WithMappings.FromMatchingInterface,
+              WithName.Default
+              );
+
             container.RegisterType<IDatabaseFactory<EgharpayDatabase>, EgharpayDatabaseFactory>(
                 new InjectionConstructor(
                     new InjectionParameter<string>(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString())
                  ));
+
+
             container.RegisterInstance(MappingsConfig.Initialize(), new ContainerControlledLifetimeManager());
-          //  container.RegisterInstance(LoggingConfig.Initialize(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString(), ConfigurationManager.AppSettings["serilog:write-to:MSSqlServer.tableName"]), new ContainerControlledLifetimeManager());
+            //  container.RegisterInstance(LoggingConfig.Initialize(ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString(), ConfigurationManager.AppSettings["serilog:write-to:MSSqlServer.tableName"]), new ContainerControlledLifetimeManager());
             container.RegisterType<DbContext, EgharpayDatabase>();
             container.RegisterType<IGenericDataService<DbContext>, EntityFrameworkGenericDataService>();
             container.RegisterType<ICacheProvider, MemoryCacheProvider>();
             container.RegisterType<IConfigurationManager, ConfigurationManagerAdapter>();
-            container.RegisterType<IAuthorizationService, DefaultAuthorizationService>();
-            container.RegisterType<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
+            //container.RegisterType<IAuthorizationService, DefaultAuthorizationService>();
+            //container.RegisterType<IAuthorizationPolicyProvider, DefaultAuthorizationPolicyProvider>();
             // container.RegisterType<IClientsAccessService, ClientsAccessService>();
             // API Clients
             //container.RegisterType<IDocumentServiceRestClient, DocumentServiceRestClient>(
@@ -122,21 +139,10 @@ namespace Egharpay
             //    );
 
             // Register everything in these namespaces based on convention:
-            var conventionBasedMappings = new[]
-            {
-                "Egharpay.Data.Services",
-                "Egharpay.Data.Interfaces",
-                "Egharpay.Business.Services",
-                "Egharpay.Business.Interfaces"
-            };
 
-            container.RegisterTypes(
-               AllClasses.FromLoadedAssemblies().Where(tt => conventionBasedMappings.Any(n => n == tt.Namespace)),
-               WithMappings.FromMatchingInterface,
-               WithName.Default
-            );
 
-           
+
+
             container.RegisterType<ICurrentUserResolver, OwinUserResolver>();
 
             // SignalR Hubs

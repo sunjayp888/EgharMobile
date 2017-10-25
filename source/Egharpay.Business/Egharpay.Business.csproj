@@ -139,7 +139,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authorisation.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Dto\Extensions.cs" />
     <Compile Include="EmailService.cs" />
@@ -153,6 +152,7 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\ValidationExtensions.cs" />
     <Compile Include="Interfaces\IAdvertiseBusinessService.cs" />
+    <Compile Include="Interfaces\IAuthorizationBusinessService.cs" />
     <Compile Include="Interfaces\IBrandBusinessService.cs" />
     <Compile Include="Interfaces\ICurrentUserResolver.cs" />
     <Compile Include="Interfaces\IDocumentsBusinessService.cs" />
@@ -180,7 +180,6 @@
     <Compile Include="Models\HomeBannerImage.cs" />
     <Compile Include="Models\MobileImage.cs" />
     <Compile Include="Models\RegistrationReciept.cs" />
-    <Compile Include="Interfaces\IAuthorisation.cs" />
     <Compile Include="Interfaces\ICacheProvider.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\ITenantOrganisationService.cs" />
@@ -206,6 +205,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Services\AdvertiseBusinessService.cs" />
+    <Compile Include="Services\AuthorizationBusinessService.cs" />
     <Compile Include="Services\BrandBusinessService.cs" />
     <Compile Include="Services\DocumentsBusinessService.cs" />
     <Compile Include="Services\HomeBannerBusinessService.cs" />

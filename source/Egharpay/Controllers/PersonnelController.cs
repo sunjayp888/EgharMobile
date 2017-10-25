@@ -23,7 +23,7 @@ using Microsoft.Owin.Security.Authorization;
 
 namespace Egharpay.Controllers
 {
-    [Authorize]
+    [PolicyAuthorize(Roles = new[] { Enum.Role.SuperUser, Enum.Role.Personnel})]
     public class PersonnelController : BaseController
     {
         private ApplicationRoleManager _roleManager;
@@ -47,11 +47,12 @@ namespace Egharpay.Controllers
         // protected IAuthorizationService AuthorizationService { get; private set; }
         const string UserNotExist = "User does not exist.";
 
-        public PersonnelController(IPersonnelBusinessService personnelBusinessService, IPersonnelDocumentBusinessService personnelDocumentBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService, IDocumentsBusinessService documentsBusinessService1) : base(configurationManager, authorizationService)
+        public PersonnelController(IPersonnelBusinessService personnelBusinessService, IPersonnelDocumentBusinessService personnelDocumentBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService)
+            : base(authorizationService)
         {
             _personnelBusinessService = personnelBusinessService;
             _personnelDocumentBusinessService = personnelDocumentBusinessService;
-            _documentsBusinessService = documentsBusinessService1;
+            _documentsBusinessService = documentsBusinessService;
         }
 
         // GET: Personnel
@@ -62,9 +63,12 @@ namespace Egharpay.Controllers
         }
 
         // GET: Personnel/Profile/{id}
-        [Authorize(Roles = "Admin,User")]
+        //[PolicyAuthorize(Roles = new[] { Enum.Role.SuperUser, Enum.Role.Personnel })]
         public async Task<ActionResult> Profile(int? id)
         {
+            //if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
+            //    return HttpForbidden();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
