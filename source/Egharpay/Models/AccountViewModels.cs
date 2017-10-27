@@ -103,6 +103,8 @@ namespace Egharpay.Models
 
         [Display(Name = "I am Seller")]
         public bool IsSeller { get; set; }
+
+        public string AspNetUserId { get; set; }
     }
 
     public class ResetPasswordViewModel

@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Web.Mvc;
-using Egharpay.Enum;
+using Egharpay.Enums;
 using Egharpay.Extensions;
 
 namespace Egharpay.Models.Authorization

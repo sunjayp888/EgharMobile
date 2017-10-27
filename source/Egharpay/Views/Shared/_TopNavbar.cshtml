@@ -109,16 +109,37 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="dropdown">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                        <li>
+                            <a class="right-sidebar-toggle">
+                                <i class="fa fa-tasks"></i>
+                            </a>
+                        </li>
+                    }
+                }
+                
+                else
+                {
+                        <li>
+                            <a href="@Url.Action("Login", "Account")">
+                                <i class="fa fa-sign-in"></i> Login
+                            </a>
+                        </li>
+                }
+                </li>
+                @*<li>
+                   
                     <a href="@Url.Action("Login", "Pages")">
                         <i class="fa fa-sign-out"></i> Log out
                     </a>
-                </li>
-                <li>
-                    <a class="right-sidebar-toggle">
-                        <i class="fa fa-tasks"></i>
-                    </a>
-                </li>
+                </li>*@
+              
             </ul>
         </nav>
 

@@ -22,6 +22,7 @@ using Egharpay.Data.Services;
 using Configuration = System.Configuration.Configuration;
 using Egharpay.Business;
 using AutoMapper;
+using Egharpay.Models.Authorization.Handlers;
 using Microsoft.Owin.Security.Authorization;
 
 namespace Egharpay
@@ -114,7 +115,7 @@ namespace Egharpay
             //        new InjectionParameter<string>("BasicHttpBinding_IEmailService")
             //    ));
 
-            container.RegisterType<IEmailService, EmailService>();
+            //container.RegisterType<IEmailService, EmailBusinessService>();
 
             //Currently distance calculation will be base on Minimum distance
             //container.RegisterType<IGoogleDistanceMatrixApiBusinessService, GoogleDistanceMatrixApiBusinessService>(

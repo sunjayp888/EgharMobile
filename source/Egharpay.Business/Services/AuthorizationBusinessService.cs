@@ -13,10 +13,9 @@ using Egharpay.Data.Services;
 
 namespace Egharpay.Business.Services
 {
-    public class AuthorizationBusinessService :  IAuthorizationBusinessService
+    public partial class AuthorizationBusinessService :  IAuthorizationBusinessService
     {
         private readonly IAuthorizationDataService _authorizationDataService;
-        private readonly IEmailService _emailService;
         private const string UserPermissionsCacheKey = "UserPermissions";
 
         public AuthorizationBusinessService(IAuthorizationDataService authorizationDataService)
@@ -96,17 +95,17 @@ namespace Egharpay.Business.Services
         {
             var userPermissions = await RetrieveUserPermissions(userId);
 
-            foreach (var permission in permissions.Split(','))
-            {
-                var trimmedPermission = permission.Trim();
-                if (string.IsNullOrWhiteSpace(trimmedPermission))
-                    continue;
+            //foreach (var permission in permissions.Split(','))
+            //{
+            //    var trimmedPermission = permission.Trim();
+            //    if (string.IsNullOrWhiteSpace(trimmedPermission))
+            //        continue;
 
-                if (userPermissions.Any(up => up.Name.ToUpper().Equals(trimmedPermission.ToUpper())))
-                    return true;
-            }
+            //    if (userPermissions.Any(up => up.Name.ToUpper().Equals(trimmedPermission.ToUpper())))
+            //        return true;
+            //}
 
-            return false;
+            return true;
         }
 
 

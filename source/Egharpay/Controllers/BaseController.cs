@@ -20,6 +20,16 @@ namespace Egharpay.Controllers
         protected IAuthorizationService AuthorizationService { get; private set; }
         protected IConfigurationManager ConfigurationManager { get; private set; }
 
+        protected IAuthorizationBusinessService AuthorizationBusinessService
+        {
+            get
+            {
+                var container = UnityConfig.GetConfiguredContainer();
+                return Microsoft.Practices.Unity.UnityContainerExtensions.Resolve<IAuthorizationBusinessService>(container);
+
+            }
+        }
+
         public BaseController()
         {
         }

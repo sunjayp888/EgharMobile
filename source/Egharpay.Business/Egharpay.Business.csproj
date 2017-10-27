@@ -141,7 +141,7 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Dto\Extensions.cs" />
-    <Compile Include="EmailService.cs" />
+    <Compile Include="Services\EmailBusinessService.cs" />
     <Compile Include="Enum\DocumentCategory.cs" />
     <Compile Include="Enum\FeeType.cs" />
     <Compile Include="Extensions\AutoMapperExtensions.cs" />
@@ -181,7 +181,7 @@
     <Compile Include="Models\MobileImage.cs" />
     <Compile Include="Models\RegistrationReciept.cs" />
     <Compile Include="Interfaces\ICacheProvider.cs" />
-    <Compile Include="Interfaces\IEmailService.cs" />
+    <Compile Include="Interfaces\IEmailBusinessService.cs" />
     <Compile Include="Interfaces\ITenantOrganisationService.cs" />
     <Compile Include="MemoryCacheProvider.cs" />
     <Compile Include="Models\PersonnelDetailFilter.cs" />
