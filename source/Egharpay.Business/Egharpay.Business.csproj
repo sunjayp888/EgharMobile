@@ -141,6 +141,7 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Dto\Extensions.cs" />
+    <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
     <Compile Include="Services\EmailBusinessService.cs" />
     <Compile Include="Enum\DocumentCategory.cs" />
     <Compile Include="Enum\FeeType.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Services\BrandBusinessService.cs" />
     <Compile Include="Services\DocumentsBusinessService.cs" />
     <Compile Include="Services\HomeBannerBusinessService.cs" />
+    <Compile Include="Services\HomeBannerDocumentBusinessService.cs" />
     <Compile Include="Services\MobileBusinessService.cs" />
     <Compile Include="Services\MobileCommentBusinessService.cs" />
     <Compile Include="Services\NewsBusinessService.cs" />
