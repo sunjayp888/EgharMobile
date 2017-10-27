@@ -8,6 +8,7 @@ namespace Egharpay.Business.Enum
 {
     public enum DocumentCategory
     {
-        ProfilePhoto = 1
+        ProfilePhoto = 1,
+        HomeBannerImage
     }
 }

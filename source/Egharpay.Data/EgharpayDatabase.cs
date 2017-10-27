@@ -38,6 +38,7 @@ namespace Egharpay.Data
         public virtual DbSet<SellerGrid> SellerGrids { get; set; }
         public virtual DbSet<TrendCommentGrid> TrendCommentGrids { get; set; }
         public virtual DbSet<AspNetPermission> AspNetPermissions { get; set; }
+        public virtual DbSet<HomeBannerDocumentDetail> HomeBannerDocumentDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

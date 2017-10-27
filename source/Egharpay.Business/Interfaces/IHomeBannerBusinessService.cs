@@ -14,9 +14,11 @@ namespace Egharpay.Business.Interfaces
     {
         //Create
         Task<ValidationResult<HomeBanner>> CreateHomeBanner(HomeBanner homeBanner);
+        Task<ValidationResult<Document>> CreateHomeBannerImage(Document document,int homeBannerId);
+        Task<ValidationResult<HomeBannerDocumentDetail>> CreateHomeBannerDocumentDetail(HomeBannerDocumentDetail homeBannerDocumentDetail);
 
         //Retrieve
-        Task<HomeBanner> RetrieveHomeBanner(int homeBannerId);
+        Task<ValidationResult<HomeBanner>> RetrieveHomeBanner(int homeBannerId);
         Task<PagedResult<HomeBannerGrid>> RetrieveHomeBanners(List<OrderBy> orderBy = null, Paging paging = null);
         Task<List<HomeBannerImage>> RetrieveHomeBannerImages(DateTime startDateTime, DateTime endDateTime, string pincode);
         //Task<PagedResult<TrendComment>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
