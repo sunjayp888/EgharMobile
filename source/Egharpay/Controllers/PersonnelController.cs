@@ -223,6 +223,9 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadPhoto(int? id)
         {
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
+                return HttpForbidden();
+
             try
             {
                 var getPersonnelResult = await _personnelBusinessService.RetrievePersonnel(id.Value);
@@ -254,7 +257,7 @@ namespace Egharpay.Controllers
                             PersonnelName = person.FullName,
                             CreatedBy = User.Identity.Name,
                             PersonnelId = person.PersonnelId.ToString(),
-                            CategoryId = (int)Business.Enum.DocumentCategory.ProfilePhoto
+                            Category = Business.Enum.DocumentCategory.ProfilePhoto.ToString()
                         };
 
                         var result = await _documentsBusinessService.CreateDocument(documentMeta);

@@ -42,10 +42,11 @@ namespace Egharpay.Business.Services
             var category = documentCategories.FirstOrDefault(e => e.Name.ToLower() == document.Category.ToLower());
             if (category == null) return validationResult.Error("Document category not found");
             var products = _productDataService.RetrieveAll<Product>();
-            var productId = products.Single(p => p.Name.ToLower() == Product.ToLower()).ProductId;
+            var product = products.Single(p => p.Name.ToLower() == Product.ToLower());
+            if (product == null) return validationResult.Error("product not found");
             // this categoryFileName ensures uniqueness of file in folder and is critical
             var categoryFileName = string.Format("{0}_{1}_{2}", document.Category, newGuid, document.FileName);
-            var basePath = GetBasePath(document.Product);
+            var basePath = product.UncPath;
             // sjp retain compatibility with existing DocumentService
             var personnelDirectory = CreatePersonnelDirectory(basePath, document.PersonnelName, document.PersonnelId);
             var categoryDirectory = Path.Combine(personnelDirectory, document.Category);
@@ -54,7 +55,7 @@ namespace Egharpay.Business.Services
             var documentDetail = new DocumentDetail
             {
                 DocumentGUID = newGuid,
-                ProductId = productId,
+                ProductId = product.ProductId,
                 CategoryId = category.DocumentCategoryId,
                 PersonnelId = document.PersonnelId,
                 Description = document.Description,
@@ -119,8 +120,15 @@ namespace Egharpay.Business.Services
 
         public async Task<IEnumerable<DocumentCategory>> RetrieveDocumentCategoriesAsync()
         {
-            var documentCategories = await _documentDataService.RetrieveAllAsync<Entity.DocumentCategory>();
-            return _mapper.Map<IEnumerable<DocumentCategory>>(documentCategories);
+            try
+            {
+                var documentCategories = await _documentDataService.RetrieveAllAsync<Entity.DocumentCategory>();
+                return _mapper.MapToList<DocumentCategory>(documentCategories);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<ValidationResult<Document>> RetrieveDocumentByGuid(Guid documentGuid, string userId)
@@ -150,7 +158,7 @@ namespace Egharpay.Business.Services
             {
                 return false;
             }
-        } 
+        }
         #endregion
 
         #region Helper

@@ -17,6 +17,7 @@
         vm.imageUploadError = false;
         vm.fileFormatError = false;
         vm.fileError = false;
+        vm.retrieveProfileImage = retrieveProfileImage;
 
         var cropImage;
 
@@ -118,6 +119,10 @@
                         document.getElementById('ProfilePicture').setAttribute('src', location.protocol + '//' + location.host + '/Content/images/user.png');
                         $("#ProfilePictureModal").modal("hide")
                     });
+        }
+
+        function retrieveProfileImage() {
+            
         }
     }
 })();
