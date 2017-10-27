@@ -55,5 +55,23 @@ namespace Egharpay.Business.Services
         {
             return await _dataService.RetrievePagedResultAsync<SellerGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
         }
+
+        public async Task<ValidationResult<Seller>> UpdateSeller(Seller seller)
+        {
+            ValidationResult<Seller> validationResult = new ValidationResult<Seller>();
+            try
+            {
+                await _dataService.UpdateAsync(seller);
+                validationResult.Entity = seller;
+                validationResult.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Errors = new List<string> { ex.InnerMessage() };
+                validationResult.Exception = ex;
+            }
+            return validationResult;
+        }
     }
 }

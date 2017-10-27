@@ -17,6 +17,7 @@
         vm.order = order;
         vm.orderClass = orderClass;
         vm.searchSeller = searchSeller;
+        vm.sellerApproveState = sellerApproveState;
         vm.searchKeyword = "";
         vm.searchMessage = "";
         vm.initialise = initialise;
@@ -30,6 +31,9 @@
         }
 
         function retrieveSellers() {
+            vm.orderBy.property = "Name";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
             return SellerService.retrieveSellers(vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.sellers = response.data.Items;
@@ -50,6 +54,10 @@
                     vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
                     return vm.sellers;
                 });
+        }
+
+        function sellerApproveState(sellerId) {
+            $window.location.href = "/Seller/UpdateSellerApprovalState/" + sellerId;
         }
 
         function pageChanged() {

@@ -1,7 +1,7 @@
 USE [Egharpay]
 GO
 
-/****** Object:  Table [dbo].[Seller]    Script Date: 25-09-2017 09:38:21 PM ******/
+/****** Object:  Table [dbo].[Seller]    Script Date: 28-10-2017 12:28:46 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -26,6 +26,7 @@ CREATE TABLE [dbo].[Seller](
 	[Pincode] [int] NOT NULL,
 	[CreatedDate] [date] NULL,
 	[Remarks] [varchar](max) NULL,
+	[SellerApprovalStateId] [int] NOT NULL,
  CONSTRAINT [PK_Shop] PRIMARY KEY CLUSTERED 
 (
 	[SellerId] ASC
