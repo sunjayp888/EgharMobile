@@ -145,6 +145,7 @@
     <Compile Include="Services\EmailBusinessService.cs" />
     <Compile Include="Enum\DocumentCategory.cs" />
     <Compile Include="Enum\FeeType.cs" />
+    <Compile Include="Enum\SellerApprovalState.cs" />
     <Compile Include="Extensions\AutoMapperExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />

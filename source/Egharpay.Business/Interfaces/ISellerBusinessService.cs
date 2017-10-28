@@ -18,5 +18,8 @@ namespace Egharpay.Business.Interfaces
         Task<Seller> RetrieveSeller(int sellerId);
         Task<PagedResult<Seller>> RetrieveSellers(List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<SellerGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
+
+        //Update
+        Task<ValidationResult<Seller>> UpdateSeller(Seller seller);
     }
 }

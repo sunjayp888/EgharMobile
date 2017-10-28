@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Configuration.Interface;
+using Egharpay.Business.Enum;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
@@ -51,6 +52,7 @@ namespace Egharpay.Controllers
             {
                 //Create Seller
                 sellerViewModel.Seller.CreatedDate = DateTime.UtcNow;
+                sellerViewModel.Seller.SellerApprovalStateId = (int) SellerApprovalState.Pending;
                 var result = await _sellerBusinessService.CreateSeller(sellerViewModel.Seller);
                 if (result.Succeeded)
                 {
@@ -125,6 +127,17 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _sellerBusinessService.Search(searchKeyword, orderBy, paging));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateSellerApprovalState(int sellerId)
+        {
+            var sellerlist = _sellerBusinessService.RetrieveSeller(sellerId);
+            var sellerdata = new Seller()
+            {
+                SellerApprovalStateId = (int)SellerApprovalState.Approved
+            };
+            return this.JsonNet(await _sellerBusinessService.UpdateSeller(sellerdata));
         }
     }
 }

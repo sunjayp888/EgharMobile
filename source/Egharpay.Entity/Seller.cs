@@ -47,5 +47,7 @@ namespace Egharpay.Entity
         public DateTime? CreatedDate { get; set; }
 
         public string Remarks { get; set; }
+
+        public int SellerApprovalStateId { get; set; }
     }
 }
