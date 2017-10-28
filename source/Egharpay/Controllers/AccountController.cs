@@ -10,7 +10,7 @@ using Microsoft.Owin.Security;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Entity;
-using Egharpay.Enum;
+using Egharpay.Enums;
 using Egharpay.Models;
 using Egharpay.Models.Authorization;
 using Egharpay.Models.Identity;
@@ -156,11 +156,12 @@ namespace Egharpay.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                model.AspNetUserId = user.Id;
                 var personnelResult = await CreatePersonnel(model);
                 if (personnelResult.Succeeded)
                 {
                     user.PersonnelId = personnelResult.Entity.PersonnelId;
-                    var role = model.IsSeller ? Enum.Role.Admin.ToString() : Role.Personnel.ToString();
+                    var role = model.IsSeller ? Role.Seller.ToString() : Role.Personnel.ToString();
                     var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
                     user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
                     var result = await UserManager.CreateAsync(user, model.Password);
@@ -192,7 +193,8 @@ namespace Egharpay.Controllers
                 Forenames = model.FirstName,
                 Surname = model.LastName,
                 Postcode = model.Pincode,
-                IsSeller = model.IsSeller
+                IsSeller = model.IsSeller,
+                UserId = model.AspNetUserId
             };
             return await PersonnelBusinessService.CreatePersonnel(personnel);
         }

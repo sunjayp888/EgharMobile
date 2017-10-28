@@ -20,26 +20,13 @@ using Egharpay.Models;
 using Egharpay.Models.Authorization;
 using Egharpay.Models.Identity;
 using Microsoft.Owin.Security.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
-    [PolicyAuthorize(Roles = new[] { Enum.Role.SuperUser, Enum.Role.Personnel})]
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel})]
     public class PersonnelController : BaseController
     {
-        private ApplicationRoleManager _roleManager;
-
-        private ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
-            }
-            set
-            {
-                _roleManager = value;
-            }
-        }
-
         private readonly IPersonnelBusinessService _personnelBusinessService;
         private readonly IPersonnelDocumentBusinessService _personnelDocumentBusinessService;
         private readonly IDocumentsBusinessService _documentsBusinessService;
@@ -56,7 +43,6 @@ namespace Egharpay.Controllers
         }
 
         // GET: Personnel
-        [Authorize(Roles = "Admin,User")]
         public ActionResult Index()
         {
             return View(new BaseViewModel());
@@ -66,8 +52,8 @@ namespace Egharpay.Controllers
         //[PolicyAuthorize(Roles = new[] { Enum.Role.SuperUser, Enum.Role.Personnel })]
         public async Task<ActionResult> Profile(int? id)
         {
-            //if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
-            //    return HttpForbidden();
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
+                return HttpForbidden();
 
             if (id == null)
             {
@@ -135,7 +121,7 @@ namespace Egharpay.Controllers
                 var result = await _personnelBusinessService.CreatePersonnel(personnelViewModel.Personnel);
                 if (result.Succeeded)
                 {
-                    CreateUserAndRole(personnelViewModel.Personnel);
+                   // CreateUserAndRole(personnelViewModel.Personnel);
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", result.Exception);
@@ -148,20 +134,20 @@ namespace Egharpay.Controllers
             return View(personnelViewModel);
         }
 
-        private IdentityResult CreateUserAndRole(Personnel personnel)
-        {
-            var createUser = new ApplicationUser
-            {
-                UserName = personnel.Email,
-                Email = personnel.Email,
-            };
+        //private IdentityResult CreateUserAndRole(Personnel personnel)
+        //{
+        //    var createUser = new ApplicationUser
+        //    {
+        //        UserName = personnel.Email,
+        //        Email = personnel.Email,
+        //    };
 
-            var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == "User").Id;
-            createUser.Roles.Add(new IdentityUserRole { UserId = createUser.Id, RoleId = roleId });
+        //    var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == "User").Id;
+        //    createUser.Roles.Add(new IdentityUserRole { UserId = createUser.Id, RoleId = roleId });
 
-            var result = UserManager.Create(createUser, "Password1!");
-            return result;
-        }
+        //    var result = UserManager.Create(createUser, "Password1!");
+        //    return result;
+        //}
 
         //[Authorize(Roles = "Admin,User")]
         //public async Task<ActionResult> Edit(int id)
@@ -237,6 +223,9 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadPhoto(int? id)
         {
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
+                return HttpForbidden();
+
             try
             {
                 var getPersonnelResult = await _personnelBusinessService.RetrievePersonnel(id.Value);
@@ -268,7 +257,7 @@ namespace Egharpay.Controllers
                             PersonnelName = person.FullName,
                             CreatedBy = User.Identity.Name,
                             PersonnelId = person.PersonnelId.ToString(),
-                            CategoryId = (int)Business.Enum.DocumentCategory.ProfilePhoto
+                            Category = Business.Enum.DocumentCategory.ProfilePhoto.ToString()
                         };
 
                         var result = await _documentsBusinessService.CreateDocument(documentMeta);
@@ -328,21 +317,6 @@ namespace Egharpay.Controllers
                 return HttpNotFound(UserNotExist);
 
             return View();
-        }
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_roleManager != null)
-                {
-                    _roleManager.Dispose();
-                    _roleManager = null;
-                }
-            }
-
-            base.Dispose(disposing);
         }
     }
 }

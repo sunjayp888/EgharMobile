@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Egharpay.Business.EmailServiceReference;
-using IEmailService = Egharpay.Business.Interfaces.IEmailService;
+using Egharpay.Business.Interfaces;
 
-namespace Egharpay.Business
+
+namespace Egharpay.Business.Services
 {
-    public class EmailService : IEmailService
+    public class EmailBusinessService : IEmailBusinessService
     {
         private readonly string[] _overrideEmailAddresses;
 
-        public EmailService(string overrideEmailAddresses)
+        public EmailBusinessService(string overrideEmailAddresses)
         {
             if (!string.IsNullOrEmpty(overrideEmailAddresses))
             {

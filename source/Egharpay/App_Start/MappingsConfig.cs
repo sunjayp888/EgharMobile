@@ -18,7 +18,11 @@ namespace Egharpay.App_Start
 
         private static void Configure(IMapperConfigurationExpression config)
         {
+            config.CreateMap<Entity.DocumentCategory, DocumentCategory>();
+            config.CreateMap<DocumentCategory, Entity.DocumentCategory>();
 
+            config.CreateMap<Entity.DocumentDetail, Document>();
+            config.CreateMap<Document, Entity.DocumentDetail>();
         }
     }
 }

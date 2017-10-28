@@ -41,8 +41,8 @@ namespace Egharpay.Controllers
             try
             {
                 var documentCategories = await _documentBusinessService.RetrieveDocumentCategoriesAsync();
-                var genericDocumentcategories = documentCategories.Where(category => category.GenericDocument);
-                return this.JsonNet(genericDocumentcategories);
+                //var genericDocumentcategories = documentCategories.Where(category => category.GenericDocument);
+                return this.JsonNet(documentCategories);
             }
             catch (Exception ex)
             {

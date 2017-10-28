@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using Egharpay.Business.Interfaces;
+using Egharpay.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -13,6 +14,7 @@ using Microsoft.Owin.Security.OAuth;
 using Egharpay.Interfaces;
 using Egharpay.Models.Authorization;
 using Egharpay.Models.Authorization.Handlers;
+using Egharpay.Models.Authorization.Requirements;
 using Egharpay.Models.Identity;
 
 using Microsoft.Practices.Unity;
@@ -51,14 +53,16 @@ namespace Egharpay
                 },
                 ExpireTimeSpan = TimeSpan.FromMinutes(30),
                 SlidingExpiration = false
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+
             var options = new AuthorizationOptions();
             //Permission policy
             options.AddPolicy(nameof(Policies.Permission.SuperUser), policy => { policy.Requirements.Add(new PermissionsRequirement("SuperUser")); });
             options.AddPolicy(nameof(Policies.Permission.Personnel), policy => { policy.Requirements.Add(new PermissionsRequirement("Personnel")); });
             //Resource Policy
-            options.AddPolicy(nameof(Policies.Permission.Personnel), policy => { policy.Requirements.Add(new PermissionsRequirement("Personnel")); });
+            options.AddPolicy(nameof(Policies.Resource.Personnel), policy => { policy.Requirements.Add(new PersonnelRequirement()); });
 
             var container = UnityConfig.GetConfiguredContainer();
 
@@ -73,7 +77,7 @@ namespace Egharpay
             container.RegisterInstance<IEnumerable<IAuthorizationHandler>>(
                 new IAuthorizationHandler[]
                 {
-                    new PersonnelAuthorizationHandler(container.Resolve<IAuthorizationBusinessService>()), 
+                    new PersonnelAuthorizationHandler(container.Resolve<IAuthorizationBusinessService>()),
                 },
                 new ContainerControlledLifetimeManager());
 

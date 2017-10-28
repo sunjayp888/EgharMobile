@@ -8610,10 +8610,10 @@ h5 {
 .navbar {
   border: 0;
 }
-.navbar-default {
-  background-color: transparent;
-  border-color: #2f4050;
-}
+/*.navbar-default {
+    background-color: transparent;
+    border-color: #2f4050;
+}*/
 .navbar-top-links li {
   display: inline-block;
 }
@@ -16966,7 +16966,7 @@ body.md-skin {
 @media (min-width: 768px) {
   #page-wrapper {
     position: inherit;
-    margin: 0 0 0 0px;
+    margin: 0 0 0 220px;
     min-height: 1200px;
   }
   .navbar-static-side {
@@ -17364,4 +17364,16 @@ body.md-skin {
 }
 .image-crop {
   margin-left: -15px;
+}
+/*for Admin*/
+.navbar-default {
+  background-color: #2f4050;
+  border-color: #2f4050;
+}
+.navbar-form-custom-admin {
+  float: left;
+  height: 50px;
+  padding: 0;
+  width: 200px;
+  display: block;
 }

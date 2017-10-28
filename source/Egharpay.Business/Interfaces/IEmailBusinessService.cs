@@ -4,7 +4,7 @@ using Egharpay.Business.EmailServiceReference;
 
 namespace Egharpay.Business.Interfaces
 {
-    public interface IEmailService
+    public interface IEmailBusinessService
     {
         void SendEmail(EmailData data);
         void SendEmail(EmailData data, List<Guid> docGuids);
