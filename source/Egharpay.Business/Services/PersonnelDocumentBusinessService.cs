@@ -29,9 +29,8 @@ namespace Egharpay.Business.Services
             {
 
                 var documents = await _documentsBusinessService.RetrieveDocuments(personnelId, category);
-                var result = _mapper.MapToList<Document>(documents).ToArray();
                 validationResult.Succeeded = true;
-                validationResult.Entity = result;
+                validationResult.Entity = documents.Entity;
             }
             catch (Exception ex)
             {

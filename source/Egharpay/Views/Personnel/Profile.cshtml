@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Personnel Profile";
 }
-<div class="row animated fadeInRight">
+<div class="row animated fadeInRight" ng-controller="PersonnelProfileController as model" ng-init="model.initialise(@Model.PersonnelId)">
     <div class="col-md-4">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -11,7 +11,7 @@
             </div>
             <div>
                 <div class="ibox-content no-padding border-left-right">
-                    <img alt="image" class="img-responsive" src="/Images/profile_big.jpg">
+                    <img alt="image" id="ProfilePicture" class="img-responsive" src="/Images/profile_big.jpg">
                 </div>
                 <div class="ibox-content profile-content">
                     <h4><strong>@Model.Personnel.FullName.ToUpper()</strong></h4>

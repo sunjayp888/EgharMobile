@@ -36,6 +36,16 @@ namespace Egharpay.Business.Services
 
         public async Task<ValidationResult<Document>> CreateDocument(Document document)
         {
+            //Get Document
+            var documentsResult = _documentDataService.Retrieve<DocumentDetail>(e => e.PersonnelId == document.PersonnelId && e.CategoryId == document.CategoryId);
+
+            //Delete Documents
+            if (documentsResult != null)
+            {
+                await DeleteDocuments(documentsResult.ToList());
+            }
+
+            //Create Documents
             var validationResult = new ValidationResult<Document>();
             var newGuid = Guid.NewGuid();
             var documentCategories = await this.RetrieveDocumentCategoriesAsync();
@@ -104,7 +114,7 @@ namespace Egharpay.Business.Services
             try
             {
 
-                var documents = await _documentDataService.RetrieveAsync<Entity.DocumentDetail>(e => e.PersonnelId == personnelId.ToString() && e.CategoryId == (int)category);
+                var documents = await _documentDataService.RetrieveAsync<DocumentDetail>(e => e.PersonnelId == personnelId.ToString() && e.CategoryId == (int)category);
                 var result = _mapper.MapToList<Document>(documents).ToArray();
                 validationResult.Succeeded = true;
                 validationResult.Entity = result;
@@ -181,6 +191,18 @@ namespace Egharpay.Business.Services
             var directoryName = Path.Combine(basePath, CleanFilename(String.Format("{0}_{1}", personnelName, personnelId)));
             Directory.CreateDirectory(directoryName);
             return directoryName;
+        }
+
+        private async Task DeleteDocuments(List<DocumentDetail> documentDetails)
+        {
+            foreach (var documentDetail in documentDetails)
+            {
+
+                await DeleteDocument(new List<Guid>() { documentDetail.DocumentGUID });
+                var combinedPath = Path.Combine(documentDetail.UncPath, documentDetail.RelativePath);
+                if (File.Exists(combinedPath))
+                    File.Delete(combinedPath);
+            }
         }
         #endregion
 

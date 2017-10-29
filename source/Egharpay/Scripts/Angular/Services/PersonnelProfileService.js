@@ -10,7 +10,8 @@
     function PersonnelProfileService($http) {
         var service = {
             UploadPhoto: UploadPhoto,
-            DeletePhoto: DeletePhoto
+            DeletePhoto: DeletePhoto,
+            retrieveProfileImage: retrieveProfileImage
         };
 
         return service;
@@ -32,5 +33,10 @@
             var url = "/Personnel/DeletePhoto/" + personnelId;
             return $http.post(url);
         };
+
+        function retrieveProfileImage(personnelId) {
+            var url = "/Personnel/RetrieveProfileImage/" + personnelId;
+            return $http.post(url);
+        }
     }
 })();

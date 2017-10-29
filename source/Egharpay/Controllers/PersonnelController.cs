@@ -20,11 +20,12 @@ using Egharpay.Models;
 using Egharpay.Models.Authorization;
 using Egharpay.Models.Identity;
 using Microsoft.Owin.Security.Authorization;
+using DocumentCategory = Egharpay.Business.Enum.DocumentCategory;
 using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
-    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel})]
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel })]
     public class PersonnelController : BaseController
     {
         private readonly IPersonnelBusinessService _personnelBusinessService;
@@ -71,6 +72,7 @@ namespace Egharpay.Controllers
             var viewModel = new PersonnelProfileViewModel
             {
                 Personnel = personnel.Entity,
+                PersonnelId = personnel.Entity.PersonnelId
                 //Permissions = EgharpayBusinessService.RetrievePersonnelPermissions(isAdmin, UserOrganisationId, UserPersonnelId, id),
                 //PhotoBytes = EgharpayBusinessService.RetrievePhoto(organisationId, id)
             };
@@ -121,7 +123,7 @@ namespace Egharpay.Controllers
                 var result = await _personnelBusinessService.CreatePersonnel(personnelViewModel.Personnel);
                 if (result.Succeeded)
                 {
-                   // CreateUserAndRole(personnelViewModel.Personnel);
+                    // CreateUserAndRole(personnelViewModel.Personnel);
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", result.Exception);
@@ -257,7 +259,8 @@ namespace Egharpay.Controllers
                             PersonnelName = person.FullName,
                             CreatedBy = User.Identity.Name,
                             PersonnelId = person.PersonnelId.ToString(),
-                            Category = Business.Enum.DocumentCategory.ProfilePhoto.ToString()
+                            Category = Business.Enum.DocumentCategory.ProfilePhoto.ToString(),
+                            CategoryId = (int)DocumentCategory.ProfilePhoto
                         };
 
                         var result = await _documentsBusinessService.CreateDocument(documentMeta);
@@ -317,6 +320,21 @@ namespace Egharpay.Controllers
                 return HttpNotFound(UserNotExist);
 
             return View();
+        }
+
+        [Route("Personnel/RetrieveProfileImage/{personnelId}")]
+        public async Task<ActionResult> RetrieveProfileImage(int? personnelId)
+        {
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, personnelId.Value, Policies.Resource.Personnel.ToString()))
+                return HttpForbidden();
+
+            var personnels = await _personnelDocumentBusinessService.RetrievePersonnelDocuments(personnelId.Value, DocumentCategory.ProfilePhoto);
+            if (personnels == null)
+                return HttpNotFound(UserNotExist);
+
+            var profileImage = personnels.Entity.FirstOrDefault();
+
+            return this.JsonNet(profileImage);
         }
     }
 }

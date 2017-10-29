@@ -21,8 +21,10 @@ namespace Egharpay.App_Start
             config.CreateMap<Entity.DocumentCategory, DocumentCategory>();
             config.CreateMap<DocumentCategory, Entity.DocumentCategory>();
 
+            config.CreateMap<Document, Entity.DocumentDetail>()
+                .ForMember(destination => destination.Description, source => source.MapFrom(s => s.Description));
+            ;
             config.CreateMap<Entity.DocumentDetail, Document>();
-            config.CreateMap<Document, Entity.DocumentDetail>();
         }
     }
 }

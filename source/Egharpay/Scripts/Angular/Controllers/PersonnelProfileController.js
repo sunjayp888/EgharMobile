@@ -55,7 +55,7 @@
 
         function initialise(personnelId) {
             vm.personnelId = personnelId;
-           
+            retrieveProfileImage();
         }
 
         function uploadPhoto(base64String) {
@@ -78,6 +78,7 @@
                             var randomNumber = Math.random();//This will force the browsers to reload the image url
                             angular.element('#ProfilePicture').attr('src', '/Worker/' + vm.workerId + '/Photo?' + randomNumber);
                             angular.element('#ProfilePictureModal').modal('toggle');
+                            retrieveProfileImage();
                         });
                 } else {
                     vm.imageUploadError = true;
@@ -117,12 +118,16 @@
             return PersonnelProfileService.DeletePhoto(vm.personnelId)
                     .then(function (response) {
                         document.getElementById('ProfilePicture').setAttribute('src', location.protocol + '//' + location.host + '/Content/images/user.png');
-                        $("#ProfilePictureModal").modal("hide")
-                    });
+                    $("#ProfilePictureModal").modal("hide");
+                });
         }
 
         function retrieveProfileImage() {
-            
+            return PersonnelProfileService.retrieveProfileImage(vm.personnelId)
+                .then(function (response) {
+                    //If response is null then default image
+                    document.getElementById('ProfilePicture').setAttribute('src', response.data.RelativePath);
+                });
         }
     }
 })();

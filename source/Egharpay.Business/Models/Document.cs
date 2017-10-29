@@ -27,5 +27,9 @@ namespace Egharpay.Business.Models
         public string BatchId { get; set; }
         public int CategoryId { get; set; }
         public int ProductId { get; set; }
+        public string UncPath { get; set; }
+        public string RelativePath { get; set; }
+        public string FullFilePath => UncPath + RelativePath;
+
     }
 }
