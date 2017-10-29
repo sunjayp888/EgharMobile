@@ -199,7 +199,7 @@ namespace Egharpay.Business.Services
             {
 
                 await DeleteDocument(new List<Guid>() { documentDetail.DocumentGUID });
-                var combinedPath = Path.Combine(documentDetail.UncPath, documentDetail.RelativePath);
+                var combinedPath = documentDetail.UncPath+ documentDetail.RelativePath;
                 if (File.Exists(combinedPath))
                     File.Delete(combinedPath);
             }

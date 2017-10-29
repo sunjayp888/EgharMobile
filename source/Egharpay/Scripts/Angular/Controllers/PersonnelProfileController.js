@@ -78,7 +78,6 @@
                             var randomNumber = Math.random();//This will force the browsers to reload the image url
                             angular.element('#ProfilePicture').attr('src', '/Worker/' + vm.workerId + '/Photo?' + randomNumber);
                             angular.element('#ProfilePictureModal').modal('toggle');
-                            retrieveProfileImage();
                         });
                 } else {
                     vm.imageUploadError = true;

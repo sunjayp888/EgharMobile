@@ -242,9 +242,9 @@ namespace Egharpay.Controllers
 
                     if (file != null && file.ContentLength > 0)
                     {
-                        var personnelProfile = await _personnelDocumentBusinessService.RetrievePersonnelProfileImage(getPersonnelResult.Entity.PersonnelId);
-                        if (personnelProfile.Succeeded)
-                            await _documentsBusinessService.DeleteDocument(new List<Guid> { personnelProfile.Entity.DocumentGuid.Value });
+                        //var personnelProfile = await _personnelDocumentBusinessService.RetrievePersonnelProfileImage(getPersonnelResult.Entity.PersonnelId);
+                        //if (personnelProfile.Succeeded)
+                        //    await _documentsBusinessService.DeleteDocument(new List<Guid> { personnelProfile.Entity.DocumentGuid.Value });
 
                         byte[] fileData = null;
                         using (var binaryReader = new BinaryReader(file.InputStream))
