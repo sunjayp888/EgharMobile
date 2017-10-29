@@ -7,10 +7,7 @@
 
     HomeController.$inject = ['$window', 'HomeService', 'MobileService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$uibModal'];
 
-    function HomeController($window,
-        HomeService,
-        MobileService,
-        Paging,
+    function HomeController($window,MobileService,
         OrderService,
         OrderBy,
         Order,

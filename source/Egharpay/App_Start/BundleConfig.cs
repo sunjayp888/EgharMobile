@@ -66,8 +66,8 @@ namespace Egharpay
                         "~/Scripts/plugins/jquery-ui/jquery-ui.min.js"));
 
             // Bootstrap
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.min.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //          "~/Scripts/bootstrap.min.js"));
 
             // Inspinia script
             bundles.Add(new ScriptBundle("~/bundles/inspinia").Include(
