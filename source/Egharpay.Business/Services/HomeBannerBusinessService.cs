@@ -54,7 +54,7 @@ namespace Egharpay.Business.Services
                     var homeBannerDocument = new HomeBannerDocumentDetail()
                     {
                         HomeBannerId = homeBannerId,
-                        DocumentDetailId = result.Entity.ProductId // Just Confirm what should pass to documentdetailid
+                        DocumentDetailId = result.Entity.DocumentDetailId // Just Confirm what should pass to documentdetailid
                     };
                     await _dataService.CreateAsync(homeBannerDocument);
                 }

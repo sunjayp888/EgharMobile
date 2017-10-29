@@ -93,6 +93,7 @@ namespace Egharpay.Controllers
             var viewModel = new HomeBannerViewModel()
             {
                 HomeBanner = homeBanner.Entity,
+                HomeBannerId = (int) id,
                 Mobiles = new SelectList(mobiles, "MobileId", "Name")
             };
             return View(viewModel);
@@ -141,10 +142,7 @@ namespace Egharpay.Controllers
 
                     if (file != null && file.ContentLength > 0)
                     {
-                        var personnelProfile = await _homeBannerDocumentBusinessService.RetrievePersonnelProfileImage(getPersonnelResult.Entity.HomeBannerId);
-                        if (personnelProfile.Succeeded)
-                            await _documentsBusinessService.DeleteDocument(new List<Guid> { personnelProfile.Entity.DocumentGuid.Value });
-
+                       
                         byte[] fileData = null;
                         using (var binaryReader = new BinaryReader(file.InputStream))
                         {
@@ -153,7 +151,7 @@ namespace Egharpay.Controllers
                         var documentMeta = new Document()
                         {
                             Content = fileData,
-                            Description = string.Format("{0} Profile Image", homeBanner.Name),
+                            Description = string.Format("{0} Home Banner Image", homeBanner.Name),
                             FileName = file.FileName.Split('\\').Last() + ".png",
                             PersonnelName = homeBanner.Name,
                             CreatedBy = User.Identity.Name,
