@@ -57,7 +57,11 @@
         }
 
         function sellerApproveState(sellerId) {
-            $window.location.href = "/Seller/UpdateSellerApprovalState/" + sellerId;
+            //$window.location.href = "/Seller/UpdateSellerApprovalState/" + sellerId;
+            return SellerService.sellerApproveState(sellerId).then(function (response) {
+                vm.sellers = response.data;
+                return vm.sellers;
+            });
         }
 
         function pageChanged() {

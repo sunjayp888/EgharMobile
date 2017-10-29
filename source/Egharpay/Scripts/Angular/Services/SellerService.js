@@ -10,7 +10,8 @@
     function SellerService($http) {
         var service = {
             retrieveSellers: retrieveSellers,
-            searchSeller: searchSeller
+            searchSeller: searchSeller,
+            sellerApproveState: sellerApproveState
         };
 
         return service;
@@ -30,6 +31,14 @@
                     searchKeyword: SearchKeyword,
                     paging: Paging,
                     orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function sellerApproveState(sellerId) {
+            var url = "/Seller/UpdateSellerApprovalState",
+                data = {
+                    sellerId: sellerId
                 };
             return $http.post(url, data);
         }
