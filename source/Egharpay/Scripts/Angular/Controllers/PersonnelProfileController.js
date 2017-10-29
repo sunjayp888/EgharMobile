@@ -76,7 +76,7 @@
                     return PersonnelProfileService.UploadPhoto(vm.personnelId, blobImage)
                         .then(function (response) {
                             var randomNumber = Math.random();//This will force the browsers to reload the image url
-                            angular.element('#ProfilePicture').attr('src', '/Worker/' + vm.workerId + '/Photo?' + randomNumber);
+                            angular.element('#ProfilePicture').attr('src', '/Personnel/' + vm.personnelId + '/Photo?' + randomNumber);
                             angular.element('#ProfilePictureModal').modal('toggle');
                         });
                 } else {

@@ -20,7 +20,7 @@
             var formData = new FormData();
             formData.append('croppedImage', blob);
 
-            var url = "/Personnel/UploadPhoto/" + personnelId;
+            var url = "/Personnel/" + personnelId+"/UploadPhoto";
 
             return $http.post(url, formData, {
                 withCredentials: true,

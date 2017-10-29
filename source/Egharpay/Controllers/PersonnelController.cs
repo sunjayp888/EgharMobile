@@ -223,6 +223,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [Route("Personnel/{id}/UploadPhoto")]
         public async Task<ActionResult> UploadPhoto(int? id)
         {
             if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))

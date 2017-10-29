@@ -9,28 +9,26 @@
             <div class="ibox-title">
                 <h5>Profile Detail</h5>
             </div>
-            <div>
-                <div class="ibox-content no-padding border-left-right">
-                    <img alt="image" id="ProfilePicture" class="img-responsive" >
-                </div>
-                <div class="ibox-content profile-content">
-                    <h4><strong>@Model.Personnel.FullName.ToUpper()</strong></h4>
-                    <p><i class="fa fa-map-marker"></i> @Model.Personnel.FullAddress</p>
-                    <h5>
-                        About me
-                    </h5>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
-                    </p>
-                    <div class="">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ProfilePictureModal"><i class="fa fa-upload"></i> Upload Profile Picture</button>
-                            </div>
+            <div class="ibox-content no-padding border-left-right">
+                <img alt="image" id="ProfilePicture" class="img-responsive">
+            </div>
+            <div class="ibox-content profile-content">
+                <h4><strong>@Model.Personnel.FullName.ToUpper()</strong></h4>
+                <p><i class="fa fa-map-marker"></i> @Model.Personnel.FullAddress</p>
+                <h5>
+                    About me
+                </h5>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
+                </p>
+                <div class="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ProfilePictureModal"><i class="fa fa-upload"></i> Upload Profile Picture</button>
                         </div>
                     </div>
-                  
                 </div>
+
             </div>
         </div>
     </div>
@@ -67,7 +65,7 @@
                         {
                             <div class="row">
                                 <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
-                                    @Html.ValidationSummary(false, null, new {@class = "row alert alert-error"})
+                                    @Html.ValidationSummary(false, null, new { @class = "row alert alert-error" })
                                 </div>
                             </div>
 
@@ -89,41 +87,42 @@
             </div>
         </div>
     </div>
-</div>
+    
 
-
-<div ng-controller="PersonnelProfileController as model">
-    <div class="modal fade" id="ProfilePictureModal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
-        <div class="modal-dialog modal-lg"  ng-init="model.initialise(81)">
-            <div class="modal-content">
-                <form class="avatar-form" enctype="multipart/form-data" method="post">
-                    <div class="modal-header">
-                        <button class="close" data-dismiss="modal" type="button">&times;</button>
-                        <h4 class="modal-title" id="avatar-modal-label">Edit Profile Image</h4>
-                        <div class="row">
-                            <div class="col-md-3 col-md-offset-9">
-                                <button class="btn btn-primary" type="button" ng-click="model.uploadPhoto(cropper.croppedImage)">Upload</button>
-                                <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
+    <div>
+        <div class="modal fade" id="ProfilePictureModal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form class="avatar-form" enctype="multipart/form-data" method="post">
+                        <div class="modal-header">
+                            <button class="close" data-dismiss="modal" type="button">&times;</button>
+                            <h4 class="modal-title" id="avatar-modal-label">Edit Profile Image</h4>
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-9">
+                                    <button class="btn btn-primary" type="button" ng-click="model.uploadPhoto(cropper.croppedImage)">Upload</button>
+                                    <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
+                                </div>
+                            </div>
+                            <br />
+                            <div ng-show="model.imageUploadError" class="validation-summary-errors alert alert-danger col-lg-12 col-xs-12 col-sm-10">
+                                <ul>
+                                    <li ng-show="model.fileFormatError">Please Upload .jpg,.jpeg,.png,.gif,.bmp File</li>
+                                    <li ng-show="model.fileError">Please Select File</li>
+                                </ul>
                             </div>
                         </div>
-                        <br />
-                        <div ng-show="model.imageUploadError" class="validation-summary-errors alert alert-danger col-lg-12 col-xs-12 col-sm-10">
-                            <ul>
-                                <li ng-show="model.fileFormatError">Please Upload .jpg,.jpeg,.png,.gif,.bmp File</li>
-                                <li ng-show="model.fileError">Please Select File</li>
-                            </ul>
+                        <div class="modal-body">
+                            <div>
+                                <canvas width="400" height="400" class="center-block" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="400" crop-height="400" keep-aspect="true" touch-radius="30" crop-area-bounds="0"></canvas>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-body">
-                        <div>
-                            <canvas width="400" height="400" class="center-block" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="400" crop-height="400" keep-aspect="true" touch-radius="30" crop-area-bounds="0"></canvas>
+                        <div class="modal-footer">
+                            <input type="file" id="fileUpload" img-cropper-fileread image="cropper.sourceImage" class="form-control required" accept=".jpg,.jpeg,.png,.gif,.bmp" />
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="file" id="fileUpload" img-cropper-fileread image="cropper.sourceImage" class="form-control required" accept=".jpg,.jpeg,.png,.gif,.bmp" />
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
