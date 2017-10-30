@@ -1,4 +1,4 @@
-﻿<div class="row border-bottom white-bg" ng-controller="HomeController as model">
+﻿<div class="row border-bottom white-bg" ng-controller="HomeController as model" ng-init="model.initialise()">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
@@ -72,19 +72,8 @@
                         <li class="col-sm-3">
                             <ul>
                                 <li class="dropdown-header">Latest Phones</li>
-                                <li><a href="#">Easy to customize</a></li>
-                                <li><a href="#">Glyphicons</a></li>
-                                <li><a href="#">Pull Right Elements</a></li>
-                                <li><a href="#">Easy to customize</a></li>
-                                <li><a href="#">Glyphicons</a></li>
-                                <li><a href="#">Pull Right Elements</a></li>
-                                <li><a href="#"></a></li>
+                                <li ng-repeat="latestMobile in model.latestMobileList"><a ng-href="Mobile/latestMobile.MobileId">Easy to customize</a></li>
                                 <li><button type="submit" class="btn btn-primary">Show all latest</button></li>
-                                <li class="divider"></li>
-                                @*<li class="dropdown-header">Pants</li>
-                                    <li><a href="#">Coloured Headers</a></li>
-                                    <li><a href="#">Primary Buttons &amp; Default</a></li>
-                                    <li><a href="#">Calls to action</a></li>*@
                             </ul>
                         </li>
                         <li class="col-sm-3">

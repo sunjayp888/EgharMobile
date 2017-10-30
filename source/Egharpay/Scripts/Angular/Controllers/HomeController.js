@@ -7,12 +7,7 @@
 
     HomeController.$inject = ['$window', 'HomeService', 'MobileService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$uibModal'];
 
-    function HomeController($window,MobileService,
-        OrderService,
-        OrderBy,
-        Order,
-        $uibModal,
-        $modalInstance) {
+    function HomeController($window, HomeService, MobileService, Paging, OrderService, OrderBy, Order, $uibModal, $modalInstance) {
         /* jshint validthis:true */
         var vm = this;
         vm.SearchFields = [];
@@ -29,9 +24,13 @@
         vm.change = change;
         vm.initialise = initialise;
         vm.searchMobiles = searchMobiles;
+        vm.latestMobiles = latestMobiles;
+        vm.latestMobileList = [];
+        vm.showAll = false;
 
         function initialise() {
-            retrieveSearchField();
+            //retrieveSearchField();
+            latestMobiles(vm.showAll);
         }
 
         function retrieveSearchField() {
@@ -76,6 +75,15 @@
             //vm.searchKeyword = searchKeyword;
             $window.location.href = "/Home/Mobile/" + searchKeyword;
             //return HomeService.searchMobiles(searchKeyword);
+        }
+
+        function latestMobiles(showAll) {
+            vm.showAll = showAll;
+            return HomeService.latestMobiles(vm.showAll)
+               .then(function (response) {
+                   vm.latestMobileList = response.data;
+                   return vm.latestMobileList;
+               });
         }
     }
 })();

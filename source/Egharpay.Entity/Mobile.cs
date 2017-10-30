@@ -212,6 +212,8 @@ namespace Egharpay.Entity
 
         public string MetaSearch { get; set; }
 
+        public bool? IsLatest { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HomeBanner> HomeBanners { get; set; }
 

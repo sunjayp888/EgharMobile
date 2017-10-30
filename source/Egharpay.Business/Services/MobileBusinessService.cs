@@ -130,5 +130,11 @@ namespace Egharpay.Business.Services
             var mobiles = await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.BrandId == brandId, orderBy, paging);
             return mobiles;
         }
+
+        public async Task<IEnumerable<Mobile>> RetrieveLatestMobile()
+        {
+            var mobileResult = await _dataService.RetrieveAllAsync<Mobile>(null, e => e.IsLatest.Value);
+            return mobileResult;
+        }
     }
 }
