@@ -133,7 +133,7 @@ namespace Egharpay.Business.Services
 
         public async Task<IEnumerable<Mobile>> RetrieveLatestMobile()
         {
-            var mobileResult = await _dataService.RetrieveAllAsync<Mobile>(null, e => e.IsLatest.Value);
+            var mobileResult = await _dataService.RetrieveAsync<Mobile>(e => e.IsLatest);
             return mobileResult;
         }
     }

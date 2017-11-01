@@ -5,11 +5,13 @@ namespace Egharpay.Data
 
     public partial class EgharpayDatabase : DbContext
     {
-        public EgharpayDatabase() : base("name=EgharpayDatabase")
+        public EgharpayDatabase()
+            : base("name=EgharpayDatabase")
         {
         }
 
         public virtual DbSet<Advertise> Advertises { get; set; }
+        public virtual DbSet<AspNetPermission> AspNetPermissions { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -37,7 +39,6 @@ namespace Egharpay.Data
         public virtual DbSet<MobileGrid> MobileGrids { get; set; }
         public virtual DbSet<SellerGrid> SellerGrids { get; set; }
         public virtual DbSet<TrendCommentGrid> TrendCommentGrids { get; set; }
-        public virtual DbSet<AspNetPermission> AspNetPermissions { get; set; }
         public virtual DbSet<HomeBannerDocumentDetail> HomeBannerDocumentDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -71,7 +71,7 @@
                                                 <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
                                                 <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
                                                 <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
-                                                <th ng-click="model.order('SellerApprovalStateId')" ng-class="model.orderClass('SellerApprovalStateId')">Approved Status</th>
+                                                <th ng-click="model.order('ApprovalStateId')" ng-class="model.orderClass('ApprovalStateId')">Approved Status</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -83,9 +83,9 @@
                                                 <td><span ng-bind="seller.Address1"></span><span ng-bind="seller.Address2"></span><span ng-bind="seller.Address3"></span><span ng-bind="seller.Address4"></span></td>
                                                 <td><span ng-bind="seller.Pincode"></span></td>
                                                 <td>
-                                                    <button ng-if="seller.SellerApprovalStateId==1" type="button" class="btn btn-round btn-warning btn-xs">Pending</button>
-                                                    <button ng-if="seller.SellerApprovalStateId==2" type="button" class="btn btn-round btn-success btn-xs">Approved</button>
-                                                    <button ng-if="seller.SellerApprovalStateId==3" type="button" class="btn btn-round btn-danger btn-xs">UnApproved</button>
+                                                    <button ng-if="seller.ApprovalStateId==1" type="button" class="btn btn-round btn-warning btn-xs">Pending</button>
+                                                    <button ng-if="seller.ApprovalStateId==2" type="button" class="btn btn-round btn-success btn-xs">Approved</button>
+                                                    <button ng-if="seller.ApprovalStateId==3" type="button" class="btn btn-round btn-danger btn-xs">UnApproved</button>
                                                 </td>
                                                 <td>
                                                     <div class="btn-group pull-right">
