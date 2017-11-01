@@ -85,5 +85,13 @@ namespace Egharpay.Controllers
             var data = await _mobileBusinessService.Search(searchKeyword, orderBy, paging);
             return this.JsonNet(data);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> LatestMobile(bool showAll)
+        {
+            var data = await _mobileBusinessService.RetrieveLatestMobile();
+            return this.JsonNet(showAll ? data : data.Take(5));
+        }
+      
     }
 }

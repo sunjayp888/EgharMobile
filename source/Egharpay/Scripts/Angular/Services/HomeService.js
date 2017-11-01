@@ -15,7 +15,8 @@
             retrieveCentres: retrieveCentres,
             listMobile: listMobile,
             change: change,
-            searchMobiles: searchMobiles
+            searchMobiles: searchMobiles,
+            latestMobiles: latestMobiles
         };
 
         return service;
@@ -77,6 +78,14 @@
             var url = "/Home/Mobile",
                 data = {
                     searchKeyword: searchKeyword
+                };
+            return $http.post(url, data);
+        }
+
+        function latestMobiles(showAll) {
+            var url = "/Home/LatestMobile",
+                data = {
+                    showAll: showAll
                 };
             return $http.post(url, data);
         }

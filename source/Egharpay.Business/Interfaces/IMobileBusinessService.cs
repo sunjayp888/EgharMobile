@@ -24,5 +24,6 @@ namespace Egharpay.Business.Interfaces
         Task<PagedResult<Mobile>> RetrieveMobiles(List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<MobileGrid>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId,List<OrderBy> orderBy = null, Paging paging = null);
+        Task<IEnumerable<Mobile>> RetrieveLatestMobile();
     }
 }

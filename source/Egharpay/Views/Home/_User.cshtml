@@ -98,63 +98,41 @@
                         </ul>
                     </div>
                 </div>
-
-                @*<div class="ibox">
-                        <div class="ibox-content">
-                            <h3>Private message</h3>
-
-                            <p class="small">
-                                Send private message to Alex Smith
-                            </p>
-
-                            <div class="form-group">
-                                <label>Subject</label>
-                                <input type="email" class="form-control" placeholder="Message subject">
-                            </div>
-                            <div class="form-group">
-                                <label>Message</label>
-                                <textarea class="form-control" placeholder="Your message" rows="3"></textarea>
-                            </div>
-                            <button class="btn btn-primary btn-block">Send</button>
-
-                        </div>
-                    </div>*@
-
             </div>
-            <div ng-controller="TrendController as model" ng-init="model.initialise()">
-                <div class="col-lg-6">
-                    <div class="social-feed-box" ng-repeat="trend in model.trends">
-                        <div class="social-avatar">
+
+            <div class="col-lg-6 trend-scroll" ng-controller="TrendController as model" ng-init="model.initialise()">
+                <div class="social-feed-box" ng-repeat="trend in model.trends">
+                    <div class="social-avatar">
+                        <a href="" class="pull-left">
+                            <img alt="image" src="/images/a6.jpg">
+                        </a>
+                        <div class="media-body">
+                            <a ng-href="/Trend/Detail/{{trend.TrendId}}">
+                                <span ng-bind="trend.Name"></span>
+                            </a>
+                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                        </div>
+                    </div>
+                    <div class="social-body">
+                        <p>
+                            <span ng-bind="trend.ShortDescription"></span>
+                        </p>
+                    </div>
+                    <div class="social-footer">
+                        <div class="social-comment">
                             <a href="" class="pull-left">
-                                <img alt="image" src="/images/a6.jpg">
+                                <img alt="image" src="/images/a3.jpg">
                             </a>
                             <div class="media-body">
-                                <a ng-href="/Trend/Detail/{{trend.TrendId}}">
-                                    <span ng-bind="trend.Name"></span>
-                                </a>
-                                <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                <textarea id="txtArea" ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>
+                                <button id="submit" type="submit" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createTrendComment(trend,model.trend[trend.TrendId])"> Comment</button>
                             </div>
                         </div>
-                        <div class="social-body">
-                            <p>
-                                <span ng-bind="trend.ShortDescription"></span>
-                            </p>
-                        </div>
-                        <div class="social-footer">
-                            <div class="social-comment">
-                                <a href="" class="pull-left">
-                                    <img alt="image" src="/images/a3.jpg">
-                                </a>
-                                <div class="media-body">
-                                    <textarea id="txtArea" ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>
-                                    <button id="submit" type="submit" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createTrendComment(trend,model.trend[trend.TrendId])"> Comment</button>
-                                </div>
-                            </div>
 
-                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
