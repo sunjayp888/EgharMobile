@@ -13,7 +13,8 @@
             DeletePhoto: DeletePhoto,
             retrieveHomeBannerImage: retrieveHomeBannerImage,
             retrieveHomeBannerImageDocument: retrieveHomeBannerImageDocument,
-            deleteHomeBannerImageDocument: deleteHomeBannerImageDocument
+            deleteHomeBannerImageDocument: deleteHomeBannerImageDocument,
+            retrieveHomeBannerImage: retrieveHomeBannerImage
         };
 
         return service;

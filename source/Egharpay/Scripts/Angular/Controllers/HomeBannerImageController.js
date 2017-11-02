@@ -22,6 +22,7 @@
         vm.retrieveHomeBannerImageDocument = retrieveHomeBannerImageDocument;
         vm.deleteHomeBannerImageDocument = deleteHomeBannerImageDocument;
 
+
         var cropImage;
 
 
