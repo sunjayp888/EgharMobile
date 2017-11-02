@@ -11,5 +11,6 @@ namespace Egharpay.Models
     {
         public HomeBanner HomeBanner { get; set; }
         public SelectList Mobiles { get; set; }
+        public int HomeBannerId { get; set; }
     }
 }
