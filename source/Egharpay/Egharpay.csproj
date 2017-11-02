@@ -3256,6 +3256,7 @@
     <Content Include="Views\Mobile\MobileSearch.cshtml" />
     <Content Include="Views\Home\_User.cshtml" />
     <Content Include="Views\Home\_Admin.cshtml" />
+    <Content Include="Views\HomeBanner\_HomeBannerImageDocument.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -3304,7 +3305,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59003</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58894/</IISUrl>
+          <IISUrl>http://localhost:58896/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
