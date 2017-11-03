@@ -125,9 +125,6 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadPhoto(int? id)
         {
-            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
-                return HttpForbidden();
-
             try
             {
                 var getPersonnelResult = await _homeBannerBusinessService.RetrieveHomeBanner(id.Value);
@@ -183,6 +180,21 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> HomeBannerImage(DateTime startDateTime, DateTime endDateTime, string pincode)
         {
             var data = await _homeBannerBusinessService.RetrieveHomeBannerImages(startDateTime, endDateTime, pincode);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> HomeBannerImageDocument(int homeBannerId)
+        {
+            var data = await _documentsBusinessService.RetrieveDocuments(homeBannerId, Business.Enum.DocumentCategory.HomeBannerImage);
+            return this.JsonNet(data.Entity);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteHomeBannerDocument(Guid? guid)
+        {
+            var guidList = new List<Guid> {guid.Value};
+            var data = await _documentsBusinessService.DeleteDocument(guidList);
             return this.JsonNet(data);
         }
     }

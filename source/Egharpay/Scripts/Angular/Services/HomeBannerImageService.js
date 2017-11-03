@@ -11,6 +11,9 @@
         var service = {
             UploadPhoto: UploadPhoto,
             DeletePhoto: DeletePhoto,
+            retrieveHomeBannerImage: retrieveHomeBannerImage,
+            retrieveHomeBannerImageDocument: retrieveHomeBannerImageDocument,
+            deleteHomeBannerImageDocument: deleteHomeBannerImageDocument,
             retrieveHomeBannerImage: retrieveHomeBannerImage
         };
 
@@ -37,6 +40,22 @@
         function retrieveHomeBannerImage(homeBannerId) {
             var url = "/HomeBanner/RetrieveHomeBannerImage/" + homeBannerId;
             return $http.post(url);
+        }
+
+        function retrieveHomeBannerImageDocument(homeBannerId) {
+            var url = "/HomeBanner/HomeBannerImageDocument",
+                data = {
+                    homeBannerId: homeBannerId
+                };
+            return $http.post(url, data);
+        }
+
+        function deleteHomeBannerImageDocument(guid) {
+            var url = "/HomeBanner/DeleteHomeBannerDocument",
+                data = {
+                    guid: guid
+                };
+            return $http.post(url, data);
         }
     }
 })();

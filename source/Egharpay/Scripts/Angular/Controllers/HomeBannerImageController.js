@@ -10,6 +10,7 @@
     function HomeBannerImageController($window, HomeBannerImageService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
         var vm = this;
+        vm.homeBannerImageDocuments = [];
         vm.homeBannerId;
         vm.initialise = initialise;
         vm.uploadPhoto = uploadPhoto;
@@ -18,6 +19,9 @@
         vm.fileFormatError = false;
         vm.fileError = false;
         vm.retrieveHomeBannerImage = retrieveHomeBannerImage;
+        vm.retrieveHomeBannerImageDocument = retrieveHomeBannerImageDocument;
+        vm.deleteHomeBannerImageDocument = deleteHomeBannerImageDocument;
+
 
         var cropImage;
 
@@ -78,6 +82,7 @@
                             var randomNumber = Math.random();//This will force the browsers to reload the image url
                             angular.element('#HomeBannerImage').attr('src', '/HomeBanner/' + vm.homeBannerId + '/Photo?' + randomNumber);
                             angular.element('#HomeBannerImageModal').modal('toggle');
+                            retrieveHomeBannerImageDocument(vm.homeBannerId);
                         });
                 } else {
                     vm.imageUploadError = true;
@@ -127,6 +132,22 @@
                     //If response is null then default image
                     document.getElementById('HomeBannerImage').setAttribute('src', response.data.RelativePath);
                 });
+        }
+
+        function retrieveHomeBannerImageDocument(homeBannerId) {
+            vm.homeBannerId = homeBannerId;
+            return HomeBannerImageService.retrieveHomeBannerImageDocument(vm.homeBannerId)
+                .then(function (response) {
+                    $('#documentDiv').show();
+                    vm.homeBannerImageDocuments = response.data;
+                    return vm.homeBannerImageDocuments;
+                });
+        }
+
+        function deleteHomeBannerImageDocument(guid) {
+            return HomeBannerImageService.deleteHomeBannerImageDocument(guid).then(function() {
+                retrieveHomeBannerImageDocument(vm.homeBannerId);
+            });
         }
     }
 })();
