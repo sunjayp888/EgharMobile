@@ -132,12 +132,11 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> UpdateSellerApprovalState(int sellerId)
         {
-            var sellerlist = _sellerBusinessService.RetrieveSeller(sellerId);
-            var sellerdata = new Seller()
-            {
-                ApprovalStateId = (int)SellerApprovalState.Approved
-            };
-            return this.JsonNet(await _sellerBusinessService.UpdateSeller(sellerdata));
+            var sellerdata = await _sellerBusinessService.RetrieveSeller(sellerId);
+            sellerdata.SellerApprovalStateId = (int)SellerApprovalState.Approved;
+            await _sellerBusinessService.UpdateSeller(sellerdata);
+            return this.JsonNet(sellerdata);
+
         }
     }
 }

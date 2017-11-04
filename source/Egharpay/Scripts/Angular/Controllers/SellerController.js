@@ -35,7 +35,7 @@
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
             return SellerService.retrieveSellers(vm.paging, vm.orderBy)
-                .then(function (response) {
+                .then(function(response) {
                     vm.sellers = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
                     vm.paging.totalResults = response.data.TotalResults;
@@ -47,7 +47,7 @@
         function searchSeller(searchKeyword) {
             vm.searchKeyword = searchKeyword;
             return SellerService.searchSeller(vm.searchKeyword, vm.paging, vm.orderBy)
-                .then(function (response) {
+                .then(function(response) {
                     vm.sellers = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
                     vm.paging.totalResults = response.data.TotalResults;
@@ -57,26 +57,29 @@
         }
 
         function sellerApproveState(sellerId) {
-            $window.location.href = "/Seller/UpdateSellerApprovalState/" + sellerId;
-        }
+            return SellerService.sellerApproveState(sellerId).then(function(response) {
+                vm.sellers = response.data;
+                return vm.sellers;
+            });
 
-        function pageChanged() {
-            if (vm.searchKeyword) {
-                return searchSeller(vm.searchKeyword)();
+            function pageChanged() {
+                if (vm.searchKeyword) {
+                    return searchSeller(vm.searchKeyword)();
+                }
+                return retrieveSellers();
             }
-            return retrieveSellers();
-        }
 
-        function order(property) {
-            vm.orderBy = OrderService.order(vm.orderBy, property);
-            if (vm.searchKeyword) {
-                return searchSeller(vm.searchKeyword)();
+            function order(property) {
+                vm.orderBy = OrderService.order(vm.orderBy, property);
+                if (vm.searchKeyword) {
+                    return searchSeller(vm.searchKeyword)();
+                }
+                return retrieveSellers();
             }
-            return retrieveSellers();
-        }
 
-        function orderClass(property) {
-            return OrderService.orderClass(vm.orderBy, property);
+            function orderClass(property) {
+                return OrderService.orderClass(vm.orderBy, property);
+            }
         }
     }
 })();
