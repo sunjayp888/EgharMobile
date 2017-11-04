@@ -51,7 +51,7 @@ namespace Egharpay.Business.Services
                 var result = await _documentsBusinessService.CreateDocument(document);
                 if (result.Succeeded)
                 {
-                    var homeBannerDocument = new HomeBannerDocumentDetail()
+                    var homeBannerDocument = new HomeBannerDocument()
                     {
                         HomeBannerId = homeBannerId,
                         DocumentDetailId = result.Entity.DocumentDetailId // Just Confirm what should pass to documentdetailid
@@ -70,7 +70,7 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<ValidationResult<HomeBannerDocumentDetail>> CreateHomeBannerDocumentDetail(HomeBannerDocumentDetail homeBannerDocumentDetail)
+        public async Task<ValidationResult<HomeBannerDocument>> CreateHomeBannerDocumentDetail(HomeBannerDocument homeBannerDocument)
         {
             throw new NotImplementedException();
         }
@@ -94,29 +94,15 @@ namespace Egharpay.Business.Services
             };
         }
 
-        public async Task<PagedResult<HomeBannerGrid>> RetrieveHomeBanners(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<HomeBanner>> RetrieveHomeBanners(List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var homeBanners = await _dataService.RetrievePagedResultAsync<HomeBannerGrid>(a => true, orderBy, paging);
+            var homeBanners = await _dataService.RetrievePagedResultAsync<HomeBanner>(a => true, orderBy, paging);
             return homeBanners;
         }
 
-        public async Task<List<HomeBannerImage>> RetrieveHomeBannerImages(DateTime startDateTime, DateTime endDateTime, string pincode)
+        public async Task<PagedResult<HomeBannerImage>> RetrieveHomeBannerImages(Expression<Func<HomeBannerImage, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var category = await _dataService.RetrieveAsync<Entity.DocumentCategory>(e => e.Name.ToLower() == "homebanner");
-            var basePath = "Need Changes";
-            var homeBanners = await _dataService.RetrievePagedResultAsync<HomeBanner>(e => e.StartDateTime == startDateTime && e.EndDateTime == endDateTime && e.Pincode == pincode);
-            var homeBannerList = homeBanners.Items.ToList();
-            var homeBannerImageList = new List<HomeBannerImage>();
-            if (!string.IsNullOrEmpty(basePath))
-            {
-                    homeBannerImageList.AddRange(homeBannerList.Select(item => new HomeBannerImage()
-                    {
-                        ImagePath = Path.Combine(basePath, item.ImagePath)
-                }));
-                
-                return homeBannerImageList;
-            }
-            return homeBannerImageList;
+            return await _dataService.RetrievePagedResultAsync<HomeBannerImage>(predicate, orderBy, paging);
         }
 
         public async Task<ValidationResult<HomeBanner>> UpdateHomeBanner(HomeBanner homeBanner)

@@ -24,11 +24,9 @@
             return $http.post(url, data);
         }
 
-        function retrieveHomeBannerImage(startDate, endDate, pincode) {
-            var url = "/HomeBanner/HomeBannerImage",
+        function retrieveHomeBannerImage(pincode) {
+            var url = "/HomeBanner/RetrieveHomeBannerDisplayImage",
                 data = {
-                    startDateTime: startDate,
-                    endDateTime: endDate,
                     pincode: pincode
                 };
             return $http.post(url, data);

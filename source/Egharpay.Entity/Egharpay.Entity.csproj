@@ -100,8 +100,9 @@
     <Compile Include="Dto\TenantOrganisation.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="HomeBanner.cs" />
-    <Compile Include="HomeBannerDocumentDetail.cs" />
+    <Compile Include="HomeBannerDocument.cs" />
     <Compile Include="HomeBannerGrid.cs" />
+    <Compile Include="HomeBannerImage.cs" />
     <Compile Include="Interfaces\INotAbsenceDay.cs" />
     <Compile Include="Interfaces\IOrganisationFilterable.cs" />
     <Compile Include="Dto\OrderBy.cs" />

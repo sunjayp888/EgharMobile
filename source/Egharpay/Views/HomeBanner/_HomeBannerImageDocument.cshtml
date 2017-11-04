@@ -24,8 +24,8 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="documentsType in model.homeBannerImageDocuments" class="odd gradeX">
-                                            <td><span ng-cloak class="ng-cloak"><img class="avatar" ng-src="{{ documentsType.UncPath || '/Images/a4.jpg' }}" alt="Avatar" title="avatar"></span><br/></td>
+                                        <tr ng-repeat="documentsType in model.homeBannerImageList" class="odd gradeX">
+                                            <td><span ng-cloak class="ng-cloak"><img class="chat-avatar" ng-src="{{ documentsType.RelativePath || '/Images/a4.jpg' }}" alt="Avatar" title="avatar"></span><br/></td>
                                             <td><span ng-bind="documentsType.Description"></span></td>
                                             <td>
                                                 <a style="cursor: pointer;" ng-click="model.deleteHomeBannerImageDocument(documentsType.DocumentGuid)" class="btn btn-success btn-xs">
@@ -45,6 +45,42 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="modal fade" id="HomeBannerImageModal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form class="avatar-form" enctype="multipart/form-data" method="post">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" type="button">&times;</button>
+                        <h4 class="modal-title" id="avatar-modal-label">Upload Home Banner Image</h4>
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-9">
+                                <button class="btn btn-primary" type="button" ng-click="model.uploadPhoto(cropper.croppedImage)">Upload</button>
+                                <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
+                            </div>
+                        </div>
+                        <br />
+                        <div ng-show="model.imageUploadError" class="validation-summary-errors alert alert-danger col-lg-12 col-xs-12 col-sm-10">
+                            <ul>
+                                <li ng-show="model.fileFormatError">Please Upload .jpg,.jpeg,.png,.gif,.bmp File</li>
+                                <li ng-show="model.fileError">Please Select File</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <canvas width="1200" height="400" class="center-block" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="1200" crop-height="400" keep-aspect="true" touch-radius="30" crop-area-bounds="0"></canvas>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="file" id="fileUpload" img-cropper-fileread image="cropper.sourceImage" class="form-control required" accept=".jpg,.jpeg,.png,.gif,.bmp" />
+                    </div>
+                </form>
             </div>
         </div>
     </div>

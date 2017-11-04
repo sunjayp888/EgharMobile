@@ -47,7 +47,9 @@ namespace Egharpay
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/animate.css",
-                      "~/Content/css/Site.css"));
+                      "~/Content/css/Site.css",
+                      "~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"));
+
 
             // Font Awesome icons
             bundles.Add(new StyleBundle("~/font-awesome/css").Include(

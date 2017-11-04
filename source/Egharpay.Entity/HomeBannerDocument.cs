@@ -6,10 +6,10 @@ namespace Egharpay.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("HomeBannerDocumentDetail")]
-    public partial class HomeBannerDocumentDetail
+    [Table("HomeBannerDocument")]
+    public partial class HomeBannerDocument
     {
-        public int HomeBannerDocumentDetailId { get; set; }
+        public int HomeBannerDocumentId { get; set; }
 
         public int HomeBannerId { get; set; }
 

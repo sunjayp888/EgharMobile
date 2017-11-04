@@ -10,7 +10,12 @@
     function HomeBannerImageController($window, HomeBannerImageService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
         var vm = this;
-        vm.homeBannerImageDocuments = [];
+        vm.homeBannerImageList = [];
+        vm.paging = new Paging;
+        vm.pageChanged = pageChanged;
+        vm.orderBy = new OrderBy;
+        vm.order = order;
+        vm.orderClass = orderClass;
         vm.homeBannerId;
         vm.initialise = initialise;
         vm.uploadPhoto = uploadPhoto;
@@ -19,13 +24,16 @@
         vm.fileFormatError = false;
         vm.fileError = false;
         vm.retrieveHomeBannerImage = retrieveHomeBannerImage;
-        vm.retrieveHomeBannerImageDocument = retrieveHomeBannerImageDocument;
+        vm.retrieveHomeBannerImageList = retrieveHomeBannerImageList;
         vm.deleteHomeBannerImageDocument = deleteHomeBannerImageDocument;
-
-
         var cropImage;
 
+        function initialise(homeBannerId) {
+            vm.homeBannerId = homeBannerId;
+            order("Name");
+        }
 
+      
         //Cropper
         var cropImage = $('#UploadHomeBannerImage');
         var options = {
@@ -57,10 +65,7 @@
         });
         //Cropper
 
-        function initialise(homeBannerId) {
-            vm.homeBannerId = homeBannerId;
-            retrieveHomeBannerImage();
-        }
+       
 
         function uploadPhoto(base64String) {
             var filevalue = angular.element('#fileUpload').val();
@@ -82,7 +87,7 @@
                             var randomNumber = Math.random();//This will force the browsers to reload the image url
                             angular.element('#HomeBannerImage').attr('src', '/HomeBanner/' + vm.homeBannerId + '/Photo?' + randomNumber);
                             angular.element('#HomeBannerImageModal').modal('toggle');
-                            retrieveHomeBannerImageDocument(vm.homeBannerId);
+                            retrieveHomeBannerImageDocument();
                         });
                 } else {
                     vm.imageUploadError = true;
@@ -134,13 +139,11 @@
                 });
         }
 
-        function retrieveHomeBannerImageDocument(homeBannerId) {
-            vm.homeBannerId = homeBannerId;
-            return HomeBannerImageService.retrieveHomeBannerImageDocument(vm.homeBannerId)
+        function retrieveHomeBannerImageList() {
+            return HomeBannerImageService.retrieveHomeBannerImageList(vm.homeBannerId, vm.paging, vm.orderBy)
                 .then(function (response) {
-                    $('#documentDiv').show();
-                    vm.homeBannerImageDocuments = response.data;
-                    return vm.homeBannerImageDocuments;
+                    vm.homeBannerImageList = response.data.Items;
+                    return vm.homeBannerImageList;
                 });
         }
 
@@ -148,6 +151,19 @@
             return HomeBannerImageService.deleteHomeBannerImageDocument(guid).then(function() {
                 retrieveHomeBannerImageDocument(vm.homeBannerId);
             });
+        }
+
+        function order(property) {
+            vm.orderBy = OrderService.order(vm.orderBy, property);
+            return retrieveHomeBannerImageList();
+        }
+
+        function orderClass(property) {
+            return OrderService.orderClass(vm.orderBy, property);
+        }
+
+        function pageChanged() {
+            return retrieveHomeBannerImageList()();
         }
     }
 })();

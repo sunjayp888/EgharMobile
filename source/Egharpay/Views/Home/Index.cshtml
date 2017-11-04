@@ -1,11 +1,12 @@
 ﻿@model Egharpay.Models.HomeViewModel
+@using Egharpay.Extensions
 @{
-    var layout = User.IsInRole("Admin") ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    var layout = User.IsSuperUserOrAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
     Layout = layout;
     ViewBag.Title = "Home";
 }
 @{
-    Html.RenderPartial(User.IsInRole("Admin") ? "_Admin" : "_User", Model);
+    Html.RenderPartial(User.IsSuperUserOrAdmin() ? "_Admin" : "_User", Model);
 }
 
 @section scripts {

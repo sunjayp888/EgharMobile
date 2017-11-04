@@ -248,6 +248,7 @@
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
     <Folder Include="Attributes\" />
+    <Folder Include="Views\HomeBannerImage\" />
     <Folder Include="Views\Maintenance\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\PersonnelDocuments\" />
@@ -637,6 +638,35 @@
     <Content Include="bower_components\cookieconsent\src\styles\media.css" />
     <Content Include="bower_components\cookieconsent\src\styles\themes\classic.css" />
     <Content Include="bower_components\cookieconsent\src\styles\themes\edgeless.css" />
+    <Content Include="bower_components\cropper\dist\cropper.css" />
+    <Content Include="bower_components\cropper\dist\cropper.js" />
+    <Content Include="bower_components\cropper\dist\cropper.min.css" />
+    <Content Include="bower_components\cropper\dist\cropper.min.js" />
+    <Content Include="bower_components\cropper\src\img\bg.png" />
+    <Content Include="bower_components\cropper\src\js\bind.js" />
+    <Content Include="bower_components\cropper\src\js\build.js" />
+    <Content Include="bower_components\cropper\src\js\change.js" />
+    <Content Include="bower_components\cropper\src\js\cropper.js" />
+    <Content Include="bower_components\cropper\src\js\defaults.js" />
+    <Content Include="bower_components\cropper\src\js\handlers.js" />
+    <Content Include="bower_components\cropper\src\js\init.js" />
+    <Content Include="bower_components\cropper\src\js\intro.js" />
+    <Content Include="bower_components\cropper\src\js\methods.js" />
+    <Content Include="bower_components\cropper\src\js\outro.js" />
+    <Content Include="bower_components\cropper\src\js\plugin.js" />
+    <Content Include="bower_components\cropper\src\js\preview.js" />
+    <Content Include="bower_components\cropper\src\js\render.js" />
+    <Content Include="bower_components\cropper\src\js\template.js" />
+    <Content Include="bower_components\cropper\src\js\utilities.js" />
+    <Content Include="bower_components\cropper\src\js\variables.js" />
+    <Content Include="bower_components\datatables.net-bs\css\dataTables.bootstrap.css" />
+    <Content Include="bower_components\datatables.net-bs\css\dataTables.bootstrap.min.css" />
+    <Content Include="bower_components\datatables.net-bs\js\dataTables.bootstrap.js" />
+    <Content Include="bower_components\datatables.net-bs\js\dataTables.bootstrap.min.js" />
+    <Content Include="bower_components\datatables.net-bs\License.txt" />
+    <Content Include="bower_components\datatables.net\js\jquery.dataTables.js" />
+    <Content Include="bower_components\datatables.net\js\jquery.dataTables.min.js" />
+    <Content Include="bower_components\datatables.net\License.txt" />
     <Content Include="bower_components\Font-Awesome\.gitignore" />
     <Content Include="bower_components\Font-Awesome\css\font-awesome.css" />
     <Content Include="bower_components\Font-Awesome\css\font-awesome.min.css" />
@@ -702,7 +732,6 @@
     <Content Include="bower_components\jquery-validation\src\ajax.js" />
     <Content Include="bower_components\jquery-validation\src\core.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_ar.js" />
-    <Content Include="bower_components\jquery-validation\src\localization\messages_az.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_bg.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_bn_BD.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_ca.js" />
@@ -752,7 +781,6 @@
     <Content Include="bower_components\jquery-validation\src\localization\messages_tj.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_tr.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_uk.js" />
-    <Content Include="bower_components\jquery-validation\src\localization\messages_ur.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_vi.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_zh.js" />
     <Content Include="bower_components\jquery-validation\src\localization\messages_zh_TW.js" />
@@ -795,7 +823,6 @@
     <Content Include="bower_components\jquery\src\core\ready-no-deferred.js" />
     <Content Include="bower_components\jquery\src\core\ready.js" />
     <Content Include="bower_components\jquery\src\core\readyException.js" />
-    <Content Include="bower_components\jquery\src\core\stripAndCollapse.js" />
     <Content Include="bower_components\jquery\src\core\support.js" />
     <Content Include="bower_components\jquery\src\core\var\rsingleTag.js" />
     <Content Include="bower_components\jquery\src\css.js" />
@@ -867,7 +894,6 @@
     <Content Include="bower_components\jquery\src\var\pnum.js" />
     <Content Include="bower_components\jquery\src\var\push.js" />
     <Content Include="bower_components\jquery\src\var\rcssNum.js" />
-    <Content Include="bower_components\jquery\src\var\rnothtmlwhite.js" />
     <Content Include="bower_components\jquery\src\var\slice.js" />
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
@@ -991,6 +1017,7 @@
     <Content Include="bower_components\moment\min\moment-with-locales.min.js" />
     <Content Include="bower_components\moment\min\moment.min.js" />
     <Content Include="bower_components\moment\min\tests.js" />
+    <Content Include="bower_components\moment\moment.d.ts" />
     <Content Include="bower_components\moment\moment.js" />
     <Content Include="bower_components\moment\src\lib\create\check-overflow.js" />
     <Content Include="bower_components\moment\src\lib\create\date-from-array.js" />
@@ -1217,6 +1244,9 @@
     <Content Include="bower_components\ngBootbox\examples\index.html" />
     <Content Include="bower_components\ngBootbox\gulpfile.js" />
     <Content Include="bower_components\ngBootbox\ngBootbox.js" />
+    <Content Include="bower_components\ngBootbox\typings\angularjs\angular.d.ts" />
+    <Content Include="bower_components\ngBootbox\typings\jquery\jquery.d.ts" />
+    <Content Include="bower_components\ngBootbox\typings\tsd.d.ts" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -1704,6 +1734,17 @@
     <Content Include="bower_components\cookieconsent\licence" />
     <Content Include="bower_components\cookieconsent\package.json" />
     <Content Include="bower_components\cookieconsent\README.md" />
+    <Content Include="bower_components\cropper\.bower.json" />
+    <Content Include="bower_components\cropper\bower.json" />
+    <Content Include="bower_components\cropper\CHANGELOG.md" />
+    <Content Include="bower_components\cropper\LICENSE" />
+    <Content Include="bower_components\cropper\package.json" />
+    <Content Include="bower_components\cropper\README.md" />
+    <Content Include="bower_components\cropper\src\scss\cropper.scss" />
+    <Content Include="bower_components\cropper\src\scss\_main.scss" />
+    <Content Include="bower_components\cropper\src\scss\_mixins.scss" />
+    <Content Include="bower_components\cropper\src\scss\_utilities.scss" />
+    <Content Include="bower_components\cropper\src\scss\_variables.scss" />
     <Content Include="bower_components\Font-Awesome\.bower.json" />
     <Content Include="bower_components\Font-Awesome\.npmignore" />
     <Content Include="bower_components\Font-Awesome\bower.json" />
@@ -1757,7 +1798,6 @@
     <Content Include="bower_components\jquery\dist\jquery.slim.min.map" />
     <Content Include="bower_components\jquery\external\sizzle\dist\sizzle.min.map" />
     <Content Include="bower_components\jquery\README.md" />
-    <Content Include="bower_components\jquery\src\.eslintrc.json" />
     <Content Include="bower_components\less-space\.bower.json" />
     <Content Include="bower_components\less-space\.sublime-grunt.cache" />
     <Content Include="bower_components\less-space\bower.json" />
@@ -1776,6 +1816,12 @@
     <Content Include="bower_components\ngBootbox\package.json" />
     <Content Include="bower_components\ngBootbox\README.md" />
     <Content Include="bower_components\ngBootbox\tsd.json" />
+    <Content Include="bower_components\datatables.net-bs\.bower.json" />
+    <Content Include="bower_components\datatables.net-bs\bower.json" />
+    <Content Include="bower_components\datatables.net-bs\Readme.md" />
+    <Content Include="bower_components\datatables.net\.bower.json" />
+    <Content Include="bower_components\datatables.net\bower.json" />
+    <Content Include="bower_components\datatables.net\Readme.md" />
     <None Include="Properties\PublishProfiles\Inspinia.pubxml" />
     <Content Include="Images\a1.jpg" />
     <Content Include="Images\a2.jpg" />
@@ -3031,6 +3077,7 @@
     <Content Include="Scripts\plugins\velocity\velocity.ui.min.js" />
     <Content Include="Scripts\plugins\video\responsible-video.js" />
     <Content Include="Scripts\plugins\wow\wow.min.js" />
+    <Content Include="Test_1\HomeBannerImage\HomeBannerImage_fe2cdce1-18d8-4117-8bea-ec5d13c58a3d_blob.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3279,12 +3326,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="bower_components\moment\moment.d.ts" />
-    <TypeScriptCompile Include="bower_components\ngBootbox\typings\angularjs\angular.d.ts" />
-    <TypeScriptCompile Include="bower_components\ngBootbox\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="bower_components\ngBootbox\typings\tsd.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

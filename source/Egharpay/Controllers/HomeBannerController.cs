@@ -16,9 +16,11 @@ using Egharpay.Extensions;
 using Egharpay.Models;
 using Egharpay.Models.Authorization;
 using Microsoft.Owin.Security.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
+    
     public class HomeBannerController : BaseController
     {
         private readonly IHomeBannerBusinessService _homeBannerBusinessService;
@@ -26,7 +28,7 @@ namespace Egharpay.Controllers
         private readonly IDocumentsBusinessService _documentsBusinessService;
         private readonly IHomeBannerDocumentBusinessService _homeBannerDocumentBusinessService;
 
-        public HomeBannerController(IHomeBannerBusinessService homeBannerBusinessService, IMobileBusinessService mobileBusinessService,IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService, IHomeBannerDocumentBusinessService homeBannerDocumentBusinessService) : base(configurationManager, authorizationService)
+        public HomeBannerController(IHomeBannerBusinessService homeBannerBusinessService, IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService, IHomeBannerDocumentBusinessService homeBannerDocumentBusinessService) : base(configurationManager, authorizationService)
         {
             _homeBannerBusinessService = homeBannerBusinessService;
             _mobileBusinessService = mobileBusinessService;
@@ -41,15 +43,11 @@ namespace Egharpay.Controllers
         }
 
         // GET: HomeBanner/Create
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create()
         {
-            //var mobile = await _mobileBusinessService.RetrieveMobiles();
-            //var mobiles = mobile.Items.ToList();
             var viewModel = new HomeBannerViewModel()
             {
                 HomeBanner = new HomeBanner(),
-                //Mobiles = new SelectList(mobiles, "MobileId", "Name")
             };
             return View(viewModel);
         }
@@ -57,7 +55,8 @@ namespace Egharpay.Controllers
         // POST: HomeBanner/Create
         //[Authorize(Roles = "Admin")]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> Create(HomeBannerViewModel homeBannerViewModel)
         {
             if (ModelState.IsValid)
@@ -93,16 +92,16 @@ namespace Egharpay.Controllers
             var viewModel = new HomeBannerViewModel()
             {
                 HomeBanner = homeBanner.Entity,
-                HomeBannerId = (int) id,
+                HomeBannerId = (int)id,
                 Mobiles = new SelectList(mobiles, "MobileId", "Name")
             };
             return View(viewModel);
         }
 
         // POST: HomeBanner/Create
-        //[Authorize(Roles = "Admin")]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> Edit(HomeBannerViewModel homeBannerViewModel)
         {
             if (ModelState.IsValid)
@@ -123,15 +122,16 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> UploadPhoto(int? id)
         {
             try
             {
-                var getPersonnelResult = await _homeBannerBusinessService.RetrieveHomeBanner(id.Value);
-                if (!getPersonnelResult.Succeeded)
-                    return HttpNotFound(string.Join(";", getPersonnelResult.Errors));
+                var getHomeBannerResult = await _homeBannerBusinessService.RetrieveHomeBanner(id.Value);
+                if (!getHomeBannerResult.Succeeded)
+                    return HttpNotFound(string.Join(";", getHomeBannerResult.Errors));
 
-                var homeBanner = getPersonnelResult.Entity;
+                var homeBanner = getHomeBannerResult.Entity;
 
                 if (Request.Files.Count > 0)
                 {
@@ -139,7 +139,7 @@ namespace Egharpay.Controllers
 
                     if (file != null && file.ContentLength > 0)
                     {
-                       
+
                         byte[] fileData = null;
                         using (var binaryReader = new BinaryReader(file.InputStream))
                         {
@@ -156,7 +156,7 @@ namespace Egharpay.Controllers
                             Category = Business.Enum.DocumentCategory.HomeBannerImage.ToString()
                         };
 
-                        var result = await _homeBannerBusinessService.CreateHomeBannerImage(documentMeta,homeBanner.HomeBannerId);
+                        var result = await _homeBannerBusinessService.CreateHomeBannerImage(documentMeta, homeBanner.HomeBannerId);
                         if (!result.Succeeded)
                             return this.JsonNet("SaveError");
                     }
@@ -170,6 +170,8 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
+        [Route("HomeBanner/List")]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             var data = await _homeBannerBusinessService.RetrieveHomeBanners(orderBy, paging);
@@ -177,23 +179,35 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> HomeBannerImage(DateTime startDateTime, DateTime endDateTime, string pincode)
+        [Route("HomeBanner/RetrieveHomeBannerDisplayImage")]
+        public async Task<ActionResult> RetrieveHomeBannerDisplayImage(string pincode = null)
         {
-            var data = await _homeBannerBusinessService.RetrieveHomeBannerImages(startDateTime, endDateTime, pincode);
-            return this.JsonNet(data);
+            if (!string.IsNullOrEmpty(pincode))
+            {
+                var data = await _homeBannerBusinessService.RetrieveHomeBannerImages(e => e.Pincode == pincode);
+                return this.JsonNet(data);
+            }
+            return this.JsonNet(await _homeBannerBusinessService.RetrieveHomeBannerImages(e => true));
         }
 
         [HttpPost]
-        public async Task<ActionResult> HomeBannerImageDocument(int homeBannerId)
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
+        [Route("HomeBanner/RetrieveHomeBannerImageList")]
+        public async Task<ActionResult> RetrieveHomeBannerImageList(int? homeBannerId, Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _documentsBusinessService.RetrieveDocuments(homeBannerId, Business.Enum.DocumentCategory.HomeBannerImage);
-            return this.JsonNet(data.Entity);
+            var data = await _homeBannerBusinessService.RetrieveHomeBannerImages(e => e.HomeBannerId == homeBannerId, orderBy, paging);
+            return this.JsonNet(data);
         }
+
 
         [HttpPost]
         public async Task<ActionResult> DeleteHomeBannerDocument(Guid? guid)
         {
-            var guidList = new List<Guid> {guid.Value};
+            //Pass documentDetailId
+            //And In HomeBannerBusinessService Add method DeleteHomeBannerImage
+            //In that method first delete HomeBannerDocument and then Document(guid)
+
+            var guidList = new List<Guid> { guid.Value };
             var data = await _documentsBusinessService.DeleteDocument(guidList);
             return this.JsonNet(data);
         }

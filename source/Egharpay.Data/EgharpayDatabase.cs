@@ -39,7 +39,8 @@ namespace Egharpay.Data
         public virtual DbSet<MobileGrid> MobileGrids { get; set; }
         public virtual DbSet<SellerGrid> SellerGrids { get; set; }
         public virtual DbSet<TrendCommentGrid> TrendCommentGrids { get; set; }
-        public virtual DbSet<HomeBannerDocumentDetail> HomeBannerDocumentDetails { get; set; }
+        public virtual DbSet<HomeBannerDocument> HomeBannerDocumentDetails { get; set; }
+        public virtual DbSet<HomeBannerImage> HomeBannerImages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -783,6 +784,14 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<TrendCommentGrid>()
                 .Property(e => e.Comment)
+                .IsUnicode(false);  
+
+            modelBuilder.Entity<HomeBannerImage>()
+              .Property(e => e.Name)
+              .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBannerImage>()
+                .Property(e => e.FileName)
                 .IsUnicode(false);
         }
     }

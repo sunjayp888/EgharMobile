@@ -12,9 +12,8 @@
             UploadPhoto: UploadPhoto,
             DeletePhoto: DeletePhoto,
             retrieveHomeBannerImage: retrieveHomeBannerImage,
-            retrieveHomeBannerImageDocument: retrieveHomeBannerImageDocument,
+            retrieveHomeBannerImageList: retrieveHomeBannerImageList,
             deleteHomeBannerImageDocument: deleteHomeBannerImageDocument,
-            retrieveHomeBannerImage: retrieveHomeBannerImage
         };
 
         return service;
@@ -42,10 +41,12 @@
             return $http.post(url);
         }
 
-        function retrieveHomeBannerImageDocument(homeBannerId) {
-            var url = "/HomeBanner/HomeBannerImageDocument",
+        function retrieveHomeBannerImageList(homeBannerId, paging, orderby) {
+            var url = "/HomeBanner/RetrieveHomeBannerImageList",
                 data = {
-                    homeBannerId: homeBannerId
+                    homeBannerId: homeBannerId,
+                    paging: paging,
+                    orderBy:new Array(orderby)
                 };
             return $http.post(url, data);
         }

@@ -63,7 +63,7 @@
             //if (vm.searchKeyword) {
             //    return searchApartment(vm.searchKeyword)();
             //}
-            return retrieveHomeBanner();
+           // return retrieveHomeBanner();
         }
 
         function orderClass(property) {
@@ -77,10 +77,7 @@
         function retrieveHomeBannerImage(startDate,endDate,pincode) {
             return HomeBannerService.retrieveHomeBannerImage(startDate, endDate, pincode)
                 .then(function (response) {
-                    vm.homeBannerImages = response.data;
-                    vm.paging.totalPages = response.data.TotalPages;
-                    vm.paging.totalResults = response.data.TotalResults;
-                    vm.searchMessage = vm.homeBannerImages.length === 0 ? "No Records Found" : "";
+                    vm.homeBannerImages = response.data.Items;
                     return vm.homeBannerImages;
                 });
         }
