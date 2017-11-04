@@ -247,7 +247,12 @@ paket-files/
 # FAKE - F# Make
 .fake/
 
+
+
 # JetBrains Rider
 .idea/
 *.sln.iml
 /Source/TEMP/TEMP.Database/TEMP.Database.jfm
+
+# bower
+bower_components/

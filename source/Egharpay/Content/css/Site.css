@@ -17377,3 +17377,11 @@ body.md-skin {
   width: 200px;
   display: block;
 }
+::-webkit-scrollbar {
+  /*width: 0px;
+    background: transparent; /* make scrollbar transparent*/
+}
+.trend-scroll {
+  height: 1035px;
+  overflow-x: scroll;
+}
