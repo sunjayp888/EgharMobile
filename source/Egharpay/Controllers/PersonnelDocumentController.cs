@@ -16,12 +16,11 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
-    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Personnel })]
-    public class PersonnelDocumentController : Controller
+    public class PersonnelDocumentController : BaseController
     {
         // GET: PersonnelDocuments
         private readonly IDocumentsBusinessService _documentBusinessService;
-        private IPersonnelBusinessService _personnelBusinessService;
+        private readonly IPersonnelBusinessService _personnelBusinessService;
 
         public PersonnelDocumentController(IDocumentsBusinessService documentBusinessService, IPersonnelBusinessService personnelBusinessService)
         {
@@ -102,7 +101,8 @@ namespace Egharpay.Controllers
                             PersonnelName = personnel.FullName,
                             CreatedBy = User.Identity.GetUserId(),
                             PersonnelId = personnel.PersonnelId.ToString(),
-                            Category = Business.Enum.DocumentCategory.Selfie.ToString()
+                            Category = Business.Enum.DocumentCategory.Selfie.ToString(),
+                            CategoryId = (int)Business.Enum.DocumentCategory.Selfie
                         };
 
                         var result = await _personnelBusinessService.UploadDocument(documentMeta, personnel.PersonnelId);
@@ -114,8 +114,18 @@ namespace Egharpay.Controllers
             }
             catch (Exception ex)
             {
-                return this.JsonNet(ex);
+                return this.JsonNet("SaveError");
             }
         }
+
+        [HttpPost]
+        [Route("PersonnelDocument/RetrievePersonnelSelfieImages")]
+        public async Task<ActionResult> RetrievePersonnelSelfieImages()
+        {
+            var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            var data = await _personnelBusinessService.RetrievePersonnelSelfies(startDate, startDate.AddDays(30));//For now display one month uploaded selfie
+            return this.JsonNet(data);
+        }
+
     }
 }

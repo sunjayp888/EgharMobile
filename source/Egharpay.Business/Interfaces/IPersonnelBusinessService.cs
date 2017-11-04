@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.Models;
@@ -23,6 +24,7 @@ namespace Egharpay.Business.Interfaces
         Task<PagedResult<Personnel>> RetrievePersonnels(List<OrderBy> orderBy = null, Paging paging = null);
         //Task<PagedResult<PersonnelGrid>> Search(int centreId,string term, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<Models.Document>> RetrievePersonnelDocuments(int personnelId, Paging paging = null, List<OrderBy> orderBy = null);
+        Task<PagedResult<PersonnelDocumentDetail>> RetrievePersonnelSelfies(DateTime startDateTime, DateTime endDateTime);
         //Update
         Task<ValidationResult<Personnel>> UpdatePersonnel(Personnel department);
 

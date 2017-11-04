@@ -26,14 +26,12 @@ namespace Egharpay.Controllers
         private readonly IHomeBannerBusinessService _homeBannerBusinessService;
         private readonly IMobileBusinessService _mobileBusinessService;
         private readonly IDocumentsBusinessService _documentsBusinessService;
-        private readonly IHomeBannerDocumentBusinessService _homeBannerDocumentBusinessService;
 
         public HomeBannerController(IHomeBannerBusinessService homeBannerBusinessService, IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService, IHomeBannerDocumentBusinessService homeBannerDocumentBusinessService) : base(configurationManager, authorizationService)
         {
             _homeBannerBusinessService = homeBannerBusinessService;
             _mobileBusinessService = mobileBusinessService;
             _documentsBusinessService = documentsBusinessService;
-            _homeBannerDocumentBusinessService = homeBannerDocumentBusinessService;
         }
 
         // GET: HomeBanner

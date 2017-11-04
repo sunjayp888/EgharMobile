@@ -37,10 +37,10 @@ namespace Egharpay.Business.Services
         public async Task<ValidationResult<Document>> CreateDocument(Document document)
         {
             //Get Document
-            var documentsResult = _documentDataService.Retrieve<DocumentDetail>(e => e.PersonnelId == document.PersonnelId && e.CategoryId == document.CategoryId);
+            var documentsResult = await _documentDataService.RetrieveAsync<DocumentDetail>(e => e.PersonnelId == document.PersonnelId && e.CategoryId == document.CategoryId);
 
             //Delete Documents
-            if (documentsResult != null)
+            if (documentsResult.Count() > 0)
             {
                 await DeleteDocuments(documentsResult.ToList());
             }
@@ -106,6 +106,7 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
         #endregion
+
 
         #region Retrieve
         public async Task<ValidationResult<Document[]>> RetrieveDocuments(int personnelId, Enum.DocumentCategory category)
@@ -199,7 +200,7 @@ namespace Egharpay.Business.Services
             {
 
                 await DeleteDocument(new List<Guid>() { documentDetail.DocumentGUID });
-                var combinedPath = documentDetail.UncPath+ documentDetail.RelativePath;
+                var combinedPath = documentDetail.UncPath + documentDetail.RelativePath;
                 if (File.Exists(combinedPath))
                     File.Delete(combinedPath);
             }

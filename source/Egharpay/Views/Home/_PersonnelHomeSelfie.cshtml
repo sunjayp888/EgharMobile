@@ -1,21 +1,14 @@
 ﻿
-<div class="ibox float-e-margins" ng-controller="PersonnelDocumentsController as model">
+<div class="ibox float-e-margins" ng-controller="PersonnelDocumentsController as model" ng-init="model.initialise(@Model.PersonnelId)">
     <div class="ibox-title">
         <h5>Which phone you bought.</h5>
     </div>
     <div class="ibox-content-image">
         <div class="carousel slide" id="carousel3">
             <div class="carousel-inner">
-                <div class="item active">
-                    <img alt="image" class="img-responsive" src="~/Images/p_big3.jpg">
+                <div class="item" ng-class='{active: $first}' ng-repeat="selfie in model.personnelSelfieImages">
+                    <img alt="image" class="img-responsive" ng-src="{{selfie.RelativePath}}">
                 </div>
-                <div class="item">
-                    <img alt="image" class="img-responsive" src="~/Images/p_big1.jpg">
-                </div>
-                <div class="item ">
-                    <img alt="image" class="img-responsive" src="~/Images/p_big2.jpg">
-                </div>
-
             </div>
             <a data-slide="prev" href="#carousel3" class="left carousel-control">
                 <span class="icon-prev"></span>
@@ -25,9 +18,8 @@
             </a>
         </div>
         <div class="xs-mt-10">
-            <button type="button" class="btn btn-danger col-lg-12" data-toggle="modal" data-target="#ProfileSelfieModal"><i class="fa fa-upload"></i> Upload Selfie</button>
+            <button type="button" class="btn btn-danger col-xs-12" data-toggle="modal" data-target="#ProfileSelfieModal"><i class="fa fa-upload"></i> Upload Selfie</button>
             <br />
-            @Html.ActionLink("Upload Image", "UploadDocumentModal","PersonnelDocument");
         </div>
     </div>
 
@@ -39,7 +31,6 @@
                         <div class="modal-header">
                             <button class="close" data-dismiss="modal" type="button">&times;</button>
                             <h4 class="modal-title" id="avatar-modal-label">Upload Selfie</h4>
-
                             <br />
                             <div ng-show="model.imageUploadError" class="validation-summary-errors alert alert-danger col-lg-12 col-xs-12 col-sm-10">
                                 <ul>
@@ -50,7 +41,7 @@
                         </div>
                         <div class="modal-body-no-padding">
                             <div>
-                                <canvas width="200" height="200" class="center-block" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="298" crop-height="200" keep-aspect="true" touch-radius="30" crop-area-bounds="0"></canvas>
+                                <canvas width="200" height="200" class="center-block" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="307" crop-height="173" keep-aspect="true" touch-radius="30" crop-area-bounds="0"></canvas>
                             </div>
                         </div>
                         <div class="modal-footer">

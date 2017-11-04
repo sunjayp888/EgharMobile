@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -28,7 +29,6 @@ namespace Egharpay.Business.Services
         }
 
         #region Create
-
         public async Task<ValidationResult<Personnel>> CreatePersonnel(Personnel personnel)
         {
             var validationResult = await PersonnelAlreadyExists(personnel.Email);
@@ -141,6 +141,11 @@ namespace Egharpay.Business.Services
             var searchResults = _mapper.Map<IEnumerable<Models.Document>>(documents.Items);
 
             return PagedResult<Models.Document>.Create(searchResults, documents.CurrentPage, documents.ResultsPerPage, documents.TotalPages, documents.TotalResults);
+        }
+
+        public async Task<PagedResult<PersonnelDocumentDetail>> RetrievePersonnelSelfies(DateTime startDateTime, DateTime endDateTime)
+        {
+            return await _dataService.RetrievePagedResultAsync<PersonnelDocumentDetail>(d => d.CreatedDateUTC >= startDateTime && d.CreatedDateUTC <= endDateTime);
         }
         #endregion
 

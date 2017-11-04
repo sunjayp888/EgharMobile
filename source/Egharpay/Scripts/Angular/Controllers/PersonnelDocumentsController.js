@@ -27,13 +27,14 @@
         vm.orderClass = orderClass;
         vm.downloadFile = downloadFile;
         vm.uploadSelfie = uploadSelfie;
-        vm.tagline ;
-        //vm.retrievePersonnelSelfies = retrievePersonnelSelfies;
+        vm.retrievePersonnelSelfies = retrievePersonnelSelfies;
+        vm.personnelSelfieImages = [];
+        vm.tagline;
         var cropImage;
 
         function initialise(personnelId) {
             vm.personnelId = personnelId;
-            order("CreatedDateTime");
+            retrievePersonnelSelfies();
         }
 
         //Cropper
@@ -86,6 +87,9 @@
                         .then(function (response) {
                             angular.element('#ProfileSelfieModal').modal('toggle');
                             //retrievePersonnelSelfies();
+                            if (response.data !== "" && response.data !== "SaveError") {
+                                window.location = "/Account/Login";
+                            }
                         });
                 } else {
                     vm.imageUploadError = true;
@@ -138,6 +142,14 @@
 
         function downloadFile(guid) {
             $window.location.href = '/Worker/DownloadFile/' + guid;
+        }
+
+        function retrievePersonnelSelfies() {
+            return PersonnelDocumentService.retrievePersonnelSelfies()
+               .then(function (response) {
+                   vm.personnelSelfieImages = response.data.Items;
+                   return vm.personnelSelfieImages;
+               });
         }
 
     }

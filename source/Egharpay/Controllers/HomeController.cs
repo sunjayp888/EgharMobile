@@ -16,27 +16,25 @@ using Microsoft.Owin.Security.Authorization;
 
 namespace Egharpay.Controllers
 {
-   // [Authorize]
+    // [Authorize]
     public class HomeController : BaseController
     {
         private readonly IYouTubeBusinessService _youTubeBusinessService;
         private readonly IMobileBusinessService _mobileBusinessService;
-        public HomeController(IMobileBusinessService mobileBusinessService,IYouTubeBusinessService youTubeBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService) : base(configurationManager, authorizationService)
+        private readonly IPersonnelBusinessService _personnelBusinessService;
+        public HomeController(IMobileBusinessService mobileBusinessService, IYouTubeBusinessService youTubeBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IPersonnelBusinessService personnelBusinessService) : base(configurationManager, authorizationService)
         {
             _youTubeBusinessService = youTubeBusinessService;
+            _personnelBusinessService = personnelBusinessService;
             _mobileBusinessService = mobileBusinessService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            bool isAdmin = User.IsInRole("Admin");
-            if (User.IsInRole("User"))
-                return RedirectToAction("Profile", "Personnel");
-
-            var viewModel = new HomeViewModel
-            {
-            };
-            return View();
+            var viewModel = new HomeViewModel();
+            if (User.Identity.IsAuthenticated)
+                viewModel.PersonnelId = UserPersonnelId;
+            return View(viewModel);
         }
 
         [AllowAnonymous]
@@ -92,6 +90,6 @@ namespace Egharpay.Controllers
             var data = await _mobileBusinessService.RetrieveLatestMobile();
             return this.JsonNet(showAll ? data : data.Take(5));
         }
-      
+
     }
 }

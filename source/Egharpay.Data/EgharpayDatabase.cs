@@ -42,6 +42,7 @@ namespace Egharpay.Data
         public virtual DbSet<HomeBannerDocument> HomeBannerDocumentDetails { get; set; }
         public virtual DbSet<HomeBannerImage> HomeBannerImages { get; set; }
         public virtual DbSet<PersonnelDocument> PersonnelDocuments { get; set; }
+        public virtual DbSet<PersonnelDocumentDetail> PersonnelDocumentDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

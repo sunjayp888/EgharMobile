@@ -9,8 +9,9 @@
         var service = {
             retrieveDocumentCategories: retrieveDocumentCategories,
             retrievePersonnelDocuments: retrievePersonnelDocuments,
-            uploadSelfie: uploadSelfie
-        };
+            uploadSelfie: uploadSelfie,
+            retrievePersonnelSelfies: retrievePersonnelSelfies
+    };
 
         return service;
 
@@ -31,6 +32,7 @@
             var url = "/Personnel/DocumentCategories";
             return $http.post(url);
         }
+
         function retrievePersonnelDocuments(workerId, paging, orderBy) {
 
             var url = "/Worker/" + workerId + "/WorkerDocuments";
@@ -39,6 +41,11 @@
                 orderBy: new Array(orderBy)
             };
             return $http.post(url, data);
+        }
+
+        function retrievePersonnelSelfies() {
+            var url = "/PersonnelDocument/RetrievePersonnelSelfieImages";
+            return $http.post(url);
         }
     };
 
