@@ -18,11 +18,13 @@ namespace Egharpay.Business.Services
     {
         protected IPersonnelDataService _dataService;
         private readonly IMapper _mapper;
+        protected IDocumentsBusinessService DocumentsBusinessService;
 
-        public PersonnelBusinessService(IPersonnelDataService dataService, IMapper mapper)
+        public PersonnelBusinessService(IPersonnelDataService dataService, IMapper mapper, IDocumentsBusinessService documentsBusinessService)
         {
             _dataService = dataService;
             _mapper = mapper;
+            DocumentsBusinessService = documentsBusinessService;
         }
 
         #region Create
@@ -49,9 +51,31 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task UploadProfilePhoto(int personnelId, byte[] bytes)
+        public async Task<ValidationResult<Document>> UploadDocument(Document document, int personnelId)
         {
-
+            var validationResult = new ValidationResult<Document>();
+            try
+            {
+                var result = await DocumentsBusinessService.CreateDocument(document);
+                if (result.Succeeded)
+                {
+                    var personnelDocument = new PersonnelDocument
+                    {
+                        PersonnelId = personnelId,
+                        DocumentDetailId = result.Entity.DocumentDetailId // Just Confirm what should pass to documentdetailid
+                    };
+                    await _dataService.CreateAsync(personnelDocument);
+                }
+                validationResult.Entity = document;
+                validationResult.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Errors = new List<string> { ex.InnerMessage() };
+                validationResult.Exception = ex;
+            }
+            return validationResult;
         }
         #endregion
 

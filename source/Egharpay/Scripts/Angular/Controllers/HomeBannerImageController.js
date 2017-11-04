@@ -32,7 +32,6 @@
             vm.homeBannerId = homeBannerId;
             order("Name");
         }
-
       
         //Cropper
         var cropImage = $('#UploadHomeBannerImage');
@@ -64,8 +63,6 @@
             }
         });
         //Cropper
-
-       
 
         function uploadPhoto(base64String) {
             var filevalue = angular.element('#fileUpload').val();

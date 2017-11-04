@@ -116,6 +116,7 @@
     <Compile Include="Order.cs" />
     <Compile Include="Partials\Template.cs" />
     <Compile Include="Personnel.cs" />
+    <Compile Include="PersonnelDocument.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dto\Role.cs" />

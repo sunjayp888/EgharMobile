@@ -1,6 +1,8 @@
 ﻿@using Egharpay.Extensions
 @model Egharpay.Models.BrandViewModel
 @{
+    var layout = User.IsSuperUserOrAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    Layout = layout;
     ViewBag.Title = "Mobile";
 }
 
@@ -14,26 +16,26 @@
     </div>
     <br />
     @*<div class="ibox-content">
-        <div class="row m-b-sm m-t-sm">
-            <div class="col-md-12">
-                <div class="input-group">
-                    <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)"> <span class="input-group-btn">
-                        <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchMobile(searchField)"> Go!</button>
-                    </span>
+            <div class="row m-b-sm m-t-sm">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)"> <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchMobile(searchField)"> Go!</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="project-list">
                 </div>
             </div>
-            <div class="project-list">
+            <div class="row m-b-sm m-t-sm">
+                <div class="col-md-3 form-inline">
+                    @Html.Partial("Pagination/_pageSize")
+                </div>
+                <div class="col-md-9 text-right">
+                    @Html.Partial("Pagination/_pageInformation")
+                </div>
             </div>
-        </div>
-        <div class="row m-b-sm m-t-sm">
-            <div class="col-md-3 form-inline">
-                @Html.Partial("Pagination/_pageSize")
-            </div>
-            <div class="col-md-9 text-right">
-                @Html.Partial("Pagination/_pageInformation")
-            </div>
-        </div>
-    </div>*@
+        </div>*@
     <div class="col-lg-10">
         <br />
         <ol class="breadcrumb">
@@ -48,7 +50,7 @@
             </li>
         </ol>
     </div>
-    <br/>
+    <br />
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-md-3" ng-repeat="brand in model.brands">

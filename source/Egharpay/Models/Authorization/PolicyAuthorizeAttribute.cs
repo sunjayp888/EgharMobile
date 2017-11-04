@@ -39,7 +39,10 @@ namespace Egharpay.Models.Authorization
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             if (!filterContext.RequestContext.HttpContext.User.Identity.IsAuthenticated)
+            {
                 base.HandleUnauthorizedRequest(filterContext);
+                filterContext.Result = new HttpUnauthorizedResult();
+            }
             else
                 // Authenticated, but not AUTHORIZED.  Return 403 instead!
                 filterContext.Result = new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);

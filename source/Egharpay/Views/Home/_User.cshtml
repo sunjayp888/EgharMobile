@@ -133,38 +133,9 @@
             </div>
 
             <div class="col-lg-3">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Which phone you bought.</h5>
-                    </div>
-                    <div class="ibox-content-image">
-                        <div class="carousel slide" id="carousel3">
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img alt="image" class="img-responsive" src="~/Images/p_big3.jpg">
-                                </div>
-                                <div class="item">
-                                    <img alt="image" class="img-responsive" src="~/Images/p_big1.jpg">
-                                </div>
-                                <div class="item ">
-                                    <img alt="image" class="img-responsive" src="~/Images/p_big2.jpg">
-                                </div>
-
-                            </div>
-                            <a data-slide="prev" href="#carousel3" class="left carousel-control">
-                                <span class="icon-prev"></span>
-                            </a>
-                            <a data-slide="next" href="#carousel3" class="right carousel-control">
-                                <span class="icon-next"></span>
-                            </a>
-                        </div>
-                        <div class="xs-mt-10">
-                            <button class="btn btn-danger col-lg-12">Upload Image</button>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-
+                @Html.Partial("_PersonnelHomeSelfie")
+                
+                
                 <div>
                     <div class="ibox float-e-margins">
                         <div class="ibox-content-image-static">
@@ -210,7 +181,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
     </div>
 </div>
+
 

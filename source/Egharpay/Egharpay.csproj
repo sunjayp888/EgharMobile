@@ -252,6 +252,7 @@
     <Folder Include="Views\Maintenance\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\PersonnelDocuments\" />
+    <Folder Include="Views\PersonnelDocument\" />
     <Folder Include="Views\YouTube\" />
   </ItemGroup>
   <ItemGroup>
@@ -290,7 +291,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PersonnelController.cs" />
-    <Compile Include="Controllers\PersonnelDocumentsController.cs" />
+    <Compile Include="Controllers\PersonnelDocumentController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
@@ -2681,6 +2682,7 @@
     <Content Include="Scripts\Angular\Controllers\CentreController.js" />
     <Content Include="Scripts\Angular\Controllers\DocumentController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeBannerController.js" />
+    <Content Include="Scripts\Angular\Controllers\HomeBannerImageController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
@@ -2708,6 +2710,7 @@
     <Content Include="Scripts\Angular\Services\BrandService.js" />
     <Content Include="Scripts\Angular\Services\CentreService.js" />
     <Content Include="Scripts\Angular\Services\DocumentService.js" />
+    <Content Include="Scripts\Angular\Services\HomeBannerImageService.js" />
     <Content Include="Scripts\Angular\Services\HomeBannerService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
     <Content Include="Scripts\Angular\Services\MobileCommentService.js" />
@@ -3304,6 +3307,7 @@
     <Content Include="Views\Home\_User.cshtml" />
     <Content Include="Views\Home\_Admin.cshtml" />
     <Content Include="Views\HomeBanner\_HomeBannerImageDocument.cshtml" />
+    <Content Include="Views\Home\_PersonnelHomeSelfie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

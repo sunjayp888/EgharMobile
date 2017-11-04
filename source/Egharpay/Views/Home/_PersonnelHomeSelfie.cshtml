@@ -1,6 +1,36 @@
-﻿@model Egharpay.Models.PersonnelDocumentViewModel
+﻿
+<div class="ibox float-e-margins" ng-controller="PersonnelDocumentsController as model">
+    <div class="ibox-title">
+        <h5>Which phone you bought.</h5>
+    </div>
+    <div class="ibox-content-image">
+        <div class="carousel slide" id="carousel3">
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img alt="image" class="img-responsive" src="~/Images/p_big3.jpg">
+                </div>
+                <div class="item">
+                    <img alt="image" class="img-responsive" src="~/Images/p_big1.jpg">
+                </div>
+                <div class="item ">
+                    <img alt="image" class="img-responsive" src="~/Images/p_big2.jpg">
+                </div>
 
-<div class="modal-content" ng-init="model.initialise(@Model.PersonnelId)">
+            </div>
+            <a data-slide="prev" href="#carousel3" class="left carousel-control">
+                <span class="icon-prev"></span>
+            </a>
+            <a data-slide="next" href="#carousel3" class="right carousel-control">
+                <span class="icon-next"></span>
+            </a>
+        </div>
+        <div class="xs-mt-10">
+            <button type="button" class="btn btn-danger col-lg-12" data-toggle="modal" data-target="#ProfileSelfieModal"><i class="fa fa-upload"></i> Upload Selfie</button>
+            <br />
+            @Html.ActionLink("Upload Image", "UploadDocumentModal","PersonnelDocument");
+        </div>
+    </div>
+
     <div>
         <div class="modal fade" id="ProfileSelfieModal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
             <div class="modal-dialog modal-sm">
@@ -38,3 +68,4 @@
         </div>
     </div>
 </div>
+

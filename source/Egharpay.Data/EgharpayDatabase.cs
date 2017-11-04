@@ -41,6 +41,7 @@ namespace Egharpay.Data
         public virtual DbSet<TrendCommentGrid> TrendCommentGrids { get; set; }
         public virtual DbSet<HomeBannerDocument> HomeBannerDocumentDetails { get; set; }
         public virtual DbSet<HomeBannerImage> HomeBannerImages { get; set; }
+        public virtual DbSet<PersonnelDocument> PersonnelDocuments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

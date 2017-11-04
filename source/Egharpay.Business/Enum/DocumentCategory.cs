@@ -9,7 +9,8 @@ namespace Egharpay.Business.Enum
     public enum DocumentCategory
     {
         MobileGalleryImage = 1,
-        ProfilePhoto = 2,
-        HomeBannerImage
+        ProfilePhoto,
+        HomeBannerImage,
+        Selfie
     }
 }
