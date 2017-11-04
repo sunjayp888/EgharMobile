@@ -32,7 +32,7 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> Index()
         {
             var viewModel = new HomeViewModel();
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated && !User.IsSuperUserOrAdmin())
                 viewModel.PersonnelId = UserPersonnelId;
             return View(viewModel);
         }
