@@ -26,7 +26,7 @@ namespace Egharpay.Controllers
         private readonly IMobileBusinessService _mobileBusinessService;
         private readonly IBrandBusinessService _brandBusinessService;
         private readonly ISellerBusinessService _sellerBusinessService;
-        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService,ISellerBusinessService sellerBusinessService) : base(configurationManager, authorizationService)
+        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService, ISellerBusinessService sellerBusinessService) : base(configurationManager, authorizationService)
         {
             _mobileBusinessService = mobileBusinessService;
             _brandBusinessService = brandBusinessService;
@@ -104,12 +104,15 @@ namespace Egharpay.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var result = await _mobileBusinessService.RetrieveMobile(id.Value);
-            var viewModel = new MobileViewModel
+            var viewModel = new MobileViewModel();
+            if (User.IsSuperUserOrAdminOrSeller())
             {
-                MobileName = result.Name,
-                MobileId = id.Value
-            };
+                var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(UserPersonnelId);
+                viewModel.SellerId = seller?.SellerId ?? 0;
+            }
+            var result = await _mobileBusinessService.RetrieveMobile(id.Value);
+            viewModel.MobileName = result.Name;
+            viewModel.MobileId = result.MobileId;
             return View(viewModel);
         }
 
@@ -137,7 +140,7 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> SellerSearch(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _sellerBusinessService.Search(searchKeyword,orderBy, paging);
+            var data = await _sellerBusinessService.Search(searchKeyword, orderBy, paging);
             return this.JsonNet(data);
         }
 
@@ -162,7 +165,7 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
-        
+
 
 
         //private List<Mobile> CreateMobileData(List<Brand> brands)
@@ -466,7 +469,7 @@ namespace Egharpay.Controllers
         //{
         //    var yahooUrl =
 
-           
+
         //        "https://in.images.search.yahoo.com/search/images;_ylt=A2oKiHHojLNZ7C8AiRW8HAx.;_ylc=X1MDMjExNDcyMzAwNARfcgMyBGJjawNhdDI3YnRoY3IxcWVoJTI2YiUzRDMlMjZzJTNEOTkEZnIDBGdwcmlkA0hYdmxwRkdoUjRlWVAzZ2NWZjhtaEEEbXRlc3RpZANudWxsBG5fc3VnZwMxMARvcmlnaW4DaW4uaW1hZ2VzLnNlYXJjaC55YWhvby5jb20EcG9zAzAEcHFzdHIDBHBxc3RybAMEcXN0cmwDNwRxdWVyeQNub2tpYSA2BHRfc3RtcAMxNTA0OTM5Mjk4BHZ0ZXN0aWQDbnVsbA--?gprid=HXvlpFGhR4eYP3gcVf8mhA&pvid=_iSrdzEwNi6uiOvsWbDp0Ql9MTIzLgAAAAD40hUK&fr2=sb-top-in.images.search.yahoo.com&p=" + searchTerm.Replace(' ', '+') + "&ei=UTF-8&iscqry=&fr=sfp";
         //    var url = "https://www.google.co.in/search?q=" + searchTerm.Replace(' ', '+') + "&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjO0NHwwJXWAhXINo8KHTurAX0Q_AUICygC&biw=1600&bih=804";
         //    var htmlData = GetHtmlData(yahooUrl);
@@ -563,5 +566,5 @@ namespace Egharpay.Controllers
     //    public string NumberOfDevice { get; set; }
     //}
 
-    
+
 }

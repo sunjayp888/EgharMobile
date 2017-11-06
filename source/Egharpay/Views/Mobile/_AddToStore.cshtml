@@ -1,0 +1,50 @@
+﻿@model Egharpay.Models.MobileViewModel
+<div id="tab-7" class="tab-pane">
+    <div ng-controller="SellerMobileController as model" ng-init="model.initialise(@Model.MobileId,@Model.SellerId)">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Add mobile in your store</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal ng-pristine ng-valid">
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Price</label>
+                                <div class="col-lg-4">
+                                    <input type="text" ng-model="model.price" class="form-control text-danger">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Discount Price</label>
+
+                                <div class="col-lg-4">
+                                    <input type="text" ng-model="model.discountPrice" class="form-control text-danger">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">EMI Available</label>
+                                <div class="col-lg-8">
+                                    <input type="checkbox" ng-model="model.isEmiAvailable" class="checkbox checkbox-warning">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-6">
+                                    <button class="btn btn-sm btn-primary pull-right" type="button" ng-click="model.assignMobileToSeller()">Add to Store</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

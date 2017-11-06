@@ -127,6 +127,7 @@
     <Compile Include="RequestType.cs" />
     <Compile Include="Seller.cs" />
     <Compile Include="SellerGrid.cs" />
+    <Compile Include="SellerMobile.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Trend.cs" />
     <Compile Include="TrendComment.cs" />

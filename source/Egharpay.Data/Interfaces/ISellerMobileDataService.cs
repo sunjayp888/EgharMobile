@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Egharpay.Business.Enum
+namespace Egharpay.Data.Interfaces
 {
-    public enum ApprovalState
+    public interface ISellerMobileDataService : IEgharpayDataService
     {
-        Pending=1,
-        Approved,
-        UnApproved
     }
 }

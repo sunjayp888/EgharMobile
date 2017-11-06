@@ -79,6 +79,7 @@
     <Compile Include="EgharpayDatabase.cs" />
     <Compile Include="Interfaces\IRequestTypeDataService.cs" />
     <Compile Include="Interfaces\ISellerDataService.cs" />
+    <Compile Include="Interfaces\ISellerMobileDataService.cs" />
     <Compile Include="Interfaces\ITrendCommentDataService.cs" />
     <Compile Include="Interfaces\ITrendDataService.cs" />
     <Compile Include="Models\EgharpayDatabaseFactory.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Services\PincodeDataService.cs" />
     <Compile Include="Services\RequestTypeDataService.cs" />
     <Compile Include="Services\SellerDataService.cs" />
+    <Compile Include="Services\SellerMobileDataService.cs" />
     <Compile Include="Services\TrendCommentDataService.cs" />
     <Compile Include="Services\TrendDataService.cs" />
   </ItemGroup>
