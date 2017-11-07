@@ -46,14 +46,15 @@
                 data = {
                     homeBannerId: homeBannerId,
                     paging: paging,
-                    orderBy:new Array(orderby)
+                    orderBy: new Array(orderby)
                 };
             return $http.post(url, data);
         }
 
-        function deleteHomeBannerImageDocument(guid) {
+        function deleteHomeBannerImageDocument(documentDetailId, guid) {
             var url = "/HomeBanner/DeleteHomeBannerDocument",
                 data = {
+                    documentDetailId: documentDetailId,
                     guid: guid
                 };
             return $http.post(url, data);

@@ -23,5 +23,8 @@ namespace Egharpay.Business.Interfaces
 
         //Update
         Task<ValidationResult<HomeBanner>> UpdateHomeBanner(HomeBanner homeBanner);
+
+        //Delete
+        Task<bool> DeleteHomeBannerImage(int documentDetailId,Guid guid);
     }
 }

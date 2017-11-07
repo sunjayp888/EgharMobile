@@ -47,7 +47,7 @@
                                 <table wt-responsive-table class="table table-striped table-bordered jambo_table table-hover dataTable no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
                                     <thead>
                                         <tr role="row">
-                                            <th ng-click="model.order('MobileId')" ng-class="model.orderClass('MobileId')">Mobile</th>
+                                            @*<th ng-click="model.order('MobileId')" ng-class="model.orderClass('MobileId')">Mobile</th>*@
                                             <th ng-click="model.order('HomeBannerId')" ng-class="model.orderClass('HomeBannerId')">Name</th>
                                             <th ng-click="model.order('StartDateTime')" ng-class="model.orderClass('StartDateTime')">Start Date Time</th>
                                             <th ng-click="model.order('EndDateTime')" ng-class="model.orderClass('EndDateTime')">End Date Time</th>
@@ -58,7 +58,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="homeBanner in model.homeBanners" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled || model.editHomeBanner(homeBanner.HomeBannerId)">
-                                            <td><span ng-bind="homeBanner.MobileName"></span></td>
+                                            @*<td><span ng-bind="homeBanner.MobileName"></span></td>*@
                                             <td><span ng-bind="homeBanner.Name"></span></td>
                                             <td><span ng-bind="homeBanner.StartDateTime|date : format : shortDate"></span></td>
                                             <td><span ng-bind="homeBanner.EndDateTime|date : format : shortDate"></span></td>

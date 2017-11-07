@@ -20,7 +20,7 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
-    
+
     public class HomeBannerController : BaseController
     {
         private readonly IHomeBannerBusinessService _homeBannerBusinessService;
@@ -199,14 +199,9 @@ namespace Egharpay.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> DeleteHomeBannerDocument(Guid? guid)
+        public async Task<ActionResult> DeleteHomeBannerDocument(int? documentDetailId, Guid? guid)
         {
-            //Pass documentDetailId
-            //And In HomeBannerBusinessService Add method DeleteHomeBannerImage
-            //In that method first delete HomeBannerDocument and then Document(guid)
-
-            var guidList = new List<Guid> { guid.Value };
-            var data = await _documentsBusinessService.DeleteDocument(guidList);
+            var data = guid != null && (documentDetailId != null && await _homeBannerBusinessService.DeleteHomeBannerImage(documentDetailId.Value, guid.Value));
             return this.JsonNet(data);
         }
     }

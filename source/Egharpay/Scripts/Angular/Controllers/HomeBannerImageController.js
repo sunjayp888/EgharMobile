@@ -84,7 +84,7 @@
                             var randomNumber = Math.random();//This will force the browsers to reload the image url
                             angular.element('#HomeBannerImage').attr('src', '/HomeBanner/' + vm.homeBannerId + '/Photo?' + randomNumber);
                             angular.element('#HomeBannerImageModal').modal('toggle');
-                            retrieveHomeBannerImageDocument();
+                            retrieveHomeBannerImageList();
                         });
                 } else {
                     vm.imageUploadError = true;
@@ -144,9 +144,9 @@
                 });
         }
 
-        function deleteHomeBannerImageDocument(guid) {
-            return HomeBannerImageService.deleteHomeBannerImageDocument(guid).then(function() {
-                retrieveHomeBannerImageDocument(vm.homeBannerId);
+        function deleteHomeBannerImageDocument(documentDetailId, guid) {
+            return HomeBannerImageService.deleteHomeBannerImageDocument(documentDetailId, guid).then(function () {
+                retrieveHomeBannerImageList(vm.homeBannerId);
             });
         }
 
