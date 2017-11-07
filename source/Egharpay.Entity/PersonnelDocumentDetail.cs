@@ -33,6 +33,8 @@ namespace Egharpay.Entity
 
         public string RelativePath { get; set; }
 
+        public string Description { get; set; }
+
         [Key]
         [Column(Order = 3)]
         [StringLength(12)]

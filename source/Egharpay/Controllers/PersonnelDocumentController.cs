@@ -71,7 +71,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Personnel })]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Personnel, Role.Seller })]
         [Route("PersonnelDocument/{id}/{tagLine}/UploadSelfie")]
         public async Task<ActionResult> UploadSelfie(int? id, string tagLine)
         {
