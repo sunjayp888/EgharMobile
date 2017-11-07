@@ -28,7 +28,7 @@
                                             <td><span ng-cloak class="ng-cloak"><img class="chat-avatar" ng-src="{{ documentsType.RelativePath || '/Images/a4.jpg' }}" alt="Avatar" title="avatar"></span><br/></td>
                                             <td><span ng-bind="documentsType.Description"></span></td>
                                             <td>
-                                                <a style="cursor: pointer;" ng-click="model.deleteHomeBannerImageDocument(documentsType.DocumentGuid)" class="btn btn-success btn-xs">
+                                                <a style="cursor: pointer;" ng-click="model.deleteHomeBannerImageDocument(documentsType.DocumentDetailId,documentsType.DocumentGUID)" class="btn btn-success btn-xs">
                                                     Delete
                                                 </a>
                                             </td>

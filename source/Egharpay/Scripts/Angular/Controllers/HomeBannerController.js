@@ -63,7 +63,7 @@
             //if (vm.searchKeyword) {
             //    return searchApartment(vm.searchKeyword)();
             //}
-           // return retrieveHomeBanner();
+            return retrieveHomeBanner();
         }
 
         function orderClass(property) {
