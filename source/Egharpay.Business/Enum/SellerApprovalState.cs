@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Egharpay.Business.Enum
 {
-    public enum SellerApprovalState
+    public enum ApprovalState
     {
         Pending=1,
         Approved,

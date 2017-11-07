@@ -9,7 +9,9 @@ namespace Egharpay
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.Add("MobileDetails", new SeoFriendlyRoute("mobile/detail/{id}",
+            new RouteValueDictionary(new { controller = "Products", action = "Detail" }),
+            new MvcRouteHandler()));
             // The last default route
             routes.MapMvcAttributeRoutes(); //Attribute routing
             routes.MapRoute(

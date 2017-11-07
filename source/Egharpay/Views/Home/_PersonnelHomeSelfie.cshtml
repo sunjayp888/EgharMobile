@@ -8,6 +8,9 @@
             <div class="carousel-inner">
                 <div class="item" ng-class='{active: $first}' ng-repeat="selfie in model.personnelSelfieImages">
                     <img alt="image" class="img-responsive" ng-src="{{selfie.RelativePath}}">
+                    <div class="carousel-caption-custom">
+                        <p><span ng-bind="selfie.Description"></span></p>
+                    </div>
                 </div>
             </div>
             <a data-slide="prev" href="#carousel3" class="left carousel-control">

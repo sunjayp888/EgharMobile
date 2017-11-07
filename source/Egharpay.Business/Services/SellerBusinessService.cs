@@ -45,6 +45,12 @@ namespace Egharpay.Business.Services
             return seller.FirstOrDefault();
         }
 
+        public async Task<Seller> RetrieveSellerByPersonnelId(int personnelId)
+        {
+            var seller = await _dataService.RetrieveAsync<Seller>(a => a.PersonnelId == personnelId);
+            return seller.FirstOrDefault();
+        }
+
         public async Task<PagedResult<Seller>> RetrieveSellers(List<OrderBy> orderBy = null, Paging paging = null)
         {
             var sellers = await _dataService.RetrievePagedResultAsync<Seller>(a => true, orderBy, paging);

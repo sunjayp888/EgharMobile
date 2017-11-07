@@ -53,6 +53,7 @@ namespace Egharpay.Controllers
                 //Create Seller
                 sellerViewModel.Seller.CreatedDate = DateTime.UtcNow;
                 sellerViewModel.Seller.SellerApprovalStateId = (int) SellerApprovalState.Pending;
+                sellerViewModel.Seller.ApprovalStateId = (int) ApprovalState.Pending;
                 var result = await _sellerBusinessService.CreateSeller(sellerViewModel.Seller);
                 if (result.Succeeded)
                 {
@@ -133,7 +134,7 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> UpdateSellerApprovalState(int sellerId)
         {
             var sellerdata = await _sellerBusinessService.RetrieveSeller(sellerId);
-            sellerdata.SellerApprovalStateId = (int)SellerApprovalState.Approved;
+            sellerdata.ApprovalStateId = (int)ApprovalState.Approved;
             await _sellerBusinessService.UpdateSeller(sellerdata);
             return this.JsonNet(sellerdata);
 

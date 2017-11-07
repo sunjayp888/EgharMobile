@@ -49,5 +49,9 @@ namespace Egharpay.Entity
         public string Remarks { get; set; }
 
         public int SellerApprovalStateId { get; set; }
+
+        public int ApprovalStateId { get; set; }
+
+        public int? PersonnelId { get; set; }
     }
 }

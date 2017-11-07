@@ -253,6 +253,7 @@
     <Folder Include="Views\Order\" />
     <Folder Include="Views\PersonnelDocuments\" />
     <Folder Include="Views\PersonnelDocument\" />
+    <Folder Include="Views\SellerMobile\" />
     <Folder Include="Views\YouTube\" />
   </ItemGroup>
   <ItemGroup>
@@ -294,6 +295,7 @@
     <Compile Include="Controllers\PersonnelDocumentController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
+    <Compile Include="Controllers\SellerMobileController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TrendCommentController.cs" />
     <Compile Include="Controllers\TrendController.cs" />
@@ -2685,6 +2687,7 @@
     <Content Include="Scripts\Angular\Controllers\HomeBannerImageController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
+    <Content Include="Scripts\Angular\Controllers\SellerMobileController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileGalleryController.js" />
     <Content Include="Scripts\Angular\Controllers\YouTubeController.js" />
@@ -2714,6 +2717,7 @@
     <Content Include="Scripts\Angular\Services\HomeBannerService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
     <Content Include="Scripts\Angular\Services\MobileCommentService.js" />
+    <Content Include="Scripts\Angular\Services\SellerMobileService.js" />
     <Content Include="Scripts\Angular\Services\TrendCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendService.js" />
     <Content Include="Scripts\Angular\Services\YouTubeService.js" />
@@ -3308,6 +3312,7 @@
     <Content Include="Views\Home\_Admin.cshtml" />
     <Content Include="Views\HomeBanner\_HomeBannerImageDocument.cshtml" />
     <Content Include="Views\Home\_PersonnelHomeSelfie.cshtml" />
+    <Content Include="Views\Mobile\_AddToStore.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

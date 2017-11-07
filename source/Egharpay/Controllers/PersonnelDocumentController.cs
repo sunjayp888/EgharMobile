@@ -21,11 +21,13 @@ namespace Egharpay.Controllers
         // GET: PersonnelDocuments
         private readonly IDocumentsBusinessService _documentBusinessService;
         private readonly IPersonnelBusinessService _personnelBusinessService;
+        private readonly IPersonnelDocumentBusinessService _personnelDocumentBusinessService;
 
-        public PersonnelDocumentController(IDocumentsBusinessService documentBusinessService, IPersonnelBusinessService personnelBusinessService)
+        public PersonnelDocumentController(IDocumentsBusinessService documentBusinessService, IPersonnelBusinessService personnelBusinessService, IPersonnelDocumentBusinessService personnelDocumentBusinessService)
         {
             _documentBusinessService = documentBusinessService;
             _personnelBusinessService = personnelBusinessService;
+            _personnelDocumentBusinessService = personnelDocumentBusinessService;
         }
 
         public ActionResult Index()
@@ -60,7 +62,7 @@ namespace Egharpay.Controllers
         {
             try
             {
-                return this.JsonNet(await _personnelBusinessService.RetrievePersonnelDocuments(personnelId, paging, orderBy));
+                return this.JsonNet(await _personnelDocumentBusinessService.RetrievePersonnelDocuments(personnelId, paging, orderBy));
             }
             catch (Exception ex)
             {
@@ -69,7 +71,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Personnel })]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Personnel, Role.Seller })]
         [Route("PersonnelDocument/{id}/{tagLine}/UploadSelfie")]
         public async Task<ActionResult> UploadSelfie(int? id, string tagLine)
         {
@@ -123,7 +125,7 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> RetrievePersonnelSelfieImages()
         {
             var startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            var data = await _personnelBusinessService.RetrievePersonnelSelfies(startDate, startDate.AddDays(30));//For now display one month uploaded selfie
+            var data = await _personnelDocumentBusinessService.RetrievePersonnelSelfies(startDate, startDate.AddDays(30));//For now display one month uploaded selfie
             return this.JsonNet(data);
         }
 

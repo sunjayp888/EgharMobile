@@ -10,3 +10,4 @@ namespace Egharpay.Data.Interfaces
     {
     }
 }
+    
