@@ -29,7 +29,7 @@
         vm.showAll = false;
 
         function initialise() {
-            //retrieveSearchField();
+            retrieveSearchField();
             latestMobiles(vm.showAll);
         }
 
@@ -71,9 +71,9 @@
             retrieveStatisticsByCentre(centreId);
         }
 
-        function searchMobiles(searchKeyword) {
+        function searchMobiles() {
             //vm.searchKeyword = searchKeyword;
-            $window.location.href = "/Home/Mobile/" + searchKeyword;
+            $window.location.href = "/Home/Mobile/" + vm.searchKeyword;
             //return HomeService.searchMobiles(searchKeyword);
         }
 

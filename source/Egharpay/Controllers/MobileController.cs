@@ -159,6 +159,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [OutputCache(Duration = 30000, VaryByParam = "none")]
         public async Task<ActionResult> SearchField()
         {
             var result = await _mobileBusinessService.Search();

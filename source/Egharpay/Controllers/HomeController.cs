@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Configuration.Interface;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
@@ -66,6 +67,7 @@ namespace Egharpay.Controllers
         }
 
         //[HttpPost]
+        [Route("Home/Mobile/{searchKeyword}")]
         public ActionResult Mobile(string searchKeyword)
         {
             var viewModel = new HomeViewModel()
