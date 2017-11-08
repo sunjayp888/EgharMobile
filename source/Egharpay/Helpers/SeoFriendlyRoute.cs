@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Routing;
 
-namespace Egharpay.Extensions
+namespace Egharpay.Helpers
 {
     public class SeoFriendlyRoute : Route
     {

@@ -52,7 +52,7 @@ namespace Egharpay.Controllers
             {
                 //Create Seller
                 sellerViewModel.Seller.CreatedDate = DateTime.UtcNow;
-                sellerViewModel.Seller.SellerApprovalStateId = (int) SellerApprovalState.Pending;
+                sellerViewModel.Seller.SellerApprovalStateId = (int) ApprovalState.Pending;
                 sellerViewModel.Seller.ApprovalStateId = (int) ApprovalState.Pending;
                 var result = await _sellerBusinessService.CreateSeller(sellerViewModel.Seller);
                 if (result.Succeeded)

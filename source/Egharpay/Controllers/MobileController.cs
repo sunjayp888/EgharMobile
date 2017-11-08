@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Configuration.Interface;
 using Egharpay.Business.Interfaces;
+using Egharpay.Business.Models;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
@@ -68,7 +69,7 @@ namespace Egharpay.Controllers
             var brandList = brands.Items.ToList();
             var viewModel = new MobileViewModel()
             {
-                Mobile = new Mobile(),
+                Mobile = new Business.Models.Mobile(),
                 Brands = new SelectList(brandList, "BrandId", "Name")
             };
             return View(viewModel);

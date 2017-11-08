@@ -8,7 +8,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace Egharpay.Business.Extensions
 {
-    public static class SeoHelper
+    public static class SeoExtensions
     {
         public static string GenerateSlug(this int id,string name)
         {

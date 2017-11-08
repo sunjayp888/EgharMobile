@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
@@ -16,18 +17,21 @@ namespace Egharpay.Business.Services
     public partial class MobileBusinessService : IMobileBusinessService
     {
         protected IMobileDataService _dataService;
+        protected IMapper _mapper;
 
-        public MobileBusinessService(IMobileDataService dataService)
+        public MobileBusinessService(IMobileDataService dataService, IMapper mapper)
         {
             _dataService = dataService;
+            _mapper = mapper;
         }
 
-        public async Task<ValidationResult<Mobile>> CreateMobile(Mobile mobile)
+        public async Task<ValidationResult<Models.Mobile>> CreateMobile(Models.Mobile mobile)
         {
-            ValidationResult<Mobile> validationResult = new ValidationResult<Mobile>();
+            ValidationResult<Models.Mobile> validationResult = new ValidationResult<Models.Mobile>();
             try
             {
-                await _dataService.CreateAsync(mobile);
+                var mobileData = _mapper.Map<Entity.Mobile>(mobile);
+                await _dataService.CreateAsync(mobileData);
                 validationResult.Entity = mobile;
                 validationResult.Succeeded = true;
             }
@@ -40,11 +44,12 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<bool> CreateMobile(List<Mobile> mobile)
+        public async Task<bool> CreateMobile(List<Models.Mobile> mobile)
         {
             try
             {
-                await _dataService.CreateRangeAsync(mobile);
+                var mobileData = _mapper.MapToList<Entity.Mobile>(mobile);
+                await _dataService.CreateRangeAsync(mobileData);
                 return true;
             }
             catch (Exception ex)
@@ -79,9 +84,10 @@ namespace Egharpay.Business.Services
             }
         }
 
-        public async Task<Mobile> RetrieveMobile(int mobileId)
+        public async Task<Models.Mobile> RetrieveMobile(int mobileId)
         {
-            var mobile = await _dataService.RetrieveAsync<Mobile>(a => a.MobileId == mobileId);
+            var result = await _dataService.RetrieveAsync<Entity.Mobile>(a => a.MobileId == mobileId);
+            var mobile = _mapper.MapToList<Models.Mobile>(result);
             return mobile.FirstOrDefault();
         }
 
@@ -89,7 +95,7 @@ namespace Egharpay.Business.Services
         {
             var category = await _dataService.RetrieveAsync<Entity.DocumentCategory>(e => e.Name.ToLower() == "mobilegalleryimage");
             var basePath = "Need to change";
-            var mobile = await _dataService.RetrieveByIdAsync<Mobile>(mobileId);
+            var mobile = await _dataService.RetrieveByIdAsync<Entity.Mobile>(mobileId);
             var mobileImageList = new List<MobileImage>();
             if (!string.IsNullOrEmpty(basePath))
             {
@@ -112,10 +118,10 @@ namespace Egharpay.Business.Services
             return mobileImageList;
         }
 
-        public async Task<PagedResult<Mobile>> RetrieveMobiles(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Models.Mobile>> RetrieveMobiles(List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var mobiles = await _dataService.RetrievePagedResultAsync<Mobile>(a => true, orderBy, paging);
-            return mobiles;
+            var result = await _dataService.RetrievePagedResultAsync<Entity.Mobile>(a => true, orderBy, paging);
+            return _mapper.MapToPagedResult<Models.Mobile>(result);
         }
 
         public async Task<PagedResult<MobileGrid>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
@@ -131,10 +137,10 @@ namespace Egharpay.Business.Services
             return mobiles;
         }
 
-        public async Task<IEnumerable<Mobile>> RetrieveLatestMobile()
+        public async Task<IEnumerable<Models.Mobile>> RetrieveLatestMobile()
         {
-            var mobileResult = await _dataService.RetrieveAsync<Mobile>(e => e.IsLatest);
-            return mobileResult;
+            var result = await _dataService.RetrieveAsync<Entity.Mobile>(e => e.IsLatest);
+            return _mapper.MapToList<Models.Mobile>(result);
         }
     }
 }

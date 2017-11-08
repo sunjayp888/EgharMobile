@@ -307,6 +307,7 @@
     <Compile Include="Extensions\DataTableToExcel.cs" />
     <Compile Include="Extensions\FileExtensions.cs" />
     <Compile Include="Extensions\PrincipalExtensions.cs" />
+    <Compile Include="Helpers\SeoFriendlyRoute.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

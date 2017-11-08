@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Egharpay.Extensions;
+using Egharpay.Helpers;
 
 namespace Egharpay
 {
@@ -10,7 +11,7 @@ namespace Egharpay
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.Add("MobileDetails", new SeoFriendlyRoute("mobile/detail/{id}",
-            new RouteValueDictionary(new { controller = "Products", action = "Detail" }),
+            new RouteValueDictionary(new { controller = "Mobile", action = "Detail" }),
             new MvcRouteHandler()));
             // The last default route
             routes.MapMvcAttributeRoutes(); //Attribute routing
