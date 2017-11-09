@@ -3313,6 +3313,7 @@
     <Content Include="Views\HomeBanner\_HomeBannerImageDocument.cshtml" />
     <Content Include="Views\Home\_PersonnelHomeSelfie.cshtml" />
     <Content Include="Views\Mobile\_AddToStore.cshtml" />
+    <Content Include="Views\Home\LatestMobileAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

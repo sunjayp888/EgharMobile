@@ -79,11 +79,20 @@
 
         function latestMobiles(showAll) {
             vm.showAll = showAll;
-            return HomeService.latestMobiles(vm.showAll)
-               .then(function (response) {
-                   vm.latestMobileList = response.data;
-                   return vm.latestMobileList;
-               });
+            if (vm.showAll == true) {
+                return HomeService.latestMobileAll(vm.showAll)
+                    .then(function (response) {
+                        vm.latestMobileList = response.data;
+                        return vm.latestMobileList;
+                    });
+            }
+            if (vm.showAll == false) {
+                return HomeService.latestMobiles(vm.showAll)
+                    .then(function(response) {
+                        vm.latestMobileList = response.data;
+                        return vm.latestMobileList;
+                    });
+            }
         }
     }
 })();
