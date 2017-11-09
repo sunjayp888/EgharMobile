@@ -122,5 +122,19 @@ namespace Egharpay.Business.Services
             }
             return validationResult;
         }
+
+        public async Task<bool> DeleteHomeBannerImage(int documentDetailId, List<Guid> guid)
+        {
+            try
+            {
+                await _dataService.DeleteWhereAsync<HomeBannerDocument>(e => e.DocumentDetailId == documentDetailId);
+                await _documentsBusinessService.DeleteDocument(guid);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
