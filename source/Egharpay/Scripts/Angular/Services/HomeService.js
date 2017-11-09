@@ -17,7 +17,7 @@
             change: change,
             searchMobiles: searchMobiles,
             latestMobiles: latestMobiles,
-            latestMobileAll: latestMobileAll
+            latestMobileData: latestMobileData
         };
 
         return service;
@@ -91,8 +91,8 @@
             return $http.post(url, data);
         }
 
-        function latestMobileAll(showAll) {
-            var url = "/Home/LatestMobileAll",
+        function latestMobileData(showAll) {
+            var url = "/Home/LatestMobileData",
                 data = {
                     showAll: showAll
                 };
