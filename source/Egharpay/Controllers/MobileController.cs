@@ -153,6 +153,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [Route("Mobile/Search")]
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _mobileBusinessService.Search(searchKeyword, orderBy, paging));

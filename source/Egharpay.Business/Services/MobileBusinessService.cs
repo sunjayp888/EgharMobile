@@ -127,7 +127,7 @@ namespace Egharpay.Business.Services
         public async Task<PagedResult<MobileGrid>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
         {
             if (!string.IsNullOrEmpty(term))
-                return await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
+                return await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.SearchField.ToLower().Contains(term.Trim().ToLower()), orderBy, paging);
             return await _dataService.RetrievePagedResultAsync<MobileGrid>(e => true);
         }
 
