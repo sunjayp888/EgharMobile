@@ -124,6 +124,7 @@
     <Compile Include="Dto\Schedule.cs" />
     <Compile Include="Dto\ScheduleItem.cs" />
     <Compile Include="Dto\ScheduleItemType.cs" />
+    <Compile Include="MetaSearchKeyword.cs" />
     <Compile Include="RequestType.cs" />
     <Compile Include="Seller.cs" />
     <Compile Include="SellerGrid.cs" />

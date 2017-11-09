@@ -34,7 +34,7 @@
             vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-            order("Name");
+            //order("Name");
         }
 
         function retrieveMobiles() {
@@ -49,6 +49,9 @@
         }
 
         function searchMobile(searchKeyword) {
+            vm.orderBy.property = "Name";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
             vm.searchKeyword = searchKeyword;
             return MobileService.searchMobile(vm.searchKeyword, vm.paging, vm.orderBy)
                 .then(function (response) {

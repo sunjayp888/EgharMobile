@@ -29,6 +29,9 @@ namespace Egharpay.App_Start
             //Mobile
             config.CreateMap<Entity.Mobile, Mobile>();
             config.CreateMap<Mobile, Entity.Mobile>();
+
+            config.CreateMap<Entity.MobileGrid, Mobile>();
+            config.CreateMap<Mobile, Entity.MobileGrid>();
         }
     }
 }

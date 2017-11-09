@@ -160,11 +160,11 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 30000, VaryByParam = "none")]
+     //   [OutputCache(Duration = 30000, VaryByParam = "none")]
         public async Task<ActionResult> SearchField()
         {
-            var result = await _mobileBusinessService.Search();
-            var data = result.Items.Select(e => e.Name).ToList();
+            var result = await _mobileBusinessService.RetrieveMetaSearchKeyword();
+            var data = result.Select(e => e.MetaKeyword).ToList();
             return this.JsonNet(data);
         }
 

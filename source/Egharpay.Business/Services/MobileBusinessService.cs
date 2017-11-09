@@ -124,11 +124,15 @@ namespace Egharpay.Business.Services
             return _mapper.MapToPagedResult<Models.Mobile>(result);
         }
 
-        public async Task<PagedResult<MobileGrid>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Models.Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
         {
             if (!string.IsNullOrEmpty(term))
-                return await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.SearchField.ToLower().Contains(term.Trim().ToLower()), orderBy, paging);
-            return await _dataService.RetrievePagedResultAsync<MobileGrid>(e => true);
+            {
+                var data = await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.MetaSearch.Replace(" ", "").ToLower().Contains(term.Replace(" ", "").ToLower()), orderBy, paging);
+                return _mapper.MapToPagedResult<Models.Mobile>(data);
+            }
+            var result = await _dataService.RetrievePagedResultAsync<MobileGrid>(e => true);
+            return _mapper.MapToPagedResult<Models.Mobile>(result);
         }
 
         public async Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId, List<OrderBy> orderBy = null, Paging paging = null)
@@ -141,6 +145,11 @@ namespace Egharpay.Business.Services
         {
             var result = await _dataService.RetrieveAsync<Entity.Mobile>(e => e.IsLatest);
             return _mapper.MapToList<Models.Mobile>(result);
+        }
+
+        public async Task<IEnumerable<MetaSearchKeyword>> RetrieveMetaSearchKeyword()
+        {
+            return await _dataService.RetrieveAsync<MetaSearchKeyword>(e => true);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Egharpay.Business.Models;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
+using Mobile = Egharpay.Business.Models.Mobile;
 
 namespace Egharpay.Business.Interfaces
 {
@@ -22,8 +23,9 @@ namespace Egharpay.Business.Interfaces
         Task<Models.Mobile> RetrieveMobile(int mobileId);
         Task<List<MobileImage>> RetrieveMobileGalleryImages(int mobileId);
         Task<PagedResult<Models.Mobile>> RetrieveMobiles(List<OrderBy> orderBy = null, Paging paging = null);
-        Task<PagedResult<MobileGrid>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId,List<OrderBy> orderBy = null, Paging paging = null);
         Task<IEnumerable<Models.Mobile>> RetrieveLatestMobile();
+        Task<IEnumerable<MetaSearchKeyword>> RetrieveMetaSearchKeyword();
     }
 }
