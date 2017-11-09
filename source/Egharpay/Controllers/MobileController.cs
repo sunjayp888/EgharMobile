@@ -168,7 +168,15 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
-
+        public async Task<ActionResult> AllLatestMobile()
+        {
+            var data = await _mobileBusinessService.RetrieveLatestMobile();
+            var viewModel = new MobileViewModel()
+            {
+                //Mobile = data.
+            };
+            return View(viewModel);
+        }
 
 
         //private List<Mobile> CreateMobileData(List<Brand> brands)

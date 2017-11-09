@@ -74,8 +74,6 @@ namespace Egharpay.Controllers
             {
                 SearchKeyword = searchKeyword
             };
-
-
             return View(viewModel);
         }
 
@@ -91,6 +89,13 @@ namespace Egharpay.Controllers
         {
             var data = await _mobileBusinessService.RetrieveLatestMobile();
             return this.JsonNet(showAll ? data : data.Take(5));
+        }
+
+        // GET: LatestMobile
+        public async Task<ActionResult> LatestMobileAll()
+        {
+            var mobileData = await _mobileBusinessService.RetrieveMobiles();
+            return View(mobileData);
         }
 
     }

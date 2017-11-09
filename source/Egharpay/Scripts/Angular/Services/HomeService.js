@@ -16,7 +16,8 @@
             listMobile: listMobile,
             change: change,
             searchMobiles: searchMobiles,
-            latestMobiles: latestMobiles
+            latestMobiles: latestMobiles,
+            latestMobileAll: latestMobileAll
         };
 
         return service;
@@ -84,6 +85,14 @@
 
         function latestMobiles(showAll) {
             var url = "/Home/LatestMobile",
+                data = {
+                    showAll: showAll
+                };
+            return $http.post(url, data);
+        }
+
+        function latestMobileAll(showAll) {
+            var url = "/Home/LatestMobileAll",
                 data = {
                     showAll: showAll
                 };
