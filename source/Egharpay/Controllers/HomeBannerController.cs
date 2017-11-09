@@ -201,9 +201,13 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> DeleteHomeBannerDocument(int? documentDetailId, Guid? guid)
         {
-            //var data = guid != null && (documentDetailId != null && await _homeBannerBusinessService.DeleteHomeBannerImage(documentDetailId.Value, guid.Value));
-            //return this.JsonNet(data);
-            return null;
+            if (guid != null)
+            {
+                var guidList = new List<Guid>() { guid.Value };
+                var data = (documentDetailId != null && await _homeBannerBusinessService.DeleteHomeBannerImage(documentDetailId.Value, guidList));
+                return this.JsonNet(data);
+            }
+            return this.JsonNet("");
         }
     }
 }
