@@ -11,6 +11,7 @@
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
+        vm.mobilesInStore = [];
         vm.paging = new Paging;
         vm.pageChanged = pageChanged;
         vm.orderBy = new OrderBy;
@@ -29,6 +30,8 @@
         vm.modalInstance = null;
         var country, state, city, pinCode, map, latitude, longitude, count, pin;
         vm.initialise = initialise;
+        vm.retrieveMobilesInStore = retrieveMobilesInStore;
+
 
         function initialise() {
             vm.orderBy.property = "Name";
@@ -178,5 +181,20 @@
                 return vm.mobiles;
             });
         }
+
+        function retrieveMobilesInStore() {
+            vm.orderBy.property = "Name";
+            vm.orderBy.direction = "Ascending";
+            return MobileService.retrieveMobilesInStore(vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.mobilesInStore = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.mobiles.length === 0 ? "No Records Found" : "";
+                    return vm.mobiles;
+                });
+        }
+
+        
     }
 })();

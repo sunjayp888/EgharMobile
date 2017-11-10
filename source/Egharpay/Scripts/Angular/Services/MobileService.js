@@ -17,7 +17,9 @@
             searchSeller: searchSeller,
             retrieveGalleryImages: retrieveGalleryImages,
             retrieveYoutubeVideos: retrieveYoutubeVideos,
-            requestMobile: requestMobile
+            requestMobile: requestMobile,
+            retrieveMobilesInStore: retrieveMobilesInStore,
+            retrieveMobilesLatestInStore: retrieveMobilesLatestInStore
         };
 
         return service;
@@ -30,6 +32,7 @@
                 };
             return $http.post(url, data);
         }
+
 
         function searchMobile(SearchKeyword, Paging, OrderBy) {
             var url = "/Mobile/Search",
@@ -86,6 +89,24 @@
                   data = {
                       id: mobileId
                   };
+            return $http.post(url, data);
+        }
+
+        function retrieveMobilesInStore(Paging, OrderBy) {
+            var url = "/Mobile/RetrieveMobilesInStore",
+                data = {
+                    paging: Paging,
+                    orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function retrieveMobilesLatestInStore(Paging, OrderBy) {
+            var url = "/Mobile/RetrieveMobilesLatestInStore",
+                data = {
+                    paging: Paging,
+                    orderBy: new Array(OrderBy)
+                };
             return $http.post(url, data);
         }
     }

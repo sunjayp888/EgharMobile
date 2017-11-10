@@ -81,7 +81,7 @@ namespace Egharpay.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var homeBanner = await _homeBannerBusinessService.RetrieveHomeBanner(id.Value);
-            var mobile = await _mobileBusinessService.RetrieveMobiles();
+            var mobile = await _mobileBusinessService.RetrieveMobiles(e => true);
             var mobiles = mobile.Items.ToList();
             if (homeBanner == null)
             {
