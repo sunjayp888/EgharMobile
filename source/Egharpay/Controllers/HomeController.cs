@@ -94,7 +94,7 @@ namespace Egharpay.Controllers
         // GET: LatestMobile
         public async Task<ActionResult> LatestMobileAll()
         {
-            var mobileData = await _mobileBusinessService.RetrieveMobiles();
+            var mobileData = await _mobileBusinessService.RetrieveLatestMobile();
             return View(mobileData);
         }
 
