@@ -94,6 +94,7 @@ namespace Egharpay.Controllers
         //[AllowAnonymous]
         public ActionResult LatestMobileAll()
         {
+            var mobileData = await _mobileBusinessService.RetrieveLatestMobile();
             return View(new BaseViewModel());
         }
 

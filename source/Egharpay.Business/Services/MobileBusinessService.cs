@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -93,13 +94,14 @@ namespace Egharpay.Business.Services
 
         public async Task<List<MobileImage>> RetrieveMobileGalleryImages(int mobileId)
         {
-            var category = await _dataService.RetrieveAsync<Entity.DocumentCategory>(e => e.Name.ToLower() == "mobilegalleryimage");
-            var basePath = "Need to change";
-            var mobile = await _dataService.RetrieveByIdAsync<Entity.Mobile>(mobileId);
+            //For version 1.1 we are not taking from documentdetail table but need to implement in future.
+            var basePath = ConfigHelper.TemporaryMobileGalleryImagePath;
+            var result = await _dataService.RetrieveAsync<Entity.Mobile>(m => m.MobileId == mobileId, null, e => e.Brand);
             var mobileImageList = new List<MobileImage>();
-            if (!string.IsNullOrEmpty(basePath))
+            var mobile = result.FirstOrDefault();
+            if (!string.IsNullOrEmpty(basePath) && mobile != null)
             {
-                var mobilePath = Path.Combine(basePath, mobile.Brand.Name, mobile?.Name);
+                var mobilePath = Path.Combine(basePath, mobile.Brand.Name, mobile.Name);
                 try
                 {
                     var fileNamest = Directory.GetFiles(mobilePath).ToList();
@@ -118,9 +120,9 @@ namespace Egharpay.Business.Services
             return mobileImageList;
         }
 
-        public async Task<PagedResult<Models.Mobile>> RetrieveMobiles(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Models.Mobile>> RetrieveMobiles(Expression<Func<Entity.Mobile, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var result = await _dataService.RetrievePagedResultAsync<Entity.Mobile>(a => true, orderBy, paging);
+            var result = await _dataService.RetrievePagedResultAsync<Entity.Mobile>(expression, orderBy, paging);
             return _mapper.MapToPagedResult<Models.Mobile>(result);
         }
 
@@ -149,7 +151,15 @@ namespace Egharpay.Business.Services
 
         public async Task<IEnumerable<MetaSearchKeyword>> RetrieveMetaSearchKeyword()
         {
-            return await _dataService.RetrieveAsync<MetaSearchKeyword>(e => true);
+            try
+            {
+                return await _dataService.RetrieveAsync<MetaSearchKeyword>(e => true);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception();
+            }
+
         }
     }
 }

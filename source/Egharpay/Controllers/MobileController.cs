@@ -120,7 +120,7 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _mobileBusinessService.RetrieveMobiles(orderBy, paging);
+            var data = await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging);
             return this.JsonNet(data);
         }
 
@@ -160,7 +160,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-     //   [OutputCache(Duration = 30000, VaryByParam = "none")]
+        [OutputCache(Duration = 30000, VaryByParam = "none")]
         public async Task<ActionResult> SearchField()
         {
             var result = await _mobileBusinessService.RetrieveMetaSearchKeyword();
@@ -177,6 +177,15 @@ namespace Egharpay.Controllers
             };
             return View(viewModel);
         }
+        
+        [HttpPost]
+        [Route("Mobile/RetrieveMobilesInStore")]
+        public async Task<ActionResult> RetrieveMobilesInStore(Paging paging, List<OrderBy> orderBy)
+        {
+            return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsDeviceInStore, orderBy, paging));
+        }
+        
+
 
 
         //private List<Mobile> CreateMobileData(List<Brand> brands)

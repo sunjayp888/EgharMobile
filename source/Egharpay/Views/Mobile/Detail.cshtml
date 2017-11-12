@@ -1,7 +1,8 @@
-﻿@using iTextSharp.text.pdf.qrcode
+﻿@using Egharpay.Extensions
 @model Egharpay.Models.MobileViewModel
-
 @{
+    var layout = User.IsSuperUserOrAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    Layout = layout;
     ViewBag.Title = "Detail";
 }
 

@@ -44,6 +44,7 @@ namespace Egharpay.Data
         public virtual DbSet<PersonnelDocument> PersonnelDocuments { get; set; }
         public virtual DbSet<PersonnelDocumentDetail> PersonnelDocumentDetails { get; set; }
         public virtual DbSet<SellerMobile> SellerMobiles { get; set; }
+        public virtual DbSet<MetaSearchKeyword> MetaSearchKeywords { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
