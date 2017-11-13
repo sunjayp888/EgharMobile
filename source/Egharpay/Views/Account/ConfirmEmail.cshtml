@@ -1,6 +1,8 @@
-﻿@{
+﻿@using Egharpay.Extensions
+@{
     ViewBag.Title = "Confirm Email";
-    Layout = "~/Views/Shared/_OutsideLayout.cshtml";
+    var layout = User.IsSuperUserOrAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    Layout = layout;
 }
 
 <h2>@ViewBag.Title.</h2>

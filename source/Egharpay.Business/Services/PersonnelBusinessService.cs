@@ -39,6 +39,10 @@ namespace Egharpay.Business.Services
             try
             {
                 await _dataService.CreateAsync(personnel);
+                //Send Confirmation Email to Personnel and Seller
+                if (personnel.IsSeller != null && personnel.IsSeller.Value)
+                    //Send Email to seller
+
                 validationResult.Entity = personnel;
                 validationResult.Succeeded = true;
             }
@@ -134,7 +138,7 @@ namespace Egharpay.Business.Services
         //    return await _dataService.RetrievePagedResultAsync<PersonnelGrid>(a => a.CentreId == centreId && a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
         //}
 
-       
+
         #endregion
 
         #region Update

@@ -22,10 +22,12 @@ namespace Egharpay.Controllers
     public class AccountController : BaseController
     {
         private IPersonnelBusinessService PersonnelBusinessService { get; set; }
+        private ISellerBusinessService SellerBusinessService { get; set; }
 
-        public AccountController(IPersonnelBusinessService personnelBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
+        public AccountController(IPersonnelBusinessService personnelBusinessService, ISellerBusinessService sellerBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
         {
             PersonnelBusinessService = personnelBusinessService;
+            SellerBusinessService = sellerBusinessService;
         }
 
         private ApplicationSignInManager _signInManager;
@@ -157,31 +159,29 @@ namespace Egharpay.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 model.AspNetUserId = user.Id;
-                var personnelResult = await CreatePersonnel(model);
-                if (personnelResult.Succeeded)
+                var role = model.IsSeller ? Role.Seller.ToString() : Role.Personnel.ToString();
+                var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
+                user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
                 {
-                    user.PersonnelId = personnelResult.Entity.PersonnelId;
-                    var role = model.IsSeller ? Role.Seller.ToString() : Role.Personnel.ToString();
-                    var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
-                    user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
-                    var result = await UserManager.CreateAsync(user, model.Password);
-                    if (result.Succeeded)
+                    var personnelResult = await CreatePersonnel(model);
+                    if (!personnelResult.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                        return RedirectToAction("Index", "Home");
+                        ModelState.AddModelError(string.Empty, personnelResult.Errors.FirstOrDefault());
+                        return View(model);
                     }
-                    AddErrors(result);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, personnelResult.Errors.FirstOrDefault());
+                AddErrors(result);
             }
             // If we got this far, something failed, redisplay form
-
             return View(model);
         }
 
