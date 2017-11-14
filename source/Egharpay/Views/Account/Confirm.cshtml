@@ -1,0 +1,14 @@
+﻿@model Egharpay.Models.HomeViewModel
+@using Egharpay.Extensions
+@{
+    var layout = User.IsSuperUserOrAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    Layout = layout;
+    ViewBag.Title = "Confirm Email Address Sent";
+}
+<h2>@ViewBag.Title.</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        Please check your Email Inbox, a confirm Email is Sent to @ViewBag.Email
+    </div>
+</div>  

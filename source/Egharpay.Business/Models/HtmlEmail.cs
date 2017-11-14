@@ -13,5 +13,6 @@ namespace Egharpay.Business.Models
         public List<string> ToAddress { get; set; }
         public string Subject { get; set; }
         public string TemplateName { get; set; }
+        public string CallBackUrl { get; set; }
     }
 }

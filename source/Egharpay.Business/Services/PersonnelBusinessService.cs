@@ -40,7 +40,7 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.CreateAsync(personnel);
                 //Send Confirmation Email to Personnel and Seller
-                if (personnel.IsSeller != null && personnel.IsSeller.Value)
+               // if (personnel.IsSeller != null && personnel.IsSeller.Value)
                     //Send Email to seller
 
                 validationResult.Entity = personnel;

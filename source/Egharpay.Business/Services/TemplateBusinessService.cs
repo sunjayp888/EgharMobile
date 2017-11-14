@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Egharpay.Business.Interfaces;
 using Egharpay.Data.Interfaces;
 
-
-namespace Egharpay.Business
+namespace Egharpay.Business.Services
 {
-    public class TemplateService : ITemplateService
+    public class TemplateBusinessService : ITemplateBusinessService
     {
-        private readonly IPdfService _pdfService;
-        private readonly IRazorService _razorService;
+        private readonly IPdfBusinessService _pdfBusinessService;
+        private readonly IRazorBusinessService _razorBusinessService;
         private readonly ITemplateDataService _templateDataService;
 
-        public TemplateService(IRazorService razorService, IPdfService pdfService, ITemplateDataService templateDataService)
+        public TemplateBusinessService(IRazorBusinessService razorBusinessService, IPdfBusinessService pdfBusinessService, ITemplateDataService templateDataService)
         {
-            _pdfService = pdfService;
+            _pdfBusinessService = pdfBusinessService;
             _templateDataService = templateDataService;
-            _razorService = razorService;
+            _razorBusinessService = razorBusinessService;
         }
 
         public byte[] CreatePDF(int organisationId, string jsonString, string templateName)
@@ -27,7 +25,7 @@ namespace Egharpay.Business
             try
             {
                 string htmlData = CreateText(jsonString, templateName);
-                return _pdfService.CreatePDFfromHtml(htmlData);
+                return _pdfBusinessService.CreatePDFfromHtml(htmlData);
             }
             catch (Exception)
             {
@@ -37,24 +35,25 @@ namespace Egharpay.Business
 
         public byte[] CreatePDFfromPDFTemplate(int organisationId, Dictionary<string, string> formValues, string templateName)
         {
-            return _pdfService.CreatePDFfromPDFTemplate(formValues, string.Empty);
+            return _pdfBusinessService.CreatePDFfromPDFTemplate(formValues, string.Empty);
         }
 
         public string CreateText(string jsonString, string templateName)
         {
-            if (!_razorService.IsTemplateCached(templateName))
+            if (!_razorBusinessService.IsTemplateCached(templateName))
             {
                 var template = GetTemplateHtml(templateName);
-                _razorService.CacheTemplate(templateName, template);
+                _razorBusinessService.CacheTemplate(templateName, template);
             }
-            return _razorService.CreateText(jsonString, templateName);
+            return _razorBusinessService.CreateText(jsonString, templateName);
         }
 
         public string GetTemplateHtml(string templateName)
         {
             var templateDetails = _templateDataService.Retrieve<Entity.Template>(e => e.Name.ToLower() == templateName.ToLower());
             var template = templateDetails.FirstOrDefault();
-            return File.ReadAllText(template?.FilePath);
+            template.FilePath = Path.Combine(ConfigHelper.TemplateRootFilePath, template.FileName);
+            return File.ReadAllText(template.FilePath);
         }
     }
 }

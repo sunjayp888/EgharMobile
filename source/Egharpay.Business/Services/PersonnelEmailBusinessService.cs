@@ -11,33 +11,32 @@ using Egharpay.Entity;
 
 namespace Egharpay.Business.Services
 {
-    public class PersonnelEmailService : IPersonnelEmailService
+    public class PersonnelEmailBusinessService : IPersonnelEmailBusinessService
     {
-        private readonly IEmailService _emailService;
-        private readonly ITemplateService _templateService;
+        private readonly IEmailBusinessService _emailBusinessService;
+        private readonly ITemplateBusinessService _templateBusinessService;
 
-        public PersonnelEmailService(IEmailService emailService, ITemplateService templateService)
+        public PersonnelEmailBusinessService(IEmailBusinessService emailBusinessService, ITemplateBusinessService templateBusinessService)
         {
-            _emailService = emailService;
-            _templateService = templateService;
+            _emailBusinessService = emailBusinessService;
+            _templateBusinessService = templateBusinessService;
         }
 
         public async Task SendConfirmationMail(PersonnelCreatedEmail personnelCreatedEmail)
         {
             var templateJson = personnelCreatedEmail.ToJson();
-            var body = _templateService.CreateText(templateJson, "PersonnelCreatedEmail");
+            var body = _templateBusinessService.CreateText(templateJson, personnelCreatedEmail.TemplateName);
             if (body == null)
                 return;
 
-            await _emailService.SendEmailAsync(new EmailData
+            _emailBusinessService.SendEmail(new EmailData
             {
-                Subject = "Welcome to mumbile", //ToDo
+                Subject = personnelCreatedEmail.Subject, //ToDo
                 FromAddress = personnelCreatedEmail.FromAddress,
                 ToAddressList = personnelCreatedEmail.ToAddress,
                 IsHtml = true,
                 Body = body
             });
-
         }
     }
 }

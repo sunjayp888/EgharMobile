@@ -8,7 +8,7 @@ using Egharpay.Entity;
 
 namespace Egharpay.Business.Interfaces
 {
-    public interface IPersonnelEmailService
+    public interface IPersonnelEmailBusinessService
     {
         Task SendConfirmationMail(PersonnelCreatedEmail personnelCreatedEmail);
     }

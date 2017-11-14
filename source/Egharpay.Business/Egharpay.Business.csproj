@@ -143,7 +143,7 @@
     <Compile Include="Dto\Extensions.cs" />
     <Compile Include="Extensions\SeoExtensions.cs" />
     <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
-    <Compile Include="Interfaces\IPersonnelEmailService.cs" />
+    <Compile Include="Interfaces\IPersonnelEmailBusinessService.cs" />
     <Compile Include="Interfaces\ISellerMobileBusinessService.cs" />
     <Compile Include="Models\HtmlEmail.cs" />
     <Compile Include="Models\Mobile.cs" />
@@ -169,21 +169,21 @@
     <Compile Include="Interfaces\IMobileCommentBusinessService.cs" />
     <Compile Include="Interfaces\INewsBusinessService.cs" />
     <Compile Include="Interfaces\IOrderBusinessService.cs" />
-    <Compile Include="Interfaces\IPdfService.cs" />
+    <Compile Include="Interfaces\IPdfBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelDocumentBusinessService.cs" />
-    <Compile Include="Interfaces\IRazorService.cs" />
+    <Compile Include="Interfaces\IRazorBusinessService.cs" />
     <Compile Include="Interfaces\IRequestTypeBusinessService.cs" />
     <Compile Include="Interfaces\ISellerBusinessService.cs" />
-    <Compile Include="Interfaces\ITemplateService.cs" />
+    <Compile Include="Interfaces\ITemplateBusinessService.cs" />
     <Compile Include="Interfaces\ITrendBusinessService.cs" />
     <Compile Include="Interfaces\ITrendCommentBusinessService.cs" />
     <Compile Include="Interfaces\IYouTubeBusinessService.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\DocumentCategory.cs" />
     <Compile Include="Interfaces\MvcTemplateBase.cs" />
-    <Compile Include="Interfaces\PdfService.cs" />
-    <Compile Include="Interfaces\RazorService.cs" />
+    <Compile Include="Services\PdfBusinessService.cs" />
+    <Compile Include="Services\RazorBusinessService.cs" />
     <Compile Include="Models\Graph.cs" />
     <Compile Include="Models\MobileImage.cs" />
     <Compile Include="Models\RegistrationReciept.cs" />
@@ -223,14 +223,14 @@
     <Compile Include="Services\OrderBusinessService.cs" />
     <Compile Include="Services\PersonnelBusinessService.cs" />
     <Compile Include="Services\PersonnelDocumentBusinessService.cs" />
-    <Compile Include="Services\PersonnelEmailService.cs" />
+    <Compile Include="Services\PersonnelEmailBusinessService.cs" />
     <Compile Include="Services\RequestTypeBusinessService.cs" />
     <Compile Include="Services\SellerBusinessService.cs" />
     <Compile Include="SellerMobileBusinessService.cs" />
     <Compile Include="Services\TrendBusinessService.cs" />
     <Compile Include="Services\TrendCommentBusinessService.cs" />
     <Compile Include="Services\YouTubeBusinessService.cs" />
-    <Compile Include="TemplateService.cs" />
+    <Compile Include="Services\TemplateBusinessService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Egharpay.Data\Egharpay.Data.csproj">
