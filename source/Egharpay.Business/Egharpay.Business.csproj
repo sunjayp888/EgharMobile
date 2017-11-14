@@ -143,8 +143,11 @@
     <Compile Include="Dto\Extensions.cs" />
     <Compile Include="Extensions\SeoExtensions.cs" />
     <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
+    <Compile Include="Interfaces\IPersonnelEmailService.cs" />
     <Compile Include="Interfaces\ISellerMobileBusinessService.cs" />
+    <Compile Include="Models\HtmlEmail.cs" />
     <Compile Include="Models\Mobile.cs" />
+    <Compile Include="Models\PersonnelCreatedEmail.cs" />
     <Compile Include="Services\EmailBusinessService.cs" />
     <Compile Include="Enum\DocumentCategory.cs" />
     <Compile Include="Enum\FeeType.cs" />
@@ -220,9 +223,10 @@
     <Compile Include="Services\OrderBusinessService.cs" />
     <Compile Include="Services\PersonnelBusinessService.cs" />
     <Compile Include="Services\PersonnelDocumentBusinessService.cs" />
+    <Compile Include="Services\PersonnelEmailService.cs" />
     <Compile Include="Services\RequestTypeBusinessService.cs" />
     <Compile Include="Services\SellerBusinessService.cs" />
-    <Compile Include="Services\SellerMobileBusinessService.cs" />
+    <Compile Include="SellerMobileBusinessService.cs" />
     <Compile Include="Services\TrendBusinessService.cs" />
     <Compile Include="Services\TrendCommentBusinessService.cs" />
     <Compile Include="Services\YouTubeBusinessService.cs" />

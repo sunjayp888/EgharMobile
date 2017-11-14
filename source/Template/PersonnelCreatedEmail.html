@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        body, p, td {
+            font-size: 16pt;
+            font-family: "Calibri";
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .CenterText {
+            text-align: center;
+        }
+
+        .RightText {
+            text-align: right;
+        }
+
+        .TopText {
+            vertical-align: top;
+        }
+
+        .DoubleBottomBorder td {
+            border-bottom: 1px solid black;
+            width: 25%;
+        }
+
+        .PayslipBox {
+            margin-top: 20px;
+            border: solid 2px gray;
+            padding: 10px;
+        }
+
+            .PayslipBox table {
+                width: 100%;
+                border-style: none;
+                border-collapse: collapse;
+                border-width: 0;
+            }
+
+                .PayslipBox table td, .PayslipBox p {
+                    font-size: 15pt;
+                }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <!-- Pay Statement Header -->
+    <table border="0" width="100%">
+        <tr>
+            <td class="TopText" width="25%">
+                <img src="E:\NidanWorkArea\NidanERP\source\Nidan\Nidan\Content\images\NEST.jpg" style="height: 172px; width: 250px;" />
+            </td>
+            <td class="CenterText TopText" width="50%">
+                <h1>@Model.FullName</h1>              
+            </td>
+            <td class="TopText RightText" width="25%"></td>
+        </tr>
+    </table>
+    <br />
+    </div>
+</body>
+</html>

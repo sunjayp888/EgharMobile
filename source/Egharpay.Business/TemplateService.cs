@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Egharpay.Business.Interfaces;
 using Egharpay.Data.Interfaces;
 
@@ -11,10 +13,12 @@ namespace Egharpay.Business
     {
         private readonly IPdfService _pdfService;
         private readonly IRazorService _razorService;
+        private readonly ITemplateDataService _templateDataService;
 
-        public TemplateService(IRazorService razorService, IPdfService pdfService)
+        public TemplateService(IRazorService razorService, IPdfService pdfService, ITemplateDataService templateDataService)
         {
             _pdfService = pdfService;
+            _templateDataService = templateDataService;
             _razorService = razorService;
         }
 
@@ -22,7 +26,7 @@ namespace Egharpay.Business
         {
             try
             {
-                string htmlData = CreateText(organisationId, jsonString, templateName);
+                string htmlData = CreateText(jsonString, templateName);
                 return _pdfService.CreatePDFfromHtml(htmlData);
             }
             catch (Exception)
@@ -36,21 +40,21 @@ namespace Egharpay.Business
             return _pdfService.CreatePDFfromPDFTemplate(formValues, string.Empty);
         }
 
-        public string CreateText(int organisationId, string jsonString, string templateName)
+        public string CreateText(string jsonString, string templateName)
         {
             if (!_razorService.IsTemplateCached(templateName))
             {
-                var template = GetTemplateHtml(organisationId, templateName);
+                var template = GetTemplateHtml(templateName);
                 _razorService.CacheTemplate(templateName, template);
             }
             return _razorService.CreateText(jsonString, templateName);
         }
 
-        public string GetTemplateHtml(int organisationId, string templateName)
+        public string GetTemplateHtml(string templateName)
         {
-            //var templateDetails = _personnelDataService.RetrieveTemplateDetails(organisationId, templateName);
-            //return File.ReadAllText(templateDetails.FilePath);
-            return null;
+            var templateDetails = _templateDataService.Retrieve<Entity.Template>(e => e.Name.ToLower() == templateName.ToLower());
+            var template = templateDetails.FirstOrDefault();
+            return File.ReadAllText(template?.FilePath);
         }
     }
 }
