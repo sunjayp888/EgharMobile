@@ -34,7 +34,6 @@ namespace Egharpay.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create()
         {
-            var sellerResult = await _sellerBusinessService.RetrieveSellers();
             var viewModel = new SellerViewModel()
             {
                 Seller = new Seller()
@@ -52,18 +51,18 @@ namespace Egharpay.Controllers
             {
                 //Create Seller
                 sellerViewModel.Seller.CreatedDate = DateTime.UtcNow;
-                sellerViewModel.Seller.SellerApprovalStateId = (int) ApprovalState.Pending;
+                sellerViewModel.Seller.ApprovalStateId = (int) ApprovalState.Pending;
                 sellerViewModel.Seller.ApprovalStateId = (int) ApprovalState.Pending;
                 var result = await _sellerBusinessService.CreateSeller(sellerViewModel.Seller);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
                 }
-                //ModelState.AddModelError("", result.Exception);
-                //foreach (var error in result.Errors)
-                //{
-                //    ModelState.AddModelError("", error);
-                //}
+                ModelState.AddModelError("", result.Exception);
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
             }
             return View(sellerViewModel);
         }
@@ -94,16 +93,16 @@ namespace Egharpay.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var result = await _shopBusinessService.UpdateApartment(apartmentViewModel.Apartment);
-                //if (result.Succeeded)
-                //{
-                //    return RedirectToAction("Index");
-                //}
-                //ModelState.AddModelError("", result.Exception);
-                //foreach (var error in result.Errors)
-                //{
-                //    ModelState.AddModelError("", error);
-                //}
+                var result = await _sellerBusinessService.UpdateSeller(sellerViewModel.Seller);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError("", result.Exception);
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
             }
             return View(sellerViewModel);
         }
@@ -116,10 +115,9 @@ namespace Egharpay.Controllers
                 var data = await _sellerBusinessService.RetrieveSellers(orderBy, paging);
                 return this.JsonNet(data);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
-                throw;
+                return this.JsonNet(""); ;
             }
             
         }

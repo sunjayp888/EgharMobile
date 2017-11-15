@@ -253,7 +253,6 @@
     <Folder Include="Views\Order\" />
     <Folder Include="Views\PersonnelDocuments\" />
     <Folder Include="Views\PersonnelDocument\" />
-    <Folder Include="Views\SellerMobile\" />
     <Folder Include="Views\YouTube\" />
   </ItemGroup>
   <ItemGroup>
@@ -2037,6 +2036,7 @@
     <Content Include="Views\Home\_PersonnelHomeSelfie.cshtml" />
     <Content Include="Views\Mobile\_AddToStore.cshtml" />
     <Content Include="Views\Home\LatestMobileAll.cshtml" />
+    <Content Include="Views\SellerMobile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
