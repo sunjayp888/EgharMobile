@@ -4,7 +4,7 @@
     ViewBag.Title = "Latest Mobile All";
 }
 
-<div ng-controller="HomeController as model">
+<div ng-controller="HomeController as model" ng-init="model.latestMobiles(true)">
     <div class="row">
         <div class="col-lg-12">
             <h3>
@@ -37,7 +37,7 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-md-3" ng-repeat="MobileList in model.latestMobileList">
+            <div class="col-md-3" ng-repeat="mobileList in model.latestMobileList">
                 <a ng-href="/Mobile/Detail/{{mobile.MobileId}}">
                     <div class="ibox">
                         <div class="ibox-content product-box">
@@ -50,7 +50,7 @@
                                 </span>
                                 @* <small class="text-muted"><span class="label label-info pull-left">Active</span></small>*@
                                 <br />
-                                <a href="#" class="product-name"><strong ng-bind="MobileList.Name"></strong></a>
+                                <a href="#" class="product-name"><strong ng-bind="mobileList.Name"></strong></a>
                                 <div class="small m-t-xs">
                                     Many desktop publishing packages and web page editors now.
                                 </div>
