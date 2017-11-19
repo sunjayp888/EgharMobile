@@ -19,6 +19,7 @@ using Egharpay.Extensions;
 using Egharpay.Models;
 using HtmlAgilityPack;
 using Microsoft.Owin.Security.Authorization;
+using Filter = Egharpay.Helpers.Filter;
 
 namespace Egharpay.Controllers
 {
@@ -35,9 +36,10 @@ namespace Egharpay.Controllers
         }
 
         // GET: Mobile
-        public ActionResult Index()
+        public ActionResult Index(string filter)
         {
-            return View(new BaseViewModel());
+            var filterData = filter.ToLower() == "islatest" ? new Filter() { IsLatest = true } : null;
+            return View(new BaseViewModel() { Filter = filterData });
         }
 
         // GET: Apartment/Create
@@ -118,7 +120,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
+        public async Task<ActionResult> List(Helpers.Filter filter, Paging paging, List<OrderBy> orderBy)
         {
             var data = await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging);
             return this.JsonNet(data);
@@ -168,23 +170,18 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
-        public async Task<ActionResult> AllLatestMobile()
+        public ActionResult AllLatestMobile()
         {
-            var data = await _mobileBusinessService.RetrieveLatestMobile();
-            var viewModel = new MobileViewModel()
-            {
-                //Mobile = data.
-            };
-            return View(viewModel);
+            return RedirectToAction("Index", "Mobile", new { filter = "Islatest" });
         }
-        
+
         [HttpPost]
         [Route("Mobile/RetrieveMobilesInStore")]
         public async Task<ActionResult> RetrieveMobilesInStore(Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsDeviceInStore, orderBy, paging));
         }
-        
+
 
 
 

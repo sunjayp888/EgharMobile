@@ -1,10 +1,13 @@
 ﻿@using Egharpay.Extensions
+@model Egharpay.Models.BaseViewModel
 
 @{
+    var layout = User.IsSuperUserOrAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    Layout = layout;
     ViewBag.Title = "Index";
 }
 
-<div ng-controller="MobileController as model" ng-init="model.initialise()">
+<div ng-controller="MobileController as model" ng-init="model.initialise(@Model.Filter)">
     <div class="row">
         <div class="col-lg-12">
             <h3>

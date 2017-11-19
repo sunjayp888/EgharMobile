@@ -27,7 +27,7 @@
         vm.latestMobiles = latestMobiles;
         vm.latestMobileList = [];
         vm.showAll = false;
-
+        vm.showAllLatestMobile = showAllLatestMobile;
         function initialise() {
             retrieveSearchField();
             latestMobiles(vm.showAll);
@@ -89,11 +89,15 @@
             }
             if (vm.showAll == false) {
                 return HomeService.latestMobiles(vm.showAll)
-                    .then(function(response) {
+                    .then(function (response) {
                         vm.latestMobileList = response.data;
                         return vm.latestMobileList;
                     });
             }
+        }
+
+        function showAllLatestMobile() {
+            window.location.href = "/Mobile/AllLatestMobile";
         }
     }
 })();

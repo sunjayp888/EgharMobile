@@ -31,13 +31,15 @@
         var country, state, city, pinCode, map, latitude, longitude, count, pin;
         vm.initialise = initialise;
         vm.retrieveMobilesInStore = retrieveMobilesInStore;
+        vm.filter;
 
 
-        function initialise() {
+        function initialise(filter) {
+            vm.filter = filter;
             vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-            //order("Name");
+            order("Name");
         }
 
         function retrieveMobiles() {

@@ -58,7 +58,7 @@
                             <ul>
                                 <li class="dropdown-header">Latest Phones</li>
                                 <li ng-repeat="latestMobile in model.latestMobileList"><a ng-href="Mobile/Detail/{{latestMobile.MobileId}}"><span ng-bind="latestMobile.Name"></span></a></li>
-                                <li><button class="btn btn-primary" ng-href="Home/LatestMobileAll()">Show all latest</button></li>
+                                <li><button class="btn btn-primary" ng-click="model.showAllLatestMobile()">Show all latest</button></li>
                             </ul>
                         </li>
                         <li class="col-sm-3">
