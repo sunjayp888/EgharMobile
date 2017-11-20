@@ -28,6 +28,8 @@
         vm.latestMobileList = [];
         vm.showAll = false;
         vm.showAllLatestMobile = showAllLatestMobile;
+        vm.showAllBrands = showAllBrands;
+
         function initialise() {
             retrieveSearchField();
             latestMobiles(vm.showAll);
@@ -98,6 +100,10 @@
 
         function showAllLatestMobile() {
             window.location.href = "/Mobile/AllLatestMobile";
+        }
+
+        function showAllBrands() {
+            window.location.href = "/Brand";
         }
     }
 })();

@@ -38,8 +38,7 @@ namespace Egharpay.Controllers
         // GET: Mobile
         public ActionResult Index(string filter)
         {
-            var filterData = filter.ToLower() == "islatest" ? new Filter() { IsLatest = true } : null;
-            return View(new BaseViewModel() { Filter = filterData });
+            return View(new BaseViewModel { Filter = filter });
         }
 
         // GET: Apartment/Create
@@ -120,10 +119,9 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> List(Helpers.Filter filter, Paging paging, List<OrderBy> orderBy)
+        public async Task<ActionResult> List(string filter, Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging);
-            return this.JsonNet(data);
+            return await RetrieveMobiles(filter, paging, orderBy);
         }
 
         [HttpPost]
@@ -183,6 +181,16 @@ namespace Egharpay.Controllers
         }
 
 
+        private async Task<ActionResult> RetrieveMobiles(string filter, Paging paging, List<OrderBy> orderBy)
+        {
+            switch (filter?.ToLower())
+            {
+                case "islatest":
+                    return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
+                default:
+                    return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
+            }
+        }
 
 
         //private List<Mobile> CreateMobileData(List<Brand> brands)

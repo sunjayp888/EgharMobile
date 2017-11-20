@@ -7,6 +7,6 @@ namespace Egharpay.Models
     {
         public int PersonnelId { get; set; }
         public Permissions Permissions { get; set; }
-        public Filter Filter { get; set; }
+        public string Filter { get; set; }
     }
 }

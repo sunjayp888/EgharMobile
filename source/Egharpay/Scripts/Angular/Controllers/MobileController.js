@@ -43,7 +43,7 @@
         }
 
         function retrieveMobiles() {
-            return MobileService.retrieveMobiles(vm.paging, vm.orderBy)
+            return MobileService.retrieveMobiles(vm.filter,vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.mobiles = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
