@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
@@ -22,10 +24,14 @@ namespace Egharpay.Controllers
     public class AccountController : BaseController
     {
         private IPersonnelBusinessService PersonnelBusinessService { get; set; }
+        private IPersonnelEmailBusinessService PersonnelEmailBusinessService { get; set; }
+        private ISellerBusinessService SellerBusinessService { get; set; }
 
-        public AccountController(IPersonnelBusinessService personnelBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
+        public AccountController(IPersonnelBusinessService personnelBusinessService, ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
         {
             PersonnelBusinessService = personnelBusinessService;
+            SellerBusinessService = sellerBusinessService;
+            PersonnelEmailBusinessService = personnelEmailBusinessService;
         }
 
         private ApplicationSignInManager _signInManager;
@@ -71,28 +77,38 @@ namespace Egharpay.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var user = await UserManager.FindAsync(model.Email, model.Password);
+                if (user != null)
+                {
+                    if (user.EmailConfirmed)
+                    {
+                        var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                        switch (result)
+                        {
+                            case SignInStatus.Success:
+                                return RedirectToLocal(returnUrl);
+                            case SignInStatus.LockedOut:
+                                return View("Lockout");
+                            case SignInStatus.RequiresVerification:
+                                return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                            case SignInStatus.Failure:
+                            default:
+                                ModelState.AddModelError("", "Invalid login attempt.");
+                                return View(model);
+                        }
+                    }
+                    ModelState.AddModelError("", "Confirm Email Address.");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
             }
-
+            return View(model);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
         }
 
         //
@@ -157,31 +173,30 @@ namespace Egharpay.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 model.AspNetUserId = user.Id;
-                var personnelResult = await CreatePersonnel(model);
-                if (personnelResult.Succeeded)
+                var role = model.IsSeller ? Role.Seller.ToString() : Role.Personnel.ToString();
+                var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
+                user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
                 {
-                    user.PersonnelId = personnelResult.Entity.PersonnelId;
-                    var role = model.IsSeller ? Role.Seller.ToString() : Role.Personnel.ToString();
-                    var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
-                    user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
-                    var result = await UserManager.CreateAsync(user, model.Password);
-                    if (result.Succeeded)
+                    var personnelResult = await CreatePersonnel(model);
+                    if (!personnelResult.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                        return RedirectToAction("Index", "Home");
+                        ModelState.AddModelError(string.Empty, personnelResult.Errors.FirstOrDefault());
+                        return View(model);
                     }
-                    AddErrors(result);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //  await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await SendConfirmationMail(personnelResult.Entity, callbackUrl);
+                    return RedirectToAction("Confirm", "Account", new { email = user.Email });
                 }
-                ModelState.AddModelError(string.Empty, personnelResult.Errors.FirstOrDefault());
+                AddErrors(result);
             }
             // If we got this far, something failed, redisplay form
-
             return View(model);
         }
 
@@ -199,6 +214,30 @@ namespace Egharpay.Controllers
             return await PersonnelBusinessService.CreatePersonnel(personnel);
         }
 
+        private async Task<ValidationResult> SendConfirmationMail(Personnel personnel, string callbackUrl)
+        {
+            var validationResult = new ValidationResult();
+            var personnelConfirmedEmail = new PersonnelCreatedEmail()
+            {
+                Personnel = personnel,
+                CallBackUrl = callbackUrl,
+                Subject = "Confirm your account",
+                TemplateName = "PersonnelCreatedEmail",
+                ToAddress = new List<string>() { personnel.Email }
+            };
+            try
+            {
+                await PersonnelEmailBusinessService.SendConfirmationMail(personnelConfirmedEmail);
+                validationResult.Succeeded = true;
+                return validationResult;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                return validationResult;
+            }
+        }
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -208,8 +247,22 @@ namespace Egharpay.Controllers
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            ApplicationUser user = this.UserManager.FindById(userId);
+            
+                if (user.Id == userId)
+                {
+                    user.EmailConfirmed = true;
+                    await UserManager.UpdateAsync(user);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                return RedirectToAction("Confirm", "Account", new { email = user.Email });
+        }
+
+        [AllowAnonymous]
+        public ActionResult Confirm(string email)
+        {
+            ViewBag.Email = email; return View();
         }
 
         //

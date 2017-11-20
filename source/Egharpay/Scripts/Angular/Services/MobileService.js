@@ -24,11 +24,12 @@
 
         return service;
 
-        function retrieveMobiles(Paging, OrderBy) {
+        function retrieveMobiles(filter,Paging, OrderBy) {
             var url = "/Mobile/List",
                 data = {
                     paging: Paging,
-                    orderBy: new Array(OrderBy)
+                    orderBy: new Array(OrderBy),
+                    filter: filter
                 };
             return $http.post(url, data);
         }

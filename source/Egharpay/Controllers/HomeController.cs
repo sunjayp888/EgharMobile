@@ -91,11 +91,18 @@ namespace Egharpay.Controllers
             return this.JsonNet(showAll ? data : data.Take(5));
         }
 
-        // GET: LatestMobile
+        //[AllowAnonymous]
         public async Task<ActionResult> LatestMobileAll()
         {
             var mobileData = await _mobileBusinessService.RetrieveLatestMobile();
-            return View(mobileData);
+            return View(new BaseViewModel());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> LatestMobileData()
+        {
+            var data = await _mobileBusinessService.RetrieveLatestMobile();
+            return this.JsonNet(data);
         }
 
     }

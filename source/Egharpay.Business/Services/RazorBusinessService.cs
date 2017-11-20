@@ -1,15 +1,16 @@
+using Egharpay.Business.Interfaces;
 using Newtonsoft.Json;
 using RazorEngine;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
 
-namespace Egharpay.Business.Interfaces
+namespace Egharpay.Business.Services
 {
-    public class RazorService : IRazorService
+    public class RazorBusinessService : IRazorBusinessService
     {
-        private IRazorEngineService _service;
+        private readonly IRazorEngineService _service;
 
-        public RazorService()
+        public RazorBusinessService()
         {
             var config = new TemplateServiceConfiguration
             {

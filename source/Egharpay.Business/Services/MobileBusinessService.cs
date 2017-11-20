@@ -130,7 +130,7 @@ namespace Egharpay.Business.Services
         {
             if (!string.IsNullOrEmpty(term))
             {
-                var data = await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.MetaSearch.Replace(" ", "").ToLower().Contains(term.Replace(" ", "").ToLower()), orderBy, paging);
+                var data = await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.SearchField.Replace(" ", "").ToLower().Contains(term.Replace(" ", "").ToLower()), orderBy, paging);
                 return _mapper.MapToPagedResult<Models.Mobile>(data);
             }
             var result = await _dataService.RetrievePagedResultAsync<MobileGrid>(e => true);

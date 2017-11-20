@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Egharpay.Business.Extensions.ArrayExtensions;
+using Newtonsoft.Json;
 
 namespace Egharpay.Business.Extensions
 {
@@ -67,6 +69,45 @@ namespace Egharpay.Business.Extensions
         public static T Copy<T>(this T original)
         {
             return (T)Copy((object)original);
+        }
+
+        public static string ToJson<T>(this T obj, Func<T, object> objRequired = null) where T : class
+        {
+            var jsonSerializerSettings = new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore, NullValueHandling = NullValueHandling.Ignore };
+            return obj.ToJson(jsonSerializerSettings, objRequired);
+        }
+
+
+        public static string ToJson<T>(this T obj, JsonSerializerSettings jsonSerializerSettings, Func<T, object> objRequired = null) where T : class
+        {
+            return obj == null
+                ? JsonConvert.SerializeObject(default(T))
+                : JsonConvert.SerializeObject(objRequired == null ? obj : objRequired.Invoke(obj), Formatting.None, jsonSerializerSettings);
+        }
+
+        public static IEnumerable<T> EmptyWhenNull<T>(this IEnumerable<T> obj)
+        {
+            return obj ?? Enumerable.Empty<T>();
+        }
+
+        public static T UpperCase<T>(this T record)
+        {
+            PropertyInfo[] properties = typeof(T).GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.PropertyType == typeof(string) && property.CanWrite && property.GetValue(record) != null)
+                    property.SetValue(record, property.GetValue(record).ToString().ToUpper());
+            }
+            return record;
+        }
+
+        public static IEnumerable<T> UpperCase<T>(this IEnumerable<T> records)
+        {
+            foreach (var record in records)
+            {
+                record.UpperCase();
+            }
+            return records;
         }
     }
 

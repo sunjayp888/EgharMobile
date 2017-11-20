@@ -31,17 +31,19 @@
         var country, state, city, pinCode, map, latitude, longitude, count, pin;
         vm.initialise = initialise;
         vm.retrieveMobilesInStore = retrieveMobilesInStore;
+        vm.filter;
 
 
-        function initialise() {
+        function initialise(filter) {
+            vm.filter = filter;
             vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-            //order("Name");
+            order("Name");
         }
 
         function retrieveMobiles() {
-            return MobileService.retrieveMobiles(vm.paging, vm.orderBy)
+            return MobileService.retrieveMobiles(vm.filter,vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.mobiles = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;

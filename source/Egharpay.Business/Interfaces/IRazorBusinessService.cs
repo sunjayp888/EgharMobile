@@ -1,6 +1,6 @@
 ﻿namespace Egharpay.Business.Interfaces
 {
-    public interface IRazorService
+    public interface IRazorBusinessService
     {
         string CreateText(string jsonString, string templateName);
         bool IsTemplateCached(string templateName);

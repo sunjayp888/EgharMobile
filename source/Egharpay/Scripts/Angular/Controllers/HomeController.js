@@ -27,6 +27,8 @@
         vm.latestMobiles = latestMobiles;
         vm.latestMobileList = [];
         vm.showAll = false;
+        vm.showAllLatestMobile = showAllLatestMobile;
+        vm.showAllBrands = showAllBrands;
 
         function initialise() {
             retrieveSearchField();
@@ -80,19 +82,28 @@
         function latestMobiles(showAll) {
             vm.showAll = showAll;
             if (vm.showAll == true) {
-                return HomeService.latestMobileAll(vm.showAll)
+                return HomeService.latestMobileData(vm.showAll)
+                    .then(function (response) {
+                        vm.latestMobileList = response.data;
+                        return vm.latestMobileList;
+                    });
+                //$window.location.href = "/Home/latestMobileAll";
+            }
+            if (vm.showAll == false) {
+                return HomeService.latestMobiles(vm.showAll)
                     .then(function (response) {
                         vm.latestMobileList = response.data;
                         return vm.latestMobileList;
                     });
             }
-            if (vm.showAll == false) {
-                return HomeService.latestMobiles(vm.showAll)
-                    .then(function(response) {
-                        vm.latestMobileList = response.data;
-                        return vm.latestMobileList;
-                    });
-            }
+        }
+
+        function showAllLatestMobile() {
+            window.location.href = "/Mobile/AllLatestMobile";
+        }
+
+        function showAllBrands() {
+            window.location.href = "/Brand";
         }
     }
 })();

@@ -1,9 +1,7 @@
 ﻿<div class="row border-bottom white-bg" ng-controller="HomeController as model" ng-init="model.initialise()">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="navbar-header">
-            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                <i class="fa fa-reorder"></i>
-            </button>
+           
             <div class="row">
                 <div class="col-lg-2">
                     <a href="~/Home" class="navbar-brand"><strong>mumbile</strong></a>
@@ -14,10 +12,13 @@
                             <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" class="typeahead_2 form-control dropdown-menu-search" />
                         </div>
                         <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
-                            <span class="glyphicon glyphicon-search">Search</span>
+                            <i class="fa fa-search"></i>
                         </button>
                     </form>
                 </div>
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
             </div>
         </div>
 
@@ -51,14 +52,14 @@
                                 <li><a ng-href="@Url.Action("Mobile","Brand",new {id=278})">Motorola</a></li>
                                 <li><a ng-href="@Url.Action("Mobile","Brand",new {id=323})">Redmi(Xiaomi)</a></li>
                                 <li><a ng-href="@Url.Action("Mobile","Brand",new {id=226})">Apple</a></li>
-                                <li><a href="@Url.Action("Index","Brand")" class="btn btn-primary">Show all brands</a></li>
+                                <li><button class="btn btn-primary" ng-click="model.showAllBrands()">Show all brands</button></li>
                             </ul>
                         </li>
                         <li class="col-sm-3">
                             <ul>
                                 <li class="dropdown-header">Latest Phones</li>
                                 <li ng-repeat="latestMobile in model.latestMobileList"><a ng-href="Mobile/Detail/{{latestMobile.MobileId}}"><span ng-bind="latestMobile.Name"></span></a></li>
-                                <li><button type="submit" class="btn btn-primary" ng-click="model.latestMobiles(true)">Show all latest</button></li>
+                                <li><button class="btn btn-primary" ng-click="model.showAllLatestMobile()">Show all latest</button></li>
                             </ul>
                         </li>
                         <li class="col-sm-3">

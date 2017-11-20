@@ -19,6 +19,7 @@ using Egharpay.Extensions;
 using Egharpay.Models;
 using HtmlAgilityPack;
 using Microsoft.Owin.Security.Authorization;
+using Filter = Egharpay.Helpers.Filter;
 
 namespace Egharpay.Controllers
 {
@@ -35,9 +36,9 @@ namespace Egharpay.Controllers
         }
 
         // GET: Mobile
-        public ActionResult Index()
+        public ActionResult Index(string filter)
         {
-            return View(new BaseViewModel());
+            return View(new BaseViewModel { Filter = filter });
         }
 
         // GET: Apartment/Create
@@ -118,10 +119,9 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
+        public async Task<ActionResult> List(string filter, Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging);
-            return this.JsonNet(data);
+            return await RetrieveMobiles(filter, paging, orderBy);
         }
 
         [HttpPost]
@@ -168,24 +168,29 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
-        public async Task<ActionResult> AllLatestMobile()
+        public ActionResult AllLatestMobile()
         {
-            var data = await _mobileBusinessService.RetrieveLatestMobile();
-            var viewModel = new MobileViewModel()
-            {
-                //Mobile = data.
-            };
-            return View(viewModel);
+            return RedirectToAction("Index", "Mobile", new { filter = "Islatest" });
         }
-        
+
         [HttpPost]
         [Route("Mobile/RetrieveMobilesInStore")]
         public async Task<ActionResult> RetrieveMobilesInStore(Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsDeviceInStore, orderBy, paging));
         }
-        
 
+
+        private async Task<ActionResult> RetrieveMobiles(string filter, Paging paging, List<OrderBy> orderBy)
+        {
+            switch (filter?.ToLower())
+            {
+                case "islatest":
+                    return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
+                default:
+                    return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
+            }
+        }
 
 
         //private List<Mobile> CreateMobileData(List<Brand> brands)

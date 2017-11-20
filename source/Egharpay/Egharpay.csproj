@@ -164,8 +164,8 @@
       <HintPath>..\packages\Mono.Reflection.1.1.0.0\lib\Mono.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
@@ -306,6 +306,7 @@
     <Compile Include="Extensions\DataTableToExcel.cs" />
     <Compile Include="Extensions\FileExtensions.cs" />
     <Compile Include="Extensions\PrincipalExtensions.cs" />
+    <Compile Include="Helpers\Filter.cs" />
     <Compile Include="Helpers\SeoFriendlyRoute.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -2037,6 +2038,7 @@
     <Content Include="Views\Mobile\_AddToStore.cshtml" />
     <Content Include="Views\Home\LatestMobileAll.cshtml" />
     <Content Include="Views\SellerMobile\Index.cshtml" />
+    <Content Include="Views\Account\Confirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

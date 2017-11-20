@@ -3,7 +3,7 @@
 namespace Egharpay.Business.Interfaces
 {
 
-    public interface IPdfService
+    public interface IPdfBusinessService
     {
         byte[] CreatePDFfromPDFTemplate(Dictionary<string, string> formValues, string templatePath);
         

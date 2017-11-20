@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Egharpay.Business.Interfaces;
 using HiQPdf;
 using iTextSharp.text.pdf;
 
-namespace Egharpay.Business.Interfaces
+namespace Egharpay.Business.Services
 {
-    public class PdfService : IPdfService
+    public class PdfBusinessService : IPdfBusinessService
     {
         public byte[] CreatePDFfromHtml(string html)
         {

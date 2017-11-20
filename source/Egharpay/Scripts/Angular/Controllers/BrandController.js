@@ -21,6 +21,7 @@
         vm.retrieveMobileByBrandId = retrieveMobileByBrandId;
         vm.searchKeyword = "";
         vm.searchMessage = "";
+        vm.brandMobileLocation = brandMobileLocation;
         vm.initialise = initialise;
 
         function initialise() {
@@ -87,9 +88,9 @@
             return OrderService.orderClass(vm.orderBy, property);
         }
 
-        //function viewBrand(brandId) {
-        //    $window.location.href = "/Apartment/Edit/" + apartmentId;
-        //}
+        function brandMobileLocation(brandId) {
+            $window.location.href = "/Brand/Mobile/" + brandId;
+        }
 
     }
 })();

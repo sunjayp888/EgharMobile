@@ -10,5 +10,6 @@ namespace Egharpay.Business
         public static string EmailDefaultFromAddress => ConfigurationManager.AppSettings["EmailDefaultFromAddress"].ToString();
         public static string OverrideEmailAddresses => ConfigurationManager.AppSettings["OverrideEmailAddresses"].ToString();
         public static string TemporaryMobileGalleryImagePath => ConfigurationManager.AppSettings["TemporaryMobileGalleryImagePath"].ToString();
+        public static string TemplateRootFilePath => ConfigurationManager.AppSettings["TemplateRootFilePath"].ToString();
     }
 }
