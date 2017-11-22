@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.Models;
@@ -18,5 +19,7 @@ namespace Egharpay.Business.Interfaces
         Task<Order> RetrieveOrder(int orderId);
         Task<PagedResult<Order>> RetrieveOrders(List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<Order>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
+
+        Task<PagedResult<SellerOrderGrid>> RetrieveSellerOrders(Expression<Func<SellerOrderGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
     }
 }
