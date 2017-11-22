@@ -9,6 +9,7 @@ using Configuration.Interface;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Services;
 using Egharpay.Entity;
+using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
 using Microsoft.Owin.Security.Authorization;
@@ -75,6 +76,13 @@ namespace Egharpay.Controllers
             };
             var result = await _orderBusinessService.CreateOrder(order);
             return this.JsonNet(result);
+        }
+
+        [HttpPost]
+        public async Task<PagedResult<SellerOrderGrid>> List(string filter, Paging paging, List<OrderBy> orderBy)
+        {
+            var data = _orderBusinessService.RetrieveSellerOrders(e => true, orderBy, paging);
+            return await data;
         }
     }
 }
