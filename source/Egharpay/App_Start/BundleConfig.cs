@@ -27,8 +27,8 @@ namespace Egharpay
                 "~/bower_components/angular-ui-mask/dist/mask.min.js",
                 "~/bower_components/bootstrap-daterangepicker/daterangepicker.js",
                 "~/bower_components/bootbox/bootbox.js",
-                "~/bower_components/ngBootbox/ngBootbox.js"
-                //"~/bower_components/cropper/dist/cropper.min.js"
+                "~/bower_components/ngBootbox/ngBootbox.js",
+                "~/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/Scripts/Application").Include(
@@ -40,7 +40,7 @@ namespace Egharpay
                 "~/Scripts/Angular/Services/*.js",
                 "~/Scripts/Angular/Filters/*.js",
                 "~/Scripts/Angular/Directives/*.js"
-               
+
                 ));
 
             // CSS style (bootstrap/inspinia)
@@ -48,7 +48,10 @@ namespace Egharpay
                       "~/Content/bootstrap.min.css",
                       "~/Content/animate.css",
                       "~/Content/css/Site.css",
-                      "~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"));
+                      "~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css",
+                      "~/bower_components/ion.rangeSlider/css/ion.rangeSlider.css",
+                      "~/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css"
+                      ));
 
 
             // Font Awesome icons
@@ -100,7 +103,7 @@ namespace Egharpay
             // Lightbox gallery
             bundles.Add(new ScriptBundle("~/plugins/lightboxGallery").Include(
                       "~/Scripts/plugins/blueimp/jquery.blueimp-gallery.min.js"));
-            
+
             // Sparkline
             bundles.Add(new ScriptBundle("~/plugins/sparkline").Include(
                       "~/Scripts/plugins/sparkline/jquery.sparkline.min.js"));
@@ -194,13 +197,13 @@ namespace Egharpay
                       "~/Scripts/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"));
 
             // ionRange styles
-            bundles.Add(new StyleBundle("~/Content/plugins/ionRangeSlider/ionRangeStyles").Include(
-                      "~/Content/plugins/ionRangeSlider/ion.rangeSlider.css",
-                      "~/Content/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css"));
+            //bundles.Add(new StyleBundle("~/Content/plugins/ionRangeSlider/ionRangeStyles").Include(
+            //          "~/Content/plugins/ionRangeSlider/ion.rangeSlider.css",
+            //          "~/Content/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css"));
 
             // ionRange 
-            bundles.Add(new ScriptBundle("~/plugins/ionRange").Include(
-                      "~/Scripts/plugins/ionRangeSlider/ion.rangeSlider.min.js"));
+            //bundles.Add(new ScriptBundle("~/plugins/ionRange").Include(
+            //          "~/Scripts/plugins/ionRangeSlider/ion.rangeSlider.min.js"));
 
             // dataPicker styles
             bundles.Add(new StyleBundle("~/plugins/dataPickerStyles").Include(
@@ -295,7 +298,7 @@ namespace Egharpay
             // image cropper styles
             bundles.Add(new StyleBundle("~/plugins/imagecropperStyles").Include(
                       "~/Content/plugins/cropper/cropper.min.css"));
-            
+
             // jsTree
             bundles.Add(new ScriptBundle("~/plugins/jsTree").Include(
                       "~/Scripts/plugins/jsTree/jstree.min.js"));
