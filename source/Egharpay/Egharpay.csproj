@@ -1427,6 +1427,7 @@
     <Content Include="Scripts\Angular\Directives\DailyScheduleLegendDirective.js" />
     <Content Include="Scripts\Angular\Directives\FileUpload.js" />
     <Content Include="Scripts\Angular\Directives\Inject.js" />
+    <Content Include="Scripts\Angular\Directives\ionrangeslider.js" />
     <Content Include="Scripts\Angular\Directives\Views\_schedule.html" />
     <Content Include="Scripts\Angular\Directives\Views\_scheduleLegend.html" />
     <Content Include="Scripts\Angular\Filters\filters-module.js" />
