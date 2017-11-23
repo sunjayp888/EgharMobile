@@ -33,13 +33,13 @@
                         <h1><span ng-bind="model.mobiles.Name"></span></h1>
                     </div>
                     <div>
-                        <div class="ibox-content no-padding border-left-right">
-                            <img alt="image" class="img-responsive" src="~/Images/profile_big.jpg">
+                        <div class="ibox-content border-left-right">
+                            <img alt="image" class="img-responsive img-center" src="{{model.mobiles.ProfileImagePath}}">
                         </div>
 
                         <div class="ibox-content profile-content">
                             <div class="row m-t-lg">
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-camera"></i></button>
                                     <p>
                                         <h3>
@@ -47,25 +47,25 @@
                                         </h3><span ng-bind="model.mobiles.VideoPixel"></span>
                                     </p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-microchip"></i></button>
                                     <p><h3><strong><span ng-bind="model.mobiles.RAM"></span> GB RAM</strong></h3>GB ROM</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-mobile"></i></button>
                                     <p><h3><strong>"</strong></h3> Display</p>
                                 </div>
                             </div>
                             <div class="row m-t-lg">
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-floppy-o"></i></button>
                                     <p><h3><strong>GB</strong></h3> Internal Memory</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-wrench"></i></button>
                                     <p><h3><strong>ProcessorName</strong></h3> Processor</p>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-thermometer-2"></i></button>
                                     <p>
                                         <h3>

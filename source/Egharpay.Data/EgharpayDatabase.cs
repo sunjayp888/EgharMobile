@@ -814,6 +814,7 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<SellerMobileGrid>()
                 .Property(e => e.SearchField)
+                 .IsUnicode(false);
 
             modelBuilder.Entity<SellerOrderGrid>()
                .Property(e => e.SellerName)
