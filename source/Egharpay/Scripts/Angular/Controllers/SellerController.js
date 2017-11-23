@@ -12,10 +12,10 @@
         var vm = this;
         vm.sellers = [];
         vm.paging = new Paging;
-        vm.pageChanged = pageChanged;
+        //vm.pageChanged = pageChanged;
         vm.orderBy = new OrderBy;
-        vm.order = order;
-        vm.orderClass = orderClass;
+        //vm.order = order;
+        //vm.orderClass = orderClass;
         vm.searchSeller = searchSeller;
         vm.sellerApproveState = sellerApproveState;
         vm.searchKeyword = "";
@@ -35,7 +35,7 @@
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
             return SellerService.retrieveSellers(vm.paging, vm.orderBy)
-                .then(function(response) {
+                .then(function (response) {
                     vm.sellers = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
                     vm.paging.totalResults = response.data.TotalResults;
@@ -47,7 +47,7 @@
         function searchSeller(searchKeyword) {
             vm.searchKeyword = searchKeyword;
             return SellerService.searchSeller(vm.searchKeyword, vm.paging, vm.orderBy)
-                .then(function(response) {
+                .then(function (response) {
                     vm.sellers = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
                     vm.paging.totalResults = response.data.TotalResults;
@@ -57,7 +57,7 @@
         }
 
         function sellerApproveState(sellerId) {
-            return SellerService.sellerApproveState(sellerId).then(function(response) {
+            return SellerService.sellerApproveState(sellerId).then(function (response) {
                 vm.sellers = response.data;
                 return vm.sellers;
             });

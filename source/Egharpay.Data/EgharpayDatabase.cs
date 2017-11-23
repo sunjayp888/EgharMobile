@@ -45,7 +45,11 @@ namespace Egharpay.Data
         public virtual DbSet<PersonnelDocumentDetail> PersonnelDocumentDetails { get; set; }
         public virtual DbSet<SellerMobile> SellerMobiles { get; set; }
         public virtual DbSet<MetaSearchKeyword> MetaSearchKeywords { get; set; }
+
+        public virtual DbSet<SellerMobileGrid> SellerMobileGrids { get; set; }
+
         public virtual DbSet<SellerOrderGrid> SellerOrderGrids { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -798,6 +802,18 @@ namespace Egharpay.Data
             modelBuilder.Entity<HomeBannerImage>()
                 .Property(e => e.FileName)
                 .IsUnicode(false);
+
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.MobileName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.SellerName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.SearchField)
 
             modelBuilder.Entity<SellerOrderGrid>()
                .Property(e => e.SellerName)

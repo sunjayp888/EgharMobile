@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity;
+using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 
 namespace Egharpay.Controllers
@@ -29,6 +30,19 @@ namespace Egharpay.Controllers
         {
             var data = await _sellerMobileBusinessService.AddMobileInStore(sellerMobile);
             return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
+        {
+            var data = await _sellerMobileBusinessService.RetrieveSellerMobileGrids(orderBy, paging);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
+        {
+            return this.JsonNet(await _sellerMobileBusinessService.Search(searchKeyword, orderBy, paging));
         }
     }
 }

@@ -8,6 +8,7 @@ using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
+using Egharpay.Entity.Dto;
 
 namespace Egharpay.Business.Services
 {
@@ -40,6 +41,17 @@ namespace Egharpay.Business.Services
                 validationResult.Exception = ex;
             }
             return validationResult;
+        }
+
+        public async Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var sellerMobiles = await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => true, orderBy, paging);
+            return sellerMobiles;
+        }
+
+        public async Task<PagedResult<SellerMobileGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            return await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
         }
 
         private async Task<ValidationResult<SellerMobile>> MobileAlreadyAssign(int mobileId, int sellerId)
