@@ -32,6 +32,9 @@
         vm.initialise = initialise;
         vm.retrieveMobilesInStore = retrieveMobilesInStore;
         vm.filter;
+        vm.priceChange = priceChange;
+        vm.fromPrice = 20;
+        vm.toPrice = 40;
 
 
         function initialise(filter) {
@@ -197,6 +200,8 @@
                 });
         }
 
-        
+        function priceChange() {
+            alert(vm.toPrice);
+        }
     }
 })();

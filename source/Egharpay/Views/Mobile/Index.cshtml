@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <input class="text-box" ion-range-slider min="18" max="60" from="20" to="30" type="double" />
+                        <input class="text-box" ion-range-slider min="18" max="60" from="model.fromPrice" to="model.toPrice" on-Finish="model.priceChange()" type="double" />
                     </div>
                 </div>
 
