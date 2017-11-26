@@ -13,7 +13,7 @@ namespace Egharpay.Entity
         {
             CreatedDateTime = DateTime.Now;
         }
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SellerMobileId { get; set; }
 
         public int MobileId { get; set; }
