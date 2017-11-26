@@ -9,16 +9,16 @@
 
     function SellerOrderService($http) {
         var service = {
-            retrieveOrder: retrieveOrder
+            retrieveSellerOrders: retrieveSellerOrders
             //editOrder: editOrder
         };
 
         return service;
 
-        function retrieveOrder(OrderBy) {
+        function retrieveSellerOrders(Paging, OrderBy) {
             var url = "/Order/List",
                 data = {
-                    //paging: Paging,
+                    paging: Paging,
                     orderBy: new Array(OrderBy)
                 };
             return $http.post(url, data);
