@@ -1,7 +1,7 @@
 USE [Egharpay]
 GO
 
-/****** Object:  Table [dbo].[Order]    Script Date: 22-10-2017 10:32:48 PM ******/
+/****** Object:  Table [dbo].[Order]    Script Date: 26-11-2017 01:04:51 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,10 +10,11 @@ GO
 
 CREATE TABLE [dbo].[Order](
 	[OrderId] [int] IDENTITY(1,1) NOT NULL,
-	[PersonnelId] [int] NULL,
-	[CreatedDate] [date] NOT NULL,
-	[RequestTypeId] [int] NULL,
+	[SellerId] [int] NOT NULL,
 	[MobileId] [int] NOT NULL,
+	[CustomerId] [int] NULL,
+	[CreatedDate] [date] NOT NULL,
+	[RequestTypeId] [int] NOT NULL,
  CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 (
 	[OrderId] ASC
@@ -27,6 +28,20 @@ REFERENCES [dbo].[Mobile] ([MobileId])
 GO
 
 ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Mobile]
+GO
+
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_RequestType] FOREIGN KEY([RequestTypeId])
+REFERENCES [dbo].[RequestType] ([RequestTypeId])
+GO
+
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_RequestType]
+GO
+
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Seller] FOREIGN KEY([SellerId])
+REFERENCES [dbo].[Seller] ([SellerId])
+GO
+
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Seller]
 GO
 
 
