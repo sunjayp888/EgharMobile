@@ -250,7 +250,6 @@
     <Folder Include="Attributes\" />
     <Folder Include="Views\HomeBannerImage\" />
     <Folder Include="Views\Maintenance\" />
-    <Folder Include="Views\Order\" />
     <Folder Include="Views\PersonnelDocuments\" />
     <Folder Include="Views\PersonnelDocument\" />
     <Folder Include="Views\YouTube\" />
@@ -1410,6 +1409,7 @@
     <Content Include="Scripts\Angular\Controllers\HomeBannerImageController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
+    <Content Include="Scripts\Angular\Controllers\SellerOrderController.js" />
     <Content Include="Scripts\Angular\Controllers\SellerMobileController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileGalleryController.js" />
@@ -1426,6 +1426,7 @@
     <Content Include="Scripts\Angular\Directives\DailyScheduleLegendDirective.js" />
     <Content Include="Scripts\Angular\Directives\FileUpload.js" />
     <Content Include="Scripts\Angular\Directives\Inject.js" />
+    <Content Include="Scripts\Angular\Directives\ionrangeslider.js" />
     <Content Include="Scripts\Angular\Directives\Views\_schedule.html" />
     <Content Include="Scripts\Angular\Directives\Views\_scheduleLegend.html" />
     <Content Include="Scripts\Angular\Filters\filters-module.js" />
@@ -1441,6 +1442,7 @@
     <Content Include="Scripts\Angular\Services\HomeService.js" />
     <Content Include="Scripts\Angular\Services\MobileCommentService.js" />
     <Content Include="Scripts\Angular\Services\SellerMobileService.js" />
+    <Content Include="Scripts\Angular\Services\SellerOrderService.js" />
     <Content Include="Scripts\Angular\Services\TrendCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendService.js" />
     <Content Include="Scripts\Angular\Services\YouTubeService.js" />
@@ -2039,6 +2041,7 @@
     <Content Include="Views\Home\LatestMobileAll.cshtml" />
     <Content Include="Views\SellerMobile\Index.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

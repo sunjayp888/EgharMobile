@@ -78,6 +78,7 @@ namespace Egharpay.Business.Models
         public string MetaSearch { get; set; }
         public bool IsLatest { get; set; }
         public bool IsDeviceInStore { get; set; }
+        public string ProfileImagePath { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public virtual Brand Brand { get; set; }
 

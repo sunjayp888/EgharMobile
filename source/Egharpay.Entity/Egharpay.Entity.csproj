@@ -130,6 +130,7 @@
     <Compile Include="SellerGrid.cs" />
     <Compile Include="SellerMobile.cs" />
     <Compile Include="SellerMobileGrid.cs" />
+    <Compile Include="SellerOrderGrid.cs" />
     <Compile Include="Template.cs" />
     <Compile Include="Trend.cs" />
     <Compile Include="TrendComment.cs" />

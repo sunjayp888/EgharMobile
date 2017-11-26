@@ -213,7 +213,7 @@ namespace Egharpay.Entity
         public string MetaSearch { get; set; }
 
         public string ProfileImagePath { get; set; }
-        
+
         public bool IsLatest { get; set; }
 
         public bool IsDeviceInStore { get; set; }
