@@ -3,7 +3,7 @@
     ViewBag.Title = "Seller Order";
 }
 
-<div ng-controller="SellerOrderController as model" ng-init="model.initialise()">
+<div ng-controller="SellerOrderController as model" ng-init="model.retrieveSellerOrders()">
     <div class="row">
         <div class="col-lg-12">
             <h3>
@@ -52,7 +52,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="order in model.orders" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
+                                        <tr ng-repeat="order in model.sellerOrders" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
                                             <td><span ng-bind="order.SellerName"></span></td>
                                             <td><span ng-bind="order.MobileName"></span></td>
                                             <td><span ng-bind="order.RequestTypeName"></span></td>
