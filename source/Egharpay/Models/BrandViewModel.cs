@@ -10,5 +10,6 @@ namespace Egharpay.Models
     {
         public Brand Brand { get; set; }
         public int BrandId { get; set; }
+        public string BrandName { get; set; }
     }
 }
