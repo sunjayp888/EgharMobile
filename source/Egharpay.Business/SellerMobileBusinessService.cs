@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
@@ -15,10 +16,14 @@ namespace Egharpay.Business.Services
     public class SellerMobileBusinessService : ISellerMobileBusinessService
     {
         private readonly ISellerDataService _dataService;
+        private readonly IMobileDataService _mobileDataService;
+        private readonly IMapper _mapper;
 
-        public SellerMobileBusinessService(ISellerDataService dataService)
+        public SellerMobileBusinessService(ISellerDataService dataService, IMapper mapper,IMobileDataService mobileDataService)
         {
             _dataService = dataService;
+            _mapper = mapper;
+            _mobileDataService = mobileDataService;
         }
 
         public async Task<ValidationResult<SellerMobile>> AddMobileInStore(SellerMobile sellerMobile)
@@ -30,6 +35,13 @@ namespace Egharpay.Business.Services
             }
             try
             {
+                var mobiledata = await _mobileDataService.RetrieveAsync<Entity.Mobile>(e => e.MobileId == sellerMobile.MobileId);
+                var mobile = mobiledata.FirstOrDefault();
+                if (mobile != null)
+                {
+                    mobile.IsDeviceInStore = true;
+                    await _mobileDataService.UpdateAsync(mobile);
+                }
                 await _dataService.CreateAsync(sellerMobile);
                 validationResult.Entity = sellerMobile;
                 validationResult.Succeeded = true;
