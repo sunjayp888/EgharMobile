@@ -23,6 +23,7 @@
         vm.searchMessage = "";
         vm.brandMobileLocation = brandMobileLocation;
         vm.initialise = initialise;
+        vm.brandName;
 
         function initialise() {
             vm.orderBy.property = "Name";
@@ -88,7 +89,8 @@
             return OrderService.orderClass(vm.orderBy, property);
         }
 
-        function brandMobileLocation(brandId) {
+        function brandMobileLocation(brandId, brandName) {
+            vm.brandName = brandName;
             $window.location.href = "/Brand/Mobile/" + brandId;
         }
 

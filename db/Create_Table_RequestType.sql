@@ -1,7 +1,7 @@
 USE [Egharpay]
 GO
 
-/****** Object:  Table [dbo].[RequestType]    Script Date: 22-10-2017 10:33:45 PM ******/
+/****** Object:  Table [dbo].[RequestType]    Script Date: 26-11-2017 01:05:45 PM ******/
 SET ANSI_NULLS ON
 GO
 

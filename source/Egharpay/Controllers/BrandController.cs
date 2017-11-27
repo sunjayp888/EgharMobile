@@ -31,16 +31,17 @@ namespace Egharpay.Controllers
             return View(new BaseViewModel());
         }
 
-        public ActionResult Mobile(int? id)
+        public async Task<ActionResult> Mobile(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //var result = await _brandBusinessService.RetrieveBrand(id.Value);
+            var result = await _brandBusinessService.RetrieveBrand(id.Value);
             var viewModel = new BrandViewModel()
             {
-                 BrandId=id.Value
+                 BrandId=id.Value,
+                 BrandName = result.Name
             };
             return View(viewModel);
         }

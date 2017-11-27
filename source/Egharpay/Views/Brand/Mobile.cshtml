@@ -36,19 +36,23 @@
                 </div>
             </div>
         </div>*@
-    <div class="col-lg-10">
-        <br />
-        <ol class="breadcrumb">
-            <li>
-                <a href="@Url.Action("Dashboard_1", "Dashboards")">Home</a>
-            </li>
-            <li>
-                <a>Extra Pages</a>
-            </li>
-            <li class="active">
-                <strong><span ng-bind="model.mobiles.Name"></span></strong>
-            </li>
-        </ol>
+    <div class="row wrapper border-bottom white-bg page-heading page-margin">
+        <div class="col-lg-10">
+            <br />
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Brand")">Brand</a>
+                </li>
+                <li class="active">
+                    <strong>@Model.BrandName</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+        </div>
     </div>
     <br />
     <div class="wrapper wrapper-content animated fadeInRight">

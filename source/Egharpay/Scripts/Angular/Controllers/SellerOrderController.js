@@ -5,60 +5,46 @@
         .module('Egharpay')
         .controller('SellerOrderController', SellerOrderController);
 
-    SellerOrderController.$inject = ['$window', 'OrderService', 'SellerOrderService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
+    SellerOrderController.$inject = ['$window', 'SellerOrderService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
 
-    function SellerOrderController($window, OrderService, SellerOrderService, Paging, OrderBy, Order) {
+    function SellerOrderController($window, SellerOrderService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
         var vm = this;
-        vm.orders = [];
+        vm.sellerOrders = [];
         vm.paging = new Paging;
-        vm.pageChanged = pageChanged;
         vm.orderBy = new OrderBy;
-        vm.order = order;
-        vm.orderClass = orderClass;
-        vm.retrieveOrder = retrieveOrder;
-        vm.editOrder = editOrder;
         vm.searchKeyword = "";
         vm.searchMessage = "";
         vm.initialise = initialise;
+        vm.retrieveSellerOrders = retrieveSellerOrders;
 
         function initialise() {
-            vm.orderBy.property = "OrderId";
+            vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-            order("OrderId");
+            order("Name");
         }
 
-        function retrieveOrder() {
-            vm.orderBy.property = "OrderId";
+        function retrieveSellerOrders() {
+            vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-            vm.searchKeyword = searchKeyword;
-            return SellerOrderService.retrieveOrder(vm.paging, vm.orderBy)
+            return SellerOrderService.retrieveSellerOrders(vm.paging, vm.orderBy)
                 .then(function (response) {
-                    vm.orders = response.data.Items;
+                    vm.sellerOrders = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
                     vm.paging.totalResults = response.data.TotalResults;
-                    vm.searchMessage = vm.orders.length === 0 ? "No Records Found" : "";
-                    return vm.orders;
+                    vm.searchMessage = vm.sellerOrders.length === 0 ? "No Records Found" : "";
+                    return vm.sellerOrders;
                 });
-        }
-
-        function pageChanged() {
-            return retrieveOrder();
         }
 
         function order(property) {
             vm.orderBy = OrderService.order(vm.orderBy, property);
-            return retrieveOrder();
-        }
-
-        function orderClass(property) {
-            return OrderService.orderClass(vm.orderBy, property);
-        }
-
-        function editOrder(orderId) {
-            $window.location.href = "/Order/Edit/" + orderId;
+            if (vm.searchKeyword) {
+                return searchSeller(vm.searchKeyword)();
+            }
+            return retrieveSellers();
         }
     }
 })();
