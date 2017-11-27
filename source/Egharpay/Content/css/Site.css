@@ -17388,3 +17388,33 @@ body.md-skin {
 .modal-body-no-padding {
   padding: 0px 0px 0px 0px;
 }
+.carousel-caption-custom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  color: #fff;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+}
+.product-imitation-mobile {
+  text-align: center;
+  padding: 15px 0px 35px 0px;
+  background-color: #f8f8f9;
+  color: #bebec3;
+  font-weight: 600;
+}
+.img-mobile-profile {
+  height: 212px;
+  width: 160px;
+}
+.product-desc-mobile {
+  padding: 0px 15px 15px 15px;
+  position: relative;
+}
+.img-center {
+  margin: 0 auto;
+}
