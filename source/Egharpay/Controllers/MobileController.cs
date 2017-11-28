@@ -16,6 +16,7 @@ using Egharpay.Business.Models;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
+using Egharpay.Helpers;
 using Egharpay.Models;
 using HtmlAgilityPack;
 using Microsoft.Owin.Security.Authorization;
@@ -178,6 +179,11 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> RetrieveMobilesInStore(Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsDeviceInStore, orderBy, paging));
+        }
+        
+         public ActionResult BrandMobile(int id)
+        {
+            return View(new BaseViewModel { BrandId = id });
         }
 
 

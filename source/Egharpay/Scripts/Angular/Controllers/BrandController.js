@@ -18,10 +18,8 @@
         vm.orderClass = orderClass;
         //vm.viewMobile = viewMobile;
         vm.searchBrand = searchBrand;
-        vm.retrieveMobileByBrandId = retrieveMobileByBrandId;
         vm.searchKeyword = "";
         vm.searchMessage = "";
-        vm.brandMobileLocation = brandMobileLocation;
         vm.initialise = initialise;
         vm.brandName;
 
@@ -54,21 +52,6 @@
                     return vm.brands;
                 });
         }
-
-        function retrieveMobileByBrandId(brandId) {
-            vm.brandId = brandId;
-            vm.orderBy.property = "Name";
-            vm.orderBy.direction = "Ascending";
-            vm.orderBy.class = "asc";
-            return BrandService.retrieveMobileByBrandId(vm.brandId,vm.paging, vm.orderBy)
-                .then(function (response) {
-                    vm.brands = response.data.Items;
-                    vm.paging.totalPages = response.data.TotalPages;
-                    vm.paging.totalResults = response.data.TotalResults;
-                    vm.searchMessage = vm.brands.length === 0 ? "No Records Found" : "";
-                    return vm.brands;
-                });
-        }
         
         function pageChanged() {
             if (vm.searchKeyword) {
@@ -87,11 +70,6 @@
 
         function orderClass(property) {
             return OrderService.orderClass(vm.orderBy, property);
-        }
-
-        function brandMobileLocation(brandId, brandName) {
-            vm.brandName = brandName;
-            $window.location.href = "/Brand/Mobile/" + brandId;
         }
 
     }

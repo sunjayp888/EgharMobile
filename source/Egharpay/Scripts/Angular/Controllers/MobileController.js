@@ -36,6 +36,7 @@
         vm.fromPrice;
         vm.toPrice;
         vm.ramSize;
+        vm.retrieveMobileByBrandId = retrieveMobileByBrandId;
         vm.cameraSize;
         vm.batterySize;
         vm.internalMemorySize;
@@ -208,5 +209,11 @@
             vm.filter = { IsFilter: true, FromPrice: vm.fromPrice, ToPrice: vm.toPrice }
             retrieveMobiles();
         }
+
+        function retrieveMobileByBrandId(brandId) {
+            vm.filter = { IsBrandFilter: true, BrandId: brandId }
+            order("Name");
+        }
+
     }
 })();
