@@ -119,7 +119,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> List(string filter, Paging paging, List<OrderBy> orderBy)
+        public async Task<ActionResult> List(Filter filter, Paging paging, List<OrderBy> orderBy)
         {
             return await RetrieveMobiles(filter, paging, orderBy);
         }
@@ -181,15 +181,23 @@ namespace Egharpay.Controllers
         }
 
 
-        private async Task<ActionResult> RetrieveMobiles(string filter, Paging paging, List<OrderBy> orderBy)
+        private async Task<ActionResult> RetrieveMobiles(Filter filter, Paging paging, List<OrderBy> orderBy)
         {
-            switch (filter?.ToLower())
-            {
-                case "islatest":
-                    return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
-                default:
-                    return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
-            }
+            //switch (filter?.ToLower())
+            //{
+            //    case "islatest":
+            //        return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
+            //    default:
+            //        return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
+            //}
+            if (filter != null && filter.IsLatest)
+                return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
+
+            if (filter != null && filter.IsFilter)
+                return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(
+                    e => e.Price >= filter.FromPrice && e.Price <= filter.ToPrice,
+                    orderBy, paging));
+            return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
         }
 
 

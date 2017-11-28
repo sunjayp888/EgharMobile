@@ -70,7 +70,7 @@ namespace Egharpay.Business.Models
         public string Colours { get; set; }
         public string Sar { get; set; }
         public string SarEu { get; set; }
-        public string Price { get; set; }
+        public int? Price { get; set; }
         public string BatteryTalkTime { get; set; }
         public string BatteryMusicPlay { get; set; }
         public string VideoPixel { get; set; }

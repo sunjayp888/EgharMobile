@@ -33,8 +33,12 @@
         vm.retrieveMobilesInStore = retrieveMobilesInStore;
         vm.filter;
         vm.priceChange = priceChange;
-        vm.fromPrice = 20;
-        vm.toPrice = 40;
+        vm.fromPrice;
+        vm.toPrice;
+        vm.ramSize;
+        vm.cameraSize;
+        vm.batterySize;
+        vm.internalMemorySize;
 
 
         function initialise(filter) {
@@ -46,7 +50,7 @@
         }
 
         function retrieveMobiles() {
-            return MobileService.retrieveMobiles(vm.filter,vm.paging, vm.orderBy)
+            return MobileService.retrieveMobiles(vm.filter, vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.mobiles = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
@@ -201,7 +205,8 @@
         }
 
         function priceChange() {
-            alert(vm.toPrice);
+            vm.filter = { IsFilter: true, FromPrice: vm.fromPrice, ToPrice: vm.toPrice }
+            retrieveMobiles();
         }
     }
 })();

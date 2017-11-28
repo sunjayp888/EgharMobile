@@ -196,8 +196,7 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string SarEu { get; set; }
 
-        [StringLength(500)]
-        public string Price { get; set; }
+        public int? Price { get; set; }
 
         [StringLength(500)]
         public string BatteryTalkTime { get; set; }

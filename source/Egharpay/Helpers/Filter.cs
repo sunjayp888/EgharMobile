@@ -8,5 +8,8 @@ namespace Egharpay.Helpers
     public class Filter
     {
         public bool IsLatest { get; set; }
+        public bool IsFilter { get; set; }
+        public int FromPrice { get; set; }
+        public int ToPrice { get; set; }
     }
 }

@@ -19,8 +19,8 @@
             retrieveYoutubeVideos: retrieveYoutubeVideos,
             requestMobile: requestMobile,
             retrieveMobilesInStore: retrieveMobilesInStore,
-            retrieveMobilesLatestInStore: retrieveMobilesLatestInStore
-        };
+            retrieveMobilesLatestInStore: retrieveMobilesLatestInStore,
+    };
 
         return service;
 

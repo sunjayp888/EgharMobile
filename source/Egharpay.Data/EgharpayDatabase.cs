@@ -363,10 +363,7 @@ namespace Egharpay.Data
                 .Property(e => e.SarEu)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Mobile>()
-                .Property(e => e.Price)
-                .IsUnicode(false);
-
+            
             modelBuilder.Entity<Mobile>()
                 .Property(e => e.BatteryTalkTime)
                 .IsUnicode(false);
