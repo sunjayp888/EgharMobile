@@ -30,39 +30,11 @@ namespace Egharpay.Controllers
         {
             return View(new BaseViewModel());
         }
-
-        public async Task<ActionResult> Mobile(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var result = await _brandBusinessService.RetrieveBrand(id.Value);
-            var viewModel = new BrandViewModel()
-            {
-                 BrandId=id.Value,
-                 BrandName = result.Name
-            };
-            return View(viewModel);
-        }
         
         [HttpPost]
         public async Task<ActionResult> List(List<OrderBy> orderBy)
         {
             var data = await _brandBusinessService.RetrieveBrands(orderBy);
-            return this.JsonNet(data);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
-        {
-            return this.JsonNet(await _brandBusinessService.Search(searchKeyword, orderBy, paging));
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> MobileList(int brandId,Paging paging, List<OrderBy> orderBy)
-        {
-            var data = await _mobileBusinessService.RetrieveMobilesByBrandId(brandId, orderBy, paging);
             return this.JsonNet(data);
         }
     }

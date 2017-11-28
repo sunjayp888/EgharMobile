@@ -16,6 +16,7 @@ using Egharpay.Business.Models;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
+using Egharpay.Helpers;
 using Egharpay.Models;
 using HtmlAgilityPack;
 using Microsoft.Owin.Security.Authorization;
@@ -119,7 +120,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> List(string filter, Paging paging, List<OrderBy> orderBy)
+        public async Task<ActionResult> List(Filter filter, Paging paging, List<OrderBy> orderBy)
         {
             return await RetrieveMobiles(filter, paging, orderBy);
         }
@@ -181,15 +182,17 @@ namespace Egharpay.Controllers
         }
 
 
-        private async Task<ActionResult> RetrieveMobiles(string filter, Paging paging, List<OrderBy> orderBy)
+        public ActionResult BrandMobile(int id)
         {
-            switch (filter?.ToLower())
-            {
-                case "islatest":
-                    return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
-                default:
-                    return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
-            }
+            return View(new BaseViewModel { BrandId = id });
+        }
+
+        private async Task<ActionResult> RetrieveMobiles(Filter filter, Paging paging, List<OrderBy> orderBy)
+        {
+            if (filter != null && filter.IsBrandFilter)
+                return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.BrandId == filter.BrandId, orderBy, paging));
+
+            return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
         }
 
 

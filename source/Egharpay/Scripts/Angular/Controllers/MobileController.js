@@ -35,6 +35,7 @@
         vm.priceChange = priceChange;
         vm.fromPrice = 20;
         vm.toPrice = 40;
+        vm.retrieveMobileByBrandId = retrieveMobileByBrandId;
 
 
         function initialise(filter) {
@@ -46,7 +47,7 @@
         }
 
         function retrieveMobiles() {
-            return MobileService.retrieveMobiles(vm.filter,vm.paging, vm.orderBy)
+            return MobileService.retrieveMobiles(vm.filter, vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.mobiles = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
@@ -203,5 +204,11 @@
         function priceChange() {
             alert(vm.toPrice);
         }
+
+        function retrieveMobileByBrandId(brandId) {
+            vm.filter = { IsBrandFilter: true, BrandId: brandId }
+            order("Name");
+        }
+
     }
 })();

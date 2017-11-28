@@ -8,5 +8,7 @@ namespace Egharpay.Helpers
     public class Filter
     {
         public bool IsLatest { get; set; }
+        public bool IsBrandFilter { get; set; }
+        public int BrandId { get; set; }
     }
 }

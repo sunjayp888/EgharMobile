@@ -1,0 +1,35 @@
+﻿<div class="col-md-3" ng-repeat="mobile in model.mobiles">
+    <a ng-href="/Mobile/Detail/{{mobile.SeoUrl}}">
+        <div class="ibox">
+            <div class="ibox-content product-box">
+                <div class="product-imitation-mobile">
+                    <img class="image img-mobile-profile" src="{{mobile.ProfileImagePath}}" />
+                </div>
+                <div class="product-desc-mobile">
+                    <span class="product-price">
+                        Active
+                    </span>
+                    @* <small class="text-muted"><span class="label label-info pull-left">Active</span></small>*@
+                    <br />
+                    <a href="#" class="product-name"><strong ng-bind="mobile.Name"></strong></a>
+                    <div class="small m-t-xs">
+                        Many desktop publishing packages and web page editors now.
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="m-t text-left">
+                                <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="m-t text-right">
+                                <a href="#" class="btn btn-xs btn-outline btn-warning">Info <i class="fa fa-long-arrow-right"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
