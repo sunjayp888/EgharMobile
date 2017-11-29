@@ -15,7 +15,7 @@ namespace Egharpay.Helpers
         public int ToPrice { get; set; }
         public decimal RamSize { get; set; }
         public int Camera { get; set; }
-        public int Battery { get; set; }
+        public int BatterySize { get; set; }
         public int InternalMemory { get; set; }
     }
 }

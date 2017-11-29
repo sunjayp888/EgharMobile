@@ -44,10 +44,10 @@ namespace Egharpay.Business.Models
         public string Gpu { get; set; }
         public string CardSlot { get; set; }
         public string InternalMemory { get; set; }
-        public string PrimaryCamera { get; set; }
+        public decimal? PrimaryCamera { get; set; }
+        public decimal? SecondaryCamera { get; set; }
         public string CameraFeatures { get; set; }
         public string Video { get; set; }
-        public string SecondaryCamera { get; set; }
         public string AlertTypes { get; set; }
         public string Loudspeaker { get; set; }
         public string Sound3Point5MmJack { get; set; }
@@ -81,6 +81,8 @@ namespace Egharpay.Business.Models
         public string ProfileImagePath { get; set; }
         public DateTime? CreatedDateTime { get; set; }
         public virtual Brand Brand { get; set; }
+        public string PrimaryCameraDescription { get; set; }
+        public string SecondaryCameraDescription { get; set; }
 
         public string SeoUrl => MobileId.GenerateSlug(MetaSearch);
     }

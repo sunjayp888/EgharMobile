@@ -23,15 +23,14 @@
     </div>
     <div class="ibox-content">
         <div class="ibox-content">
-            <input class="text-box" ion-range-slider min="0" max="16" from="0" to="model.ramSize" on-Finish="model.priceChange()" type="single" />
+            <input class="text-box" ion-range-slider type="single" grid="false" min="0" max="10000" from="model.batterySize" to="0" disable="false" on-Finish="model.priceChange()" />
         </div>
-        <div class="clearfix"></div>
     </div>
 </div>
 
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>Camera</h5>
+        <h5>Primary Camera</h5>
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
@@ -39,8 +38,25 @@
         </div>
     </div>
     <div class="ibox-content">
-        <div id="ionrange_3"></div>
-        <div class="clearfix"></div>
+        <div class="ibox-content">
+            <input class="text-box" ion-range-slider type="single" grid="false" min="0" max="30" from="model.primaryCameraSize" to="0" disable="false" on-Finish="model.priceChange()"/>
+        </div>
+    </div>
+</div>
+
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>Secondary Camera</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="ibox-content">
+            <input class="text-box" ion-range-slider type="single" grid="false" min="0" max="30" from="model.secondaryCameraSize" to="0" disable="false" on-Finish="model.priceChange()" />
+        </div>
     </div>
 </div>
 

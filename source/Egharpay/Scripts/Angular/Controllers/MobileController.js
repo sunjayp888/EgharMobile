@@ -40,6 +40,9 @@
         vm.cameraSize;
         vm.batterySize;
         vm.internalMemorySize;
+        vm.batterySize;
+        vm.primaryCameraSize;
+        vm.secondaryCameraSize;
 
 
         function initialise(filter) {
@@ -206,7 +209,15 @@
         }
 
         function priceChange() {
-            vm.filter = { IsFilter: true, FromPrice: vm.fromPrice, ToPrice: vm.toPrice, RamSize: vm.ramSize }
+            vm.filter = {
+                IsFilter: true,
+                FromPrice: vm.fromPrice,
+                ToPrice: vm.toPrice,
+                RamSize: vm.ramSize,
+                BatterySize: vm.batterySize,
+                SecondaryCameraSize: vm.secondaryCameraSize,
+                PrimaryCameraSize: vm.primaryCameraSize
+            }
             retrieveMobiles();
         }
 

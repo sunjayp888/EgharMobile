@@ -195,7 +195,11 @@ namespace Egharpay.Controllers
 
             if (filter != null && filter.IsFilter)
                 return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(
-                    e => e.Price >= filter.FromPrice && e.Price <= filter.ToPrice || e.RAM <= filter.RamSize,
+                    e => e.Price >= filter.FromPrice && e.Price <= filter.ToPrice ||
+                    e.RAM <= filter.RamSize ||
+                    e.BatterySize <= filter.BatterySize ||
+                    e.PrimaryCamera <= filter.PrimaryCameraSize ||
+                    e.SecondaryCamera <= filter.SecondaryCameraSize,
                     orderBy, paging));
 
             if (filter != null && filter.IsBrandFilter)

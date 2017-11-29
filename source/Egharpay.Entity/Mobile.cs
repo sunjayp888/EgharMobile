@@ -116,8 +116,9 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string InternalMemory { get; set; }
 
-        [StringLength(500)]
-        public string PrimaryCamera { get; set; }
+        public decimal? PrimaryCamera { get; set; }
+
+        public decimal? SecondaryCamera { get; set; }
 
         [StringLength(500)]
         public string CameraFeatures { get; set; }
@@ -126,7 +127,10 @@ namespace Egharpay.Entity
         public string Video { get; set; }
 
         [StringLength(500)]
-        public string SecondaryCamera { get; set; }
+        public string SecondaryCameraDescription { get; set; }
+
+        [StringLength(500)]
+        public string PrimaryCameraDescription { get; set; }
 
         [StringLength(500)]
         public string AlertTypes { get; set; }
