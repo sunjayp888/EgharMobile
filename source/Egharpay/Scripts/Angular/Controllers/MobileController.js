@@ -206,7 +206,7 @@
         }
 
         function priceChange() {
-            vm.filter = { IsFilter: true, FromPrice: vm.fromPrice, ToPrice: vm.toPrice }
+            vm.filter = { IsFilter: true, FromPrice: vm.fromPrice, ToPrice: vm.toPrice, RamSize: vm.ramSize }
             retrieveMobiles();
         }
 

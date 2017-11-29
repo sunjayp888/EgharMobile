@@ -180,8 +180,8 @@ namespace Egharpay.Controllers
         {
             return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsDeviceInStore, orderBy, paging));
         }
-        
-         public ActionResult BrandMobile(int id)
+
+        public ActionResult BrandMobile(int id)
         {
             return View(new BaseViewModel { BrandId = id });
         }
@@ -189,20 +189,18 @@ namespace Egharpay.Controllers
 
         private async Task<ActionResult> RetrieveMobiles(Filter filter, Paging paging, List<OrderBy> orderBy)
         {
-            //switch (filter?.ToLower())
-            //{
-            //    case "islatest":
-            //        return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
-            //    default:
-            //        return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
-            //}
+
             if (filter != null && filter.IsLatest)
                 return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
 
             if (filter != null && filter.IsFilter)
                 return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(
-                    e => e.Price >= filter.FromPrice && e.Price <= filter.ToPrice,
+                    e => e.Price >= filter.FromPrice && e.Price <= filter.ToPrice || e.RAM <= filter.RamSize,
                     orderBy, paging));
+
+            if (filter != null && filter.IsBrandFilter)
+                return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.BrandId == filter.BrandId, orderBy, paging));
+
             return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
         }
 

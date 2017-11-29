@@ -43,14 +43,12 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string CameraPixel { get; set; }
 
-        [StringLength(500)]
-        public string RAM { get; set; }
+        public decimal? RAM { get; set; }
 
         [StringLength(500)]
         public string Chipset { get; set; }
 
-        [StringLength(500)]
-        public string BatterySize { get; set; }
+        public int? BatterySize { get; set; }
 
         [StringLength(500)]
         public string BatteryType { get; set; }

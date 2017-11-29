@@ -159,17 +159,17 @@ namespace Egharpay.Data
                 .Property(e => e.CameraPixel)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Mobile>()
-                .Property(e => e.RAM)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Mobile>()
+            //    .Property(e => e.RAM)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Mobile>()
                 .Property(e => e.Chipset)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Mobile>()
-                .Property(e => e.BatterySize)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Mobile>()
+            //    .Property(e => e.BatterySize)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Mobile>()
                 .Property(e => e.BatteryType)

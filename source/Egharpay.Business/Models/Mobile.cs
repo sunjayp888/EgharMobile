@@ -19,9 +19,9 @@ namespace Egharpay.Business.Models
         public string Storage { get; set; }
         public string DisplayResolution { get; set; }
         public string CameraPixel { get; set; }
-        public string RAM { get; set; }
+        public decimal? RAM { get; set; }
         public string Chipset { get; set; }
-        public string BatterySize { get; set; }
+        public int? BatterySize { get; set; }
         public string BatteryType { get; set; }
         public string Technology { get; set; }
         public string Network2GBands { get; set; }

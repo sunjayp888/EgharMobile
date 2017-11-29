@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="ibox-content">
-        <input class="text-box" ion-range-slider min="18" max="60" from="model.fromPrice" to="model.toPrice" on-Finish="model.priceChange()" type="double" />
+        <input class="text-box" ion-range-slider min="0" max="100000" from="model.fromPrice" to="model.toPrice" on-Finish="model.priceChange()" type="double" />
     </div>
 </div>
 
@@ -22,7 +22,9 @@
         </div>
     </div>
     <div class="ibox-content">
-        <div id="ionrange_2"></div>
+        <div class="ibox-content">
+            <input class="text-box" ion-range-slider min="0" max="16" from="0" to="model.ramSize" on-Finish="model.priceChange()" type="single" />
+        </div>
         <div class="clearfix"></div>
     </div>
 </div>

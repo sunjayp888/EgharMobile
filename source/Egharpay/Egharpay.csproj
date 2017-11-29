@@ -2033,6 +2033,8 @@
     <Content Include="Views\SellerMobile\Index.cshtml" />
     <Content Include="Views\Account\Confirm.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Mobile\_Filter.cshtml" />
+    <Content Include="Views\Mobile\_MobileList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

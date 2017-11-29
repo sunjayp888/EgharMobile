@@ -13,5 +13,9 @@ namespace Egharpay.Helpers
         public bool IsBrandFilter { get; set; }
         public int BrandId { get; set; }
         public int ToPrice { get; set; }
+        public decimal RamSize { get; set; }
+        public int Camera { get; set; }
+        public int Battery { get; set; }
+        public int InternalMemory { get; set; }
     }
 }
