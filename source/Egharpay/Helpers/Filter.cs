@@ -17,5 +17,7 @@ namespace Egharpay.Helpers
         public int Camera { get; set; }
         public int BatterySize { get; set; }
         public int InternalMemory { get; set; }
+        public decimal PrimaryCameraSize { get; set; }
+        public decimal SecondaryCameraSize { get; set; }
     }
 }

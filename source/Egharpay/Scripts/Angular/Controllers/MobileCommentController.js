@@ -20,16 +20,31 @@
         vm.approve = approve;
         vm.createMobileComment = createMobileComment;
         vm.initialise = initialise;
+        vm.retrieveMobileCommentsByMobileId = retrieveMobileCommentsByMobileId;
 
         function initialise() {
-            vm.orderBy.property = "Comment";
+            vm.orderBy.property = "MobileCommentId";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-            order("Comment");
+            order("MobileCommentId");
         }
 
         function retrieveMobileComments() {
             return MobileCommentService.retrieveMobileComments(vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.mobileComments = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.mobileComments.length === 0 ? "No Records Found" : "";
+                    return vm.mobileComments;
+                });
+        }
+
+        function retrieveMobileCommentsByMobileId(mobileId) {
+            vm.orderBy.property = "MobileCommentId";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
+            return MobileCommentService.retrieveMobileCommentsByMobileId(mobileId, vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.mobileComments = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
@@ -53,7 +68,9 @@
         }
 
         function approve(mobileCommentId) {
-            return MobileCommentService.approve(mobileCommentId);
+            return MobileCommentService.approve(mobileCommentId).then(function() {
+                retrieveMobileComments();
+            });
         }
 
         function createMobileComment(mobileId, mobileComment) {

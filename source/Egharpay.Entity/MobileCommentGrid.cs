@@ -16,24 +16,29 @@ namespace Egharpay.Entity
 
         [Key]
         [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int MobileId { get; set; }
+
+        [Key]
+        [Column(Order = 2)]
         [StringLength(500)]
         public string MobileName { get; set; }
 
         [Key]
-        [Column(Order = 2)]
+        [Column(Order = 3)]
         public string Comment { get; set; }
 
         [Key]
-        [Column(Order = 3)]
+        [Column(Order = 4)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UserId { get; set; }
 
         [Key]
-        [Column(Order = 4)]
+        [Column(Order = 5)]
         public DateTime CreatedDateTime { get; set; }
 
         [Key]
-        [Column(Order = 5)]
+        [Column(Order = 6)]
         public bool Approve { get; set; }
     }
 }

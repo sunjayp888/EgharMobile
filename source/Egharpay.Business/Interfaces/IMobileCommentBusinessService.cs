@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.Models;
@@ -16,7 +17,7 @@ namespace Egharpay.Business.Interfaces
 
         //Retrieve
         Task<MobileComment> RetrieveMobileComment(int mobileCommentId);
-        Task<PagedResult<MobileCommentGrid>> RetrieveMobileComments(List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<MobileCommentGrid>> RetrieveMobileComments(Expression<Func<MobileCommentGrid, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null);
         //Task<PagedResult<TrendComment>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
 
         //Update
