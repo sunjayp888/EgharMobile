@@ -83,6 +83,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.5.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LinqKit, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.1.1.9.0\lib\net45\LinqKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MappingRepository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MappingRepository.1.0.2\lib\net45\MappingRepository.dll</HintPath>
       <Private>True</Private>
@@ -305,7 +309,6 @@
     <Compile Include="Extensions\DataTableToExcel.cs" />
     <Compile Include="Extensions\FileExtensions.cs" />
     <Compile Include="Extensions\PrincipalExtensions.cs" />
-    <Compile Include="Helpers\Filter.cs" />
     <Compile Include="Helpers\SeoFriendlyRoute.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Global.asax.cs">
