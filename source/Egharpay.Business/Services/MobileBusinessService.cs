@@ -6,12 +6,15 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Egharpay.Business.Dto;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
+using LinqKit;
+using Mobile = Egharpay.Business.Models.Mobile;
 
 namespace Egharpay.Business.Services
 {
@@ -120,13 +123,20 @@ namespace Egharpay.Business.Services
             return mobileImageList;
         }
 
-        public async Task<PagedResult<Models.Mobile>> RetrieveMobiles(Expression<Func<Entity.Mobile, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Mobile>> RetrieveMobiles(Expression<Func<Entity.Mobile, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
             var result = await _dataService.RetrievePagedResultAsync<Entity.Mobile>(expression, orderBy, paging);
             return _mapper.MapToPagedResult<Models.Mobile>(result);
         }
 
-        public async Task<PagedResult<Models.Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Mobile>> RetrieveMobiles(Filter filter, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var predicate = BuildMobileSearchPredicate(filter);
+            var result = await _dataService.RetrievePagedResultAsync<Entity.Mobile>(predicate, orderBy, paging);
+            return _mapper.MapToPagedResult<Models.Mobile>(result);
+        }
+
+        public async Task<PagedResult<Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
         {
             if (!string.IsNullOrEmpty(term))
             {
@@ -143,7 +153,7 @@ namespace Egharpay.Business.Services
             return mobiles;
         }
 
-        public async Task<IEnumerable<Models.Mobile>> RetrieveLatestMobile()
+        public async Task<IEnumerable<Mobile>> RetrieveLatestMobile()
         {
             var result = await _dataService.RetrieveAsync<Entity.Mobile>(e => e.IsLatest);
             return _mapper.MapToList<Models.Mobile>(result);
@@ -160,6 +170,27 @@ namespace Egharpay.Business.Services
                 throw new Exception();
             }
 
+        }
+
+        private ExpressionStarter<Entity.Mobile> BuildMobileSearchPredicate(Filter filter)
+        {
+            var predicate = PredicateBuilder.New<Entity.Mobile>(true);
+            if (filter != null && filter.IsPriceFilter)
+                predicate = predicate.And(e => e.Price >= filter.FromPrice && e.Price <= filter.ToPrice);
+
+            if (filter != null && filter.IsBrandFilter)
+                predicate = predicate.And(e => e.BrandId == filter.BrandId);
+
+            if (filter != null && filter.IsPrimaryCameraFilter)
+                predicate = predicate.And(e => e.PrimaryCamera >= filter.FromPrimaryCameraSize && e.PrimaryCamera <= filter.FromPrimaryCameraSize);
+
+            if (filter != null && filter.IsSecondaryCameraFilter)
+                predicate = predicate.And(e => e.SecondaryCamera >= filter.FromSecondaryCameraSize && e.SecondaryCamera <= filter.ToSecondaryCameraSize);
+
+            if (filter != null && filter.IsRamSizeFilter)
+                predicate = predicate.And(e => e.RAM >= filter.FromRamSize && e.RAM <= filter.ToRamSize);
+
+            return predicate;
         }
     }
 }

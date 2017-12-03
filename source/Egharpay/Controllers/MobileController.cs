@@ -13,14 +13,14 @@ using System.Web.UI;
 using Configuration.Interface;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
-using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Helpers;
 using Egharpay.Models;
 using HtmlAgilityPack;
+using LinqKit;
 using Microsoft.Owin.Security.Authorization;
-using Filter = Egharpay.Helpers.Filter;
+using Filter = Egharpay.Business.Dto.Filter;
 
 namespace Egharpay.Controllers
 {
@@ -189,24 +189,11 @@ namespace Egharpay.Controllers
 
         private async Task<ActionResult> RetrieveMobiles(Filter filter, Paging paging, List<OrderBy> orderBy)
         {
-
-            if (filter != null && filter.IsLatest)
-                return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsLatest, orderBy, paging));
-
-            if (filter != null && filter.IsFilter)
-                return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(
-                    e => e.Price >= filter.FromPrice && e.Price <= filter.ToPrice ||
-                    e.RAM <= filter.RamSize ||
-                    e.BatterySize <= filter.BatterySize ||
-                    e.PrimaryCamera <= filter.PrimaryCameraSize ||
-                    e.SecondaryCamera <= filter.SecondaryCameraSize,
-                    orderBy, paging));
-
-            if (filter != null && filter.IsBrandFilter)
-                return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.BrandId == filter.BrandId, orderBy, paging));
-
+            if (filter.IsFilter)
+                return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(filter, orderBy, paging));
             return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
         }
+
 
 
         //private List<Mobile> CreateMobileData(List<Brand> brands)

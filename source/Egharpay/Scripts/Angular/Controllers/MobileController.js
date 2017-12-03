@@ -32,10 +32,14 @@
         vm.initialise = initialise;
         vm.retrieveMobilesInStore = retrieveMobilesInStore;
         vm.filter;
-        vm.priceChange = priceChange;
         vm.fromPrice;
         vm.toPrice;
-        vm.ramSize;
+        vm.fromRamSize;
+        vm.toRamSize;
+        vm.fromPrimaryCameraSize;
+        vm.toPrimaryCameraSize;
+        vm.fromSecondaryCameraSize;
+        vm.toSecondaryCameraSize;
         vm.retrieveMobileByBrandId = retrieveMobileByBrandId;
         vm.cameraSize;
         vm.batterySize;
@@ -43,6 +47,16 @@
         vm.batterySize;
         vm.primaryCameraSize;
         vm.secondaryCameraSize;
+        vm.isPriceFilter;
+        vm.isRamSizeFilter;
+        vm.isPrimaryCameraFilter;
+        vm.isSecondaryCameraFilter;
+        vm.isBrandFilter;
+        vm.isInternalMemoryFilter;
+        vm.onPriceFilter = onPriceFilter;
+        vm.onRamSizeFilter = onRamSizeFilter;
+        vm.onPrimaryCameraFilter = onPrimaryCameraFilter;
+        vm.onSecondaryCameraFilter = onSecondaryCameraFilter;
 
 
         function initialise(filter) {
@@ -208,15 +222,42 @@
                 });
         }
 
-        function priceChange() {
+        function onPriceFilter() {
             vm.filter = {
                 IsFilter: true,
+                IsPriceFilter: vm.ramSize,
                 FromPrice: vm.fromPrice,
-                ToPrice: vm.toPrice,
-                RamSize: vm.ramSize,
-                BatterySize: vm.batterySize,
-                SecondaryCameraSize: vm.secondaryCameraSize,
-                PrimaryCameraSize: vm.primaryCameraSize
+                ToPrice: vm.toPrice
+            }
+            retrieveMobiles();
+        }
+
+        function onRamSizeFilter() {
+            vm.filter = {
+                IsFilter: true,
+                IsRamSizeFilter: true,
+                FromRamSize: vm.fromRamSize,
+                ToRamSize: vm.toRamSize
+            }
+            retrieveMobiles();
+        }
+
+        function onPrimaryCameraFilter() {
+            vm.filter = {
+                IsFilter: true,
+                IsPrimaryCameraFilter: true,
+                FromPrimaryCameraSize: vm.fromPrimaryCameraSize,
+                ToPrimaryCameraSize: vm.toPrimaryCameraSize
+            }
+            retrieveMobiles();
+        }
+
+        function onSecondaryCameraFilter() {
+            vm.filter = {
+                IsFilter: true,
+                IsSecondaryCameraFilter: true,
+                FromSecondaryCameraSize: vm.fromSecondaryCameraSize,
+                ToSecondaryCameraSize: vm.toSecondaryCameraSize
             }
             retrieveMobiles();
         }

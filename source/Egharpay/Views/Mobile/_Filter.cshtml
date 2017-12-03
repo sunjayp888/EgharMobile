@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="ibox-content">
-        <input class="text-box" ion-range-slider min="0" max="100000" from="model.fromPrice" to="model.toPrice" on-Finish="model.priceChange()" type="double" />
+        <input class="text-box" ion-range-slider min="0" max="100000" from="model.fromPrice" to="model.toPrice" on-Finish="model.onPriceFilter()" type="double" />
     </div>
 </div>
 
@@ -22,9 +22,7 @@
         </div>
     </div>
     <div class="ibox-content">
-        <div class="ibox-content">
-            <input class="text-box" ion-range-slider type="single" grid="false" min="0" max="10000" from="model.batterySize" to="0" disable="false" on-Finish="model.priceChange()" />
-        </div>
+        <input class="text-box" ion-range-slider type="double"  min="0" max="32" from="model.fromRamSize" to="model.toRamSize" disable="false" on-Finish="model.onRamSizeFilter()" />
     </div>
 </div>
 
@@ -38,9 +36,7 @@
         </div>
     </div>
     <div class="ibox-content">
-        <div class="ibox-content">
-            <input class="text-box" ion-range-slider type="single" grid="false" min="0" max="30" from="model.primaryCameraSize" to="0" disable="false" on-Finish="model.priceChange()"/>
-        </div>
+        <input class="text-box" ion-range-slider type="double" min="0" max="50" from="model.fromPrimaryCameraSize" to="model.toPrimaryCameraSize" disable="false" on-Finish="model.onPrimaryCameraFilter()" />
     </div>
 </div>
 
@@ -54,9 +50,7 @@
         </div>
     </div>
     <div class="ibox-content">
-        <div class="ibox-content">
-            <input class="text-box" ion-range-slider type="single" grid="false" min="0" max="30" from="model.secondaryCameraSize" to="0" disable="false" on-Finish="model.priceChange()" />
-        </div>
+        <input class="text-box" ion-range-slider type="double" grid="false" min="0" max="30" from="model.fromSecondaryCameraSize" to="model.toSecondaryCameraSize" disable="false" on-Finish="model.onSecondaryCameraFilter()" />
     </div>
 </div>
 

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Egharpay.Business.Dto;
 using Egharpay.Business.Models;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
+using Mobile = Egharpay.Business.Models.Mobile;
 
 
 namespace Egharpay.Business.Interfaces
@@ -25,6 +27,7 @@ namespace Egharpay.Business.Interfaces
         Task<List<MobileImage>> RetrieveMobileGalleryImages(int mobileId);
 
         Task<PagedResult<Models.Mobile>> RetrieveMobiles(Expression<Func<Entity.Mobile, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Models.Mobile>> RetrieveMobiles(Filter filter, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<Models.Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId, List<OrderBy> orderBy = null, Paging paging = null);
         Task<IEnumerable<Models.Mobile>> RetrieveLatestMobile();
