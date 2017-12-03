@@ -540,8 +540,117 @@ namespace Egharpay.Data
                 .Property(e => e.Comment)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.RegistrationNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Owner)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address3)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address4)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.SearchField)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TrendCommentGrid>()
+                .Property(e => e.TrendName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TrendCommentGrid>()
+                .Property(e => e.Comment)
+                .IsUnicode(false);  
+
+            modelBuilder.Entity<HomeBannerImage>()
+              .Property(e => e.Name)
+              .IsUnicode(false);
+
+            modelBuilder.Entity<HomeBannerImage>()
+                .Property(e => e.FileName)
+                .IsUnicode(false);
+
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.MobileName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.SellerName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.SearchField)
+                 .IsUnicode(false);
+
+            modelBuilder.Entity<SellerOrderGrid>()
+               .Property(e => e.SellerName)
+               .IsUnicode(false);
+
+            modelBuilder.Entity<SellerOrderGrid>()
+                .Property(e => e.MobileName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerOrderGrid>()
+                .Property(e => e.RequestTypeName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.BrandName)
+                .IsUnicode(false);
+
             modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.ReleasedDate)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.BodyDimension)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.OS)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.Storage)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.DisplayResolution)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.CameraPixel)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.Chipset)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.BatteryType)
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
@@ -605,23 +714,11 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
-                .Property(e => e.DisplayResolution)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.Multitouch)
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.Protection)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MobileGrid>()
-                .Property(e => e.Os)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MobileGrid>()
-                .Property(e => e.Chipset)
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
@@ -641,7 +738,7 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
-                .Property(e => e.PrimaryCamera)
+                .Property(e => e.PrimaryCameraDescription)
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
@@ -653,7 +750,7 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
-                .Property(e => e.SecondaryCamera)
+                .Property(e => e.SecondaryCameraDescription)
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
@@ -749,80 +846,23 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.BatteryTalkTime)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.BatteryMusicPlay)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.VideoPixel)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
+                .Property(e => e.ShortDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.SearchField)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.RegistrationNumber)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Owner)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Address1)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Address2)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Address3)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Address4)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.SearchField)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TrendCommentGrid>()
-                .Property(e => e.TrendName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TrendCommentGrid>()
-                .Property(e => e.Comment)
-                .IsUnicode(false);  
-
-            modelBuilder.Entity<HomeBannerImage>()
-              .Property(e => e.Name)
-              .IsUnicode(false);
-
-            modelBuilder.Entity<HomeBannerImage>()
-                .Property(e => e.FileName)
-                .IsUnicode(false);
-
-
-            modelBuilder.Entity<SellerMobileGrid>()
-                .Property(e => e.MobileName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerMobileGrid>()
-                .Property(e => e.SellerName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerMobileGrid>()
-                .Property(e => e.SearchField)
-                 .IsUnicode(false);
-
-            modelBuilder.Entity<SellerOrderGrid>()
-               .Property(e => e.SellerName)
-               .IsUnicode(false);
-
-            modelBuilder.Entity<SellerOrderGrid>()
-                .Property(e => e.MobileName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerOrderGrid>()
-                .Property(e => e.RequestTypeName)
                 .IsUnicode(false);
         }
     }

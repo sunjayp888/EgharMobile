@@ -68,6 +68,7 @@
         }
 
         function retrieveMobiles() {
+            vm.paging.pageSize = 12;
             return MobileService.retrieveMobiles(vm.filter, vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.mobiles = response.data.Items;

@@ -26,7 +26,7 @@ namespace Egharpay.Business.Interfaces
         Task<Models.Mobile> RetrieveMobile(int mobileId);
         Task<List<MobileImage>> RetrieveMobileGalleryImages(int mobileId);
 
-        Task<PagedResult<Models.Mobile>> RetrieveMobiles(Expression<Func<Entity.Mobile, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Mobile>> RetrieveMobiles(Expression<Func<MobileGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<Models.Mobile>> RetrieveMobiles(Filter filter, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<Models.Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId, List<OrderBy> orderBy = null, Paging paging = null);

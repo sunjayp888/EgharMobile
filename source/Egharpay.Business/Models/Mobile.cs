@@ -83,7 +83,8 @@ namespace Egharpay.Business.Models
         public virtual Brand Brand { get; set; }
         public string PrimaryCameraDescription { get; set; }
         public string SecondaryCameraDescription { get; set; }
-
+        public string BrandName { get; set; }
+        public string ShortDescription { get; set; }
         public string SeoUrl => MobileId.GenerateSlug(MetaSearch);
     }
 }

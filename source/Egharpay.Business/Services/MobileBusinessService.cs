@@ -123,9 +123,9 @@ namespace Egharpay.Business.Services
             return mobileImageList;
         }
 
-        public async Task<PagedResult<Mobile>> RetrieveMobiles(Expression<Func<Entity.Mobile, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Mobile>> RetrieveMobiles(Expression<Func<Entity.MobileGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var result = await _dataService.RetrievePagedResultAsync<Entity.Mobile>(expression, orderBy, paging);
+            var result = await _dataService.RetrievePagedResultAsync<Entity.MobileGrid>(expression, orderBy, paging);
             return _mapper.MapToPagedResult<Models.Mobile>(result);
         }
 

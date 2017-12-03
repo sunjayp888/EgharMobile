@@ -22,7 +22,40 @@ namespace Egharpay.Entity
         [Key]
         [Column(Order = 2)]
         [StringLength(500)]
+        public string BrandName { get; set; }
+
+        [Key]
+        [Column(Order = 3)]
+        [StringLength(500)]
         public string Name { get; set; }
+
+        [StringLength(500)]
+        public string ReleasedDate { get; set; }
+
+        [StringLength(500)]
+        public string BodyDimension { get; set; }
+
+        [StringLength(500)]
+        public string OS { get; set; }
+
+        [StringLength(500)]
+        public string Storage { get; set; }
+
+        [StringLength(500)]
+        public string DisplayResolution { get; set; }
+
+        [StringLength(500)]
+        public string CameraPixel { get; set; }
+
+        public decimal? RAM { get; set; }
+
+        [StringLength(500)]
+        public string Chipset { get; set; }
+
+        public int? BatterySize { get; set; }
+
+        [StringLength(500)]
+        public string BatteryType { get; set; }
 
         [StringLength(500)]
         public string Technology { get; set; }
@@ -70,19 +103,10 @@ namespace Egharpay.Entity
         public string DisplaySize { get; set; }
 
         [StringLength(500)]
-        public string DisplayResolution { get; set; }
-
-        [StringLength(500)]
         public string Multitouch { get; set; }
 
         [StringLength(500)]
         public string Protection { get; set; }
-
-        [StringLength(500)]
-        public string Os { get; set; }
-
-        [StringLength(500)]
-        public string Chipset { get; set; }
 
         [StringLength(500)]
         public string Cpu { get; set; }
@@ -97,7 +121,7 @@ namespace Egharpay.Entity
         public string InternalMemory { get; set; }
 
         [StringLength(500)]
-        public string PrimaryCamera { get; set; }
+        public string PrimaryCameraDescription { get; set; }
 
         [StringLength(500)]
         public string CameraFeatures { get; set; }
@@ -106,7 +130,7 @@ namespace Egharpay.Entity
         public string Video { get; set; }
 
         [StringLength(500)]
-        public string SecondaryCamera { get; set; }
+        public string SecondaryCameraDescription { get; set; }
 
         [StringLength(500)]
         public string AlertTypes { get; set; }
@@ -177,10 +201,41 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Price { get; set; }
 
+        [StringLength(500)]
+        public string BatteryTalkTime { get; set; }
+
+        [StringLength(500)]
+        public string BatteryMusicPlay { get; set; }
+
+        [StringLength(500)]
+        public string VideoPixel { get; set; }
+
+        public bool? AllImage { get; set; }
+
         public string MetaSearch { get; set; }
 
+        public bool? IsLatest { get; set; }
+
+        public DateTime? CreatedDateTime { get; set; }
+
+        [StringLength(4000)]
+        public string ProfileImagePath { get; set; }
+
         [Key]
-        [Column(Order = 3)]
+        [Column(Order = 4)]
+        public bool IsDeviceInStore { get; set; }
+
+        public decimal? PrimaryCamera { get; set; }
+
+        public decimal? SecondaryCamera { get; set; }
+
+        [Key]
+        [Column(Order = 5)]
+        [StringLength(1617)]
+        public string ShortDescription { get; set; }
+
+        [Key]
+        [Column(Order = 6)]
         [StringLength(8000)]
         public string SearchField { get; set; }
     }
