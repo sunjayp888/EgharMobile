@@ -260,8 +260,8 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<Mobile>()
-                .Property(e => e.PrimaryCameraDescription)
-                .IsUnicode(false);
+                .Property(e => e.PrimaryCamera);
+                //.IsUnicode(false);
 
             modelBuilder.Entity<Mobile>()
                 .Property(e => e.CameraFeatures)
@@ -272,8 +272,8 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<Mobile>()
-                .Property(e => e.SecondaryCameraDescription)
-                .IsUnicode(false);
+                .Property(e => e.SecondaryCamera);
+                //.IsUnicode(false);
 
             modelBuilder.Entity<Mobile>()
                 .Property(e => e.AlertTypes)

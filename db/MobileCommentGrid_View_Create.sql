@@ -18,14 +18,15 @@ GO
 
 
 
-CREATE VIEW [dbo].[MobileCommentGrid]
+Create VIEW [dbo].[MobileCommentGrid]
 AS 
 select
 MobileCommentId,
+MC.MobileId,
 MobileName=m.Name,
 Comment,
 UserId,
-CreatedDateTime,
+MC.CreatedDateTime,
 Approve
 from MobileComment MC
 inner join Mobile M on MC.MobileId=M.MobileId

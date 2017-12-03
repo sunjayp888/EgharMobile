@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.Extensions;
@@ -12,7 +13,7 @@ using Egharpay.Entity.Dto;
 
 namespace Egharpay.Business.Services
 {
-    public partial class MobileCommentBusinessService:IMobileCommentBusinessService
+    public partial class MobileCommentBusinessService : IMobileCommentBusinessService
     {
         protected IMobileCommentDataService _dataService;
 
@@ -46,9 +47,9 @@ namespace Egharpay.Business.Services
             return mobileComment.FirstOrDefault();
         }
 
-        public async Task<PagedResult<MobileCommentGrid>> RetrieveMobileComments(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<MobileCommentGrid>> RetrieveMobileComments(Expression<Func<MobileCommentGrid, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var mobileComments = await _dataService.RetrievePagedResultAsync<MobileCommentGrid>(a => true, orderBy, paging);
+            var mobileComments = await _dataService.RetrievePagedResultAsync<MobileCommentGrid>(predicate, orderBy, paging);
             return mobileComments;
         }
 

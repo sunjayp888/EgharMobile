@@ -1,4 +1,5 @@
-﻿<div id="tab-4" class="tab-pane" ng-controller="MobileCommentController as model" ng-init="model.initialise()">
+﻿@model Egharpay.Models.MobileViewModel
+<div id="tab-4" class="tab-pane" ng-controller="MobileCommentController as model" ng-init="model.retrieveMobileCommentsByMobileId(@Model.MobileId)">
     <div class="panel-body">
         <div class="row">
             <div class="col-lg-12">
@@ -7,14 +8,16 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="chat-discussion">
-                                    <div class="chat-message left" >
-                                        <img class="message-avatar" src="/Images/a1.jpg" alt="">
-                                        <div class="message">
-                                            <a class="message-author" href="#"> Michael Smith </a>
-                                            <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span>
-                                            <span class="message-content">
-                                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                                            </span>
+                                    <div ng-repeat="mobileComment in model.mobileComments">
+                                        <div ng-if="mobileComment.Approve">
+                                            <div ng-class-odd="'chat-message left'" ng-class-even="'chat-message right'" class="chat-message left">
+                                                <img class="message-avatar" src="/Images/a1.jpg" alt="">
+                                                <div class="message">
+                                                    <a class="message-author" href="#"> Michael Smith </a>
+                                                    <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span>
+                                                    <span class="message-content" ng-bind="mobileComment.Comment"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     @*<div class="chat-message right">

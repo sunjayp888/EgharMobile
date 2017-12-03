@@ -73,7 +73,14 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _mobileCommentBusinessService.RetrieveMobileComments(orderBy, paging);
+            var data = await _mobileCommentBusinessService.RetrieveMobileComments(e => true, orderBy, paging);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> MobileCommentListByMobileId(int mobileId, Paging paging, List<OrderBy> orderBy)
+        {
+            var data = await _mobileCommentBusinessService.RetrieveMobileComments(e => e.MobileId == mobileId, orderBy, paging);
             return this.JsonNet(data);
         }
     }

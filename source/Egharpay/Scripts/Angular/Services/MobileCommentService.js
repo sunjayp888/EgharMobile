@@ -11,7 +11,8 @@
         var service = {
             retrieveMobileComments: retrieveMobileComments,
             approve: approve,
-            createMobileComment: createMobileComment
+            createMobileComment: createMobileComment,
+            retrieveMobileCommentsByMobileId: retrieveMobileCommentsByMobileId
         };
 
         return service;
@@ -19,6 +20,16 @@
         function retrieveMobileComments(Paging, OrderBy) {
             var url = "/MobileComment/List",
                 data = {
+                    paging: Paging,
+                    orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function retrieveMobileCommentsByMobileId(mobileId, Paging, OrderBy) {
+            var url = "/MobileComment/MobileCommentListByMobileId",
+                data = {
+                    mobileId: mobileId,
                     paging: Paging,
                     orderBy: new Array(OrderBy)
                 };
