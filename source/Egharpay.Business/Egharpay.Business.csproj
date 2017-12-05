@@ -159,6 +159,7 @@
     <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelEmailBusinessService.cs" />
     <Compile Include="Interfaces\ISellerMobileBusinessService.cs" />
+    <Compile Include="Interfaces\ISmsBusinessService.cs" />
     <Compile Include="Models\HtmlEmail.cs" />
     <Compile Include="Models\Mobile.cs" />
     <Compile Include="Models\PersonnelCreatedEmail.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Services\RequestTypeBusinessService.cs" />
     <Compile Include="Services\SellerBusinessService.cs" />
     <Compile Include="SellerMobileBusinessService.cs" />
+    <Compile Include="Services\SmsBusinessService.cs" />
     <Compile Include="Services\TrendBusinessService.cs" />
     <Compile Include="Services\TrendCommentBusinessService.cs" />
     <Compile Include="Services\YouTubeBusinessService.cs" />
