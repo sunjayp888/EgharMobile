@@ -9,7 +9,7 @@
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                            <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" class="typeahead_2 form-control dropdown-menu-search" />
+                            <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search" />
                         </div>
                         <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
                             <i class="fa fa-search"></i>
