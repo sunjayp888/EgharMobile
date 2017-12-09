@@ -229,13 +229,11 @@ namespace Egharpay.Entity
 
         public decimal? SecondaryCamera { get; set; }
 
-        [Key]
-        [Column(Order = 5)]
-        [StringLength(1617)]
+        [StringLength(98)]
         public string ShortDescription { get; set; }
 
         [Key]
-        [Column(Order = 6)]
+        [Column(Order = 5)]
         [StringLength(8000)]
         public string SearchField { get; set; }
     }

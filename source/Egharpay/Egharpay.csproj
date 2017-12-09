@@ -2038,6 +2038,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Shared\_Filter.cshtml" />
     <Content Include="Views\Shared\_MobileList.cshtml" />
+    <Content Include="Views\Mobile\BrandMobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

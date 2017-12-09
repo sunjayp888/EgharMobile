@@ -10,6 +10,10 @@
         public bool IsBrandFilter { get; set; }
         public int IsInternalMemoryFilter { get; set; }
         public bool IsFilter { get; set; }
+        public bool IsDeviceInStore { get; set; }
+        public bool IsSearch { get; set; }
+        public string SearchKeyword { get; set; }
+
 
         public int FromPrice { get; set; }
         public int BrandId { get; set; }

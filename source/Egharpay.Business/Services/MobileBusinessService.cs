@@ -125,7 +125,7 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<Mobile>> RetrieveMobiles(Expression<Func<Entity.MobileGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var result = await _dataService.RetrievePagedResultAsync<Entity.MobileGrid>(expression, orderBy, paging);
+            var result = await _dataService.RetrievePagedResultAsync<MobileGrid>(expression, orderBy, paging);
             return _mapper.MapToPagedResult<Models.Mobile>(result);
         }
 
@@ -189,6 +189,9 @@ namespace Egharpay.Business.Services
 
             if (filter != null && filter.IsRamSizeFilter)
                 predicate = predicate.And(e => e.RAM >= filter.FromRamSize && e.RAM <= filter.ToRamSize);
+
+            if (filter != null && filter.IsDeviceInStore)
+                predicate = predicate.And(e => e.IsDeviceInStore);
 
             return predicate;
         }

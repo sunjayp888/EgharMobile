@@ -57,13 +57,14 @@
         vm.onRamSizeFilter = onRamSizeFilter;
         vm.onPrimaryCameraFilter = onPrimaryCameraFilter;
         vm.onSecondaryCameraFilter = onSecondaryCameraFilter;
-
+        vm.searchMobile = searchMobile;
 
         function initialise(filter) {
             vm.filter = filter;
             vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
+          
             order("Name");
         }
 
@@ -84,6 +85,7 @@
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
             vm.searchKeyword = searchKeyword;
+            vm.paging.pageSize = 12;
             return MobileService.searchMobile(vm.searchKeyword, vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.mobiles = response.data.Items;
@@ -96,7 +98,7 @@
 
         function pageChanged() {
             if (vm.searchKeyword) {
-                return searchMobile(vm.searchKeyword)();
+                return searchMobile(vm.searchKeyword);
             }
             return retrieveMobiles();
         }
@@ -264,7 +266,7 @@
         }
 
         function retrieveMobileByBrandId(brandId) {
-            vm.filter = { IsBrandFilter: true, BrandId: brandId }
+            vm.filter = { IsBrandFilter: true, BrandId: brandId, IsFilter: true }
             order("Name");
         }
 

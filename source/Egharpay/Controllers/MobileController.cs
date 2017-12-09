@@ -122,7 +122,7 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Filter filter, Paging paging, List<OrderBy> orderBy)
         {
-            var data= await RetrieveMobiles(filter, paging, orderBy);
+            var data = await RetrieveMobiles(filter, paging, orderBy);
             return data;
         }
 
@@ -179,12 +179,16 @@ namespace Egharpay.Controllers
         [Route("Mobile/RetrieveMobilesInStore")]
         public async Task<ActionResult> RetrieveMobilesInStore(Paging paging, List<OrderBy> orderBy)
         {
-            return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => e.IsDeviceInStore, orderBy, paging));
+            var filter = new Filter() { IsFilter = true, IsDeviceInStore = true };
+            return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(filter, orderBy, paging));
         }
 
-        public ActionResult BrandMobile(int id)
+        public async Task<ActionResult> BrandMobile(int id)
         {
-            return View(new BaseViewModel { BrandId = id });
+            var brand = await _brandBusinessService.RetrieveBrand(id);
+            if (brand == null)
+                return RedirectToAction("Index");
+            return View(new BaseViewModel { BrandId = id, BrandName = brand.Name });
         }
 
 

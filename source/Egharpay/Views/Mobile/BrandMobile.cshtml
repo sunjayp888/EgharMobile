@@ -8,22 +8,34 @@
 }
 
 <div ng-controller="MobileController as model" ng-init="model.retrieveMobileByBrandId('@Model.BrandId')">
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>
-                Mobiles
-            </h3>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <br />
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home" )">Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Brand" )">Brand</a>
+                </li>
+                <li>
+                    @Model.BrandName
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2 page-information">
+            @Html.Partial("Pagination/_pageInformation")
         </div>
     </div>
 
     <div class="row">
         @if (User.IsInAnyRoles("Admin"))
         {
-            <div class="col-lg-12">
-                <a class="btn btn-primary btn-lg" href="@Url.Action("Create", "Mobile")">
-                    <i class="fa fa-user"></i> Create
-                </a>
-            </div>
+        <div class="col-lg-12">
+            <a class="btn btn-primary btn-lg" href="@Url.Action(" Create", "Mobile" )">
+                <i class="fa fa-user"></i> Create
+            </a>
+        </div>
         }
     </div>
     <br />

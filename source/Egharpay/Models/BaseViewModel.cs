@@ -9,5 +9,6 @@ namespace Egharpay.Models
         public Permissions Permissions { get; set; }
         public string Filter { get; set; }
         public int BrandId { get; set; }
+        public string BrandName { get; set; }
     }
 }
