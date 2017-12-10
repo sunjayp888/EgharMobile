@@ -267,6 +267,9 @@
 
         function retrieveMobileByBrandId(brandId) {
             vm.filter = { IsBrandFilter: true, BrandId: brandId, IsFilter: true }
+            vm.orderBy.property = "Name";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
             order("Name");
         }
 

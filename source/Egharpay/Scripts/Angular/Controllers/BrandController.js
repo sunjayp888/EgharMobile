@@ -22,6 +22,7 @@
         vm.searchMessage = "";
         vm.initialise = initialise;
         vm.brandName;
+        vm.brandMobileLocation = brandMobileLocation;
 
         function initialise() {
             vm.orderBy.property = "Name";
@@ -52,7 +53,7 @@
                     return vm.brands;
                 });
         }
-        
+
         function pageChanged() {
             if (vm.searchKeyword) {
                 return searchBrand(vm.searchKeyword)();
@@ -72,5 +73,9 @@
             return OrderService.orderClass(vm.orderBy, property);
         }
 
+        function brandMobileLocation(brandId, brandName) {
+            vm.brandName = brandName;
+            window.location.href = "/Mobile/BrandMobile/" + brandId;
+        }
     }
 })();

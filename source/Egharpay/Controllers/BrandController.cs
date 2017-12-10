@@ -30,11 +30,18 @@ namespace Egharpay.Controllers
         {
             return View(new BaseViewModel());
         }
-        
+
         [HttpPost]
         public async Task<ActionResult> List(List<OrderBy> orderBy)
         {
             var data = await _brandBusinessService.RetrieveBrands(orderBy);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
+        {
+            var data = await _brandBusinessService.Search(searchKeyword, orderBy, paging);
             return this.JsonNet(data);
         }
     }
