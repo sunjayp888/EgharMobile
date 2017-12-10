@@ -58,6 +58,8 @@
         vm.onPrimaryCameraFilter = onPrimaryCameraFilter;
         vm.onSecondaryCameraFilter = onSecondaryCameraFilter;
         vm.searchMobile = searchMobile;
+        vm.isAssignButtonEnable = true;
+        vm.canWeAssign = canWeAssign;
 
         function initialise(filter) {
             vm.filter = filter;
@@ -270,5 +272,15 @@
             order("Name");
         }
 
-    }
+        function canWeAssign() {
+            var count = 0;
+            angular.forEach(vm.mobiles,
+                function (value, key) {
+                    if (value.Ischecked) {
+                        count++;
+                    }
+                });
+            vm.isAssignButtonEnable = (count === 0);
+        }
+        }
 })();
