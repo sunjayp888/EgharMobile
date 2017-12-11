@@ -33,7 +33,7 @@
                                     </tr>
                                     </thead>
                                     <tr ng-repeat="mobile in model.mobiles" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
-                                        <td><input type="checkbox" class="myCheckBox"></td>
+                                        <td><input type="checkbox" class="myCheckBox" ng-model="mobile.Ischecked" ng-click="model.canWeAssign()"></td>
                                         <td><span ng-bind="mobile.Name"></span></td>
                                         <td><span ng-bind="mobile.RegistrationNumber"></span></td>
                                         <td><span ng-bind="mobile.Owner"></span></td>
@@ -46,8 +46,8 @@
                                                 </a>
                                                 <ul class="dropdown-menu slidedown">
                                                     <li>
-                                                        <a style="cursor: pointer;" ng-href="#">
-                                                            Select
+                                                        <a style="cursor: pointer;" ng-click="model.requestMobile(@Model.MobileId)">
+                                                            Reuest Seller
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -55,7 +55,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestMobile(@Model.MobileId)">Request Seller</button>
+                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestMobile(@Model.MobileId)" ng-disabled="model.isAssignButtonEnable">Request Seller</button>
                             </div>
                         </div>
                     </div>
