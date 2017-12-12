@@ -62,20 +62,26 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RequestMobile(int? id)
+        public async Task<ActionResult> RequestMobile(List<Order> mobiles)
         {
-            if (id == null)
+            if (mobiles == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var order = new Order()
+            try
             {
-                MobileId = id.Value,
-                CreatedDate = DateTime.UtcNow,
-                RequestTypeId = 1,
-            };
-            var result = await _orderBusinessService.CreateOrder(order);
-            return this.JsonNet(result);
+                foreach (var mobile in mobiles)
+                {
+                    mobile.CreatedDate = DateTime.UtcNow;
+                    mobile.RequestTypeId = 1;
+                    return this.JsonNet(await _orderBusinessService.CreateOrder(mobile)); 
+                }
+            }
+            catch (Exception e)
+            {
+                return this.JsonNet("");
+            }
+            return this.JsonNet("");
         }
 
         [HttpPost]

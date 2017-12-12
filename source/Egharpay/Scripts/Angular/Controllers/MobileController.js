@@ -207,10 +207,13 @@
         }
 
         function requestMobile(mobileId) {
-            //$window.location.href = "/Order/Create/" + mobileId;
-            return MobileService.requestMobile(mobileId).then(function (response) {
+            for (var i = 0; i < vm.mobiles.length; i++) {
+                vm.mobiles[i].MobileId = mobileId;
+            }
+            return MobileService.requestMobile(vm.mobiles).then(function (response) {
                 vm.mobiles = response.data;
-                return vm.mobiles;
+                searchSeller(vm.searchKeyword);
+                vm.isAssignButtonEnable = true;
             });
         }
 

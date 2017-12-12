@@ -13,6 +13,8 @@ namespace Egharpay.Entity
 
         public int? PersonnelId { get; set; }
 
+        public int? SellerId { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime CreatedDate { get; set; }
 
@@ -21,5 +23,7 @@ namespace Egharpay.Entity
         public int MobileId { get; set; }
 
         public virtual Mobile Mobile { get; set; }
+
+        public virtual Seller Seller { get; set; }
     }
 }
