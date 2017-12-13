@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Egharpay.Business.EmailServiceReference;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
@@ -20,12 +21,14 @@ namespace Egharpay.Business.Services
         protected IPersonnelDataService _dataService;
         private readonly IMapper _mapper;
         protected IDocumentsBusinessService DocumentsBusinessService;
+        protected IEmailBusinessService _emailBusinessService;
 
-        public PersonnelBusinessService(IPersonnelDataService dataService, IMapper mapper, IDocumentsBusinessService documentsBusinessService)
+        public PersonnelBusinessService(IPersonnelDataService dataService, IMapper mapper, IDocumentsBusinessService documentsBusinessService,IEmailBusinessService emailBusinessService)
         {
             _dataService = dataService;
             _mapper = mapper;
             DocumentsBusinessService = documentsBusinessService;
+            _emailBusinessService = emailBusinessService;
         }
 
         #region Create
@@ -40,8 +43,8 @@ namespace Egharpay.Business.Services
             {
                 await _dataService.CreateAsync(personnel);
                 //Send Confirmation Email to Personnel and Seller
-               // if (personnel.IsSeller != null && personnel.IsSeller.Value)
-                    //Send Email to seller
+                //if (personnel. != null && personnel.IsSeller.Value)
+                    SendSellerEmail(personnel);
 
                 validationResult.Entity = personnel;
                 validationResult.Succeeded = true;
@@ -53,6 +56,19 @@ namespace Egharpay.Business.Services
                 validationResult.Exception = ex;
             }
             return validationResult;
+        }
+
+        private void SendSellerEmail(Personnel personnel)
+        {
+            var emailData = new EmailData()
+            {
+                BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
+                Body = String.Format("Dear {0} {1} {2}, Thanks For Registering on Mumbile.Com",personnel.Title,personnel.Forenames,personnel.Surname),
+                Subject = "Welcome To Mumbile.Com",
+                IsHtml = true,
+                ToAddressList = new List<string> { personnel.Email.ToLower() }
+            };
+            _emailBusinessService.SendEmail(emailData);
         }
 
         public async Task<ValidationResult<Document>> UploadDocument(Document document, int personnelId)
