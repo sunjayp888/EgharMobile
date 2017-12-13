@@ -59,10 +59,10 @@
         }
 
 
-        function requestMobile(mobileId) {
+        function requestMobile(mobiles) {
             var url = "/Order/RequestMobile",
                 data = {
-                    id: mobileId
+                    mobiles: mobiles
                 };
             return $http.post(url, data);
         }
