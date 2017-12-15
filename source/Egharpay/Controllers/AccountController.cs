@@ -312,9 +312,12 @@ namespace Egharpay.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public async Task<ActionResult> ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            //return code == null ? View("Error") : View();
+            var resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(User.Identity.GetUserId());
+            var model = new ResetPasswordViewModel() { Code = resetPasswordToken };
+            return View(model);
         }
 
         //
@@ -334,9 +337,20 @@ namespace Egharpay.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+            //var personnelData = PersonnelBusinessService.RetrievePersonnel(centreId,user.PersonnelId);
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
+                //var emailData = new EmailData()
+                //{
+                //    BCCAddressList = new List<string> { "developer@nidantech.com" },
+                //    Body = String.Format("Dear {0}.{1} {2}, Your Password has been changed successfully. And your New Password is {3}", personnelData.Title, personnelData.Forenames, personnelData.Surname, model.Password),
+                //    Subject = "Changed Password For Nidan ERP",
+                //    IsHtml = true,
+                //    ToAddressList = new List<string> { personnelData.Email }
+
+                //};
+                //_emailService.SendEmail(emailData);
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             AddErrors(result);
