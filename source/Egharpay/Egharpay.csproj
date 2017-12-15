@@ -1403,6 +1403,7 @@
     <Content Include="Scripts\Angular\Controllers\HomeBannerImageController.js" />
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
+    <Content Include="Scripts\Angular\Controllers\MobileCompareController.js" />
     <Content Include="Scripts\Angular\Controllers\SellerOrderController.js" />
     <Content Include="Scripts\Angular\Controllers\SellerMobileController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
@@ -1434,6 +1435,7 @@
     <Content Include="Scripts\Angular\Services\HomeBannerImageService.js" />
     <Content Include="Scripts\Angular\Services\HomeBannerService.js" />
     <Content Include="Scripts\Angular\Services\HomeService.js" />
+    <Content Include="Scripts\Angular\Services\MobileCompareService.js" />
     <Content Include="Scripts\Angular\Services\MobileCommentService.js" />
     <Content Include="Scripts\Angular\Services\SellerMobileService.js" />
     <Content Include="Scripts\Angular\Services\SellerOrderService.js" />
@@ -2039,6 +2041,7 @@
     <Content Include="Views\Shared\_Filter.cshtml" />
     <Content Include="Views\Shared\_MobileList.cshtml" />
     <Content Include="Views\Mobile\BrandMobile.cshtml" />
+    <Content Include="Views\Mobile\Compare.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

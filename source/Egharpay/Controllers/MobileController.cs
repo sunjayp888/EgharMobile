@@ -161,6 +161,38 @@ namespace Egharpay.Controllers
             return this.JsonNet(await _mobileBusinessService.Search(searchKeyword, orderBy, paging));
         }
 
+        [Route("Mobile/Compare")]
+        public ActionResult Compare()
+        {
+            return View();
+        }
+
+        [Route("Mobile/RetrieveMobileByBrandIds")]
+        public async Task<ActionResult> RetrieveMobileByBrandIds(string[] brandIds)
+        {
+            var mobileList = new List<Mobile>();
+            foreach (var id in brandIds)
+            {
+                var brandId = Convert.ToInt32(id);
+                var data = await _mobileBusinessService.RetrieveMobiles(new Filter() { IsFilter = true, IsBrandFilter = true, BrandId = brandId });
+                mobileList.AddRange(data.Items);
+            }
+            return this.JsonNet(mobileList);
+        }
+
+        [Route("Mobile/retrieveMobileByMobileIds")]
+        public async Task<ActionResult> RetrieveMobileByMobileIds(string[] mobileIds)
+        {
+            var mobileList = new List<Mobile>();
+            foreach (var id in mobileIds)
+            {
+                var mobileId = Convert.ToInt32(id);
+                var data = await _mobileBusinessService.RetrieveMobiles(e => e.MobileId == mobileId);
+                mobileList.AddRange(data.Items);
+            }
+            return this.JsonNet(mobileList);
+        }
+
         [HttpPost]
         [OutputCache(Duration = 30000, VaryByParam = "none")]
         public async Task<ActionResult> SearchField()
@@ -192,7 +224,7 @@ namespace Egharpay.Controllers
         }
 
 
-        private async Task<ActionResult> RetrieveMobiles(Filter filter, Paging paging, List<OrderBy> orderBy)
+        private async Task<ActionResult> RetrieveMobiles(Filter filter, Paging paging = null, List<OrderBy> orderBy = null)
         {
             if (filter != null && filter.IsFilter)
                 return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(filter, orderBy, paging));

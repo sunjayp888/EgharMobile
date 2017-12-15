@@ -50,7 +50,9 @@ namespace Egharpay
                       "~/Content/css/Site.css",
                       "~/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css",
                       "~/bower_components/ion.rangeSlider/css/ion.rangeSlider.css",
-                      "~/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css"
+                      "~/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css",
+                      "~/bower_components/angular-ui-select/dist/select.min.css",
+                      "~/bower_components/font-awesome/css/font-awesome.min.css"
                       ));
 
 

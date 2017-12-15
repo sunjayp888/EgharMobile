@@ -10,7 +10,7 @@
     function BrandService($http) {
         var service = {
             retrieveBrands: retrieveBrands,
-            retrieveMobileByBrandId:retrieveMobileByBrandId,
+            retrieveMobileByBrandId: retrieveMobileByBrandId,
             searchBrand: searchBrand
         };
 

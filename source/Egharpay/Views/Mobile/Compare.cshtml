@@ -1,0 +1,500 @@
+﻿@using Egharpay.Extensions
+
+@{
+    //var layout = User.IsSuperUserOrAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    //Layout = layout;
+    ViewBag.Title = "Compare";
+}
+
+<h2>Compare</h2>
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="MobileCompareController as model" ng-init="model.retrieveBrands()">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5 class="text-center">Select phone and compare (Maximum 3 phone.)</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="bootstrap-tagsinput">
+                                <ui-select multiple class="form-control" ng-model="model.selectedBrands" on-select="model.onBrandSelect()" on-remove="model.onBrandRemove()" close-on-select="true" title="Select engagers...">
+                                    <ui-select-match placeholder="Choose brand"><span ng-bind="$item.Name"></span></ui-select-match>
+                                    <ui-select-choices repeat="brand.BrandId as brand in model.brands | filter:$select.search">
+                                        <div ng-bind-html="brand.Name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="bootstrap-tagsinput">
+                                <ui-select multiple class="form-control" ng-model="model.selectedMobiles" on-select="model.onMobileSelect()" on-remove="model.onMobileRemove()" close-on-select="true" title="Select engagers...">
+                                    <ui-select-match placeholder="Choose phone"><span ng-bind="$item.Name"></span></ui-select-match>
+                                    <ui-select-choices repeat="mobile.MobileId as mobile in model.mobiles | filter:$select.search">
+                                        <div ng-bind-html="mobile.Name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="ibox-title">
+                <h5 class="text-center">Parameters</h5>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <table class="table">
+                            <tbody>
+                                <!-- #region NetWork -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">NETWORK</button>
+                                    </td>
+                                    <td><strong>Technology</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>2G Bands</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>3G Bands</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>4G Bands</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Speed</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>GPRS</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>EDGE</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region Launch -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">LAUNCH</button>
+                                    </td>
+                                    <td><strong>Announced</strong></td>
+                                </tr>
+                                @*<tr>
+                                    <td></td>
+                                    <td><strong>Status</strong></td>
+                                </tr>*@
+                                <!-- #endregion -->
+                                <!-- #region Body -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">BODY</button>
+                                    </td>
+                                    <td><strong>Dimensions</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Weight</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Build</strong></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>SIM</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region Display -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">DISPLAY</button>
+                                    </td>
+                                    <td><strong>Type</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Size</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Resolution</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Multitouch</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Protection</strong></td>
+                                </tr>
+
+                                <!-- #endregion -->
+                                <!-- #region PLATFORM -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">PLATFORM</button>
+                                    </td>
+                                    <td><strong>OS</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Chipset</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>CPU</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>GPU</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region MEMORY -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">MEMORY</button>
+                                    </td>
+                                    <td><strong>Card Slot</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Internal</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region CAMERA -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">CAMERA</button>
+                                    </td>
+                                    <td><strong>Primary</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Features</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Video</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Secondary</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region SOUND -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">SOUND</button>
+                                    </td>
+                                    <td><strong>Alert Types</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Loudspeaker</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>3.5mm Jack</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region COMMUNICATION -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">COMMUNICATION</button>
+                                    </td>
+                                    <td><strong>WLAN</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Bluetooth</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>GPS</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>NFC</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Radio</strong></td>
+
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>USB</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region FEATURES -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">FEATURES</button>
+                                    </td>
+                                    <td><strong>Sensors</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Messaging</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Browser</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Java</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region BATTERY -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">BATTERY</button>
+                                    </td>
+                                    <td><strong>Stand-by</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Talk Time</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Music Play</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region MISCELLANEOUS -->
+                                <tr>
+                                    <td>
+                                        <button type="button" class="btn btn-warning btn-xs">MISCELLANEOUS</button>
+                                    </td>
+                                    <td><strong>Colors</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>SAR</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>SAR EU</strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><strong>Price</strong></td>
+                                </tr>
+                                <!-- #endregion -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-cloak class="col-lg-3" ng-repeat="mobile in model.compareMobiles">
+            <div class="ibox-title">
+                <h5 class="text-center">Parameters</h5>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <table class="table text-nowrap">
+                            <tbody>
+                                <!-- #region NetWork -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.Technology" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Network2GBands"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Network3GBands" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Network4GBands" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Speed" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Gprs" >No</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Edge" >No</span></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region Launch -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.Announced" ></span></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region Body -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.Dimensions" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Weight" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Build"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Sim" ></span></td>
+                                </tr>
+                               
+                                <!-- #endregion -->
+                                <!-- #region Display -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.DisplayType" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.DisplaySize" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.DisplayResolution" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Multitouch==''?'N/A':mobile.Multitouch" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Protection==''?'N/A':mobile.Protection" ></span></td>
+                                </tr>
+
+                                <!-- #endregion -->
+                                <!-- #region PLATFORM -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.OS" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Chipset" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Cpu" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Gpu" ></span></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region MEMORY -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.CardSlot" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.InternalMemory" ></span></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region CAMERA -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.PrimaryCamera" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.CameraFeatures" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Video" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.SecondaryCamera" ></span></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region SOUND -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.AlertTypes" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Loudspeaker" >Yes</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Sound3Point5MmJack" ></span></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region COMMUNICATION -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.Wlan" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Bluetooth" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Gps" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Nfc" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Radio" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Usb" ></span></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region FEATURES -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.Sensors" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Messaging" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Browser" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Java" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region BATTERY -->
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.MiscellaneousBattery" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.StandBy" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.BatteryTalkTime" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.BatteryMusicPlay" ></span></td>
+                                </tr>
+                                <!-- #endregion -->
+                                <!-- #region MISCELLANEOUS -->
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Colours" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-height"><span ng-bind="mobile.Sar" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.SarEu" ></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-h-35"><span ng-bind="mobile.Price" ></span></td>
+                                </tr>
+                                <!-- #endregion -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
