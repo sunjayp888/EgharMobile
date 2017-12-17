@@ -66,7 +66,7 @@
             vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-          
+
             order("Name");
         }
 
@@ -208,6 +208,7 @@
 
         function requestMobile(mobileId) {
             for (var i = 0; i < vm.mobiles.length; i++) {
+              //  var result = $("#seller" + vm.mobiles[i]).is(':checked');
                 vm.mobiles[i].MobileId = mobileId;
             }
             return MobileService.requestMobile(vm.mobiles).then(function (response) {
@@ -288,5 +289,5 @@
                 });
             vm.isAssignButtonEnable = (count === 0);
         }
-        }
+    }
 })();
