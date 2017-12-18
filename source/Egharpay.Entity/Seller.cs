@@ -32,6 +32,9 @@ namespace Egharpay.Entity
 
         public long? Contact3 { get; set; }
 
+        [StringLength(500)]
+        public string Email { get; set; }
+
         [Required]
         [StringLength(500)]
         public string Address1 { get; set; }

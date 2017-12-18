@@ -33,7 +33,7 @@
                                     </tr>
                                     </thead>
                                     <tr ng-repeat="mobile in model.mobiles" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
-                                        <td><input type="checkbox" class="myCheckBox" ng-model="mobile.Ischecked" ng-click="model.canWeAssign()"></td>
+                                        <td><input id="seller{{mobile.SellerId}}" type="checkbox" class="myCheckBox" ng-model="mobile.Ischecked" ng-click="model.canWeAssign()"></td>
                                         <td><span ng-bind="mobile.Name"></span></td>
                                         <td><span ng-bind="mobile.RegistrationNumber"></span></td>
                                         <td><span ng-bind="mobile.Owner"></span></td>
