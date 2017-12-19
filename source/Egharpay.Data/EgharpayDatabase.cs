@@ -448,6 +448,10 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<Seller>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Seller>()
                 .Property(e => e.Owner)
                 .IsUnicode(false);
 
