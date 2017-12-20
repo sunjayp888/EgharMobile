@@ -162,8 +162,10 @@ namespace Egharpay.Controllers
         }
 
         [Route("Mobile/Compare")]
-        public ActionResult Compare()
+        public ActionResult Compare(int? brandId, int? mobileId)
         {
+            if(brandId.HasValue && mobileId.HasValue)
+            return View(new MobileViewModel() { MobileId = mobileId.Value, BrandId = brandId.Value });
             return View();
         }
 

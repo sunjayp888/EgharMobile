@@ -26,9 +26,13 @@
         vm.onMobileRemove = onMobileRemove;
         vm.selectedBrands;
         vm.selectedMobiles;
+        vm.selectedBrandId;
+        vm.mobileInCompareCount = 0;
+
 
         function compareMobile(mobileId) {
             vm.mobileId = mobileId;
+            
             return MobileCompareService.compareMobile(vm.mobileId)
                 .then(function (response) {
                     vm.galleryImages = response.data;
@@ -40,15 +44,19 @@
         function retrieveMobileByBrandIds() {
             return MobileCompareService.retrieveMobileByBrandIds(vm.selectedBrands)
                 .then(function (response) {
+                    
                     vm.mobiles = response.data;
                     return vm.mobiles;
                 });
         }
 
         function retrieveMobileByMobileIds() {
+            vm.selectedBrands = 283;
             return MobileCompareService.retrieveMobileByMobileIds(vm.selectedMobiles)
                 .then(function (response) {
-                    vm.compareMobiles = response.data;
+                    vm.mobileInCompareCount = response.data.length;
+                    if (vm.mobileInCompareCount < 4)
+                        vm.compareMobiles = response.data;
                     return vm.compareMobiles;
                 });
         }
@@ -59,6 +67,7 @@
             return BrandService.retrieveBrands(vm.orderBy)
                 .then(function (response) {
                     vm.brands = response.data.Items;
+                vm.selectedBrands = vm.brands[0];
                     return vm.brands;
                 });
         }
