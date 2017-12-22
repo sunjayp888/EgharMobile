@@ -3,7 +3,10 @@
         <div class="ibox">
             <div class="ibox-content product-box">
                 <div class="product-imitation-mobile">
+                    @*<img class="image img-mobile-profile" ng-src="mobile.ProfileImagePath" />*@
+                    @*<img class="image img-mobile-profile" src="~/MobileImage/Acer/Acer Allegro/acer-allego.jpg"/>*@
                     <img class="image img-mobile-profile" src="{{mobile.ProfileImagePath}}" />
+                    
                 </div>
                 <div class="product-desc-mobile">
                     <span class="product-price">
@@ -13,7 +16,7 @@
                     <br />
                     <a ng-href="/Mobile/Detail/{{mobile.SeoUrl}}" class="product-name"><strong ng-bind="mobile.Name"></strong></a>
                     <div class="small m-t-xs">
-                        <span ng-bind="mobile.ShortDescription"></span>
+                        <span ng-bind="mobile.ProfileImagePath"></span>
                     </div>
                     <div class="row">
                         <div class="col-xs-6">

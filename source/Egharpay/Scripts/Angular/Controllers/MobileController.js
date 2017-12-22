@@ -5,6 +5,7 @@
         .module('Egharpay')
         .controller('MobileController', MobileController);
 
+
     MobileController.$inject = ['$window', 'MobileService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
 
     function MobileController($window, MobileService, Paging, OrderService, OrderBy, Order) {
@@ -60,7 +61,32 @@
         vm.searchMobile = searchMobile;
         vm.isAssignButtonEnable = true;
         vm.canWeAssign = canWeAssign;
-
+        vm.zoomOptions1 = {
+            defaultImage: 0,
+            style: 'box',
+            boxPos: 'right-top',
+            boxW: 400,
+            boxH: 400,
+            method: 'lens',
+            cursor: 'crosshair',
+            lens: true,
+            zoomLevel: 3,
+            immersiveMode: '769',
+            immersiveModeOptions: {
+            },
+            prevThumbButton: '&#9665;',
+            nextThumbButton: '&#9655;',
+            thumbsPos: 'bottom',
+            thumbCol: 4,
+            thumbColPadding: 4,
+            images: [
+                {
+                    thumb: 'MobileImage/Acer/Acer Allegro/acer-allegro.jpg',
+                    medium: 'MobileImage/Acer/Acer Allegro/acer-allegro.jpg',
+                    large: 'MobileImage/Acer/Acer Allegro/acer-allegro.jpg'
+                }
+            ]
+        };
         function initialise(filter) {
             vm.filter = filter;
             vm.orderBy.property = "Name";

@@ -105,18 +105,10 @@ namespace Egharpay.Business.Services
             if (!string.IsNullOrEmpty(basePath) && mobile != null)
             {
                 var mobilePath = Path.Combine(basePath, mobile.Brand.Name, mobile.Name);
-                try
-                {
-                    var fileNamest = Directory.GetFiles(mobilePath).ToList();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
                 var fileNames = Directory.GetFiles(mobilePath).ToList();
                 mobileImageList.AddRange(fileNames.Select(item => new MobileImage
                 {
-                    ImagePath = item
+                    ImagePath = string.Format("/MobileImage/{0}/{1}/{2}", mobile.Brand.Name, mobile.Name, item.Split('\\').LastOrDefault())
                 }));
                 return mobileImageList;
             }

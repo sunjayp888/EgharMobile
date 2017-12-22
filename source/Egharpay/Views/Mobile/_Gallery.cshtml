@@ -3,7 +3,10 @@
         <div class="ibox float-e-margins">
             <div class="ibox-content">
                 <div class="lightBoxGallery">
-                    <a ng-repeat="mobileGallery in model.galleryImages" href="/Images/gallery/1.jpg" title="Image from Unsplash" data-gallery=""><img ng-src="{{mobileGallery.ImagePath | trustAsResourceUrl}}"></a>
+                    <a ng-repeat="mobileGallery in model.galleryImages" href="{{mobileGallery.ImagePath}}" title="Image from Unsplash" data-gallery="">
+                        <img ng-src="{{mobileGallery.ImagePath}}">
+                        @*<img src="~/MobileImage/Acer/Acer Allegro/Acer-Allegro_5.jpg" />*@
+                    </a>
                     <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
                     <div id="blueimp-gallery" class="blueimp-gallery">
                         <div class="slides"></div>

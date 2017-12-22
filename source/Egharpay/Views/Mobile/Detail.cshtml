@@ -34,7 +34,12 @@
                     </div>
                     <div>
                         <div class="ibox-content border-left-right">
-                            <img alt="image" class="img-responsive img-center" src="{{model.mobiles.ProfileImagePath}}">
+                            @*<img alt="image" class="img-responsive img-center" src="{{model.mobiles.ProfileImagePath}}" data-zoom-image="~/MobileImage/Acer/Acer Allegro/Acer-Allegro_2.jpg">*@
+                            @*<img src="{{model.mobiles.ProfileImagePath}}"
+                                 wip-image-zoom="vm.options"
+                                 selected-model="vm.selected"
+                                 selected-index="vm.selectedIndex">*@
+                            <img class="img-responsive img-center" wip-image-zoom="model.zoomOptions1" src="{{model.mobiles.ProfileImagePath}}">
                         </div>
 
                         <div class="ibox-content profile-content">
@@ -116,7 +121,7 @@
                         <li class=""><a data-toggle="tab" href="#tab-3"><strong> Video</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-4"><strong> Reviews</strong></a></li>
                         <li class=""><button class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to buy</strong></button></li>
-                        <li class=""><a class="btn btn-compare" href="/Mobile/Compare"><strong> Compare</strong></a></li>
+                        <li class=""><a class="btn btn-compare" href="/Mobile/Compare/@Model.BrandId/@Model.MobileId"><strong> Compare</strong></a></li>
                         @*<li class=""><button class="btn btn-compare" data-toggle="modal" data-target="#compareModal"><strong> Compare</strong></button></li>*@
                         <li class=""><button class="btn btn-compare" data-toggle="tab" href="#tab-7"><strong> Add to store</strong></button></li>
                     </ul>

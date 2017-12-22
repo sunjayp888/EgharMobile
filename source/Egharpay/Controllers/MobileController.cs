@@ -116,6 +116,7 @@ namespace Egharpay.Controllers
             var result = await _mobileBusinessService.RetrieveMobile(id.Value);
             viewModel.MobileName = result.Name;
             viewModel.MobileId = result.MobileId;
+            viewModel.BrandId = result.BrandId;
             return View(viewModel);
         }
 
@@ -161,7 +162,7 @@ namespace Egharpay.Controllers
             return this.JsonNet(await _mobileBusinessService.Search(searchKeyword, orderBy, paging));
         }
 
-        [Route("Mobile/Compare")]
+        [Route("Mobile/Compare/{brandId}/{mobileId}")]
         public ActionResult Compare(int? brandId, int? mobileId)
         {
             if(brandId.HasValue && mobileId.HasValue)
