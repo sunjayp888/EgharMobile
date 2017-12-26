@@ -17,7 +17,7 @@ namespace Egharpay
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            string fromEmail = ConfigurationManager.AppSettings["FromEmail"];
+            string fromEmail = ConfigurationManager.AppSettings["SMTPLoginId"];
 
             var smtpClient = new SmtpClient();
             var mail = new MailMessage(fromEmail, message.Destination)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Configuration.Interface;
+using Egharpay.Business.EmailServiceReference;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -26,12 +27,14 @@ namespace Egharpay.Controllers
         private IPersonnelBusinessService PersonnelBusinessService { get; set; }
         private IPersonnelEmailBusinessService PersonnelEmailBusinessService { get; set; }
         private ISellerBusinessService SellerBusinessService { get; set; }
+        protected IEmailBusinessService _emailBusinessService;
 
-        public AccountController(IPersonnelBusinessService personnelBusinessService, ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
+        public AccountController(IPersonnelBusinessService personnelBusinessService, IEmailBusinessService emailBusinessService,ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
         {
             PersonnelBusinessService = personnelBusinessService;
             SellerBusinessService = sellerBusinessService;
             PersonnelEmailBusinessService = personnelEmailBusinessService;
+            _emailBusinessService = emailBusinessService;
         }
 
         private ApplicationSignInManager _signInManager;
@@ -293,7 +296,15 @@ namespace Egharpay.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                var userEmailData=new EmailData()
+                {
+                    BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
+                    Body = String.Format("To reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>"),
+                    Subject = "Reset Password (Mumbile.com)",
+                    IsHtml = true,
+                    ToAddressList = new List<string> { user.Email }
+                };
+                _emailBusinessService.SendEmail(userEmailData);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -309,7 +320,6 @@ namespace Egharpay.Controllers
             return View();
         }
 
-        //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public async Task<ActionResult> ResetPassword(string code)
