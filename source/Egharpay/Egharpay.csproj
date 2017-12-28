@@ -2015,6 +2015,7 @@
     <Content Include="Views\Shared\_MobileList.cshtml" />
     <Content Include="Views\Mobile\BrandMobile.cshtml" />
     <Content Include="Views\Mobile\Compare.cshtml" />
+    <Content Include="Views\Shared\_OutsideLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Configuration.Interface;
+using Egharpay.Business.EmailServiceReference;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -26,12 +27,14 @@ namespace Egharpay.Controllers
         private IPersonnelBusinessService PersonnelBusinessService { get; set; }
         private IPersonnelEmailBusinessService PersonnelEmailBusinessService { get; set; }
         private ISellerBusinessService SellerBusinessService { get; set; }
+        protected IEmailBusinessService _emailBusinessService;
 
-        public AccountController(IPersonnelBusinessService personnelBusinessService, ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
+        public AccountController(IPersonnelBusinessService personnelBusinessService, IEmailBusinessService emailBusinessService,ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
         {
             PersonnelBusinessService = personnelBusinessService;
             SellerBusinessService = sellerBusinessService;
             PersonnelEmailBusinessService = personnelEmailBusinessService;
+            _emailBusinessService = emailBusinessService;
         }
 
         private ApplicationSignInManager _signInManager;
@@ -293,7 +296,15 @@ namespace Egharpay.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                var userEmailData=new EmailData()
+                {
+                    BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
+                    Body = String.Format("To reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>"),
+                    Subject = "Reset Password (Mumbile.com)",
+                    IsHtml = true,
+                    ToAddressList = new List<string> { user.Email }
+                };
+                _emailBusinessService.SendEmail(userEmailData);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -309,12 +320,14 @@ namespace Egharpay.Controllers
             return View();
         }
 
-        //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public async Task<ActionResult> ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            //return code == null ? View("Error") : View();
+            var resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(User.Identity.GetUserId());
+            var model = new ResetPasswordViewModel() { Code = resetPasswordToken };
+            return View(model);
         }
 
         //
@@ -334,9 +347,20 @@ namespace Egharpay.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+            //var personnelData = PersonnelBusinessService.RetrievePersonnel(centreId,user.PersonnelId);
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
+                //var emailData = new EmailData()
+                //{
+                //    BCCAddressList = new List<string> { "developer@nidantech.com" },
+                //    Body = String.Format("Dear {0}.{1} {2}, Your Password has been changed successfully. And your New Password is {3}", personnelData.Title, personnelData.Forenames, personnelData.Surname, model.Password),
+                //    Subject = "Changed Password For Nidan ERP",
+                //    IsHtml = true,
+                //    ToAddressList = new List<string> { personnelData.Email }
+
+                //};
+                //_emailService.SendEmail(emailData);
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             AddErrors(result);

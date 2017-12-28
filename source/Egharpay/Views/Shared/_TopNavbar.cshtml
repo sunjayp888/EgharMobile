@@ -116,14 +116,10 @@
                     {
                         @Html.AntiForgeryToken()
                         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-                        <li>
-                            <a class="right-sidebar-toggle">
-                                <i class="fa fa-tasks"></i>
-                            </a>
-                        </li>
+                        <li>@Html.ActionLink("Reset Password", "ResetPassword", "Account")</li>
                     }
                 }
-                
+
                 else
                 {
                         <li>
