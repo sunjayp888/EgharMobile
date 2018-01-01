@@ -13,8 +13,6 @@ namespace Egharpay.Entity
 
         public int? PersonnelId { get; set; }
 
-        public int? SellerId { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime CreatedDate { get; set; }
 
@@ -24,6 +22,7 @@ namespace Egharpay.Entity
 
         public virtual Mobile Mobile { get; set; }
 
-        public virtual Seller Seller { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderSeller> OrderSellers { get; set; }
     }
 }

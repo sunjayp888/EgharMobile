@@ -114,6 +114,7 @@
     <Compile Include="MobileGrid.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderSeller.cs" />
     <Compile Include="Partials\Seller.cs" />
     <Compile Include="Partials\Template.cs" />
     <Compile Include="Personnel.cs" />

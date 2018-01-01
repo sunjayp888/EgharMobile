@@ -13,7 +13,8 @@ namespace Egharpay.Business.Interfaces
     public interface IOrderBusinessService
     {
         //Create
-        Task<ValidationResult<Order>> CreateOrder(Order order);
+        Task<ValidationResult<Order>> CreateOrder(Order order, int sellerId);
+        Task<ValidationResult<OrderSeller>> CreateOrderSeller(OrderSeller orderSeller);
 
         //Retrieve
         Task<Order> RetrieveOrder(int orderId);
