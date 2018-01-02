@@ -232,12 +232,12 @@
                 });
         }
 
-        function requestMobile(mobileId) {
+        function requestMobile(mobileId, sellerId) {
             for (var i = 0; i < vm.mobiles.length; i++) {
-              //  var result = $("#seller" + vm.mobiles[i]).is(':checked');
+                //  var result = $("#seller" + vm.mobiles[i]).is(':checked');
                 vm.mobiles[i].MobileId = mobileId;
             }
-            return MobileService.requestMobile(vm.mobiles).then(function (response) {
+            return MobileService.requestMobile(vm.mobiles, sellerId).then(function (response) {
                 vm.mobiles = response.data;
                 searchSeller(vm.searchKeyword);
                 vm.isAssignButtonEnable = true;

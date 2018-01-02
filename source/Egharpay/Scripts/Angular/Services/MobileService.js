@@ -20,11 +20,11 @@
             requestMobile: requestMobile,
             retrieveMobilesInStore: retrieveMobilesInStore,
             retrieveMobilesLatestInStore: retrieveMobilesLatestInStore,
-    };
+        };
 
         return service;
 
-        function retrieveMobiles(filter,Paging, OrderBy) {
+        function retrieveMobiles(filter, Paging, OrderBy) {
             var url = "/Mobile/List",
                 data = {
                     paging: Paging,
@@ -59,10 +59,11 @@
         }
 
 
-        function requestMobile(mobiles) {
+        function requestMobile(mobiles, sellerId) {
             var url = "/Order/RequestMobile",
                 data = {
-                    mobiles: mobiles
+                    mobiles: mobiles,
+                    sellerId: sellerId
                 };
             return $http.post(url, data);
         }

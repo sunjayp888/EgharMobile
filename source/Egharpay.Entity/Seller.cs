@@ -12,7 +12,7 @@ namespace Egharpay.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Seller()
         {
-            Orders = new HashSet<Order>();
+            OrderSellers = new HashSet<OrderSeller>();
         }
         public int SellerId { get; set; }
 
@@ -63,6 +63,6 @@ namespace Egharpay.Entity
         public int? PersonnelId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<OrderSeller> OrderSellers { get; set; }
     }
 }

@@ -62,7 +62,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RequestMobile(List<Order> mobiles)
+        public async Task<ActionResult> RequestMobile(List<Order> mobiles, int sellerId)
         {
             if (mobiles == null)
             {
@@ -74,7 +74,8 @@ namespace Egharpay.Controllers
                 {
                     mobile.CreatedDate = DateTime.UtcNow;
                     mobile.RequestTypeId = 1;
-                    return this.JsonNet(await _orderBusinessService.CreateOrder(mobile)); 
+                    mobile.PersonnelId = UserPersonnelId;
+                    return this.JsonNet(await _orderBusinessService.CreateOrder(mobile, sellerId));
                 }
             }
             catch (Exception e)
