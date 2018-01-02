@@ -226,6 +226,7 @@ namespace Egharpay.Controllers
                 CallBackUrl = callbackUrl,
                 Subject = "Confirm your account",
                 TemplateName = "PersonnelCreatedEmail",
+                FromAddress="vijayraut33@gmail.com", //check which email id should here.
                 ToAddress = new List<string>() { personnel.Email }
             };
             try
