@@ -88,8 +88,13 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            var data = _orderBusinessService.RetrieveSellerOrders(e => true, orderBy, paging);
+            var data = await _orderBusinessService.RetrieveSellerOrders(e => true, orderBy, paging);
             return this.JsonNet(data);
+        }
+
+        public ActionResult ViewOrder()
+        {
+            return View();
         }
     }
 }
