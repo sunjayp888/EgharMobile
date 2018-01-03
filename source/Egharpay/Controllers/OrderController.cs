@@ -72,10 +72,15 @@ namespace Egharpay.Controllers
             {
                 foreach (var mobile in mobiles)
                 {
-                    mobile.CreatedDate = DateTime.UtcNow;
-                    mobile.RequestTypeId = 1;
-                    mobile.PersonnelId = UserPersonnelId;
-                    return this.JsonNet(await _orderBusinessService.CreateOrder(mobile, sellerId));
+                    var order = new Order()
+                    {
+                        CreatedDate = DateTime.UtcNow,
+                        RequestTypeId = 1,
+                        PersonnelId = UserPersonnelId,
+                        MobileId = mobile.MobileId
+                    };
+                    
+                    return this.JsonNet(await _orderBusinessService.CreateOrder(order, mobile.SellerId));
                 }
             }
             catch (Exception e)
