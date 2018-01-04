@@ -12,6 +12,7 @@
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
+        vm.requestMobiles = [];
         vm.mobilesInStore = [];
         vm.paging = new Paging;
         vm.pageChanged = pageChanged;
@@ -235,9 +236,15 @@
         function requestMobile(mobileId, sellerId) {
             for (var i = 0; i < vm.mobiles.length; i++) {
                 //  var result = $("#seller" + vm.mobiles[i]).is(':checked');
+                if (vm.mobiles[i].Ischecked) {
+                    vm.requestMobiles.push({
+                        MobileId: mobileId,
+                        SellerId: vm.mobiles[i].SellerId
+                    });
+                }
                 vm.mobiles[i].MobileId = mobileId;
             }
-            return MobileService.requestMobile(vm.mobiles, sellerId).then(function (response) {
+            return MobileService.requestMobile(vm.requestMobiles, sellerId).then(function (response) {
                 vm.mobiles = response.data;
                 searchSeller(vm.searchKeyword);
                 vm.isAssignButtonEnable = true;

@@ -47,16 +47,11 @@ namespace Egharpay.Business.Services
                     SellerId = sellerId
                 };
                 await CreateOrderSeller(orderSellerData);
-                var orderSeller = await _SellerDataService.RetrievePagedResultAsync<OrderSeller>(a => a.OrderId == order.OrderId);
-                var sellerIds = orderSeller.Items.Select(e => e.SellerId).ToList();
-                var seller = await _SellerDataService.RetrievePagedResultAsync<Seller>(a => sellerIds.Contains(a.SellerId));
-                var sellerList = seller.Items.ToList();
-                var personnelData = await _personnelDataService.RetrieveAsync<Personnel>(a => a.PersonnelId == order.PersonnelId);
-                var personnel = personnelData.FirstOrDefault();
-                var mobileData = await _mobileDataService.RetrieveAsync<Entity.Mobile>(a => a.MobileId == order.MobileId);
-                var mobile = mobileData.FirstOrDefault();
-                SendEmail(order, sellerList, personnel, mobile);
-                SendSms(order, sellerList, personnel, mobile);
+                var seller = await _SellerDataService.RetrieveByIdAsync<Seller>(sellerId);
+                var personnelData = await _personnelDataService.RetrieveByIdAsync<Personnel>(order.PersonnelId);
+                var mobileData = await _mobileDataService.RetrieveByIdAsync<Entity.Mobile>(order.MobileId);
+                //SendEmail(order, sellerList, personnel, mobile);
+                //SendSms(order, sellerList, personnel, mobile);
             }
             catch (Exception ex)
             {
@@ -85,7 +80,7 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        private void SendEmail(Order order, List<Seller> sellerList, Personnel personnel, Entity.Mobile mobile)
+        private void SendEmail(Order order, Seller seller, Personnel personnel, Entity.Mobile mobile)
         {
             var personnEmailData = new EmailData()
             {
@@ -96,21 +91,18 @@ namespace Egharpay.Business.Services
                 ToAddressList = new List<string> { personnel.Email.ToLower() }
             };
             _emailBusinessService.SendEmail(personnEmailData);
-            foreach (var seller in sellerList)
+            var sellerEmailData = new EmailData()
             {
-                var sellerEmailData = new EmailData()
-                {
-                    BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
-                    Body = String.Format("Hi {0}, Order Received: We have received your order request for {1} from {2} {3} {4} with order id {5}. Kindly contact to customer on {6}.", seller.Name, mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile),
-                    Subject = "Order Received Successfully (Mumbile.com)",
-                    IsHtml = true,
-                    ToAddressList = new List<string> { seller.Email.ToLower() }
-                };
-                _emailBusinessService.SendEmail(sellerEmailData);
-            }
+                BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
+                Body = String.Format("Hi {0}, Order Received: We have received your order request for {1} from {2} {3} {4} with order id {5}. Kindly contact to customer on {6}.", seller.Name, mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile),
+                Subject = "Order Received Successfully (Mumbile.com)",
+                IsHtml = true,
+                ToAddressList = new List<string> { seller.Email.ToLower() }
+            };
+            _emailBusinessService.SendEmail(sellerEmailData);
         }
 
-        private void SendSms(Order order, List<Seller> sellerList, Personnel personnel, Entity.Mobile mobile)
+        private void SendSms(Order order, Seller seller, Personnel personnel, Entity.Mobile mobile)
         {
             if (!string.IsNullOrEmpty(personnel.Mobile))
             {
@@ -118,16 +110,13 @@ namespace Egharpay.Business.Services
                 var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
                 _smsBusinessService.SendSMS(personnel.Mobile, msg);
             }
-            foreach (var seller in sellerList)
+            if (!string.IsNullOrEmpty(seller.Contact1.ToString()))
             {
-                if (!string.IsNullOrEmpty(seller.Contact1.ToString()))
-                {
-                    //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
-                    var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
-                    _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
-                }
+                //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
+                var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
+                _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
             }
-           
+
         }
 
         public async Task<Order> RetrieveOrder(int orderId)

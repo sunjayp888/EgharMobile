@@ -9,14 +9,17 @@ namespace Egharpay.Entity
     [Table("Order")]
     public partial class Order
     {
+        [NotMapped]
+        public int SellerId { get; set; }
+
         public int OrderId { get; set; }
 
-        public int? PersonnelId { get; set; }
+        public int PersonnelId { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime CreatedDate { get; set; }
 
-        public int? RequestTypeId { get; set; }
+        public int RequestTypeId { get; set; }
 
         public int MobileId { get; set; }
 
