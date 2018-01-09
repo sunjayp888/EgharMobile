@@ -20,7 +20,7 @@
     @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
     @Styles.Render("~/plugins/imagecropperStyles")
     @*@Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")*@
-    
+
 </head>
 <body class="top-navigation">
 
@@ -45,13 +45,13 @@
             <!-- Main view -->
             @RenderBody()
             <br />
+            <br />
             <!-- Footer -->
             @Html.Partial("_Footer")
 
 
         </div>
         <!-- End page wrapper-->
-        
         <!-- Right Sidebar -->
         @Html.Partial("_RightSidebar")
 
@@ -66,21 +66,21 @@
     @Scripts.Render("~/plugins/slimScroll")
     @Scripts.Render("~/bundles/inspinia")
     @Scripts.Render("~/Scripts/Application")
-    
-    
+
+
     @Scripts.Render("~/plugins/peity")
     @Scripts.Render("~/plugins/iCheck")
     @Scripts.Render("~/plugins/imagecropper")
     @*@Scripts.Render("~/plugins/ionRange")*@
 
-<!-- Skin config script - only for demo purpose-->
+    <!-- Skin config script - only for demo purpose-->
     @Scripts.Render("~/bundles/skinConfig")
 
     @Scripts.Render("~/plugins/typehead")
-    
-  
 
-<!-- Handler for local scripts -->
+
+
+    <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)
 </body>
 </html>

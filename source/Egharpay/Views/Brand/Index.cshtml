@@ -43,9 +43,8 @@
     </div>
     <br />
     <div class="row">
-
         <div class="col-lg-3" ng-controller="MobileController as model" ng-init="model.retrieveMobilesInStore()">
-            <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins" id="deviceinstore">
                 <div class="ibox-title">
                     <h5>Device in store</h5>
                     <button class="btn btn-danger btn-xs pull-right">View All</button>
@@ -67,7 +66,7 @@
                 </div>
             </div>
 
-            <div>
+            <div id="topsellingphone">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Top Selling Phones</h5>
@@ -98,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            <div class="ibox">
+            <div class="ibox" id="topseller">
                 <div class="ibox-content">
                     <h3>Top Sellers</h3>
                     <ul class="list-unstyled file-list">
@@ -113,7 +112,7 @@
             </div>
         </div>
 
-        <div class="col-lg-9">
+        <div class="col-lg-9" ng-cloak>
             <div class="col-md-3" ng-repeat="brand in model.brands">
                 <button class="btn btn-default dim btn-brand" ng-click="model.brandMobileLocation(brand.BrandId,brand.Name)">
                     <div class="row">
@@ -127,8 +126,5 @@
                 </button>
             </div>
         </div>
-
-
-
     </div>
 </div>

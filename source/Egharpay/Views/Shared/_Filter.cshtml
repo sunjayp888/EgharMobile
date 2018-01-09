@@ -2,41 +2,43 @@
     <div class="ibox-title">
         <h5>Filter</h5>
         <div class="ibox-tools">
-            <a class="collapse-link">
+            <a class="collapse-link" data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseExample">
                 <i class="fa fa-chevron-up"></i>
             </a>
         </div>
     </div>
-    <div class="ibox-content">
-        <div class="row">
-            <div>
-                <h5>Price Range</h5>
+    <div  class="collapse" id="collapseFilter">
+        <div class="ibox-content">
+            <div class="row">
+                <div>
+                    <h5>Price Range</h5>
+                </div>
+                <input class="text-box" ion-range-slider min="0" max="100000" from="model.fromPrice" to="model.toPrice" on-Finish="model.onPriceFilter()" type="double" />
             </div>
-            <input class="text-box" ion-range-slider min="0" max="100000" from="model.fromPrice" to="model.toPrice" on-Finish="model.onPriceFilter()" type="double"/>
         </div>
-    </div>
-    <div class="ibox-content">
-        <div class="row">
-            <div>
-                <h5>Ram Size</h5>
+        <div class="ibox-content">
+            <div class="row">
+                <div>
+                    <h5>Ram Size</h5>
+                </div>
+                <input class="text-box" ion-range-slider type="double" min="0" max="32" from="model.fromRamSize" to="model.toRamSize" disable="false" on-Finish="model.onRamSizeFilter()" />
             </div>
-            <input class="text-box" ion-range-slider type="double" min="0" max="32" from="model.fromRamSize" to="model.toRamSize" disable="false" on-Finish="model.onRamSizeFilter()" />
         </div>
-    </div>
-    <div class="ibox-content">
-        <div class="row">
-            <div>
-                <h5>Primary Camera</h5>
+        <div class="ibox-content">
+            <div class="row">
+                <div>
+                    <h5>Primary Camera</h5>
+                </div>
+                <input class="text-box" ion-range-slider type="double" min="0" max="50" from="model.fromPrimaryCameraSize" to="model.toPrimaryCameraSize" disable="false" on-Finish="model.onPrimaryCameraFilter()" />
             </div>
-            <input class="text-box" ion-range-slider type="double" min="0" max="50" from="model.fromPrimaryCameraSize" to="model.toPrimaryCameraSize" disable="false" on-Finish="model.onPrimaryCameraFilter()" />
         </div>
-    </div>
-    <div class="ibox-content">
-        <div class="row">
-            <div>
-                <h5>Secondary Camera</h5>
+        <div class="ibox-content">
+            <div class="row">
+                <div>
+                    <h5>Secondary Camera</h5>
+                </div>
+                <input class="text-box" ion-range-slider type="double" grid="false" min="0" max="30" from="model.fromSecondaryCameraSize" to="model.toSecondaryCameraSize" disable="false" on-Finish="model.onSecondaryCameraFilter()" />
             </div>
-            <input class="text-box" ion-range-slider type="double" grid="false" min="0" max="30" from="model.fromSecondaryCameraSize" to="model.toSecondaryCameraSize" disable="false" on-Finish="model.onSecondaryCameraFilter()" />
         </div>
     </div>
 </div>

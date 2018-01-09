@@ -1,27 +1,27 @@
 ﻿<div class="row border-bottom white-bg" ng-controller="HomeController as model" ng-init="model.initialise()">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="navbar-header">
-
             <div class="row">
-                <div class="col-lg-2">
+                <div class="col-lg-2" id="brand">
                     <a href="~/Home" class="navbar-brand"><strong>mumbile</strong></a>
                 </div>
                 <div class="col-lg-10">
-                    <form class="navbar-form navbar-left" role="search">
+                    <form class="navbar-form navbar-left form-inline" role="search">
                         <div class="form-group">
-                            <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search" />
+                            <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search"/>
+                            <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <a class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder">Order</span></a>
+                            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                                <i class="fa fa-reorder"></i>
+                            </button>
                         </div>
-                        <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
-                            <i class="fa fa-search"></i>
-                        </button>
                     </form>
                 </div>
-                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                    <i class="fa fa-reorder"></i>
-                </button>
             </div>
         </div>
-
+        
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li class="dropdown mega-dropdown">
@@ -46,12 +46,12 @@
                         <li class="col-sm-3">
                             <ul>
                                 <li class="dropdown-header">Brand</li>
-                                <li><a ng-href="@Url.Action("BrandMobile","Mobile",new {id=283})">Nokia</a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile","Mobile",new {id=300})">Samsung</a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile","Mobile",new {id=224})"></a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile","Mobile",new {id=278})">Motorola</a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile","Mobile",new {id=323})">Redmi(Xiaomi)</a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile","Mobile",new {id=226})">Apple</a></li>
+                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 283})">Nokia</a></li>
+                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 300})">Samsung</a></li>
+                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 224})"></a></li>
+                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 278})">Motorola</a></li>
+                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 323})">Redmi(Xiaomi)</a></li>
+                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 226})">Apple</a></li>
                                 <li><button class="btn btn-primary" ng-click="model.showAllBrands()">Show all brands</button></li>
                             </ul>
                         </li>
@@ -80,12 +80,12 @@
                             </ul>
                         </li>
                     </ul>
+
                 </li>
             </ul>
+
             
-                <a class="btn btn-danger" href="/Order"><i class="fa fa-cart-arrow-down "></i> Order</a>  
-                
-           
+
             @if (User.Identity.IsAuthenticated)
             {
                 using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -109,6 +109,11 @@
             }
 
         </div>
+
+
+
+
+
     </nav>
 </div>
 @section Scripts {
