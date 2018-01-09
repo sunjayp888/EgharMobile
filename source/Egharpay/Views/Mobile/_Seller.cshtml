@@ -22,15 +22,15 @@
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
-                                        <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
-                                        <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
-                                        <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
-                                        <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <tr>
+                                            <th></th>
+                                            <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
+                                            <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
+                                            <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
+                                            <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
+                                            <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tr ng-repeat="mobile in model.mobiles" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
                                         <td><input id="seller{{mobile.SellerId}}" type="checkbox" class="myCheckBox" ng-model="mobile.Ischecked" ng-click="model.canWeAssign()"></td>
@@ -46,7 +46,7 @@
                                                 </a>
                                                 <ul class="dropdown-menu slidedown">
                                                     <li>
-                                                        <a style="cursor: pointer;" ng-click="model.requestMobile(@Model.MobileId)">
+                                                        <a style="cursor: pointer;" ng-click="model.requestMobile(@Model.MobileId,mobile.SellerId)">
                                                             Reuest Seller
                                                         </a>
                                                     </li>
@@ -55,7 +55,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestMobile(@Model.MobileId)" ng-disabled="model.isAssignButtonEnable">Request Seller</button>
+                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestMobile(@Model.MobileId,mobile.SellerId)" ng-disabled="model.isAssignButtonEnable">Request Seller</button>
                             </div>
                         </div>
                     </div>

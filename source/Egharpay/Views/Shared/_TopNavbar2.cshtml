@@ -82,6 +82,10 @@
                     </ul>
                 </li>
             </ul>
+            
+                <a class="btn btn-danger" href="/Order"><i class="fa fa-cart-arrow-down "></i> Order</a>  
+                
+           
             @if (User.Identity.IsAuthenticated)
             {
                 using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
@@ -89,11 +93,7 @@
                     @Html.AntiForgeryToken()
                     <ul class="nav navbar-top-links navbar-right">
                         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-                        <li>
-                            <a class="right-sidebar-toggle">
-                                <i class="fa fa-tasks"></i>
-                            </a>
-                        </li>
+                        <li>@Html.ActionLink("Reset Password", "ResetPassword", "Account")</li>
                     </ul>
                 }
             }

@@ -49,6 +49,7 @@ namespace Egharpay.Data
         public virtual DbSet<SellerMobileGrid> SellerMobileGrids { get; set; }
 
         public virtual DbSet<SellerOrderGrid> SellerOrderGrids { get; set; }
+        public virtual DbSet<OrderSeller> OrderSellers { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

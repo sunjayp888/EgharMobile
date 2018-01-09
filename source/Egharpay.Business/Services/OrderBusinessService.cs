@@ -34,21 +34,42 @@ namespace Egharpay.Business.Services
             _mobileDataService = mobileDataService;
         }
 
-        public async Task<ValidationResult<Order>> CreateOrder(Order order)
+        public async Task<ValidationResult<Order>> CreateOrder(Order order, int sellerId)
         {
             ValidationResult<Order> validationResult = new ValidationResult<Order>();
             try
             {
                 await _dataService.CreateAsync(order);
                 validationResult.Entity = order;
-                var sellerData = await _SellerDataService.RetrieveAsync<Seller>(a => a.SellerId == order.SellerId);
-                var seller = sellerData.FirstOrDefault();
-                var personnelData = await _personnelDataService.RetrieveAsync<Personnel>(a => a.PersonnelId == order.PersonnelId);
-                var personnel = personnelData.FirstOrDefault();
-                var mobileData = await _mobileDataService.RetrieveAsync<Entity.Mobile>(a => a.MobileId == order.MobileId);
-                var mobile = mobileData.FirstOrDefault();
-                SendEmail(order, seller, personnel, mobile);
-                SendSms(order, seller, personnel, mobile);
+                var orderSellerData = new OrderSeller()
+                {
+                    OrderId = order.OrderId,
+                    SellerId = sellerId
+                };
+                await CreateOrderSeller(orderSellerData);
+                var seller = await _SellerDataService.RetrieveByIdAsync<Seller>(sellerId);
+                var personnelData = await _personnelDataService.RetrieveByIdAsync<Personnel>(order.PersonnelId);
+                var mobileData = await _mobileDataService.RetrieveByIdAsync<Entity.Mobile>(order.MobileId);
+                //SendEmail(order, sellerList, personnel, mobile);
+                //SendSms(order, sellerList, personnel, mobile);
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Errors = new List<string> { ex.InnerMessage() };
+                validationResult.Exception = ex;
+            }
+            return validationResult;
+        }
+
+        public async Task<ValidationResult<OrderSeller>> CreateOrderSeller(OrderSeller orderSeller)
+        {
+            ValidationResult<OrderSeller> validationResult = new ValidationResult<OrderSeller>();
+            try
+            {
+                await _dataService.CreateAsync(orderSeller);
+                validationResult.Entity = orderSeller;
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
@@ -89,13 +110,13 @@ namespace Egharpay.Business.Services
                 var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
                 _smsBusinessService.SendSMS(personnel.Mobile, msg);
             }
-
             if (!string.IsNullOrEmpty(seller.Contact1.ToString()))
             {
                 //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
                 var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
                 _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
             }
+
         }
 
         public async Task<Order> RetrieveOrder(int orderId)
@@ -119,6 +140,12 @@ namespace Egharpay.Business.Services
         {
             var result = await _dataService.RetrievePagedResultAsync<SellerOrderGrid>(expression, orderBy, paging);
             return _mapper.MapToPagedResult<SellerOrderGrid>(result);
+        }
+
+        public async Task<PagedResult<OrderSeller>> RetrieveOrderSellers(Expression<Func<OrderSeller, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var result = await _dataService.RetrievePagedResultAsync<OrderSeller>(expression, orderBy, paging);
+            return _mapper.MapToPagedResult<OrderSeller>(result);
         }
     }
 }

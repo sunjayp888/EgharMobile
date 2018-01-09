@@ -9,21 +9,23 @@ namespace Egharpay.Entity
     [Table("Order")]
     public partial class Order
     {
+        [NotMapped]
+        public int SellerId { get; set; }
+
         public int OrderId { get; set; }
 
-        public int? PersonnelId { get; set; }
-
-        public int? SellerId { get; set; }
+        public int PersonnelId { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime CreatedDate { get; set; }
 
-        public int? RequestTypeId { get; set; }
+        public int RequestTypeId { get; set; }
 
         public int MobileId { get; set; }
 
         public virtual Mobile Mobile { get; set; }
 
-        public virtual Seller Seller { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderSeller> OrderSellers { get; set; }
     }
 }

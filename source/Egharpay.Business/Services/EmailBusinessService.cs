@@ -96,7 +96,7 @@ namespace Egharpay.Business.Services
         private void UseOverrideEmailDataIfSet(EmailData data)
         {
             var overrideEmailAddresses = ConfigurationManager.AppSettings["OverrideEmailAddresses"];
-            if (overrideEmailAddresses != null)
+            if (!string.IsNullOrEmpty(overrideEmailAddresses))
             {
                 data.ToAddressList.Clear();
                 data.ToAddressList.AddRange(new List<string> { overrideEmailAddresses });

@@ -62,7 +62,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RequestMobile(List<Order> mobiles)
+        public async Task<ActionResult> RequestMobile(List<Order> mobiles, int sellerId)
         {
             if (mobiles == null)
             {
@@ -72,9 +72,15 @@ namespace Egharpay.Controllers
             {
                 foreach (var mobile in mobiles)
                 {
-                    mobile.CreatedDate = DateTime.UtcNow;
-                    mobile.RequestTypeId = 1;
-                    return this.JsonNet(await _orderBusinessService.CreateOrder(mobile)); 
+                    var order = new Order()
+                    {
+                        CreatedDate = DateTime.UtcNow,
+                        RequestTypeId = 1,
+                        PersonnelId = UserPersonnelId,
+                        MobileId = mobile.MobileId
+                    };
+                    
+                    return this.JsonNet(await _orderBusinessService.CreateOrder(order, mobile.SellerId));
                 }
             }
             catch (Exception e)
@@ -87,8 +93,13 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            var data = _orderBusinessService.RetrieveSellerOrders(e => true, orderBy, paging);
+            var data = await _orderBusinessService.RetrieveSellerOrders(e => true, orderBy, paging);
             return this.JsonNet(data);
+        }
+
+        public ActionResult ViewOrder()
+        {
+            return View();
         }
     }
 }
