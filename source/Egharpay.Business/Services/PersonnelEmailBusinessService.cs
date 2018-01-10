@@ -32,7 +32,6 @@ namespace Egharpay.Business.Services
             _emailBusinessService.SendEmail(new EmailData
             {
                 Subject = personnelCreatedEmail.Subject, //ToDo
-                FromAddress = personnelCreatedEmail.FromAddress,
                 ToAddressList = personnelCreatedEmail.ToAddress,
                 IsHtml = true,
                 Body = body
