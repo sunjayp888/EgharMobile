@@ -169,7 +169,7 @@ namespace Egharpay.Controllers
         //    return View(viewModel);
         //}
 
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,Personnel")]
         public async Task<ActionResult> Edit()
         {
             if (!User.Identity.IsAuthenticated)

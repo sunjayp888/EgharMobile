@@ -222,7 +222,7 @@ namespace Egharpay.Controllers
             var validationResult = new ValidationResult();
             var personnelConfirmedEmail = new PersonnelCreatedEmail()
             {
-                Personnel = personnel,
+                FullName = personnel.FullName,
                 CallBackUrl = callbackUrl,
                 Subject = "Confirm your account",
                 TemplateName = "PersonnelCreatedEmail",

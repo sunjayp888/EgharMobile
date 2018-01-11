@@ -9,6 +9,7 @@ namespace Egharpay.Business.Models
 {
     public class PersonnelCreatedEmail : HtmlEmail
     {
-        public Personnel Personnel { get; set; }
+        public string FullName{ get; set; }
+
     }
 }

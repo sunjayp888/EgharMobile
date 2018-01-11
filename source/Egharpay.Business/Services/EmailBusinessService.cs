@@ -31,8 +31,6 @@ namespace Egharpay.Business.Services
         public void SendEmail(EmailData data, List<Guid> docGuids)
         {
             UseOverrideEmailDataIfSet(data);
-
-            UseOverrideEmailDataIfSet(data);
             try
             {
                 var msg = CreateMessage(data);
