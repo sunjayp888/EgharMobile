@@ -45,6 +45,7 @@ namespace Egharpay.Data
         public virtual DbSet<PersonnelDocumentDetail> PersonnelDocumentDetails { get; set; }
         public virtual DbSet<SellerMobile> SellerMobiles { get; set; }
         public virtual DbSet<MetaSearchKeyword> MetaSearchKeywords { get; set; }
+        public virtual DbSet<OrderState> OrderStates { get; set; }
 
         public virtual DbSet<SellerMobileGrid> SellerMobileGrids { get; set; }
 
@@ -379,11 +380,6 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<Mobile>()
                 .HasMany(e => e.MobileComments)
-                .WithRequired(e => e.Mobile)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Mobile>()
-                .HasMany(e => e.Orders)
                 .WithRequired(e => e.Mobile)
                 .WillCascadeOnDelete(false);
 

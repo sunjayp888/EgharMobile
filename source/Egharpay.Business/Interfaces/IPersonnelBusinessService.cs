@@ -23,8 +23,9 @@ namespace Egharpay.Business.Interfaces
         Task<ValidationResult<Personnel>> RetrievePersonnel(int personnelId);
         Task<PagedResult<Personnel>> RetrievePersonnels(List<OrderBy> orderBy = null, Paging paging = null);
         //Task<PagedResult<PersonnelGrid>> Search(int centreId,string term, List<OrderBy> orderBy = null, Paging paging = null);
-       
-        //Update
+        Task<Personnel> RetrievePersonnel(string userId);
+
+            //Update
         Task<ValidationResult<Personnel>> UpdatePersonnel(Personnel department);
 
         //Delete

@@ -29,33 +29,18 @@
                                             <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
                                             <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
                                             <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tr ng-repeat="mobile in model.mobiles" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
-                                        <td><input id="seller{{mobile.SellerId}}" type="checkbox" class="myCheckBox" ng-model="mobile.Ischecked" ng-click="model.canWeAssign()"></td>
-                                        <td><span ng-bind="mobile.Name"></span></td>
-                                        <td><span ng-bind="mobile.RegistrationNumber"></span></td>
-                                        <td><span ng-bind="mobile.Owner"></span></td>
-                                        <td><span ng-bind="mobile.Address1"></span> <span ng-bind="mobile.Address2"></span> <span ng-bind="mobile.Address3"></span> <span ng-bind="mobile.Address4"></span></td>
-                                        <td><span ng-bind="mobile.Pincode"></span></td>
-                                        <td>
-                                            <div class="btn-group pull-right">
-                                                <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
-                                                    <i class="fa fa-chevron-down"></i>
-                                                </a>
-                                                <ul class="dropdown-menu slidedown">
-                                                    <li>
-                                                        <a style="cursor: pointer;" ng-click="model.requestMobile(@Model.MobileId,mobile.SellerId)">
-                                                            Reuest Seller
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
+                                    <tr ng-repeat="seller in model.sellers" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
+                                        <td><input type="checkbox" class="myCheckBox" checklist-model="model.selectedSellers" checklist-value="seller.SellerId" ng-click="model.canWeAssign()"></td>
+                                        <td><span ng-bind="seller.Name"></span></td>
+                                        <td><span ng-bind="seller.RegistrationNumber"></span></td>
+                                        <td><span ng-bind="seller.Owner"></span></td>
+                                        <td><span ng-bind="seller.Address1"></span> <span ng-bind="mobile.Address2"></span> <span ng-bind="mobile.Address3"></span> <span ng-bind="mobile.Address4"></span></td>
+                                        <td><span ng-bind="seller.Pincode"></span></td>
                                     </tr>
                                 </table>
-                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestMobile(@Model.MobileId,mobile.SellerId)" ng-disabled="model.isAssignButtonEnable">Request Seller</button>
+                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestMobile(@Model.MobileId)" ng-disabled="model.isAssignButtonEnable">Request Seller</button>
                             </div>
                         </div>
                     </div>
@@ -64,3 +49,7 @@
         </div>
     </div>
 </div>
+
+
+
+

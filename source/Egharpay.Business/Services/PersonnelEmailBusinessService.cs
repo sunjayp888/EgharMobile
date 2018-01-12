@@ -37,5 +37,37 @@ namespace Egharpay.Business.Services
                 Body = body
             });
         }
+
+        public async Task SendOrderCreatedMail(OrderCreatedEmail orderCreatedEmail)
+        {
+            var templateJson = orderCreatedEmail.ToJson();
+            var body = _templateBusinessService.CreateText(templateJson, orderCreatedEmail.TemplateName);
+            if (body == null)
+                return;
+
+            _emailBusinessService.SendEmail(new EmailData
+            {
+                Subject = orderCreatedEmail.Subject, //ToDo
+                ToAddressList = orderCreatedEmail.ToAddress,
+                IsHtml = true,
+                Body = body
+            });
+        }
+
+        public async Task SendOrderCreatedMailToSeller(OrderCreatedEmail orderCreatedEmail)
+        {
+            var templateJson = orderCreatedEmail.ToJson();
+            var body = _templateBusinessService.CreateText(templateJson, orderCreatedEmail.TemplateName);
+            if (body == null)
+                return;
+
+            _emailBusinessService.SendEmail(new EmailData
+            {
+                Subject = orderCreatedEmail.Subject, //ToDo
+                ToAddressList = orderCreatedEmail.ToAddress,
+                IsHtml = true,
+                Body = body
+            });
+        }
     }
 }

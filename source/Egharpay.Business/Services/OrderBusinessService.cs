@@ -21,36 +21,50 @@ namespace Egharpay.Business.Services
         protected IMapper _mapper;
         protected IEmailBusinessService _emailBusinessService;
         protected ISmsBusinessService _smsBusinessService;
-        protected ISellerDataService _SellerDataService;
+        protected ISellerDataService _sellerDataService;
         protected IPersonnelDataService _personnelDataService;
         protected IMobileDataService _mobileDataService;
-        public OrderBusinessService(IOrderDataService dataService, IEmailBusinessService emailBusinessService, ISmsBusinessService smsBusinessService, ISellerDataService sellerDataService, IPersonnelDataService personnelDataService, IMobileDataService mobileDataService)
+        protected ISellerBusinessService _sellerBusinessService;
+        protected IPersonnelEmailBusinessService _personnelEmailBusinessService;
+        public OrderBusinessService(PersonnelEmailBusinessService personnelEmailBusinessService, ISellerBusinessService sellerBusinessService, IOrderDataService dataService, IEmailBusinessService emailBusinessService, ISmsBusinessService smsBusinessService, ISellerDataService sellerDataService, IPersonnelDataService personnelDataService, IMobileDataService mobileDataService)
         {
             _dataService = dataService;
             _emailBusinessService = emailBusinessService;
             _smsBusinessService = smsBusinessService;
-            _SellerDataService = sellerDataService;
+            _sellerDataService = sellerDataService;
             _personnelDataService = personnelDataService;
             _mobileDataService = mobileDataService;
+            _sellerBusinessService = sellerBusinessService;
+            _personnelEmailBusinessService = personnelEmailBusinessService;
         }
 
-        public async Task<ValidationResult<Order>> CreateOrder(Order order, int sellerId)
+        public async Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, List<int> sellerIds)
         {
             ValidationResult<Order> validationResult = new ValidationResult<Order>();
             try
             {
-                await _dataService.CreateAsync(order);
-                validationResult.Entity = order;
-                var orderSellerData = new OrderSeller()
+                var order = new Order()
                 {
-                    OrderId = order.OrderId,
-                    SellerId = sellerId
+                    CreatedDateTime = DateTime.Now,
+                    MobileId = mobileId,
+                    OrderGuid = Guid.NewGuid(),
+                    OrderStateId = 1,
+                    PersonnelId = personnelId,
+                    ShippingAddressId = 1
                 };
-                await CreateOrderSeller(orderSellerData);
-                var seller = await _SellerDataService.RetrieveByIdAsync<Seller>(sellerId);
-                var personnelData = await _personnelDataService.RetrieveByIdAsync<Personnel>(order.PersonnelId);
-                var mobileData = await _mobileDataService.RetrieveByIdAsync<Entity.Mobile>(order.MobileId);
-                //SendEmail(order, sellerList, personnel, mobile);
+                var orderEntity = await _dataService.CreateGetAsync(order);
+                var orderSellerList = sellerIds.Select(seller => new OrderSeller()
+                {
+                    OrderId = orderEntity.OrderId,
+                    SellerId = seller
+                }).ToList();
+                await _dataService.CreateRangeAsync(orderSellerList);
+                var customerPersonnel = await _personnelDataService.RetrieveByIdAsync<Personnel>(personnelId);
+                var sellers = await _sellerBusinessService.RetrieveSellers(sellerIds);
+                //var personnelData = await _personnelDataService.RetrieveByIdAsync<Personnel>(mobileId.PersonnelId);
+                var mobileData = await _mobileDataService.RetrieveByIdAsync<Entity.Mobile>(mobileId);
+                await SendOrderEmailToCustomer(orderEntity, customerPersonnel, mobileData);
+                await SendOrderEmailToSellers(orderEntity, sellers, customerPersonnel, mobileData);
                 //SendSms(order, sellerList, personnel, mobile);
             }
             catch (Exception ex)
@@ -64,7 +78,7 @@ namespace Egharpay.Business.Services
 
         public async Task<ValidationResult<OrderSeller>> CreateOrderSeller(OrderSeller orderSeller)
         {
-            ValidationResult<OrderSeller> validationResult = new ValidationResult<OrderSeller>();
+            var validationResult = new ValidationResult<OrderSeller>();
             try
             {
                 await _dataService.CreateAsync(orderSeller);
@@ -80,26 +94,38 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        private void SendEmail(Order order, Seller seller, Personnel personnel, Entity.Mobile mobile)
+        private async Task SendOrderEmailToCustomer(Order order, Personnel personnel, Entity.Mobile mobile)
         {
-            var personnEmailData = new EmailData()
+            //Send Email to customer
+            var customerPersonnelEmail = new OrderCreatedEmail()
             {
-                BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
-                Body = String.Format("Hi {0} {1} {2}, Order Received: We have received your order request for {3} with order id {4}. Seller will contact you on {5}.", personnel.Title, personnel.Forenames, personnel.Surname, mobile.Name, order.OrderId, personnel.Mobile),
-                Subject = "Order Requested Successfully (Mumbile.com)",
-                IsHtml = true,
-                ToAddressList = new List<string> { personnel.Email.ToLower() }
+                CustomerFullName = personnel.FullName,
+                Subject = "Mumbile : Order Requested Successfully",
+                TemplateName = "CustomerOrderCreated",
+                ToAddress = new List<string>() { personnel.Email },
+                OrderId = order.OrderId,
+                ProductName = mobile.Name
             };
-            _emailBusinessService.SendEmail(personnEmailData);
-            var sellerEmailData = new EmailData()
+            await _personnelEmailBusinessService.SendOrderCreatedMail(customerPersonnelEmail);
+        }
+
+        private async Task SendOrderEmailToSellers(Order order, List<Seller> sellers, Personnel personnel, Entity.Mobile mobile)
+        {
+            //Send Email to customer
+            foreach (var seller in sellers)
             {
-                BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
-                Body = String.Format("Hi {0}, Order Received: We have received your order request for {1} from {2} {3} {4} with order id {5}. Kindly contact to customer on {6}.", seller.Name, mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile),
-                Subject = "Order Received Successfully (Mumbile.com)",
-                IsHtml = true,
-                ToAddressList = new List<string> { seller.Email.ToLower() }
-            };
-            _emailBusinessService.SendEmail(sellerEmailData);
+                var customerPersonnelEmail = new OrderCreatedEmail()
+                {
+                    CustomerFullName = personnel.FullName,
+                    Subject = "Mumbile : Order Requested Successfully",
+                    TemplateName = "SellerOrderCreated",
+                    ToAddress = new List<string>() { seller.Email },
+                    ProductName = mobile.Name,
+                    CustomerMobileNumber = personnel.Mobile,
+                    OrderId = order.OrderId
+                };
+                await _personnelEmailBusinessService.SendOrderCreatedMail(customerPersonnelEmail);
+            }
         }
 
         private void SendSms(Order order, Seller seller, Personnel personnel, Entity.Mobile mobile)

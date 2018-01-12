@@ -1390,6 +1390,7 @@
     <Content Include="Scripts\Angular\Controllers\PersonnelDocumentsController.js" />
     <Content Include="Scripts\Angular\Controllers\SellerController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendController.js" />
+    <Content Include="Scripts\Angular\Directives\CheckListModel.js" />
     <Content Include="Scripts\Angular\Directives\DailyScheduleDirective.js" />
     <Content Include="Scripts\Angular\Directives\DailyScheduleLegendDirective.js" />
     <Content Include="Scripts\Angular\Directives\FileUpload.js" />

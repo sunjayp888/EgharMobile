@@ -12,6 +12,8 @@
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
+        vm.sellers = [];
+        vm.selectedSellers = [];
         vm.requestMobiles = [];
         vm.mobilesInStore = [];
         vm.paging = new Paging;
@@ -201,26 +203,16 @@
             vm.orderBy.class = "asc";
             return MobileService.searchSeller(vm.searchKeyword, vm.paging, vm.orderBy)
                 .then(function (response) {
-                    vm.mobiles = response.data.Items;
+                    vm.sellers = response.data.Items;
                     vm.paging.totalPages = response.data.TotalPages;
                     vm.paging.totalResults = response.data.TotalResults;
-                    vm.searchMessage = vm.mobiles.length === 0 ? "No Records Found" : "";
-                    return vm.mobiles;
+                    vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
+                    return vm.sellers;
                 });
         }
 
-        function requestMobile(mobileId, sellerId) {
-            for (var i = 0; i < vm.mobiles.length; i++) {
-                //  var result = $("#seller" + vm.mobiles[i]).is(':checked');
-                if (vm.mobiles[i].Ischecked) {
-                    vm.requestMobiles.push({
-                        MobileId: mobileId,
-                        SellerId: vm.mobiles[i].SellerId
-                    });
-                }
-                vm.mobiles[i].MobileId = mobileId;
-            }
-            return MobileService.requestMobile(vm.requestMobiles, sellerId).then(function (response) {
+        function requestMobile(mobileId) {
+            return MobileService.requestMobile(mobileId, vm.selectedSellers).then(function (response) {
                 vm.mobiles = response.data;
                 searchSeller(vm.searchKeyword);
                 vm.isAssignButtonEnable = true;
@@ -289,14 +281,15 @@
         }
 
         function canWeAssign() {
+            var selectedSellers = vm.selectedSellers;
             var count = 0;
-            angular.forEach(vm.mobiles,
+            angular.forEach(vm.sellers,
                 function (value, key) {
                     if (value.Ischecked) {
                         count++;
                     }
                 });
-            vm.isAssignButtonEnable = (count === 0);
+            vm.isAssignButtonEnable = (selectedSellers.length === 0);
         }
 
         function compareMobile(brandId, mobileId) {

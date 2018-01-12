@@ -12,6 +12,7 @@ using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.Authorization;
 
 namespace Egharpay.Controllers
@@ -19,9 +20,11 @@ namespace Egharpay.Controllers
     public class OrderController : BaseController
     {
         private readonly IOrderBusinessService _orderBusinessService;
-        public OrderController(IOrderBusinessService orderBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService) : base(configurationManager, authorizationService)
+        private readonly IPersonnelBusinessService _personnelBusinessService;
+        public OrderController(IOrderBusinessService orderBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IPersonnelBusinessService personnelBusinessService) : base(configurationManager, authorizationService)
         {
             _orderBusinessService = orderBusinessService;
+            _personnelBusinessService = personnelBusinessService;
         }
 
         // GET: Order
@@ -62,32 +65,21 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RequestMobile(List<Order> mobiles, int sellerId)
+        public async Task<ActionResult> RequestMobile(int? mobileId, List<int> sellerIds)
         {
-            if (mobiles == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            //if (mobileId == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
             try
             {
-                foreach (var mobile in mobiles)
-                {
-                    var order = new Order()
-                    {
-                        CreatedDate = DateTime.UtcNow,
-                        RequestTypeId = 1,
-                        PersonnelId = UserPersonnelId,
-                        MobileId = mobile.MobileId
-                    };
-                    
-                    return this.JsonNet(await _orderBusinessService.CreateOrder(order, mobile.SellerId));
-                }
+                var personnel = await _personnelBusinessService.RetrievePersonnel(User.Identity.GetUserId());
+                return this.JsonNet(await _orderBusinessService.CreateOrder(mobileId.Value, personnel.PersonnelId, sellerIds));
             }
             catch (Exception e)
             {
                 return this.JsonNet("");
             }
-            return this.JsonNet("");
         }
 
         [HttpPost]

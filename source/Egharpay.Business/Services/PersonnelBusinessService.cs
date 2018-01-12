@@ -155,6 +155,12 @@ namespace Egharpay.Business.Services
         //}
 
 
+        public async Task<Personnel> RetrievePersonnel(string userId)
+        {
+            var personnel = await _dataService.RetrieveAsync<Personnel>(e =>e.UserId == userId);
+            return personnel.FirstOrDefault();
+        }
+
         #endregion
 
         #region Update

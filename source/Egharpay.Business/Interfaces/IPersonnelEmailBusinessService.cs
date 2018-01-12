@@ -11,5 +11,10 @@ namespace Egharpay.Business.Interfaces
     public interface IPersonnelEmailBusinessService
     {
         Task SendConfirmationMail(PersonnelCreatedEmail personnelCreatedEmail);
+        Task SendOrderCreatedMail(OrderCreatedEmail orderCreatedEmail);
+        //Please move below function to ISellerEmailBusinessService, create new.
+        Task SendOrderCreatedMailToSeller(OrderCreatedEmail orderCreatedEmail);
+
+
     }
 }

@@ -162,6 +162,7 @@
     <Compile Include="Interfaces\ISmsBusinessService.cs" />
     <Compile Include="Models\HtmlEmail.cs" />
     <Compile Include="Models\Mobile.cs" />
+    <Compile Include="Models\OrderCreatedEmail.cs" />
     <Compile Include="Models\PersonnelCreatedEmail.cs" />
     <Compile Include="Services\EmailBusinessService.cs" />
     <Compile Include="Enum\DocumentCategory.cs" />
@@ -241,7 +242,7 @@
     <Compile Include="Services\PersonnelEmailBusinessService.cs" />
     <Compile Include="Services\RequestTypeBusinessService.cs" />
     <Compile Include="Services\SellerBusinessService.cs" />
-    <Compile Include="SellerMobileBusinessService.cs" />
+    <Compile Include="Services\SellerMobileBusinessService.cs" />
     <Compile Include="Services\SmsBusinessService.cs" />
     <Compile Include="Services\TrendBusinessService.cs" />
     <Compile Include="Services\TrendCommentBusinessService.cs" />

@@ -62,6 +62,12 @@ namespace Egharpay.Business.Services
             return await _dataService.RetrievePagedResultAsync<SellerGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
         }
 
+        public async Task<List<Seller>> RetrieveSellers(List<int> sellerIds)
+        {
+            var sellers = await _dataService.RetrieveAsync<Seller>(s=> sellerIds.Contains(s.SellerId));
+            return sellers.ToList();
+        }
+
         public async Task<ValidationResult<Seller>> UpdateSeller(Seller seller)
         {
             ValidationResult<Seller> validationResult = new ValidationResult<Seller>();
