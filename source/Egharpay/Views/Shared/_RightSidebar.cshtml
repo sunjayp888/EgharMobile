@@ -4,6 +4,11 @@
 
         <ul class="nav nav-tabs navs-3">
             <li class="active">
+                <a data-toggle="tab" href="#tab-2">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li class="">
                 <a data-toggle="tab" href="#tab-3">
                     <i class="fa fa-gear"></i>
                 </a>
@@ -11,11 +16,27 @@
         </ul>
 
         <div class="tab-content">
-
-
-            <div id="tab-3" class="tab-pane active">
+            <div id="tab-2" class="tab-pane active">
                 <div class="sidebar-title">
-                    <h3><i class="fa fa-gears"></i> Settings</h3>
+                    <h3><i class="fa fa-gears"></i> Store</h3>
+                    <small><i class="fa fa-tim"></i> Browse in store.</small>
+                </div>
+                <div class="setings-item">
+                    <span>
+                        <a class="btn btn-danger" href="">Latest Phone</a>
+                    </span>
+                </div>
+                <div class="setings-item">
+                    <span>
+                        <a class="btn btn-danger" href="">Brands</a>
+                    </span>
+                </div>
+            </div>
+            <div id="tab-3" class="tab-pane">
+                <div class="sidebar-title">
+                    <h3>
+                        <i class="fa fa-gears"></i> Settings
+                    </h3>
                     <small><i class="fa fa-tim"></i> You can change your account details.</small>
                 </div>
                 <div class="setings-item">
@@ -30,7 +51,17 @@
                 </div>
                 <div class="setings-item">
                     <span>
-                        @Html.ActionLink("Edit Profile", "Profile", "Personnel", null, new {@class = "btn btn-danger" })
+                        @Html.ActionLink("Edit Profile", "Profile", "Personnel", null, new {@class = "btn btn-danger"})
+                    </span>
+                </div>
+                <div class="setings-item anchor-black">
+                    <span>
+                        @Html.ActionLink("Reset Password", "ResetPassword", "Account")
+                    </span>
+                </div>
+                <div class="setings-item anchor-black">
+                    <span>
+                        @Html.ActionLink("My Orders", "ResetPassword", "Account")
                     </span>
                 </div>
                 <div class="sidebar-content">
@@ -39,7 +70,6 @@
                         We belive that. Mumbile will give you a better experience of browsing in store.
                     </div>
                 </div>
-
             </div>
         </div>
 
