@@ -8,15 +8,16 @@
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left form-inline" role="search">
                         <div class="form-group">
-                            <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search" />
+                            <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search"/>
+                            
                             <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
                                 <i class="fa fa-search"></i>
                             </button>
                             <a class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder">Order</span></a>
-                            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                            @*<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                                 <i class="fa fa-reorder"></i>
-                            </button>
-                            <button class="btn btn-primary right-sidebar-toggle">
+                            </button>*@
+                            <button class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartogglebutton">
                                 <i class="fa fa-tasks"></i>
                             </button>
                         </div>
@@ -112,10 +113,6 @@
             }
 
         </div>
-
-
-
-
 
     </nav>
 </div>
