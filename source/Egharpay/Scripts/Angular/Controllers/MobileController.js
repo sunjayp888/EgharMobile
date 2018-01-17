@@ -6,9 +6,9 @@
         .controller('MobileController', MobileController);
 
 
-    MobileController.$inject = ['$window', 'MobileService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
+    MobileController.$inject = ['$window', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
 
-    function MobileController($window, MobileService, Paging, OrderService, OrderBy, Order) {
+    function MobileController($window, MobileService, AddressService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
@@ -65,7 +65,7 @@
         vm.isAssignButtonEnable = true;
         vm.canWeAssign = canWeAssign;
         vm.compareMobile = compareMobile;
-
+        vm.addresses = [];
         function initialise(filter) {
             vm.filter = filter;
             vm.orderBy.property = "Name";
@@ -211,12 +211,19 @@
                 });
         }
 
+        //function requestMobile(mobileId) {
+        //    return MobileService.requestMobile(mobileId, vm.selectedSellers).then(function (response) {
+        //        vm.mobiles = response.data;
+        //        searchSeller(vm.searchKeyword);
+        //        vm.isAssignButtonEnable = true;
+        //    });
+        //}
+
         function requestMobile(mobileId) {
-            return MobileService.requestMobile(mobileId, vm.selectedSellers).then(function (response) {
-                vm.mobiles = response.data;
-                searchSeller(vm.searchKeyword);
-                vm.isAssignButtonEnable = true;
-            });
+            return AddressService.retrievePersonnelAddress()
+                 .then(function (response) {
+                     vm.addresses = response.data;
+                 });
         }
 
         function retrieveMobilesInStore() {

@@ -252,6 +252,7 @@
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
     <Folder Include="Attributes\" />
+    <Folder Include="Views\Address\" />
     <Folder Include="Views\HomeBannerImage\" />
     <Folder Include="Views\Maintenance\" />
     <Folder Include="Views\PersonnelDocuments\" />
@@ -270,6 +271,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\AppViewsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
@@ -317,6 +319,7 @@
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
     <Compile Include="Interfaces\ITenantsService.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\Authorization\Handlers\PermissionsAuthorizationHandler.cs" />
     <Compile Include="Models\Authorization\Handlers\PersonnelAuthorizationHandler.cs" />
     <Compile Include="Models\Authorization\PermissionsRequirement.cs" />
@@ -1377,6 +1380,7 @@
     <Content Include="Scripts\Angular\Controllers\HomeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileCompareController.js" />
+    <Content Include="Scripts\Angular\Controllers\AddressController.js" />
     <Content Include="Scripts\Angular\Controllers\SellerOrderController.js" />
     <Content Include="Scripts\Angular\Controllers\SellerMobileController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
@@ -1413,6 +1417,7 @@
     <Content Include="Scripts\Angular\Services\MobileCommentService.js" />
     <Content Include="Scripts\Angular\Services\SellerMobileService.js" />
     <Content Include="Scripts\Angular\Services\SellerOrderService.js" />
+    <Content Include="Scripts\Angular\Services\AddressService.js" />
     <Content Include="Scripts\Angular\Services\TrendCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendService.js" />
     <Content Include="Scripts\Angular\Services\YouTubeService.js" />
@@ -2018,6 +2023,7 @@
     <Content Include="Views\Mobile\Compare.cshtml" />
     <Content Include="Views\Shared\_OutsideLayout.cshtml" />
     <Content Include="Views\Order\ViewOrder.cshtml" />
+    <Content Include="Views\Mobile\_Address.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -156,6 +156,7 @@
     <Compile Include="Dto\Extensions.cs" />
     <Compile Include="Dto\Filter.cs" />
     <Compile Include="Extensions\SeoExtensions.cs" />
+    <Compile Include="Interfaces\IAddressBusinessService.cs" />
     <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelEmailBusinessService.cs" />
     <Compile Include="Interfaces\ISellerMobileBusinessService.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Models\Mobile.cs" />
     <Compile Include="Models\OrderCreatedEmail.cs" />
     <Compile Include="Models\PersonnelCreatedEmail.cs" />
+    <Compile Include="Services\AddressBusinessService.cs" />
     <Compile Include="Services\EmailBusinessService.cs" />
     <Compile Include="Enum\DocumentCategory.cs" />
     <Compile Include="Enum\FeeType.cs" />

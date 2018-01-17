@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.cs" />
     <Compile Include="Advertise.cs" />
     <Compile Include="AspNetPermission.cs" />
     <Compile Include="AspNetRole.cs" />
