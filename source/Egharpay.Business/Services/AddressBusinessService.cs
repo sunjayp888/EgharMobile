@@ -39,5 +39,21 @@ namespace Egharpay.Business.Services
         {
             return await _addressDataService.RetrieveAsync<Address>(e => e.PersonnelId == personnelId);
         }
+
+        public async Task<ValidationResult> RemovePersonnelAddress(int personnelId, int addressId)
+        {
+            var addressResult = await _addressDataService.RetrieveAsync<Address>(e => e.PersonnelId == personnelId && e.AddressId == addressId);
+            try
+            {
+                var address = addressResult.FirstOrDefault();
+                if (address != null)
+                    await _addressDataService.DeleteAsync(address);
+                return new ValidationResult() { Succeeded = true };
+            }
+            catch (Exception e)
+            {
+                return new ValidationResult() { Succeeded = false, Message = e.Message };
+            }
+        }
     }
 }

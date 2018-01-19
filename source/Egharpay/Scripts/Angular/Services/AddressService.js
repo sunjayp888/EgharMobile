@@ -10,7 +10,8 @@
     function AddressService($http) {
         var service = {
             createAddress: createAddress,
-            retrievePersonnelAddress: retrievePersonnelAddress
+            retrievePersonnelAddress: retrievePersonnelAddress,
+            removePersonnelAddress:removePersonnelAddress
         };
 
         return service;
@@ -26,6 +27,14 @@
         function retrievePersonnelAddress() {
             var url = "/Address/RetrievePersonnelAddress";
             return $http.get(url);
+        }
+
+        function removePersonnelAddress(addressId) {
+            var url = "/Address/RemovePersonnelAddress",
+            data = {
+                addressId: addressId
+            };
+            return $http.post(url,data);
         }
     }
 })();

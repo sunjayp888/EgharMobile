@@ -211,20 +211,20 @@
                 });
         }
 
-        //function requestMobile(mobileId) {
-        //    return MobileService.requestMobile(mobileId, vm.selectedSellers).then(function (response) {
-        //        vm.mobiles = response.data;
-        //        searchSeller(vm.searchKeyword);
-        //        vm.isAssignButtonEnable = true;
-        //    });
-        //}
-
         function requestMobile(mobileId) {
-            return AddressService.retrievePersonnelAddress()
-                 .then(function (response) {
-                     vm.addresses = response.data;
-                 });
+            return MobileService.requestMobile(mobileId, vm.selectedSellers).then(function (response) {
+                vm.mobiles = response.data;
+                searchSeller(vm.searchKeyword);
+                vm.isAssignButtonEnable = true;
+            });
         }
+
+        //function requestMobile(mobileId) {
+        //    return AddressService.retrievePersonnelAddress()
+        //         .then(function (response) {
+        //             vm.addresses = response.data;
+        //         });
+        //}
 
         function retrieveMobilesInStore() {
             vm.orderBy.property = "Name";

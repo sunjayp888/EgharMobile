@@ -1,5 +1,5 @@
 ﻿@model Egharpay.Models.MobileViewModel
-<div ng-controller="AddressController as model" class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+<div ng-controller="AddressController as model" ng-init="model.retrievePersonnelAddress()" class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -44,19 +44,13 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <div class="col-lg-9">
-                                                    <input type="text" placeholder="District" ng-model="model.district" class="form-control required">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <div class="col-lg-9">
                                                     <input type="text" placeholder="Company" ng-model="model.company" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
+                                       
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <div class="col-lg-9">
@@ -64,8 +58,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <div class="col-lg-9">
@@ -73,10 +65,19 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <div class="col-lg-9">
                                                     <input type="text" placeholder="City/District/Town" ng-model="model.city" class="form-control required">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div class="col-lg-9">
+                                                    <input type="text" placeholder="District" ng-model="model.district" class="form-control required">
                                                 </div>
                                             </div>
                                         </div>
@@ -127,26 +128,30 @@
                     <div class="row">
                         <div class="col-lg-4" ng-repeat="address in model.addresses">
                             <div class="ibox">
-                                <div class="ibox-content">
-                                    <h3><span ng-bind="address.FullName"></span></h3>
-                                    <p>
-                                        <address class="m-t-md">
-                                            <strong><span ng-bind="address.Address1"></span></strong>
-                                            <br><span ng-bind="address.Address2"></span>
-                                            <br><span ng-bind="address.City"></span>
-                                            <br><span ng-bind="address.District"></span>
-                                            <br><span ng-bind="address.LandMark"></span>
-                                            <br><span ng-bind="address.ZipPostalCode"></span>
-                                            <br><abbr title="Phone">P:</abbr><span ng-bind="address.PhoneNumber"></span>
-                                        </address>
-                                    </p>
-                                     
-                                    <p class="small font-bold">
-                                        <label class="btn btn-primary col-sm-12 col-xs-12 col-lg-12">
-                                            <input type="checkbox" /> Ship here.
-                                        </label>
-                                    </p>
 
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <p>
+                                            <h3>
+                                                <span ng-bind="address.FullName"></span>
+                                                <button type="button" class="close" ng-click="model.removePersonnelAddress(address.AddressId)">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </h3>
+                                            <address class="m-t-md">
+                                                <strong><span ng-bind="address.Address1"></span></strong>
+                                                <br><span ng-bind="address.Address2"></span>
+                                                <br><span ng-bind="address.City"></span>
+                                                <br><span ng-bind="address.District"></span>
+                                                <br><span ng-bind="address.LandMark"></span>
+                                                <br><span ng-bind="address.ZipPostalCode"></span>
+                                                <br><abbr title="Phone">P:</abbr><span ng-bind="address.PhoneNumber"></span>
+                                            </address>
+                                            <label class="btn btn-primary col-sm-12 col-xs-12 col-lg-12">
+                                                <input type="checkbox" /> Ship here.
+                                            </label>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

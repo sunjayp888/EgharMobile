@@ -12,5 +12,7 @@ namespace Egharpay.Business.Interfaces
     {
         Task<ValidationResult> CreateAddress(int personnelId, Address address);
         Task<IEnumerable<Address>> RetrieveAddresses(int personnelId);
+        Task<ValidationResult> RemovePersonnelAddress(int personnelId,int addressId);
+
     }
 }

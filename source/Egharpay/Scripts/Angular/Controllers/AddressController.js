@@ -29,10 +29,11 @@
         vm.addNewAddressButtonClick = addNewAddressButtonClick;
         vm.retrievePersonnelAddress = retrievePersonnelAddress;
         vm.addresses = [];
+        vm.removePersonnelAddress = removePersonnelAddress;
 
         function createAddress() {
             var address = {
-                FullName: 'Gh',
+                FullName: vm.fullname,
                 Email: vm.email,
                 Company: vm.company,
                 Address1: vm.address1,
@@ -47,19 +48,30 @@
             return AddressService.createAddress(address)
                 .then(function (response) {
                     if (response.data === '' || response.data.Succeeded === true) {
+                        vm.canAddNewAddress = false;
+                        retrievePersonnelAddress();
                     } else {
                         $('#projectErrorSummary').show();
                         vm.showErrorSummary = true;
                         vm.Errors = response.data;
+                        
                     }
                 });
         }
 
         function addNewAddressButtonClick() {
+            vm.fullname="";
+            vm.email="";
+            vm.company="";
+            vm.address1="";
+            vm.address2="";
+            vm.city="";
+            vm.landmark="";
+            vm.pincode="";
+            vm.state="";
+            vm.phonenumber="";
+            vm.district="";
             vm.canAddNewAddress = !vm.canAddNewAddress;
-            if (!vm.canAddNewAddress) {
-                retrievePersonnelAddress();
-            }
         }
 
         function retrievePersonnelAddress() {
@@ -68,5 +80,12 @@
                     vm.addresses = response.data;
                 });
         }
+
+        function removePersonnelAddress(addressId) {
+            return AddressService.removePersonnelAddress(addressId)
+              .then(function (response) {
+                  vm.addresses = response.data;
+              });
+        };
     }
 })();

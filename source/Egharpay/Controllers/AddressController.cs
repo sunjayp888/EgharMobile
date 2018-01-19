@@ -55,11 +55,23 @@ namespace Egharpay.Controllers
         [Route("Address/RetrievePersonnelAddress")]
         public async Task<ActionResult> RetrievePersonnelAddress()
         {
+            var userId = User.Identity.GetUserId();
             var personnel = await _personnelBusinessService.RetrievePersonnel(User.Identity.GetUserId());
             if (personnel == null)
                 return RedirectToAction("Login", "Account");
             var result = await _addressBusinessService.RetrieveAddresses(personnel.PersonnelId);
             return this.JsonNet(result.ToList());
+        }
+
+        [HttpPost]
+        [Route("Address/RemovePersonnelAddress")]
+        public async Task<ActionResult> RemovePersonnelAddress(int addressId)
+        {
+            var personnel = await _personnelBusinessService.RetrievePersonnel(User.Identity.GetUserId());
+            if (personnel == null)
+                return RedirectToAction("Login", "Account");
+            var result = await _addressBusinessService.RemovePersonnelAddress(personnel.PersonnelId, addressId);
+            return this.JsonNet(result);
         }
     }
 }
