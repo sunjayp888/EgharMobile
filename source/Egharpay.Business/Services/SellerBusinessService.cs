@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Egharpay.Business.EmailServiceReference;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
@@ -14,11 +15,13 @@ namespace Egharpay.Business.Services
 {
     public partial class SellerBusinessService : ISellerBusinessService
     {
-        protected ISellerDataService _dataService;
+        private readonly ISellerDataService _dataService;
+        private readonly IEmailBusinessService _emailBusinessService;
 
-        public SellerBusinessService(ISellerDataService dataService)
+        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService)
         {
             _dataService = dataService;
+            _emailBusinessService = emailBusinessService;
         }
 
         public async Task<ValidationResult<Seller>> CreateSeller(Seller seller)
@@ -27,6 +30,8 @@ namespace Egharpay.Business.Services
             try
             {
                 await _dataService.CreateAsync(seller);
+                //Send Email
+                SendSellerEmail(seller);
                 validationResult.Entity = seller;
                 validationResult.Succeeded = true;
             }
@@ -37,6 +42,19 @@ namespace Egharpay.Business.Services
                 validationResult.Exception = ex;
             }
             return validationResult;
+        }
+
+        private void SendSellerEmail(Seller seller)
+        {
+            var emailData = new EmailData()
+            {
+                BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
+                Body = String.Format("Dear {0} , Thanks For Registering on Mumbile.Com", seller.Owner),
+                Subject = "Welcome To Mumbile.Com",
+                IsHtml = true,
+                ToAddressList = new List<string> { seller.Email.ToLower() }
+            };
+            _emailBusinessService.SendEmail(emailData);
         }
 
         public async Task<Seller> RetrieveSeller(int sellerId)
@@ -64,7 +82,7 @@ namespace Egharpay.Business.Services
 
         public async Task<List<Seller>> RetrieveSellers(List<int> sellerIds)
         {
-            var sellers = await _dataService.RetrieveAsync<Seller>(s=> sellerIds.Contains(s.SellerId));
+            var sellers = await _dataService.RetrieveAsync<Seller>(s => sellerIds.Contains(s.SellerId));
             return sellers.ToList();
         }
 

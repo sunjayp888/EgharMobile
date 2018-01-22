@@ -16,7 +16,6 @@ namespace Egharpay.Entity
         }
         public int SellerId { get; set; }
 
-        [Required]
         [StringLength(500)]
         public string Name { get; set; }
 
@@ -35,11 +34,9 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Email { get; set; }
 
-        [Required]
         [StringLength(500)]
         public string Address1 { get; set; }
 
-        [Required]
         [StringLength(500)]
         public string Address2 { get; set; }
 
@@ -49,7 +46,9 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Address4 { get; set; }
 
-        public int Pincode { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Pincode { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? CreatedDate { get; set; }
@@ -61,6 +60,11 @@ namespace Egharpay.Entity
         public int ApprovalStateId { get; set; }
 
         public int? PersonnelId { get; set; }
+
+        public double? Latitude { get; set; }
+
+        public double? Longitude { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderSeller> OrderSellers { get; set; }

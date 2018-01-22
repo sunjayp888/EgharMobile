@@ -157,10 +157,12 @@
     <Compile Include="Dto\Filter.cs" />
     <Compile Include="Extensions\SeoExtensions.cs" />
     <Compile Include="Interfaces\IAddressBusinessService.cs" />
+    <Compile Include="Interfaces\IGoogleBusinessService.cs" />
     <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelEmailBusinessService.cs" />
     <Compile Include="Interfaces\ISellerMobileBusinessService.cs" />
     <Compile Include="Interfaces\ISmsBusinessService.cs" />
+    <Compile Include="Models\GeoPosition.cs" />
     <Compile Include="Models\HtmlEmail.cs" />
     <Compile Include="Models\Mobile.cs" />
     <Compile Include="Models\OrderCreatedEmail.cs" />
@@ -200,6 +202,7 @@
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\DocumentCategory.cs" />
     <Compile Include="Interfaces\MvcTemplateBase.cs" />
+    <Compile Include="Services\GoogleBusinessService.cs" />
     <Compile Include="Services\PdfBusinessService.cs" />
     <Compile Include="Services\RazorBusinessService.cs" />
     <Compile Include="Models\Graph.cs" />

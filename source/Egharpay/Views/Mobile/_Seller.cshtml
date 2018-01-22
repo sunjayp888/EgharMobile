@@ -12,24 +12,33 @@
                             <div class="row">
                                 <div class="col-sm-5">
                                     <div class="input-group">
-                                        <input type="text" placeholder="Search" id="txtSearchPincode" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchSeller(searchField)" class="input-sm form-control"> <span class="input-group-btn">
+                                        <input type="text" placeholder="Search" id="txtSearchPincode" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchSeller(searchField)" class="input-sm form-control">
+                                        <span class="input-group-btn">
                                             <button type="button" class="btn btn-sm btn-danger" ng-click="model.searchSeller(searchField)"> Go!</button>
                                         </span>
                                     </div>
                                 </div>
-                                <a ng-click="model.addPincode();" id="findZipCode">Get pincode from current location</a>
+                                <div class="col-sm-2">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-danger" ng-click="model.searchSeller(searchField)"> Get Seller within 1Km.</button>
+                                    </span>
+                                </div>
+                                <div class="col-lg-2">
+                                    <a ng-click="model.addPincode();" id="findZipCode">Get pincode.</a>    
+                                </div>
+                                
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
-                                        <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
-                                        <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
-                                        <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
-                                        <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
-                                    </tr>
+                                        <tr>
+                                            <th></th>
+                                            <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
+                                            <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
+                                            <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
+                                            <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
+                                            <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
+                                        </tr>
                                     </thead>
                                     <tr ng-repeat="seller in model.sellers" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
                                         <td><input type="checkbox" class="myCheckBox" checklist-model="model.selectedSellers" checklist-value="seller.SellerId" ng-click="model.canWeAssign()"></td>
@@ -50,7 +59,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
 </div>
 @Html.Partial("_Address")
