@@ -49,15 +49,16 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Address4 { get; set; }
 
-        [Key]
-        [Column(Order = 5)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Pincode { get; set; }
+        public string Pincode { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? CreatedDate { get; set; }
 
         [StringLength(3680)]
         public string SearchField { get; set; }
+
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
     }
 }

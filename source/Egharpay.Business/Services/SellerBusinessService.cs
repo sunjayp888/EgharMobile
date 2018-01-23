@@ -7,6 +7,7 @@ using Egharpay.Business.EmailServiceReference;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
+using Egharpay.Data.Extensions;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
@@ -17,11 +18,13 @@ namespace Egharpay.Business.Services
     {
         private readonly ISellerDataService _dataService;
         private readonly IEmailBusinessService _emailBusinessService;
+        private readonly IGoogleBusinessService _googleBusinessService;
 
-        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService)
+        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService, IGoogleBusinessService googleBusinessService)
         {
             _dataService = dataService;
             _emailBusinessService = emailBusinessService;
+            _googleBusinessService = googleBusinessService;
         }
 
         public async Task<ValidationResult<Seller>> CreateSeller(Seller seller)
@@ -84,6 +87,23 @@ namespace Egharpay.Business.Services
         {
             var sellers = await _dataService.RetrieveAsync<Seller>(s => sellerIds.Contains(s.SellerId));
             return sellers.ToList();
+        }
+
+        public async Task<PagedResult<SellerGrid>> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var sellers = await _dataService.RetrieveAsync<SellerGrid>(s => s.Pincode == pincode);
+            var sellerList = new List<SellerGrid>();
+            foreach (var seller in sellers)
+            {
+                var startPosition = new GeoPosition() { Latitude = latitude, Longitude = longitude };
+                var endPosition = new GeoPosition() { Latitude = seller.Latitude, Longitude = seller.Longitude };
+                var sellerWithinRange = await _googleBusinessService.RetrieveDistanceInKilometer(startPosition, endPosition);
+                if (sellerWithinRange <= 1.0) //Set this range dynamically in future
+                {
+                    sellerList.Add(seller);
+                }
+            }
+            return await sellerList.AsQueryable().PaginateAsync(paging);
         }
 
         public async Task<ValidationResult<Seller>> UpdateSeller(Seller seller)

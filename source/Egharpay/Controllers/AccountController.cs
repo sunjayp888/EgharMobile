@@ -227,7 +227,7 @@ namespace Egharpay.Controllers
             var watcher = new GeoCoordinateWatcher();
 
             // Do not suppress prompt, and wait 1000 milliseconds to start.
-            watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
+            watcher.TryStart(false, TimeSpan.FromMilliseconds(100));
 
             var coordinates = watcher.Position.Location;
 

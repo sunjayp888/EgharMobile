@@ -32,7 +32,15 @@
         vm.Address = [];
         vm.PinCode;
         vm.modalInstance = null;
-        var country, state, city, pinCode, map, latitude, longitude, count, pin;
+        vm.country;
+        vm.state,
+        vm.city,
+        vm.pinCode,
+        vm.map,
+        vm.latitude,
+        vm.longitude,
+        vm.count,
+        vm.pin;
         vm.initialise = initialise;
         vm.retrieveMobilesInStore = retrieveMobilesInStore;
         vm.filter;
@@ -66,6 +74,10 @@
         vm.canWeAssign = canWeAssign;
         vm.compareMobile = compareMobile;
         vm.addresses = [];
+        vm.retrieveSellersFromGeoLocation = retrieveSellersFromGeoLocation;
+        vm.latitude;
+        vm.longitude;
+
         function initialise(filter) {
             vm.filter = filter;
             vm.orderBy.property = "Name";
@@ -136,8 +148,8 @@
         function geoLocation() {
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    latitude = position.coords.latitude;
-                    longitude = position.coords.longitude;
+                    vm.latitude = position.coords.latitude;
+                    vm.longitude = position.coords.longitude;
                     getLocationDetails();
                 });
             } else {
@@ -162,7 +174,7 @@
         }
 
         function getLocationDetails() {
-            var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true";
+            var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + vm.latitude + "," + vm.longitude + "&sensor=true";
             var xhr = createCORSRequest('POST', url);
             if (!xhr) {
                 vm.Address = { Error: "CORS not supported" }
@@ -173,15 +185,15 @@
                 if (data.results.length > 0) {
                     var locationDetails = data.results[0].formatted_address;
                     var value = locationDetails.split(",");
-                    count = value.length;
-                    country = value[count - 1];
-                    state = value[count - 2];
-                    city = value[count - 3];
-                    pin = state.split(" ");
-                    pinCode = pin[pin.length - 1];
-                    state = state.replace(pinCode, ' ');
+                    vm.count = value.length;
+                    vm.country = value[vm.count - 1];
+                    vm.state = value[vm.count - 2];
+                    vm.city = value[vm.count - 3];
+                    vm.pin = vm.state.split(" ");
+                    vm.pinCode = vm.pin[vm.pin.length - 1];
+                    vm.state = vm.state.replace(vm.pinCode, ' ');
                     vm.currentAddress = locationDetails;
-                    vm.Address = { City: city, State: state, Country: country, PinCode: pinCode }
+                    vm.Address = { City: vm.city, State: vm.state, Country: vm.country, PinCode: vm.pinCode }
                     $("#txtSearchPincode").val(vm.Address.PinCode);
                 }
                 else {
@@ -195,6 +207,7 @@
             };
             xhr.send();
         }
+
 
         function searchSeller(searchKeyword) {
             vm.searchKeyword = searchKeyword;
@@ -301,6 +314,55 @@
 
         function compareMobile(brandId, mobileId) {
             window.location.href = "/Mobile/Compare/" + brandId + "/" + mobileId;
+        }
+
+        function retrieveGeoCoordinates() {
+            return MobileService.retrieveGeoCoordinates()
+               .then(function (response) {
+                   vm.latitude = response.data.Latitude;
+                   vm.longitude = response.data.Longitude;
+               });
+        }
+
+        function retrieveSellersFromGeoLocation() {
+            retrieveGeoCoordinates().then(function (response) {
+                var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + vm.latitude + "," + vm.longitude + "&sensor=true";
+                var xhr = createCORSRequest('POST', url);
+                xhr.onload = function () {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.results.length > 0) {
+                        var locationDetails = data.results[0].formatted_address;
+                        var value = locationDetails.split(",");
+                        vm.count = value.length;
+                        vm.country = value[vm.count - 1];
+                        vm.state = value[vm.count - 2];
+                        vm.city = value[vm.count - 3];
+                        vm.pin = vm.state.split(" ");
+                        vm.pinCode = vm.pin[vm.pin.length - 1];
+                        vm.state = vm.state.replace(vm.pinCode, ' ');
+                        vm.currentAddress = locationDetails;
+                        vm.Address = { City: vm.city, State: vm.state, Country: vm.country, PinCode: vm.pinCode };
+                        return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
+                            .then(function (response) {
+                                vm.sellers = response.data.Items;
+                                vm.paging.totalPages = response.data.TotalPages;
+                                vm.paging.totalResults = response.data.TotalResults;
+                                vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
+                                return vm.sellers;
+                            });
+                    }
+                    else {
+                        vm.Address = { Error: "No location available for provided details." }
+                        //openPincodeModal(false);
+                    }
+                    return vm.sellers;
+                };
+                xhr.onerror = function () {
+                    vm.Address = { Error: "Woops, there was an error making the request." }
+                    //openPincodeModal(false);
+                };
+                xhr.send();
+            });
         }
     }
 })();

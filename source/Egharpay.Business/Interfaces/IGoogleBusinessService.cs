@@ -9,6 +9,7 @@ namespace Egharpay.Business.Interfaces
 {
     public interface IGoogleBusinessService
     {
-        double RetrieveDistanceInKilometer(GeoPosition startGeoPosition, GeoPosition endGeoPosition);
+         Task<double> RetrieveDistanceInKilometer(GeoPosition startGeoPosition, GeoPosition endGeoPosition);
+         Task<GeoPosition> RetrieveCurrentGeoCoordinates();
     }
 }
