@@ -93,20 +93,34 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<SellerGrid>> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var sellers = await _dataService.RetrieveAsync<SellerGrid>(s => s.Pincode == pincode);
-            var sellerList = new List<SellerGrid>();
-            foreach (var seller in sellers)
-            {
-                var startPosition = new GeoPosition() { Latitude = latitude, Longitude = longitude };
-                var endPosition = new GeoPosition() { Latitude = seller.Latitude ?? 0.0, Longitude = seller.Longitude ?? 0.0 };
-                var sellerWithinRange = await _googleBusinessService.RetrieveDistanceInKilometer(startPosition, endPosition);
-                if (sellerWithinRange <= 1.0) //Set this range dynamically in future
-                {
-                    sellerList.Add(seller);
-                }
-            }
-            return await sellerList.AsQueryable().PaginateAsync<SellerGrid>(paging);
+            var sellers = await _dataService.RetrievePagedResultAsync<SellerGrid>(s => s.Pincode == pincode
+            && _googleBusinessService.RetrieveDistanceInKilometer(new GeoPosition() { Latitude = latitude, Longitude = longitude },
+            new GeoPosition() { Latitude = s.Latitude ?? 0.0, Longitude = s.Longitude ?? 0.0 }) <= 1.0);
+            //var sellerList = new List<SellerGrid>();
+            //foreach (var seller in sellers)
+            //{
+            //    var startPosition = new GeoPosition() { Latitude = latitude, Longitude = longitude };
+            //    var endPosition = new GeoPosition() { Latitude = seller.Latitude ?? 0.0, Longitude = seller.Longitude ?? 0.0 };
+            //    var sellerWithinRange = await _googleBusinessService.RetrieveDistanceInKilometer(startPosition, endPosition);
+            //    if (sellerWithinRange <= 1) //Set this range dynamically in future
+            //    {
+            //        sellerList.Add(seller);
+            //    }
+            //}
+            //try
+            //{
+            //    var g = sellerList.AsQueryable().ToListAsync();
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    throw;
+            //}
+
+            return sellers;
         }
+
+
 
         public async Task<ValidationResult<Seller>> UpdateSeller(Seller seller)
         {

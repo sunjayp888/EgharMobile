@@ -11,7 +11,7 @@ namespace Egharpay.Business.Services
 {
     public class GoogleBusinessService : IGoogleBusinessService
     {
-        public Task<double> RetrieveDistanceInKilometer(GeoPosition startGeoPosition, GeoPosition endGeoPosition)
+        public double RetrieveDistanceInKilometer(GeoPosition startGeoPosition, GeoPosition endGeoPosition)
         {
             //HaversineFormulae to calculate distance
             var latitude1 = startGeoPosition.Latitude;
@@ -27,7 +27,7 @@ namespace Egharpay.Business.Services
               Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
               ;
             var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            return Task.FromResult(Math.Round((radiusOfEarth * c), 2)); // Distance in km
+            return Math.Round((radiusOfEarth * c), 2); // Distance in km
         }
 
         public Task<GeoPosition> RetrieveCurrentGeoCoordinates()
