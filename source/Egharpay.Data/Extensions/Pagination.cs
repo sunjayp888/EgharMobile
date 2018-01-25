@@ -48,6 +48,7 @@ namespace Egharpay.Data.Extensions
             if (isEmpty)
                 return PagedResult<T>.Empty;
 
+       
             var totalResults = await source.CountAsync();
 
             if (paging == null)

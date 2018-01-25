@@ -342,6 +342,8 @@
                         vm.state = vm.state.replace(vm.pinCode, ' ');
                         vm.currentAddress = locationDetails;
                         vm.Address = { City: vm.city, State: vm.state, Country: vm.country, PinCode: vm.pinCode };
+                        vm.orderBy.property = "Name";
+                        vm.orderBy.direction = "Ascending";
                         return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
                             .then(function (response) {
                                 vm.sellers = response.data.Items;

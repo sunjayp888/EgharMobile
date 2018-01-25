@@ -125,6 +125,7 @@
                     pincode: pincode,
                     latitude: latitude,
                     longitude: longitude,
+                    paging:Paging,
                     orderBy: new Array(OrderBy)
                 };
             return $http.post(url, data);

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,14 +98,14 @@ namespace Egharpay.Business.Services
             foreach (var seller in sellers)
             {
                 var startPosition = new GeoPosition() { Latitude = latitude, Longitude = longitude };
-                var endPosition = new GeoPosition() { Latitude = seller.Latitude, Longitude = seller.Longitude };
+                var endPosition = new GeoPosition() { Latitude = seller.Latitude ?? 0.0, Longitude = seller.Longitude ?? 0.0 };
                 var sellerWithinRange = await _googleBusinessService.RetrieveDistanceInKilometer(startPosition, endPosition);
                 if (sellerWithinRange <= 1.0) //Set this range dynamically in future
                 {
                     sellerList.Add(seller);
                 }
             }
-            return await sellerList.AsQueryable().PaginateAsync(paging);
+            return await sellerList.AsQueryable().PaginateAsync<SellerGrid>(paging);
         }
 
         public async Task<ValidationResult<Seller>> UpdateSeller(Seller seller)
