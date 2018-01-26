@@ -18,17 +18,19 @@ namespace Egharpay.Business.Services
 {
     public partial class PersonnelBusinessService : IPersonnelBusinessService
     {
-        protected IPersonnelDataService _dataService;
+        private readonly IPersonnelDataService _dataService;
         private readonly IMapper _mapper;
         protected IDocumentsBusinessService DocumentsBusinessService;
-        protected IEmailBusinessService _emailBusinessService;
+        private readonly IEmailBusinessService _emailBusinessService;
+        private readonly ISellerBusinessService _sellerBusinessService;
 
-        public PersonnelBusinessService(IPersonnelDataService dataService, IMapper mapper, IDocumentsBusinessService documentsBusinessService,IEmailBusinessService emailBusinessService)
+        public PersonnelBusinessService(IPersonnelDataService dataService, IMapper mapper, IDocumentsBusinessService documentsBusinessService, IEmailBusinessService emailBusinessService, ISellerBusinessService sellerBusinessService)
         {
             _dataService = dataService;
             _mapper = mapper;
             DocumentsBusinessService = documentsBusinessService;
             _emailBusinessService = emailBusinessService;
+            _sellerBusinessService = sellerBusinessService;
         }
 
         #region Create
@@ -44,7 +46,7 @@ namespace Egharpay.Business.Services
                 await _dataService.CreateAsync(personnel);
                 //Send Confirmation Email to Personnel and Seller
                 //if (personnel. != null && personnel.IsSeller.Value)
-                   // SendSellerEmail(personnel);
+                // SendSellerEmail(personnel);
 
                 validationResult.Entity = personnel;
                 validationResult.Succeeded = true;
@@ -56,19 +58,6 @@ namespace Egharpay.Business.Services
                 validationResult.Exception = ex;
             }
             return validationResult;
-        }
-
-        private void SendSellerEmail(Personnel personnel)
-        {
-            var emailData = new EmailData()
-            {
-                BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
-                Body = String.Format("Dear {0} {1} {2}, Thanks For Registering on Mumbile.Com",personnel.Title,personnel.Forenames,personnel.Surname),
-                Subject = "Welcome To Mumbile.Com",
-                IsHtml = true,
-                ToAddressList = new List<string> { personnel.Email.ToLower() }
-            };
-            _emailBusinessService.SendEmail(emailData);
         }
 
         public async Task<ValidationResult<Document>> UploadDocument(Document document, int personnelId)
@@ -157,7 +146,7 @@ namespace Egharpay.Business.Services
 
         public async Task<Personnel> RetrievePersonnel(string userId)
         {
-            var personnel = await _dataService.RetrieveAsync<Personnel>(e =>e.UserId == userId);
+            var personnel = await _dataService.RetrieveAsync<Personnel>(e => e.UserId == userId);
             return personnel.FirstOrDefault();
         }
 

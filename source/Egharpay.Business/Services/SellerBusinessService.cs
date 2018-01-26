@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Egharpay.Business.EmailServiceReference;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
+using Egharpay.Data.Extensions;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
@@ -14,11 +18,15 @@ namespace Egharpay.Business.Services
 {
     public partial class SellerBusinessService : ISellerBusinessService
     {
-        protected ISellerDataService _dataService;
+        private readonly ISellerDataService _dataService;
+        private readonly IEmailBusinessService _emailBusinessService;
+        private readonly IGoogleBusinessService _googleBusinessService;
 
-        public SellerBusinessService(ISellerDataService dataService)
+        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService, IGoogleBusinessService googleBusinessService)
         {
             _dataService = dataService;
+            _emailBusinessService = emailBusinessService;
+            _googleBusinessService = googleBusinessService;
         }
 
         public async Task<ValidationResult<Seller>> CreateSeller(Seller seller)
@@ -27,6 +35,8 @@ namespace Egharpay.Business.Services
             try
             {
                 await _dataService.CreateAsync(seller);
+                //Send Email
+                SendSellerEmail(seller);
                 validationResult.Entity = seller;
                 validationResult.Succeeded = true;
             }
@@ -37,6 +47,19 @@ namespace Egharpay.Business.Services
                 validationResult.Exception = ex;
             }
             return validationResult;
+        }
+
+        private void SendSellerEmail(Seller seller)
+        {
+            var emailData = new EmailData()
+            {
+                BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
+                Body = String.Format("Dear {0} , Thanks For Registering on Mumbile.Com", seller.Owner),
+                Subject = "Welcome To Mumbile.Com",
+                IsHtml = true,
+                ToAddressList = new List<string> { seller.Email.ToLower() }
+            };
+            _emailBusinessService.SendEmail(emailData);
         }
 
         public async Task<Seller> RetrieveSeller(int sellerId)
@@ -64,9 +87,40 @@ namespace Egharpay.Business.Services
 
         public async Task<List<Seller>> RetrieveSellers(List<int> sellerIds)
         {
-            var sellers = await _dataService.RetrieveAsync<Seller>(s=> sellerIds.Contains(s.SellerId));
+            var sellers = await _dataService.RetrieveAsync<Seller>(s => sellerIds.Contains(s.SellerId));
             return sellers.ToList();
         }
+
+        public async Task<PagedResult<SellerGrid>> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var sellers = await _dataService.RetrievePagedResultAsync<SellerGrid>(s => s.Pincode == pincode
+            && _googleBusinessService.RetrieveDistanceInKilometer(new GeoPosition() { Latitude = latitude, Longitude = longitude },
+            new GeoPosition() { Latitude = s.Latitude ?? 0.0, Longitude = s.Longitude ?? 0.0 }) <= 1.0);
+            //var sellerList = new List<SellerGrid>();
+            //foreach (var seller in sellers)
+            //{
+            //    var startPosition = new GeoPosition() { Latitude = latitude, Longitude = longitude };
+            //    var endPosition = new GeoPosition() { Latitude = seller.Latitude ?? 0.0, Longitude = seller.Longitude ?? 0.0 };
+            //    var sellerWithinRange = await _googleBusinessService.RetrieveDistanceInKilometer(startPosition, endPosition);
+            //    if (sellerWithinRange <= 1) //Set this range dynamically in future
+            //    {
+            //        sellerList.Add(seller);
+            //    }
+            //}
+            //try
+            //{
+            //    var g = sellerList.AsQueryable().ToListAsync();
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    throw;
+            //}
+
+            return sellers;
+        }
+
+
 
         public async Task<ValidationResult<Seller>> UpdateSeller(Seller seller)
         {

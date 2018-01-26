@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using Egharpay.Models;
 using Egharpay.Models.Authorization;
 using Egharpay.Models.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Egharpay.Business.Enum;
 
 namespace Egharpay.Controllers
 {
@@ -29,7 +31,7 @@ namespace Egharpay.Controllers
         private ISellerBusinessService SellerBusinessService { get; set; }
         protected IEmailBusinessService _emailBusinessService;
 
-        public AccountController(IPersonnelBusinessService personnelBusinessService, IEmailBusinessService emailBusinessService,ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
+        public AccountController(IPersonnelBusinessService personnelBusinessService, IEmailBusinessService emailBusinessService, ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
         {
             PersonnelBusinessService = personnelBusinessService;
             SellerBusinessService = sellerBusinessService;
@@ -188,6 +190,9 @@ namespace Egharpay.Controllers
                         ModelState.AddModelError(string.Empty, personnelResult.Errors.FirstOrDefault());
                         return View(model);
                     }
+                    model.PersonnelId = personnelResult.Entity.PersonnelId;
+                    if (model.IsSeller)
+                        CreateSeller(model);
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -215,6 +220,28 @@ namespace Egharpay.Controllers
                 UserId = model.AspNetUserId
             };
             return await PersonnelBusinessService.CreatePersonnel(personnel);
+        }
+
+        private void CreateSeller(RegisterViewModel model)
+        {
+            var watcher = new GeoCoordinateWatcher();
+
+            // Do not suppress prompt, and wait 1000 milliseconds to start.
+            watcher.TryStart(false, TimeSpan.FromMilliseconds(100));
+
+            var coordinates = watcher.Position.Location;
+
+            var seller = new Seller()
+            {
+                PersonnelId = model.PersonnelId,
+                Owner = string.Format("{0} {1}", model.FirstName, model.LastName),
+                Email = model.Email,
+                Pincode = model.Pincode,
+                Latitude = coordinates.IsUnknown != true ? coordinates.Latitude : 0.0,
+                Longitude = coordinates.IsUnknown != true ? coordinates.Longitude : 0.0,
+                ApprovalStateId = (int)ApprovalState.Pending
+            };
+            SellerBusinessService.CreateSeller(seller);
         }
 
         private async Task<ValidationResult> SendConfirmationMail(Personnel personnel, string callbackUrl)
@@ -251,15 +278,15 @@ namespace Egharpay.Controllers
                 return View("Error");
             }
             ApplicationUser user = this.UserManager.FindById(userId);
-            
-                if (user.Id == userId)
-                {
-                    user.EmailConfirmed = true;
-                    await UserManager.UpdateAsync(user);
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    return RedirectToAction("Index", "Home");
-                }
-                return RedirectToAction("Confirm", "Account", new { email = user.Email });
+
+            if (user.Id == userId)
+            {
+                user.EmailConfirmed = true;
+                await UserManager.UpdateAsync(user);
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Confirm", "Account", new { email = user.Email });
         }
 
         [AllowAnonymous]
@@ -296,7 +323,7 @@ namespace Egharpay.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                var userEmailData=new EmailData()
+                var userEmailData = new EmailData()
                 {
                     BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
                     Body = String.Format("To reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>"),

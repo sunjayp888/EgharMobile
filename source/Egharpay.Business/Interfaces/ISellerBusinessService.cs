@@ -20,7 +20,7 @@ namespace Egharpay.Business.Interfaces
         Task<PagedResult<Seller>> RetrieveSellers(List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<SellerGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
         Task<List<Seller>> RetrieveSellers(List<int> sellerIds);
-
+        Task<PagedResult<SellerGrid>> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null);
         //Update
         Task<ValidationResult<Seller>> UpdateSeller(Seller seller);
     }

@@ -105,6 +105,11 @@ namespace Egharpay.Models
         public bool IsSeller { get; set; }
 
         public string AspNetUserId { get; set; }
+
+        public string Latitude { get; set; }
+
+        public string Longitude { get; set; }
+        public int PersonnelId { get; set; }
     }
 
     public class ResetPasswordViewModel
