@@ -84,8 +84,8 @@
         function removePersonnelAddress(addressId) {
             return AddressService.removePersonnelAddress(addressId)
               .then(function (response) {
-                  vm.addresses = response.data;
-              });
+                    retrievePersonnelAddress();
+                });
         };
     }
 })();

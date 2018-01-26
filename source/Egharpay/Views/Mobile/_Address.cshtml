@@ -1,5 +1,5 @@
 ﻿@model Egharpay.Models.MobileViewModel
-<div ng-controller="AddressController as model" ng-init="model.retrievePersonnelAddress()" class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -148,7 +148,7 @@
                                                 <br><abbr title="Phone">P:</abbr><span ng-bind="address.PhoneNumber"></span>
                                             </address>
                                             <label class="btn btn-primary col-sm-12 col-xs-12 col-lg-12">
-                                                <input type="checkbox" /> Ship here.
+                                                <input ng-model="address.IsChecked" ng-click="model.onSelectAddress($index, model.addresses)" type="checkbox" /> Ship Here.
                                             </label>
                                         </p>
                                     </div>
@@ -162,7 +162,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-danger" ng-click="model.placeOrder()">Place Order</button>
             </div>
         </div>
     </div>

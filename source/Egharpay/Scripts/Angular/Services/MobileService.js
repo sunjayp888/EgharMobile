@@ -17,7 +17,7 @@
             searchSeller: searchSeller,
             retrieveGalleryImages: retrieveGalleryImages,
             retrieveYoutubeVideos: retrieveYoutubeVideos,
-            requestMobile: requestMobile,
+            requestOrder: requestOrder,
             retrieveMobilesInStore: retrieveMobilesInStore,
             retrieveMobilesLatestInStore: retrieveMobilesLatestInStore,
         };
@@ -59,11 +59,12 @@
         }
 
 
-        function requestMobile(mobileId, sellerIds) {
-            var url = "/Order/RequestMobile",
+        function requestOrder(mobileId, sellerIds,shippingAddressId) {
+            var url = "/Order/RequestOrder",
                 data = {
                     mobileId: mobileId,
-                    sellerIds: sellerIds
+                    sellerIds: sellerIds,
+                    shippingAddressId: shippingAddressId
                 };
             return $http.post(url, data);
         }

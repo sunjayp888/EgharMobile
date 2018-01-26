@@ -25,16 +25,18 @@
         vm.detailMobile = detailMobile;
         vm.addPincode = addPincode;
         vm.searchSeller = searchSeller;
-        vm.requestMobile = requestMobile;
+        vm.requestOrder = requestOrder;
         vm.searchKeyword = "";
         vm.searchMessage = "";
         vm.currentAddress;
         vm.Address = [];
+        vm.addresses = [];
+        vm.address = [];
+        vm.Errors = [];
+        vm.addresses = [];
         vm.PinCode;
         vm.modalInstance = null;
         var country, state, city, pinCode, map, latitude, longitude, count, pin;
-        vm.initialise = initialise;
-        vm.retrieveMobilesInStore = retrieveMobilesInStore;
         vm.filter;
         vm.fromPrice;
         vm.toPrice;
@@ -44,7 +46,6 @@
         vm.toPrimaryCameraSize;
         vm.fromSecondaryCameraSize;
         vm.toSecondaryCameraSize;
-        vm.retrieveMobileByBrandId = retrieveMobileByBrandId;
         vm.cameraSize;
         vm.batterySize;
         vm.internalMemorySize;
@@ -57,6 +58,18 @@
         vm.isSecondaryCameraFilter;
         vm.isBrandFilter;
         vm.isInternalMemoryFilter;
+        vm.fullname;
+        vm.email;
+        vm.company;
+        vm.address1;
+        vm.address2;
+        vm.city;
+        vm.landmark;
+        vm.pincode;
+        vm.state;
+        vm.phonenumber;
+        vm.district;
+        vm.selectedShippingAddressId;
         vm.onPriceFilter = onPriceFilter;
         vm.onRamSizeFilter = onRamSizeFilter;
         vm.onPrimaryCameraFilter = onPrimaryCameraFilter;
@@ -65,7 +78,19 @@
         vm.isAssignButtonEnable = true;
         vm.canWeAssign = canWeAssign;
         vm.compareMobile = compareMobile;
-        vm.addresses = [];
+        vm.showErrorSummary = false;
+        vm.createAddress = createAddress;
+        vm.canAddNewAddress = false;
+        vm.addNewAddressButtonClick = addNewAddressButtonClick;
+        vm.retrievePersonnelAddress = retrievePersonnelAddress;
+        vm.removePersonnelAddress = removePersonnelAddress;
+        vm.onSelectAddress = onSelectAddress;
+        vm.retrieveMobileByBrandId = retrieveMobileByBrandId;
+        vm.initialise = initialise;
+        vm.retrieveMobilesInStore = retrieveMobilesInStore;
+        vm.placeOrder = placeOrder;
+        vm.selectedShippingAddressId;
+
         function initialise(filter) {
             vm.filter = filter;
             vm.orderBy.property = "Name";
@@ -211,8 +236,13 @@
                 });
         }
 
-        function requestMobile(mobileId) {
-            return MobileService.requestMobile(mobileId, vm.selectedSellers).then(function (response) {
+        function requestOrder(mobileId) {
+            vm.mobileId = mobileId;
+            retrievePersonnelAddress();
+        }
+
+        function placeOrder() {
+            return MobileService.requestOrder(vm.mobileId, vm.selectedSellers, vm.selectedShippingAddressId).then(function (response) {
                 vm.mobiles = response.data;
                 searchSeller(vm.searchKeyword);
                 vm.isAssignButtonEnable = true;
@@ -302,5 +332,70 @@
         function compareMobile(brandId, mobileId) {
             window.location.href = "/Mobile/Compare/" + brandId + "/" + mobileId;
         }
+
+        function createAddress() {
+            var address = {
+                FullName: vm.fullname,
+                Email: vm.email,
+                Company: vm.company,
+                Address1: vm.address1,
+                Address2: vm.address2,
+                City: vm.city,
+                Landmark: vm.landmark,
+                ZipPostalCode: vm.pincode,
+                StateId: 1,
+                PhoneNumber: vm.phonenumber,
+                District: vm.district
+            }
+            return AddressService.createAddress(address)
+                .then(function (response) {
+                    if (response.data === '' || response.data.Succeeded === true) {
+                        vm.canAddNewAddress = false;
+                        retrievePersonnelAddress();
+                    } else {
+                        $('#projectErrorSummary').show();
+                        vm.showErrorSummary = true;
+                        vm.Errors = response.data;
+
+                    }
+                });
+        }
+
+        function addNewAddressButtonClick() {
+            vm.fullname = "";
+            vm.email = "";
+            vm.company = "";
+            vm.address1 = "";
+            vm.address2 = "";
+            vm.city = "";
+            vm.landmark = "";
+            vm.pincode = "";
+            vm.state = "";
+            vm.phonenumber = "";
+            vm.district = "";
+            vm.canAddNewAddress = !vm.canAddNewAddress;
+        }
+
+        function retrievePersonnelAddress() {
+            return AddressService.retrievePersonnelAddress()
+                .then(function (response) {
+                    vm.addresses = response.data;
+                });
+        }
+
+        function removePersonnelAddress(addressId) {
+            return AddressService.removePersonnelAddress(addressId)
+              .then(function (response) {
+                  retrievePersonnelAddress();
+              });
+        };
+
+        function onSelectAddress(selectedIndex, list) {
+            vm.selectedShippingAddressId = list[selectedIndex].AddressId;
+            angular.forEach(list, function (address, index) {
+                if (selectedIndex !== index)
+                    address.IsChecked = false;
+            });
+        };
     }
 })();

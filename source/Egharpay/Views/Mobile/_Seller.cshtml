@@ -40,18 +40,15 @@
                                         <td><span ng-bind="seller.Pincode"></span></td>
                                     </tr>
                                 </table>
-                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestMobile(@Model.MobileId)" ng-disabled="model.isAssignButtonEnable">Request Seller</button>
-                                <button type="button" class="btn btn-primary" ng-click="model.requestMobile(@Model.MobileId)" data-toggle="modal" data-target="#myModal5">
-                                    Large Modal
-                                </button>
+                                <button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestOrder(@Model.MobileId)" data-toggle="modal" data-target="#myModal5" ng-disabled="model.isAssignButtonEnable">Request Seller</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-       
+       @Html.Partial("_Address")
     </div>
 </div>
-@Html.Partial("_Address")
+
 
