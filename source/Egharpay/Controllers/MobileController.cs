@@ -154,7 +154,7 @@ namespace Egharpay.Controllers
         [Route("Mobile/RetrieveSellersByGeoLocation")]
         public async Task<ActionResult> RetrieveSellersByGeoLocation(string pincode, double latitude, double longitude, Paging paging, List<OrderBy> orderBy)
         {
-            return this.JsonNet(await _sellerBusinessService.RetrieveSellersByGeoLocation(latitude, longitude, pincode, orderBy, paging));
+            return this.JsonNet(_sellerBusinessService.RetrieveSellersByGeoLocation(latitude, longitude, pincode, orderBy, paging));
         }
 
         [HttpPost]

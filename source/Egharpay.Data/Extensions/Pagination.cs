@@ -19,7 +19,28 @@ namespace Egharpay.Data.Extensions
             var isEmpty = source == null || !source.Any();
             if (isEmpty)
                 return PagedResult<T>.Empty;
+            try
+            {
+                var totalResu = source.Count();
+                var totalResult = source.Count();
 
+                if (paging == null)
+                    return PagedResult<T>.Create(source.ToList(), 1, totalResult, 1, totalResult);
+
+                if (paging.Page <= 0)
+                    paging.Page = 1;
+
+                if (paging.PageSize <= 0)
+                    paging.PageSize = 10;
+
+                var totalPage = (int)Math.Ceiling((double)totalResult / paging.PageSize);
+                var dat= source.Skip((paging.Page - 1) * paging.PageSize).Take(paging.PageSize).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw  new Exception();
+            }
             var totalResults = source.Count();
 
             if (paging == null)

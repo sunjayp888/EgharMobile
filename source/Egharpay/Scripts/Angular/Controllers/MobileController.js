@@ -108,7 +108,6 @@
             vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-
             order("Name");
         }
 
@@ -160,6 +159,7 @@
         }
 
         function detailMobile(mobileId) {
+            geoLocation();
             return MobileService.detailMobile(mobileId).then(function (response) {
                 vm.mobiles = response.data;
                 return vm.mobiles;
@@ -168,6 +168,7 @@
 
         function addPincode() {
             geoLocation();
+            $("#txtSearchPincode").val(vm.Address.PinCode);
         }
 
         function geoLocation() {
@@ -217,9 +218,8 @@
                     vm.pin = vm.state.split(" ");
                     vm.pinCode = vm.pin[vm.pin.length - 1];
                     vm.state = vm.state.replace(vm.pinCode, ' ');
-                    vm.currentAddress = locationDetails;
+                    vm.currentAddress = locationDetails == "" ? "Please allow location or refresh the page." : locationDetails;
                     vm.Address = { City: vm.city, State: vm.state, Country: vm.country, PinCode: vm.pinCode }
-                    $("#txtSearchPincode").val(vm.Address.PinCode);
                 }
                 else {
                     vm.Address = { Error: "No location available for provided details." }
@@ -351,50 +351,22 @@
                .then(function (response) {
                    vm.latitude = response.data.Latitude;
                    vm.longitude = response.data.Longitude;
+                   if (vm.latitude === 0.0 || vm.longitude === 0.0) {
+                       geoLocation();
+                   }
                });
         }
 
         function retrieveSellersFromGeoLocation() {
-            retrieveGeoCoordinates().then(function (response) {
-                var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + vm.latitude + "," + vm.longitude + "&sensor=true";
-                var xhr = createCORSRequest('POST', url);
-                xhr.onload = function () {
-                    var data = JSON.parse(xhr.responseText);
-                    if (data.results.length > 0) {
-                        var locationDetails = data.results[0].formatted_address;
-                        var value = locationDetails.split(",");
-                        vm.count = value.length;
-                        vm.country = value[vm.count - 1];
-                        vm.state = value[vm.count - 2];
-                        vm.city = value[vm.count - 3];
-                        vm.pin = vm.state.split(" ");
-                        vm.pinCode = vm.pin[vm.pin.length - 1];
-                        vm.state = vm.state.replace(vm.pinCode, ' ');
-                        vm.currentAddress = locationDetails;
-                        vm.Address = { City: vm.city, State: vm.state, Country: vm.country, PinCode: vm.pinCode };
-                        vm.orderBy.property = "Name";
-                        vm.orderBy.direction = "Ascending";
-                        return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
-                            .then(function (response) {
-                                vm.sellers = response.data.Items;
-                                vm.paging.totalPages = response.data.TotalPages;
-                                vm.paging.totalResults = response.data.TotalResults;
-                                vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
-                                return vm.sellers;
-                            });
-                    }
-                    else {
-                        vm.Address = { Error: "No location available for provided details." }
-                        //openPincodeModal(false);
-                    }
-                    return vm.sellers;
-                };
-                xhr.onerror = function () {
-                    vm.Address = { Error: "Woops, there was an error making the request." }
-                    //openPincodeModal(false);
-                };
-                xhr.send();
-            });
+            geoLocation();
+            return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
+                           .then(function (response) {
+                               vm.sellers = response.data.Items;
+                               vm.paging.totalPages = response.data.TotalPages;
+                               vm.paging.totalResults = response.data.TotalResults;
+                               vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
+                               return vm.sellers;
+                           });
         }
 
         function createAddress() {

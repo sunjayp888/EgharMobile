@@ -542,8 +542,8 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
+                    .Property(e => e.Name)
+                    .IsUnicode(false);
 
             modelBuilder.Entity<SellerGrid>()
                 .Property(e => e.RegistrationNumber)
