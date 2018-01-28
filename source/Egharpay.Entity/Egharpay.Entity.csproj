@@ -113,7 +113,6 @@
     <Compile Include="MobileComment.cs" />
     <Compile Include="MobileCommentGrid.cs" />
     <Compile Include="MobileGrid.cs" />
-    <Compile Include="Model1.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderSeller.cs" />

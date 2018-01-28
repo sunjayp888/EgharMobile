@@ -69,5 +69,21 @@ namespace Egharpay.Business.Services
                 Body = body
             });
         }
+
+        public async Task SendForgotMail(PersonnelCreatedEmail forgotEmail)
+        {
+            var templateJson = forgotEmail.ToJson();
+            var body = _templateBusinessService.CreateText(templateJson, forgotEmail.TemplateName);
+            if (body == null)
+                return;
+
+            _emailBusinessService.SendEmail(new EmailData
+            {
+                Subject = forgotEmail.Subject, //ToDo
+                ToAddressList = forgotEmail.ToAddress,
+                IsHtml = true,
+                Body = body
+            });
+        }
     }
 }
