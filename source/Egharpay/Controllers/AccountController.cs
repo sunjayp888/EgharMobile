@@ -323,16 +323,38 @@ namespace Egharpay.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                var userEmailData = new EmailData()
+                //---------------------------------------------------------------------
+                var validationResult = new ValidationResult();
+                var forgotEmail = new PersonnelCreatedEmail()
                 {
-                    BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
-                    Body = String.Format("To reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>"),
-                    Subject = "Reset Password (Mumbile.com)",
-                    IsHtml = true,
-                    ToAddressList = new List<string> { user.Email }
+                    FullName = user.Email,
+                    CallBackUrl = callbackUrl,
+                    Subject = "Confirm your account",
+                    TemplateName = "ForgotPassword",
+                    ToAddress = new List<string>() { model.Email },
+                    FromAddress= "sunjayp88@gmail.com"
                 };
-                _emailBusinessService.SendEmail(userEmailData);
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                try
+                {
+                    await PersonnelEmailBusinessService.SendForgotMail(forgotEmail);
+                    validationResult.Succeeded = true;
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                }
+                catch (Exception ex)
+                {
+                    validationResult.Succeeded = false;
+                    //return validationResult;
+                }
+                //var userEmailData = new EmailData()
+                //{
+                //    BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
+                //    Body = String.Format("To reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>"),
+                //    Subject = "Reset Password (Mumbile.com)",
+                //    IsHtml = true,
+                //    ToAddressList = new List<string> { user.Email }
+                //};
+                //_emailBusinessService.SendEmail(userEmailData);
+                //return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
