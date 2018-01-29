@@ -113,13 +113,13 @@
     <Compile Include="MobileComment.cs" />
     <Compile Include="MobileCommentGrid.cs" />
     <Compile Include="MobileGrid.cs" />
-    <Compile Include="Model1.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderSeller.cs" />
     <Compile Include="OrderState.cs" />
     <Compile Include="Partials\Address.cs" />
     <Compile Include="Partials\Seller.cs" />
+    <Compile Include="Partials\SellerMobileGrid.cs" />
     <Compile Include="Partials\Template.cs" />
     <Compile Include="Personnel.cs" />
     <Compile Include="PersonnelDocument.cs" />

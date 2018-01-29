@@ -6,9 +6,9 @@
         .controller('MobileController', MobileController);
 
 
-    MobileController.$inject = ['$window', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
+    MobileController.$inject = ['$window', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location'];
 
-    function MobileController($window, MobileService, AddressService, Paging, OrderService, OrderBy, Order) {
+    function MobileController($window, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location) {
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
@@ -102,6 +102,9 @@
         vm.retrieveMobilesInStore = retrieveMobilesInStore;
         vm.placeOrder = placeOrder;
         vm.selectedShippingAddressId;
+        vm.sellerMobileOrder = sellerMobileOrder;
+        vm.sellerMobileOrderClass = sellerMobileOrderClass;
+        vm.isOrderPlacedSuccess = false;
 
         function initialise(filter) {
             vm.filter = filter;
@@ -144,6 +147,19 @@
                 return searchMobile(vm.searchKeyword);
             }
             return retrieveMobiles();
+        }
+
+        function sellerMobileOrder(property) {
+            property = property === undefined ? "SellerDistance" : property;
+            vm.orderBy = OrderService.order(vm.orderBy, property);
+            //if (vm.searchKeyword) {
+            //    return searchMobile(vm.searchKeyword)();
+            //}
+            return retrieveSellersFromGeoLocation();
+        }
+
+        function sellerMobileOrderClass(property) {
+            return OrderService.orderClass(vm.orderBy, property);
         }
 
         function order(property) {
@@ -249,16 +265,21 @@
                 });
         }
 
-        function requestOrder(mobileId) {
+        function requestOrder(mobileId, sellerId, isLoggedin) {
             vm.mobileId = mobileId;
+            vm.sellerId = sellerId;
+            if (!isLoggedin) {
+                window.location.href = "/Account/login?returnUrl=" + window.location.pathname;
+            } else {
+                $('#addressModal').modal('show');
+            }
             retrievePersonnelAddress();
         }
 
         function placeOrder() {
-            return MobileService.requestOrder(vm.mobileId, vm.selectedSellers, vm.selectedShippingAddressId).then(function (response) {
-                vm.mobiles = response.data;
-                searchSeller(vm.searchKeyword);
-                vm.isAssignButtonEnable = true;
+            return MobileService.requestOrder(vm.mobileId, [vm.sellerId], vm.selectedShippingAddressId).then(function (response) {
+                vm.isOrderPlacedSuccess = response.data.Succeeded;
+                $('#addressModal').modal('hide');
             });
         }
 
@@ -433,5 +454,7 @@
                     address.IsChecked = false;
             });
         };
+
+
     }
 })();

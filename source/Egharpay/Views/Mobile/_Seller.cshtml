@@ -19,35 +19,39 @@
                             </div>
                             <div class="row">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Search" id="txtSearchPincode" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchSeller(searchField)" class="input-sm form-control">
+                                    <input type="text" placeholder="Search Seller eg. Name,Pincode" id="txtSearchPincode" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchSeller(searchField)" class="input-sm form-control">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-danger" ng-click="model.searchSeller(searchField)"> Go!</button>
                                     </span>
                                 </div>
                                 <a ng-click="model.addPincode();" id="findZipCode">Get pincode.</a>
                             </div>
+                            <div class="row xs-mt-8" ng-if="model.isOrderPlacedSuccess">
+                                <div class="alert alert-success alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    Order placed successfully. Seller will contact you soon for best deal and product will be delivered on prefered location.
+                                </div>
+                            </div>
                             <div class="row xs-mt-8">
                                 <div class="table-responsive">
                                     <table class="table table-striped">
                                         <thead>
-                                        <tr>
-                                            @*<th></th>*@
-                                            <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
-                                            <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
-                                            <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
-                                            <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
-                                            <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
-                                            <th></th>
-                                        </tr>
+                                            <tr>
+                                                @*<th></th>*@
+                                                <th ng-click="model.sellerMobileOrder('SellerName')" ng-class="model.sellerMobileOrderClass('SellerName')">Seller Name</th>
+                                                <th>Seller Address</th>
+                                                <th ng-click="model.sellerMobileOrder('SellerDistance')" ng-class="model.sellerMobileOrderClass('SellerDistance')">Seller Distance(in KM.)</th>
+                                                <th ng-click="model.sellerMobileOrder('DiscountPrice')" ng-class="model.sellerMobileOrderClass('DiscountPrice')">Sell Price</th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                         <tr ng-repeat="seller in model.sellers" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
                                             @*<td><input type="checkbox" class="myCheckBox" checklist-model="model.selectedSellers" checklist-value="seller.SellerId" ng-click="model.canWeAssign()"></td>*@
-                                            <td><span ng-bind="seller.Name"></span></td>
-                                            <td><span ng-bind="seller.RegistrationNumber"></span></td>
-                                            <td><span ng-bind="seller.Owner"></span></td>
-                                            <td><span ng-bind="seller.Address1"></span> <span ng-bind="mobile.Address2"></span> <span ng-bind="mobile.Address3"></span> <span ng-bind="mobile.Address4"></span></td>
-                                            <td><span ng-bind="seller.Pincode"></span></td>
-                                            <td><button class="btn btn-danger"> Request Price</button></td>
+                                            <td><span ng-bind="seller.SellerName"></span></td>
+                                            <td><span ng-bind="seller.SellerAddress"></span></td>
+                                            <td><span ng-bind="seller.SellerDistance"></span></td>
+                                            <td><h3 ng-bind="seller.DiscountPrice"></h3></td>
+                                            <td><button class="btn btn-danger" data-toggle="modal"  ng-click="model.requestOrder(@Model.MobileId,seller.SellerId,'@User.Identity.IsAuthenticated')"> Request Deal</button></td>
                                         </tr>
                                     </table>
                                     @*<button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestOrder(@Model.MobileId)" data-toggle="modal" data-target="#myModal5" ng-disabled="model.isAssignButtonEnable">Request Seller</button>*@

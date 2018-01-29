@@ -91,33 +91,19 @@ namespace Egharpay.Business.Services
             return sellers.ToList();
         }
 
-        public PagedResult<SellerGrid> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null)
+        public PagedResult<SellerMobileGrid> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var sellerList = new List<SellerGrid>();
-
-            try
+            var sellerList = new List<SellerMobileGrid>();
+            var sellers = _dataService.RetrievePagedResult<SellerMobileGrid>(s => s.Pincode == 421306);
+            foreach (var seller in sellers.Items)
             {
-
-                var sellers = _dataService.RetrievePagedResult<SellerGrid>(s => s.Pincode == 421306);
-                foreach (var seller in sellers.Items)
-                {
-                    var startPosition = new GeoPosition() { Latitude = latitude, Longitude = longitude };
-                    var endPosition = new GeoPosition() { Latitude = seller.Latitude ?? 0.0, Longitude = seller.Longitude ?? 0.0 };
-                    var sellerWithinRange = _googleBusinessService.RetrieveDistanceInKilometer(startPosition, endPosition);
-                    if (sellerWithinRange <= 1) //Set this range dynamically in future
-                    {
-                        sellerList.Add(seller);
-                    }
-                }
-
+                var startPosition = new GeoPosition() { Latitude = latitude, Longitude = longitude };
+                var endPosition = new GeoPosition() { Latitude = seller.Latitude ?? 0.0, Longitude = seller.Longitude ?? 0.0 };
+                var sellerDistance = _googleBusinessService.RetrieveDistanceInKilometer(startPosition, endPosition);
+                seller.SellerDistance = Convert.ToDecimal(sellerDistance);
+                sellerList.Add(seller);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            
-            return sellerList.AsQueryable().Paginate(paging);
+            return sellerList.AsQueryable().OrderBy(orderBy).Paginate(paging);
         }
 
         public double RetrieveDistanceInKilometer(GeoPosition startGeoPosition, GeoPosition endGeoPosition)

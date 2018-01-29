@@ -236,7 +236,7 @@ namespace Egharpay.Controllers
                 PersonnelId = model.PersonnelId,
                 Owner = string.Format("{0} {1}", model.FirstName, model.LastName),
                 Email = model.Email,
-                Pincode = model.Pincode,
+                Pincode = Convert.ToInt32(model.Pincode),
                 Latitude = coordinates.IsUnknown != true ? coordinates.Latitude : 0.0,
                 Longitude = coordinates.IsUnknown != true ? coordinates.Longitude : 0.0,
                 ApprovalStateId = (int)ApprovalState.Pending

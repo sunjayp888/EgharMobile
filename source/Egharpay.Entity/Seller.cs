@@ -40,9 +40,7 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Address4 { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Pincode { get; set; }
+        public int Pincode { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? CreatedDate { get; set; }

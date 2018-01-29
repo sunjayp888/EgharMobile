@@ -44,6 +44,22 @@ namespace Egharpay.Entity
 
         public bool? EMIAvailable { get; set; }
 
+        [StringLength(1052)]
+        public string SellerAddress { get; set; }
+
+        [Key]
+        [Column(Order = 6)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Pincode { get; set; }
+
+        public double? Latitude { get; set; }
+
+        public double? Longitude { get; set; }
+
+        [Key]
+        [Column(Order = 7, TypeName = "numeric")]
+        public decimal SellerDistance { get; set; }
+
         [StringLength(1060)]
         public string SearchField { get; set; }
     }
