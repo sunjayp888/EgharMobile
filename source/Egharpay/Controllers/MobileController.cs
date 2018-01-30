@@ -17,7 +17,6 @@ using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Helpers;
 using Egharpay.Models;
-using HtmlAgilityPack;
 using LinqKit;
 using Microsoft.Owin.Security.Authorization;
 using Filter = Egharpay.Business.Dto.Filter;
