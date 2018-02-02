@@ -17,5 +17,8 @@ namespace Egharpay.Business.Interfaces
 
         //Create
         Task<ValidationResult<AspNetUserMobileOtp>> CreateOtp(decimal mobileNumber, string ipAddress, int otpReasonId, string aspNetUserId = null);
+
+        //Validate
+        Task<ValidationResult<AspNetUserMobileOtp>> IsValidOtp(int otpNumber,decimal mobileNumber, int reasonId);
     }
 }

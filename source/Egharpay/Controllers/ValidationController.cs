@@ -13,5 +13,11 @@ namespace Egharpay.Controllers
         {
             return View();
         }
+
+        //Compare is not working :(
+        public JsonResult CompareConfirmPassword(string confirmPassword, string password)
+        {
+            return Json(password.ToLower() == confirmPassword.ToLower(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

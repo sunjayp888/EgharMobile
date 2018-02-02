@@ -78,5 +78,32 @@ namespace Egharpay.Business.Services
             }
             return validationResult;
         }
+
+        public async Task<ValidationResult<AspNetUserMobileOtp>> IsValidOtp(int otpNumber, decimal mobileNumber, int reasonId)
+        {
+            var validationResult = new ValidationResult<AspNetUserMobileOtp>();
+            try
+            {
+                var data = await _otpDataService.RetrieveAsync<AspNetUserMobileOtp>(e => e.MobileNumber == mobileNumber && e.OTPReasonId == reasonId);
+                var result = data.ToList().FirstOrDefault();
+                if (result != null && result.OTP == otpNumber)
+                {
+                    validationResult.Entity = data.FirstOrDefault();
+                    validationResult.Message = "Valid OTP";
+                    validationResult.Succeeded = true;
+                }
+                else
+                {
+                    validationResult.Message = "InValid OTP";
+                    validationResult.Succeeded = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                validationResult.Message = ex.Message;
+                validationResult.Succeeded = false;
+            }
+            return validationResult;
+        }
     }
 }

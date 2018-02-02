@@ -221,7 +221,7 @@ namespace Egharpay.Controllers
             {
                 model.Email = "sunjayp88@gmail.com";
                 model.Pincode = "421306";
-                var otpValidationResult = await _otpBusinessService.RetrieveOtp(Convert.ToDecimal(model.MobileNumber), (int)OtpReason.Login);
+                var otpValidationResult = await _otpBusinessService.IsValidOtp(Convert.ToInt32(model.OTP), Convert.ToDecimal(model.MobileNumber), (int)OtpReason.Login);
                 if (!otpValidationResult.Succeeded)
                 {
                     ModelState.AddModelError("", otpValidationResult.Message);
