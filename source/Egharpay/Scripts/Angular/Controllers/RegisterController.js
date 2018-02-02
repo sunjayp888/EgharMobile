@@ -5,9 +5,9 @@
         .module('Egharpay')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$window', 'Paging', 'OrderService', 'OrderBy', 'Order', '$uibModal'];
+    RegisterController.$inject = ['$window', 'Paging', 'OrderService', 'OTPService', 'OrderBy', 'Order', '$uibModal'];
 
-    function RegisterController($window, Paging, OrderService, OrderBy, Order, $uibModal) {
+    function RegisterController($window, Paging, OrderService, OTPService, OrderBy, Order, $uibModal) {
         /* jshint validthis:true */
         var vm = this;
         var country, state, city, pinCode, map, latitude, longitude, count, pin;
@@ -17,6 +17,12 @@
         vm.currentAddress;
         vm.Address = [];
         vm.PinCode;
+        vm.isOtpCreated = false;
+        vm.mobileNumber;
+        vm.createLoginOtp = createLoginOtp;
+        vm.isSeller = false;
+        vm.otpMessage;
+        vm.showOtpCreatedMessage = false;
         function addPincode() {
             geoLocation();
         }
@@ -111,6 +117,15 @@
                 openPincodeModal(false);
             };
             xhr.send();
+        }
+
+        function createLoginOtp(mobileNumber) {
+            vm.showOtpCreatedMessage = false;
+            return OTPService.createLoginOtp(mobileNumber).then(function (response) {
+                vm.showOtpCreatedMessage = response.data.Succeeded;
+                vm.isOtpCreated = response.data.Succeeded;
+                vm.otpMessage = response.data.Message;
+            });
         }
     }
 

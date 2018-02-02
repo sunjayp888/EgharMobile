@@ -50,24 +50,21 @@ namespace Egharpay.Controllers
         }
 
         // GET: Personnel/Profile/{id}
-        //[PolicyAuthorize(Roles = new[] { Enum.Role.SuperUser, Enum.Role.Personnel })]
-        public async Task<ActionResult> Profile(int? id)
+        [PolicyAuthorize(Roles = new[] { Role.Seller, Role.Seller })]
+        public async Task<ActionResult> Profile()
         {
-            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
+            var id = UserPersonnelId;
+            if (User.IsPersonnel() && !await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
                 return HttpForbidden();
 
-            if (id == null)
+            if (id == 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Login", "Account");
             }
-            var personnel = await _personnelBusinessService.RetrievePersonnel(id.Value);
+            var personnel = await _personnelBusinessService.RetrievePersonnel(id);
             if (personnel == null)
             {
                 return HttpNotFound();
-            }
-            var isAdmin = User.IsInAnyRoles("Admin");
-            if (!isAdmin)
-            {
             }
             var viewModel = new PersonnelProfileViewModel
             {
