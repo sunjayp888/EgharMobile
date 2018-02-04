@@ -63,7 +63,7 @@ namespace Egharpay.Business.Extensions
 
         public static bool IsValidMobileNumber(this string mobileNumber)
         {
-            return IsNumeric(mobileNumber) && mobileNumber.Length == 0;
+            return IsNumeric(mobileNumber) && mobileNumber.Length == 10;
         }
 
     }

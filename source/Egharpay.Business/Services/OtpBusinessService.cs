@@ -53,7 +53,9 @@ namespace Egharpay.Business.Services
             var validationResult = new ValidationResult<AspNetUserMobileOtp>();
             if (!mobileNumber.ToString().IsValidMobileNumber())
             {
-
+                validationResult.Message = "Enter valid mobile number.";
+                validationResult.Succeeded = false;
+                return validationResult;
             }
             var aspnetOtp = new AspNetUserMobileOtp()
             {

@@ -27,5 +27,6 @@ namespace Egharpay.Controllers
             var isValidUsername = new EmailAddressAttribute().IsValid(username) || (Extensions.StringExtensions.IsNumeric(username) && username.Length == 10);
             return Json(isValidUsername, JsonRequestBehavior.AllowGet);
         }
+
     }
 }
