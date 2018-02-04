@@ -91,6 +91,7 @@
     <Compile Include="AspNetUser.cs" />
     <Compile Include="AspNetUserClaim.cs" />
     <Compile Include="AspNetUserLogin.cs" />
+    <Compile Include="AspNetUserMobile.cs" />
     <Compile Include="AspNetUserRole.cs" />
     <Compile Include="AspNetUsersAlertSchedule.cs" />
     <Compile Include="Brand.cs" />

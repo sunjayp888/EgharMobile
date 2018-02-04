@@ -56,7 +56,7 @@
                 @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "m-t", role = "form"}))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "" })
+                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
                     <h1>Login</h1>
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.Email, new {@class = "form-control", @placeholder = "Username", required = ""})

@@ -108,9 +108,9 @@
 
         function initialise(filter) {
             vm.filter = filter;
-            vm.orderBy.property = "Name";
-            vm.orderBy.direction = "Ascending";
-            vm.orderBy.class = "asc";
+            //vm.orderBy.property = "Name";
+            //vm.orderBy.direction = "Ascending";
+            //vm.orderBy.class = "asc";
             order("Name");
         }
 

@@ -6,7 +6,7 @@
     ViewBag.Title = "Home";
 }
 @{
-    Html.RenderPartial(User.IsSuperUserOrAdmin() ? "_Admin" : "_User", Model);
+    Html.RenderPartial(User.IsSuperUserOrAdminOrSeller() ? "_Admin" : "_User", Model);
 }
 
 @section scripts {

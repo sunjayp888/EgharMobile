@@ -60,6 +60,8 @@ namespace Egharpay.Entity
         [StringLength(100)]
         public string Name { get; set; }
 
+        public decimal? MobileNumber { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetPermission> AspNetPermissions { get; set; }
 

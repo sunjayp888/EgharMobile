@@ -36,7 +36,7 @@ namespace Egharpay.Business.Services
         #region Create
         public async Task<ValidationResult<Personnel>> CreatePersonnel(Personnel personnel)
         {
-            var validationResult = await PersonnelAlreadyExists(personnel.Email);
+            var validationResult = await PersonnelAlreadyExists(personnel.Mobile, personnel.Email);
             if (!validationResult.Succeeded)
             {
                 return validationResult;
@@ -127,14 +127,16 @@ namespace Egharpay.Business.Services
             return personnel;
         }
 
-        private async Task<ValidationResult<Personnel>> PersonnelAlreadyExists(string email)
+        public async Task<ValidationResult<Personnel>> PersonnelAlreadyExists(string mobileNumber, string email = null)
         {
-            var personnels = await _dataService.RetrieveAsync<Personnel>(a => a.Email.Trim().ToLower() == email.Trim().ToLower());
+            var personnels = await _dataService.RetrieveAsync<Personnel>(a => a.Mobile == mobileNumber);
+            if (!string.IsNullOrEmpty(email))
+                personnels = await _dataService.RetrieveAsync<Personnel>(a => a.Email.ToLower() == email.ToLower());
             var alreadyExists = personnels.Any();
             return new ValidationResult<Personnel>
             {
                 Succeeded = !alreadyExists,
-                Errors = alreadyExists ? new List<string> { "Personnel already exists." } : null
+                Errors = alreadyExists ? new List<string> { "User already exists." } : null
             };
         }
 

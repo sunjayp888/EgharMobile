@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Egharpay.Models
 {
@@ -48,7 +49,7 @@ namespace Egharpay.Models
 
     public class LoginViewModel
     {
-        [Required]
+        //[Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
@@ -69,26 +70,37 @@ namespace Egharpay.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        //[Required]
         [Display(Name = "Firstname")]
         [StringLength(100, ErrorMessage = "The Firstname field is required.")]
         public string FirstName { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Lastname")]
         [StringLength(100, ErrorMessage = "The Lastname field is required.")]
         public string LastName { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Pincode")]
         [StringLength(100, ErrorMessage = "The Pincode field is required.")]
         public string Pincode { get; set; }
 
-
-        [Required]
+        //[Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [MaxLength(10)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Enter valid number.")]
+        [Display(Name = "Mobile Number")]
+        public string MobileNumber { get; set; }
+
+        [Required]
+        [MaxLength(6)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Enter valid OTP.")]
+        [Display(Name = "OTP")]
+        public string OTP { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -98,7 +110,7 @@ namespace Egharpay.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Remote("CompareConfirmPassword", "Validation", AdditionalFields = "ConfirmPassword,Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "I am Seller")]
@@ -125,9 +137,10 @@ namespace Egharpay.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

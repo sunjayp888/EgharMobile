@@ -94,7 +94,7 @@ namespace Egharpay.Business.Services
         public PagedResult<SellerMobileGrid> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null)
         {
             var sellerList = new List<SellerMobileGrid>();
-            var sellers = _dataService.RetrievePagedResult<SellerMobileGrid>(s => s.Pincode == 421306);
+            var sellers = _dataService.RetrievePagedResult<SellerMobileGrid>(s => s.Pincode == pincode);
             foreach (var seller in sellers.Items)
             {
                 var startPosition = new GeoPosition() { Latitude = latitude, Longitude = longitude };
