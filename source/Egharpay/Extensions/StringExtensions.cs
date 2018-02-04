@@ -42,5 +42,10 @@ namespace Egharpay.Extensions
         {
             return Encoding.UTF8.GetBytes(@string);
         }
+
+        public static bool IsNumeric(string value)
+        {
+            return value.All(char.IsNumber);
+        }
     }
 }

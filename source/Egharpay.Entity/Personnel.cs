@@ -43,13 +43,13 @@ namespace Egharpay.Entity
         [StringLength(100)]
         public string Address4 { get; set; }
 
-        [Required]
         [StringLength(12)]
         public string Postcode { get; set; }
 
         [StringLength(15)]
         public string Telephone { get; set; }
 
+        [Required]
         [StringLength(15)]
         public string Mobile { get; set; }
 
@@ -59,7 +59,6 @@ namespace Egharpay.Entity
         [StringLength(15)]
         public string BankTelephone { get; set; }
 
-        [Required]
         [StringLength(256)]
         public string Email { get; set; }
 

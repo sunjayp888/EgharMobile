@@ -79,12 +79,14 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<ValidationResult<AspNetUserMobileOtp>> IsValidOtp(int otpNumber, decimal mobileNumber, int reasonId)
+        public async Task<ValidationResult<AspNetUserMobileOtp>> IsValidOtp(int otpNumber, decimal mobileNumber, int reasonId, DateTime? validityDateTime)
         {
             var validationResult = new ValidationResult<AspNetUserMobileOtp>();
             try
             {
                 var data = await _otpDataService.RetrieveAsync<AspNetUserMobileOtp>(e => e.MobileNumber == mobileNumber && e.OTPReasonId == reasonId);
+                if (validityDateTime.HasValue)
+                    data = data.Where(e => e.OTPValidDateTime >= validityDateTime.Value);
                 var result = data.ToList().FirstOrDefault();
                 if (result != null && result.OTP == otpNumber)
                 {

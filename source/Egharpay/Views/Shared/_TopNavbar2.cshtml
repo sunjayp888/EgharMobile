@@ -17,7 +17,7 @@
                             @*<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                                 <i class="fa fa-reorder"></i>
                             </button>*@
-                            <button class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartogglebutton">
+                            <button class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle">
                                 <i class="fa fa-tasks"></i>
                             </button>
                         </div>
@@ -96,8 +96,12 @@
                 {
                     @Html.AntiForgeryToken()
                     <ul class="nav navbar-top-links navbar-right">
-                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-                       
+                        @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
+                       <li>
+                           <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartogglebutton">
+                               <i class="fa fa-tasks"></i>
+                           </button>
+                       </li>
                     </ul>
                 }
             }

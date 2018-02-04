@@ -136,7 +136,8 @@ namespace Egharpay.Business.Services
             return new ValidationResult<Personnel>
             {
                 Succeeded = !alreadyExists,
-                Errors = alreadyExists ? new List<string> { "User already exists." } : null
+                Errors = alreadyExists ? new List<string> { "User already exists." } : null,
+                Message = "User already exists."
             };
         }
 

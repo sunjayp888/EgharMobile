@@ -122,7 +122,7 @@
         function createLoginOtp(mobileNumber) {
             vm.showOtpCreatedMessage = false;
             return OTPService.createLoginOtp(mobileNumber).then(function (response) {
-                vm.showOtpCreatedMessage = response.data.Succeeded;
+                vm.showOtpCreatedMessage = true;
                 vm.isOtpCreated = response.data.Succeeded;
                 vm.otpMessage = response.data.Message;
             });

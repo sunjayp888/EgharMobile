@@ -33,7 +33,7 @@
             </div>
         </nav>
     </div>
-    <div class="loginColumns animated fadeInDown" ng-app="Egharpay" ng-controller="RegisterController as model">
+    <div ng-cloak class="loginColumns animated fadeInDown" ng-app="Egharpay" ng-controller="RegisterController as model">
         <div class="row">
             <div class="col-md-6" id="login">
                 <h2 class="font-bold">Welcome to mumbile</h2>
@@ -66,8 +66,8 @@
                                 @Html.ValidationSummary(false, null, new { @class = "" })
                             </div>
                         }
-                        <div class="row" ng-if="model.showOtpCreatedMessage">
-                            <div class="alert alert-success alert-dismissable">
+                        <div ng-if="model.showOtpCreatedMessage">
+                            <div class="alert alert-danger alert-dismissable">
                                 <span ng-bind="model.otpMessage"></span>
                             </div>
                         </div>

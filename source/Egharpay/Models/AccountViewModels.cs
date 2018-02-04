@@ -66,6 +66,11 @@ namespace Egharpay.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        [Required]
+        [Display(Name = "UserName")]
+        [Remote("IsValidUsername", "Validation", AdditionalFields = "UserName", ErrorMessage = "Enter valid email or mobile number.")]
+        public string UserName { get; set; }
     }
 
     public class RegisterViewModel
@@ -122,6 +127,8 @@ namespace Egharpay.Models
 
         public string Longitude { get; set; }
         public int PersonnelId { get; set; }
+
+        
     }
 
     public class ResetPasswordViewModel
