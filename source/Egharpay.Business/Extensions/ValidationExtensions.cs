@@ -1,5 +1,6 @@
 ﻿using System;
 using Egharpay.Business.Models;
+using System.Linq;
 
 namespace Egharpay.Business.Extensions
 {
@@ -53,6 +54,16 @@ namespace Egharpay.Business.Extensions
             result.Message = message;
             result.Entity = entity;
             return result;
+        }
+
+        public static bool IsNumeric(string value)
+        {
+            return value.All(char.IsNumber);
+        }
+
+        public static bool IsValidMobileNumber(this string mobileNumber)
+        {
+            return IsNumeric(mobileNumber) && mobileNumber.Length == 0;
         }
 
     }

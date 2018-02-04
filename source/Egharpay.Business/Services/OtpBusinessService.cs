@@ -8,6 +8,7 @@ using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Business.Helpers;
+using Egharpay.Business.Extensions;
 
 namespace Egharpay.Business.Services
 {
@@ -50,6 +51,10 @@ namespace Egharpay.Business.Services
         public async Task<ValidationResult<AspNetUserMobileOtp>> CreateOtp(decimal mobileNumber, string ipAddress, int otpReasonId, string aspNetUserId = null)
         {
             var validationResult = new ValidationResult<AspNetUserMobileOtp>();
+            if (!mobileNumber.ToString().IsValidMobileNumber())
+            {
+
+            }
             var aspnetOtp = new AspNetUserMobileOtp()
             {
                 IPAddress = ipAddress,
