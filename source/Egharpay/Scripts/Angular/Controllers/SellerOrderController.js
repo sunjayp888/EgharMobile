@@ -17,16 +17,17 @@
         vm.searchMessage = "";
         vm.initialise = initialise;
         vm.retrieveSellerOrders = retrieveSellerOrders;
+        vm.updateSellerOrder = updateSellerOrder;
 
         function initialise() {
-            vm.orderBy.property = "Name";
+            vm.orderBy.property = "OrderId";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
-            order("Name");
+            order("OrderId");
         }
 
         function retrieveSellerOrders() {
-            vm.orderBy.property = "Name";
+            vm.orderBy.property = "OrderId";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
             return SellerOrderService.retrieveSellerOrders(vm.paging, vm.orderBy)
@@ -45,6 +46,13 @@
                 return searchSeller(vm.searchKeyword)();
             }
             return retrieveSellers();
+        }
+
+        function updateSellerOrder(orderId) {
+            return SellerOrderService.updateSellerOrder(orderId)
+                .then(function() {
+                    retrieveSellerOrders();
+                });
         }
     }
 })();

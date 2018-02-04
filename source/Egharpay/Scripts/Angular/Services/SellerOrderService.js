@@ -9,7 +9,8 @@
 
     function SellerOrderService($http) {
         var service = {
-            retrieveSellerOrders: retrieveSellerOrders
+            retrieveSellerOrders: retrieveSellerOrders,
+            updateSellerOrder: updateSellerOrder
             //editOrder: editOrder
         };
 
@@ -24,5 +25,12 @@
             return $http.post(url, data);
         }
 
+        function updateSellerOrder(orderId) {
+            var url = "/Order/UpdateOrder",
+                data = {
+                    orderId: orderId
+                };
+            return $http.post(url, data);
         }
+    }
 })();

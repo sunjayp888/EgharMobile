@@ -155,6 +155,7 @@
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Dto\Extensions.cs" />
     <Compile Include="Dto\Filter.cs" />
+    <Compile Include="Enum\OrderState.cs" />
     <Compile Include="Extensions\SeoExtensions.cs" />
     <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelEmailBusinessService.cs" />

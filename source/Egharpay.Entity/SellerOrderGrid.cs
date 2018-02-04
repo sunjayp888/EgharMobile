@@ -19,32 +19,24 @@ namespace Egharpay.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SellerId { get; set; }
 
-        [StringLength(500)]
+        [StringLength(202)]
         public string SellerName { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int MobileId { get; set; }
+        public int? CustomerId { get; set; }
+
+        [StringLength(202)]
+        public string CustomerName { get; set; }
+
+        public int? MobileId { get; set; }
 
         [StringLength(500)]
         public string MobileName { get; set; }
 
-        public int? CustomerId { get; set; }
-
-        [StringLength(151)]
-        public string CustomerName { get; set; }
-
-        [Key]
-        [Column(Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int RequestTypeId { get; set; }
+        public int? OrderStateId { get; set; }
 
         [StringLength(100)]
         public string RequestTypeName { get; set; }
 
-        [Key]
-        [Column(Order = 4, TypeName = "date")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime? OrderCreatedDate { get; set; }
     }
 }
