@@ -222,6 +222,7 @@ namespace Egharpay.Controllers
                 var otpValidationResult = await _otpBusinessService.IsValidOtp(Convert.ToInt32(model.OTP), Convert.ToDecimal(model.MobileNumber), (int)OtpReason.Login, DateTime.UtcNow);
                 if (!otpValidationResult.Succeeded)
                 {
+                    model.OtpErrorMessage = "InValid";
                     ModelState.AddModelError("", otpValidationResult.Message);
                     return View(model);
                 }

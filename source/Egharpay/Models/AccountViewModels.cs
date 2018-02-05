@@ -127,8 +127,8 @@ namespace Egharpay.Models
 
         public string Longitude { get; set; }
         public int PersonnelId { get; set; }
+        public string OtpErrorMessage { get; set; } = "Valid";
 
-        
     }
 
     public class ResetPasswordViewModel

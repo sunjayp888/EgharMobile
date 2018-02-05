@@ -23,8 +23,18 @@
         vm.isSeller = false;
         vm.otpMessage;
         vm.showOtpCreatedMessage = false;
+        vm.initialise = initialise;
+        vm.validationError = false;
+        vm.OTP;
         function addPincode() {
             geoLocation();
+        }
+
+        function initialise(otpErrorMessage) {
+            vm.validationError = (otpErrorMessage == "InValid" ? true : false) || model.isOtpCreated;
+            if (vm.validationError) {
+                vm.OTP = "";
+            }
         }
 
         function openPincodeModal(location) {
@@ -121,17 +131,16 @@
 
         function createLoginOtp(mobileNumber) {
             vm.showOtpCreatedMessage = false;
-            if (mobileNumber === undefined)
-            {
+            if (mobileNumber === undefined) {
                 vm.showOtpCreatedMessage = true;
                 vm.otpMessage = "Enter mobile number.";
                 return;
             }
-                return OTPService.createLoginOtp(mobileNumber).then(function (response) {
-                    vm.showOtpCreatedMessage = true;
-                    vm.isOtpCreated = response.data.Succeeded;
-                    vm.otpMessage = response.data.Message;
-                });
+            return OTPService.createLoginOtp(mobileNumber).then(function (response) {
+                vm.validationError = vm.showOtpCreatedMessage = true;
+                vm.isOtpCreated = response.data.Succeeded;
+                vm.otpMessage = response.data.Message;
+            });
         }
     }
 
