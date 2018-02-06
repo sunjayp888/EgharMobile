@@ -16,25 +16,27 @@
         vm.modalInstance = null;
         vm.currentAddress;
         vm.Address = [];
-        vm.PinCode;
+        vm.pinCode;
         vm.isOtpCreated = false;
         vm.mobileNumber;
         vm.createLoginOtp = createLoginOtp;
         vm.isSeller = false;
         vm.otpMessage;
-        vm.showOtpCreatedMessage = false;
+        vm.showMessage = false;
         vm.initialise = initialise;
         vm.validationError = false;
         vm.OTP;
+        vm.email;
+        vm.errorMessages = [];
+        vm.onSellerChecked = onSellerChecked;
         function addPincode() {
             geoLocation();
         }
 
-        function initialise(otpErrorMessage) {
-            vm.validationError = (otpErrorMessage == "InValid" ? true : false) || model.isOtpCreated;
-            if (vm.validationError) {
-                vm.OTP = "";
-            }
+        function initialise(hasError) {
+            vm.errorMessages = [];
+            geoLocation();
+            vm.isOtpCreated = hasError;
         }
 
         function openPincodeModal(location) {
@@ -99,7 +101,7 @@
             var xhr = createCORSRequest('POST', url);
             if (!xhr) {
                 vm.Address = { Error: "CORS not supported" }
-                openPincodeModal(false);
+                //openPincodeModal(false);
             }
             xhr.onload = function () {
                 var data = JSON.parse(xhr.responseText);
@@ -111,37 +113,41 @@
                     state = value[count - 2];
                     city = value[count - 3];
                     pin = state.split(" ");
-                    pinCode = pin[pin.length - 1];
+                    vm.pinCode = pin[pin.length - 1];
                     state = state.replace(pinCode, ' ');
                     vm.currentAddress = locationDetails;
-                    vm.Address = { City: city, State: state, Country: country, PinCode: pinCode }
-                    openPincodeModal(true);
+                    vm.Address = { City: city, State: state, Country: country, PinCode: vm.pinCode }
+                    //openPincodeModal(true);
                 }
                 else {
                     vm.Address = { Error: "No location available for provided details." }
-                    openPincodeModal(false);
+                    //openPincodeModal(false);
                 }
             };
             xhr.onerror = function () {
                 vm.Address = { Error: "Woops, there was an error making the request." }
-                openPincodeModal(false);
+                //openPincodeModal(false);
             };
             xhr.send();
         }
 
-        function createLoginOtp(mobileNumber) {
-            vm.showOtpCreatedMessage = false;
-            if (mobileNumber === undefined) {
-                vm.showOtpCreatedMessage = true;
-                vm.otpMessage = "Enter mobile number.";
-                return;
-            }
-            return OTPService.createLoginOtp(mobileNumber).then(function (response) {
-                vm.validationError = vm.showOtpCreatedMessage = true;
+        function createLoginOtp() {
+            vm.showMessage = false;
+            vm.errorMessages = [];
+            if (!vm.mobileNumber) vm.errorMessages.push('Enter mobile number.');
+            if (!vm.email && vm.isSeller) vm.errorMessages.push('Enter email.');
+            if (vm.errorMessages.length > 0) return;
+
+            return OTPService.createLoginOtp(vm.mobileNumber).then(function (response) {
+                vm.showMessage = true;
                 vm.isOtpCreated = response.data.Succeeded;
-                vm.otpMessage = response.data.Message;
+                vm.errorMessages.push(response.data.Message);
             });
         }
+
+        function onSellerChecked() {
+          
+        } 
     }
 
 })();

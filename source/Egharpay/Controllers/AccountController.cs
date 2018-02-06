@@ -222,13 +222,14 @@ namespace Egharpay.Controllers
                 var otpValidationResult = await _otpBusinessService.IsValidOtp(Convert.ToInt32(model.OTP), Convert.ToDecimal(model.MobileNumber), (int)OtpReason.Login, DateTime.UtcNow);
                 if (!otpValidationResult.Succeeded)
                 {
-                    model.OtpErrorMessage = "InValid";
+                    model.HasError = true;
                     ModelState.AddModelError("", otpValidationResult.Message);
                     return View(model);
                 }
                 var personnelResult = await CreatePersonnel(model);
                 if (!personnelResult.Succeeded)
                 {
+                    model.HasError = true;
                     foreach (var error in personnelResult.Errors)
                     {
                         ModelState.AddModelError("", error);
@@ -255,6 +256,7 @@ namespace Egharpay.Controllers
                     await SendConfirmationMail(personnelResult.Entity, callbackUrl);
                     return RedirectToAction("Confirm", "Account", new { email = user.Email });
                 }
+                model.HasError = true;
                 AddErrors(result);
             }
             // If we got this far, something failed, redisplay form

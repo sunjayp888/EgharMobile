@@ -93,6 +93,7 @@ namespace Egharpay.Models
         //[Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [StringLength(256, ErrorMessage = "The Email field is required.")]
         public string Email { get; set; }
 
         [Required]
@@ -127,8 +128,7 @@ namespace Egharpay.Models
 
         public string Longitude { get; set; }
         public int PersonnelId { get; set; }
-        public string OtpErrorMessage { get; set; } = "Valid";
-
+        public bool HasError { get; set; }
     }
 
     public class ResetPasswordViewModel
