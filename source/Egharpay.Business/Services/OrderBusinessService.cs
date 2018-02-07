@@ -12,6 +12,7 @@ using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
+using OrderState = Egharpay.Business.Enum.OrderState;
 
 namespace Egharpay.Business.Services
 {
@@ -26,7 +27,7 @@ namespace Egharpay.Business.Services
         protected IMobileDataService _mobileDataService;
         protected ISellerBusinessService _sellerBusinessService;
         protected IPersonnelEmailBusinessService _personnelEmailBusinessService;
-        public OrderBusinessService(PersonnelEmailBusinessService personnelEmailBusinessService, ISellerBusinessService sellerBusinessService, IOrderDataService dataService, IEmailBusinessService emailBusinessService, ISmsBusinessService smsBusinessService, ISellerDataService sellerDataService, IPersonnelDataService personnelDataService, IMobileDataService mobileDataService)
+        public OrderBusinessService(PersonnelEmailBusinessService personnelEmailBusinessService, ISellerBusinessService sellerBusinessService, IOrderDataService dataService, IEmailBusinessService emailBusinessService, ISmsBusinessService smsBusinessService, ISellerDataService sellerDataService, IPersonnelDataService personnelDataService, IMobileDataService mobileDataService, IMapper mapper)
         {
             _dataService = dataService;
             _emailBusinessService = emailBusinessService;
@@ -36,6 +37,7 @@ namespace Egharpay.Business.Services
             _mobileDataService = mobileDataService;
             _sellerBusinessService = sellerBusinessService;
             _personnelEmailBusinessService = personnelEmailBusinessService;
+            _mapper = mapper;
         }
 
         public async Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, List<int> sellerIds, int shippingAddressId)
@@ -166,7 +168,34 @@ namespace Egharpay.Business.Services
         public async Task<PagedResult<SellerOrderGrid>> RetrieveSellerOrders(Expression<Func<SellerOrderGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
             var result = await _dataService.RetrievePagedResultAsync<SellerOrderGrid>(expression, orderBy, paging);
-            return _mapper.MapToPagedResult<SellerOrderGrid>(result);
+            try
+            {
+                return _mapper.MapToPagedResult<SellerOrderGrid>(result);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        public async Task<ValidationResult<Order>> UpdateOrder(Order order)
+        {
+            var validationResult = new ValidationResult<Order>();
+            try
+            {
+                order.OrderStateId = (int) OrderState.Cancelled;
+                await _dataService.UpdateAsync(order);
+                validationResult.Entity = order;
+                validationResult.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Errors = new List<string> { ex.InnerMessage() };
+                validationResult.Exception = ex;
+            }
+            return validationResult;
         }
 
         public async Task<PagedResult<OrderSeller>> RetrieveOrderSellers(Expression<Func<OrderSeller, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)

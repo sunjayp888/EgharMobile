@@ -603,18 +603,6 @@ namespace Egharpay.Data
                 .Property(e => e.SearchField)
                  .IsUnicode(false);
 
-            modelBuilder.Entity<SellerOrderGrid>()
-               .Property(e => e.SellerName)
-               .IsUnicode(false);
-
-            modelBuilder.Entity<SellerOrderGrid>()
-                .Property(e => e.MobileName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerOrderGrid>()
-                .Property(e => e.RequestTypeName)
-                .IsUnicode(false);
-
             modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.BrandName)
                 .IsUnicode(false);
@@ -865,6 +853,10 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<MobileGrid>()
                 .Property(e => e.SearchField)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerOrderGrid>()
+                .Property(e => e.MobileName)
                 .IsUnicode(false);
         }
     }

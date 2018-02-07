@@ -22,5 +22,8 @@ namespace Egharpay.Business.Interfaces
         Task<PagedResult<Order>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
 
         Task<PagedResult<SellerOrderGrid>> RetrieveSellerOrders(Expression<Func<SellerOrderGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
+
+        //Update
+        Task<ValidationResult<Order>> UpdateOrder(Order order);
     }
 }

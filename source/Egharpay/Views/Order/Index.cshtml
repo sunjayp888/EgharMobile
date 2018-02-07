@@ -2,86 +2,73 @@
 @{
     ViewBag.Title = "Seller Order";
 }
-
 <div ng-controller="SellerOrderController as model" ng-init="model.retrieveSellerOrders()">
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>
-                Home Banners
-            </h3>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>E-commerce shoping cart</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a>Order</a>
+                </li>
+                <li class="active">
+                    <strong>Order Request</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+
         </div>
     </div>
-    @*<div class="row">
-        @if (User.IsInAnyRoles("Admin"))
-        {
-            <div class="col-lg-12">
-                <a class="btn btn-primary btn-lg" href="@Url.Action("Create", "HomeBanner")">
-                    <i class="fa fa-user"></i> Create
-                </a>
-            </div>
-        }
-    </div>*@
-    <br />
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    @*<h2>
-                            Subjects <small></small>
-                        </h2>*@
-                    <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                    </p>
-                    <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                @Html.Partial("Pagination/_pageSize")
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <table wt-responsive-table class="table table-striped table-bordered jambo_table table-hover dataTable no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <th ng-click="model.order('SellerId')" ng-class="model.orderClass('SellerId')">Seller</th>
-                                            <th ng-click="model.order('MobileId')" ng-class="model.orderClass('MobileId')">Mobile</th>
-                                            <th ng-click="model.order('RequestTypeId')" ng-class="model.orderClass('RequestTypeId')">Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="order in model.sellerOrders" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
-                                            <td><span ng-bind="order.SellerName"></span></td>
-                                            <td><span ng-bind="order.MobileName"></span></td>
-                                            <td><span ng-bind="order.RequestTypeName"></span></td>
-                                            <td>
-                                                <div class="btn-group pull-right">
-                                                    <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
-                                                        <i class="fa fa-chevron-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu slidedown">
-                                                        @*<li>
-                                                            <a style="cursor: pointer;" ng-href="/HomeBanner/Edit/{{homeBanner.HomeBannerId}}">
-                                                                Edit
-                                                            </a>
-                                                        </li>*@
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        @Html.Partial("Pagination/_pagination")
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <span class="pull-right">(<strong>{{model.sellerOrders.length}}</strong>) items</span>
+                        <h5>Items in your cart</h5>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <label ng-bind="model.searchMessage"></label>
+                    <div class="ibox-content" ng-repeat="order in model.sellerOrders">
+                        <div class="table-responsive">
+                            <table class="table shoping-cart-table">
+                                <tbody>
+                                    <tr>
+                                        <td width="90">
+                                            <div class="cart-product-imitation">
+                                            </div>
+                                        </td>
+                                        <td class="desc">
+                                            <h3>
+                                                <a href="#" class="text-navy">
+                                                    {{order.MobileName}}
+                                                </a>
+                                            </h3>
+
+                                            <dl class="small m-b-none">
+                                                <dt>Order Date : {{order.OrderCreatedDate|date : format : shortDate}}</dt>
+                                                <dt>Seller Name : {{order.SellerName}}</dt>
+                                            </dl>
+                                            @*<div class="m-t-sm">
+                                                    <button class="btn btn-warning pull-right"><i class="fa fa-times-rectangle"></i> Cancel Order</button>
+                                                </div>*@
+                                        </td>
+                                        <td>
+                                            <h4>
+                                                <button type="button" class="btn btn-info btn-sm">{{order.RequestTypeName}}</button>
+                                            </h4>
+                                            <button type="button" class="btn btn-warning pull-right" ng-click="model.updateSellerOrder(order.OrderId)" ng-if="order.RequestTypeName !='Cancelled'"><i class="fa fa-times-rectangle"></i> Cancel Order</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    @*<div class="ibox-content">
+                            <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
+                            <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
+                        </div>*@
                 </div>
             </div>
         </div>

@@ -89,6 +89,14 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> UpdateOrder(int orderId)
+        {
+            var orderData = await _orderBusinessService.RetrieveOrder(orderId);
+            var data = await _orderBusinessService.UpdateOrder(orderData);
+            return this.JsonNet(data);
+        }
+
         public ActionResult ViewOrder()
         {
             return View();
