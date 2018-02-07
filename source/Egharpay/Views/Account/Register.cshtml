@@ -34,7 +34,7 @@
         </nav>
     </div>
     <div ng-cloak class="loginColumns animated fadeInDown" ng-app="Egharpay">
-        <div class="row" ng-controller="RegisterController as model" ng-init="model.initialise('@Model.HasError.ToString().ToLower()')">
+        <div class="row" ng-controller="RegisterController as model" ng-init="model.initialise('@Model.HasError.ToString().ToLower()','@Model.MobileNumber','@Model.Email','@Model.IsSeller')">
             <div class="col-md-6" id="login">
                 <h2 class="font-bold">Welcome to mumbile</h2>
                 <p>
@@ -68,54 +68,53 @@
                                 <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
                             </ul>
                         </div>
-                            @*<div class="form-group">
-                                    <div>
-                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Firstname" })
-                                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>*@
-                            @*<div class="form-group">
-                                    <div>
-                                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Lastname" })
-                                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>*@
-
-                            <div class="form-group">
+                        @*<div class="form-group">
                                 <div>
-                                    @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", @placeholder = "Mobile Number", @ng_model = "model.mobileNumber" })
-                                    @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "Firstname" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
-
-
-                            <div class="form-group" ng-if="model.isSeller">
+                            </div>*@
+                        @*<div class="form-group">
                                 <div>
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control required", @placeholder = "Email", @ng_model = "model.email" })
-                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Lastname" })
+                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
                                 </div>
-                            </div>
+                            </div>*@
 
-                            <div class="form-group" ng-if="model.isOtpCreated==true">
-                                <div>
-                                    @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", @ng_model = "model.OTP" })
-                                    @Html.ValidationMessageFor(m => m.OTP, "", new { @class = "text-danger" })
-                                </div>
+                        <div class="form-group">
+                            <div>
+                                @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", @placeholder = "Mobile Number", @ng_model = "model.mobileNumber" })
+                                @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group" ng-if="model.isOtpCreated==true">
+                        </div>
+
+
+                        <div class="form-group" ng-if="model.isSeller">
+                            <div>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control required", @placeholder = "Email", @ng_model = "model.email" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="model.isOtpCreated">
+                            <div>
+                                @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", @ng_model = "model.OTP" })
+                                @Html.ValidationMessageFor(m => m.OTP, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                            <div class="form-group" ng-if="model.isOtpCreated">
                                 <div>
                                     @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="form-group" ng-if="model.isOtpCreated==true">
+                            <div class="form-group" ng-if="model.isOtpCreated">
                                 <div>
                                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "ConfirmPassword" })
                                     @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
-                            <div class="form-group" ng-if="model.isSeller==true && model.isOtpCreated==true">
+                            <div class="form-group" ng-if="model.isSelle && model.isOtpCreated">
                                 <div>
                                     @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @placeholder = "Pincode", ng_model = "model.pinCode" })
                                     @Html.ValidationMessageFor(m => m.Pincode, "", new { @class = "text-danger" })
@@ -138,15 +137,16 @@
                             <p class="text-muted text-right">
                                 <small></small>
                             </p>
-                            <button ng-if="!(model.isOtpCreated==true)" type="button" ng-click="model.createLoginOtp(model.mobileNumber)" class="btn btn-primary block full-width m-b">Next</button>
-                            <button ng-if="model.isOtpCreated==true" type="submit" class="btn btn-primary block full-width m-b">Register</button>
+                            <button ng-if="!model.isOtpCreated" type="button" ng-click="model.createLoginOtp(model.mobileNumber)" class="btn btn-primary block full-width m-b">Next</button>
+                            <button ng-if="model.isOtpCreated" type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
-                                <p class="text-muted text-center">
-                                    <small>Already have an account?</small>
-                                </p>
-                                <a class="btn btn-sm btn-white btn-block" href="@Url.Action(" Login", "Pages" )">Login</a>
-                                @Html.HiddenFor(e => e.Latitude)
-                                @Html.HiddenFor(e => e.Longitude)
+                            <p class="text-muted text-center">
+                                <small>Already have an account?</small>
+                            </p>
+                            <a class="btn btn-sm btn-white btn-block" href="@Url.Action(" Login", "Pages" )">Login</a>
+                            @Html.HiddenFor(e => e.Latitude)
+                            @Html.HiddenFor(e => e.Longitude)
+                            @Html.HiddenFor(e => e.MobileNumber, new { @ng_model = "model.mobileNumber",@id="Mobile" })
                     }
                 </div>
             </div>

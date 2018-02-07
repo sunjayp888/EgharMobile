@@ -33,8 +33,11 @@
             geoLocation();
         }
 
-        function initialise(hasError) {
+        function initialise(hasError, mobileNumber, email, isSeller) {
             vm.errorMessages = [];
+            vm.mobileNumber = mobileNumber;
+            vm.email = email;
+            vm.isSeller = isSeller;
             geoLocation();
             vm.isOtpCreated = hasError;
         }
