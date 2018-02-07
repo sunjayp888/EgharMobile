@@ -42,5 +42,15 @@ namespace Egharpay.Extensions
         {
             return Encoding.UTF8.GetBytes(@string);
         }
+
+        public static bool IsNumeric(string value)
+        {
+            return value.All(char.IsNumber);
+        }
+
+        public static bool IsValidMobileNumber(this string @mobileNumber)
+        {
+            return IsNumeric(@mobileNumber) && @mobileNumber.Length == 0;
+        }
     }
 }

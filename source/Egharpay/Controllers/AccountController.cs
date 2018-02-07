@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Device.Location;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ using Egharpay.Models;
 using Egharpay.Models.Authorization;
 using Egharpay.Models.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Egharpay.Business.Enum;
 
 namespace Egharpay.Controllers
 {
@@ -27,13 +29,15 @@ namespace Egharpay.Controllers
         private IPersonnelBusinessService PersonnelBusinessService { get; set; }
         private IPersonnelEmailBusinessService PersonnelEmailBusinessService { get; set; }
         private ISellerBusinessService SellerBusinessService { get; set; }
-        protected IEmailBusinessService _emailBusinessService;
+        private readonly IEmailBusinessService _emailBusinessService;
+        private readonly IOtpBusinessService _otpBusinessService;
 
-        public AccountController(IPersonnelBusinessService personnelBusinessService, IEmailBusinessService emailBusinessService,ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager) : base(configurationManager)
+        public AccountController(IPersonnelBusinessService personnelBusinessService, IEmailBusinessService emailBusinessService, ISellerBusinessService sellerBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, IConfigurationManager configurationManager, IOtpBusinessService otpBusinessService) : base(configurationManager)
         {
             PersonnelBusinessService = personnelBusinessService;
             SellerBusinessService = sellerBusinessService;
             PersonnelEmailBusinessService = personnelEmailBusinessService;
+            _otpBusinessService = otpBusinessService;
             _emailBusinessService = emailBusinessService;
         }
 
@@ -82,27 +86,27 @@ namespace Egharpay.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.Email, model.Password);
+                var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
-                    if (user.EmailConfirmed)
+                    //  if (user.EmailConfirmed)
+                    //  {
+                    var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+                    switch (result)
                     {
-                        var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-                        switch (result)
-                        {
-                            case SignInStatus.Success:
-                                return RedirectToLocal(returnUrl);
-                            case SignInStatus.LockedOut:
-                                return View("Lockout");
-                            case SignInStatus.RequiresVerification:
-                                return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                            case SignInStatus.Failure:
-                            default:
-                                ModelState.AddModelError("", "Invalid login attempt.");
-                                return View(model);
-                        }
+                        case SignInStatus.Success:
+                            return RedirectToLocal(returnUrl);
+                        case SignInStatus.LockedOut:
+                            return View("Lockout");
+                        case SignInStatus.RequiresVerification:
+                            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                        case SignInStatus.Failure:
+                        default:
+                            ModelState.AddModelError("", "Invalid login attempt.");
+                            return View(model);
                     }
-                    ModelState.AddModelError("", "Confirm Email Address.");
+                    // }
+                    // ModelState.AddModelError("", "Confirm Email Address.");
                 }
                 else
                 {
@@ -167,6 +171,47 @@ namespace Egharpay.Controllers
 
         //
         // POST: /Account/Register
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Register(RegisterViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var personnelResult = await CreatePersonnel(model);
+        //        if (!personnelResult.Succeeded)
+        //        {
+        //            foreach (var error in personnelResult.Errors)
+        //            {
+        //                ModelState.AddModelError("", error);
+        //            }
+        //            return View(model);
+        //        }
+        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PersonnelId = personnelResult.Entity.PersonnelId };
+        //        var role = model.IsSeller ? Role.Seller.ToString() : Role.Personnel.ToString();
+        //        var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
+        //        user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
+        //        var result = await UserManager.CreateAsync(user, model.Password);
+        //        if (result.Succeeded)
+        //        {
+        //            model.PersonnelId = personnelResult.Entity.PersonnelId;
+        //            if (model.IsSeller)
+        //                CreateSeller(model);
+        //            //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+        //            // Send an email with this link
+        //            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+        //            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+        //            //  await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+        //            await SendConfirmationMail(personnelResult.Entity, callbackUrl);
+        //            return RedirectToAction("Confirm", "Account", new { email = user.Email });
+        //        }
+        //        AddErrors(result);
+        //    }
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -174,20 +219,34 @@ namespace Egharpay.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                model.AspNetUserId = user.Id;
+                var otpValidationResult = await _otpBusinessService.IsValidOtp(Convert.ToInt32(model.OTP), Convert.ToDecimal(model.MobileNumber), (int)OtpReason.Login, DateTime.UtcNow);
+                if (!otpValidationResult.Succeeded)
+                {
+                    model.HasError = true;
+                    ModelState.AddModelError("", otpValidationResult.Message);
+                    return View(model);
+                }
+                var personnelResult = await CreatePersonnel(model);
+                if (!personnelResult.Succeeded)
+                {
+                    model.HasError = true;
+                    foreach (var error in personnelResult.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
+                    return View(model);
+                }
+
+                var user = new ApplicationUser { UserName = model.MobileNumber, Email = model.Email, PersonnelId = personnelResult.Entity.PersonnelId };
                 var role = model.IsSeller ? Role.Seller.ToString() : Role.Personnel.ToString();
                 var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
                 user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var personnelResult = await CreatePersonnel(model);
-                    if (!personnelResult.Succeeded)
-                    {
-                        ModelState.AddModelError(string.Empty, personnelResult.Errors.FirstOrDefault());
-                        return View(model);
-                    }
+                    model.PersonnelId = personnelResult.Entity.PersonnelId;
+                    if (model.IsSeller)
+                        CreateSeller(model);
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -197,6 +256,7 @@ namespace Egharpay.Controllers
                     await SendConfirmationMail(personnelResult.Entity, callbackUrl);
                     return RedirectToAction("Confirm", "Account", new { email = user.Email });
                 }
+                model.HasError = true;
                 AddErrors(result);
             }
             // If we got this far, something failed, redisplay form
@@ -212,9 +272,32 @@ namespace Egharpay.Controllers
                 Surname = model.LastName,
                 Postcode = model.Pincode,
                 IsSeller = model.IsSeller,
-                UserId = model.AspNetUserId
+                UserId = model.AspNetUserId,
+                Mobile = model.MobileNumber
             };
             return await PersonnelBusinessService.CreatePersonnel(personnel);
+        }
+
+        private void CreateSeller(RegisterViewModel model)
+        {
+            var watcher = new GeoCoordinateWatcher();
+
+            // Do not suppress prompt, and wait 1000 milliseconds to start.
+            watcher.TryStart(false, TimeSpan.FromMilliseconds(100));
+
+            var coordinates = watcher.Position.Location;
+
+            var seller = new Seller()
+            {
+                PersonnelId = model.PersonnelId,
+                Owner = string.Format("{0} {1}", model.FirstName, model.LastName),
+                Email = model.Email,
+                Pincode = model.Pincode,
+                Latitude = coordinates.IsUnknown != true ? coordinates.Latitude : 0.0,
+                Longitude = coordinates.IsUnknown != true ? coordinates.Longitude : 0.0,
+                ApprovalStateId = (int)ApprovalState.Pending
+            };
+            SellerBusinessService.CreateSeller(seller);
         }
 
         private async Task<ValidationResult> SendConfirmationMail(Personnel personnel, string callbackUrl)
@@ -251,15 +334,15 @@ namespace Egharpay.Controllers
                 return View("Error");
             }
             ApplicationUser user = this.UserManager.FindById(userId);
-            
-                if (user.Id == userId)
-                {
-                    user.EmailConfirmed = true;
-                    await UserManager.UpdateAsync(user);
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    return RedirectToAction("Index", "Home");
-                }
-                return RedirectToAction("Confirm", "Account", new { email = user.Email });
+
+            if (user.Id == userId)
+            {
+                user.EmailConfirmed = true;
+                await UserManager.UpdateAsync(user);
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Confirm", "Account", new { email = user.Email });
         }
 
         [AllowAnonymous]
@@ -296,16 +379,38 @@ namespace Egharpay.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                var userEmailData=new EmailData()
+                //---------------------------------------------------------------------
+                var validationResult = new ValidationResult();
+                var forgotEmail = new PersonnelCreatedEmail()
                 {
-                    BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
-                    Body = String.Format("To reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>"),
-                    Subject = "Reset Password (Mumbile.com)",
-                    IsHtml = true,
-                    ToAddressList = new List<string> { user.Email }
+                    FullName = user.Email,
+                    CallBackUrl = callbackUrl,
+                    Subject = "Confirm your account",
+                    TemplateName = "ForgotPassword",
+                    ToAddress = new List<string>() { model.Email },
+                    FromAddress = "sunjayp88@gmail.com"
                 };
-                _emailBusinessService.SendEmail(userEmailData);
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                try
+                {
+                    await PersonnelEmailBusinessService.SendForgotMail(forgotEmail);
+                    validationResult.Succeeded = true;
+                    return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                }
+                catch (Exception ex)
+                {
+                    validationResult.Succeeded = false;
+                    //return validationResult;
+                }
+                //var userEmailData = new EmailData()
+                //{
+                //    BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
+                //    Body = String.Format("To reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>"),
+                //    Subject = "Reset Password (Mumbile.com)",
+                //    IsHtml = true,
+                //    ToAddressList = new List<string> { user.Email }
+                //};
+                //_emailBusinessService.SendEmail(userEmailData);
+                //return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form

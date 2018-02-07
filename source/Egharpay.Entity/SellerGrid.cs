@@ -57,6 +57,10 @@ namespace Egharpay.Entity
         [Column(TypeName = "date")]
         public DateTime? CreatedDate { get; set; }
 
+        public double? Latitude { get; set; }
+
+        public double? Longitude { get; set; }
+
         [StringLength(3680)]
         public string SearchField { get; set; }
     }

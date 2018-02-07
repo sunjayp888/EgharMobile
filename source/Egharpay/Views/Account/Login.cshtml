@@ -56,14 +56,19 @@
                 @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "m-t", role = "form"}))
                 {
                     @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "" })
+                    if (ViewContext.ViewData.ModelState.Any(x => x.Key == ""))
+                    {
+                        <div class="form-group alert alert-danger">
+                            @Html.ValidationSummary(false, null, new { @class = "" })
+                        </div>
+                    }
                     <h1>Login</h1>
                     <div class="form-group">
-                        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", @placeholder = "Username", required = ""})
-                        @Html.ValidationMessageFor(m => m.Email, "", new {@class = "text-danger"})
+                        @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", @placeholder = "Email or Mobile Number"})
+                        @Html.ValidationMessageFor(m => m.UserName, "", new {@class = "text-danger"})
                     </div>
                     <div class="form-group">
-                        @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Password", required = ""})
+                        @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Password"})
                         @Html.ValidationMessageFor(m => m.Password, "", new {@class = "text-danger"})
                     </div>
                     <button type="submit" class="btn btn-primary block full-width m-b">Submit</button>
@@ -93,7 +98,8 @@
 </body>
 </html>
 
-
+@Scripts.Render("~/Scripts/bower")
+@Scripts.Render("~/Scripts/Application")
 
 
 @*<section class="login_content">

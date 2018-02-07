@@ -1,5 +1,6 @@
-﻿<div class="row border-bottom">
-    @if (User.IsInRole("Admin"))
+﻿@using Egharpay.Extensions
+<div class="row border-bottom">
+    @if (User.IsSuperUserOrAdminOrSeller())
     {
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -135,7 +136,6 @@
                         <i class="fa fa-sign-out"></i> Log out
                     </a>
                 </li>*@
-              
             </ul>
         </nav>
 

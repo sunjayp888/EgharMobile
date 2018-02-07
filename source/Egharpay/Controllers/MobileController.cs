@@ -17,7 +17,6 @@ using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Helpers;
 using Egharpay.Models;
-using HtmlAgilityPack;
 using LinqKit;
 using Microsoft.Owin.Security.Authorization;
 using Filter = Egharpay.Business.Dto.Filter;
@@ -29,11 +28,13 @@ namespace Egharpay.Controllers
         private readonly IMobileBusinessService _mobileBusinessService;
         private readonly IBrandBusinessService _brandBusinessService;
         private readonly ISellerBusinessService _sellerBusinessService;
-        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService, ISellerBusinessService sellerBusinessService) : base(configurationManager, authorizationService)
+        private readonly IGoogleBusinessService _googleBusinessService;
+        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService, ISellerBusinessService sellerBusinessService, IGoogleBusinessService googleBusinessService) : base(configurationManager, authorizationService)
         {
             _mobileBusinessService = mobileBusinessService;
             _brandBusinessService = brandBusinessService;
             _sellerBusinessService = sellerBusinessService;
+            _googleBusinessService = googleBusinessService;
         }
 
         // GET: Mobile
@@ -149,6 +150,20 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [Route("Mobile/RetrieveSellersByGeoLocation")]
+        public async Task<ActionResult> RetrieveSellersByGeoLocation(string pincode, double latitude, double longitude, Paging paging, List<OrderBy> orderBy)
+        {
+            return this.JsonNet(_sellerBusinessService.RetrieveSellersByGeoLocation(latitude, longitude, pincode, orderBy, paging));
+        }
+
+        [HttpPost]
+        [Route("Mobile/RetrieveCurrentGeoCoordinates")]
+        public async Task<ActionResult> RetrieveCurrentGeoCoordinates()
+        {
+            return this.JsonNet(await _googleBusinessService.RetrieveCurrentGeoCoordinates());
+        }
+
+        [HttpPost]
         public async Task<ActionResult> MobileGalleryImage(int id)
         {
             var data = await _mobileBusinessService.RetrieveMobileGalleryImages(id);
@@ -165,8 +180,8 @@ namespace Egharpay.Controllers
         [Route("Mobile/Compare/{brandId}/{mobileId}")]
         public ActionResult Compare(int? brandId, int? mobileId)
         {
-            if(brandId.HasValue && mobileId.HasValue)
-            return View(new MobileViewModel() { MobileId = mobileId.Value, BrandId = brandId.Value });
+            if (brandId.HasValue && mobileId.HasValue)
+                return View(new MobileViewModel() { MobileId = mobileId.Value, BrandId = brandId.Value });
             return View();
         }
 

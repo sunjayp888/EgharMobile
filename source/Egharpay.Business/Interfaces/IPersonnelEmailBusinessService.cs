@@ -14,7 +14,6 @@ namespace Egharpay.Business.Interfaces
         Task SendOrderCreatedMail(OrderCreatedEmail orderCreatedEmail);
         //Please move below function to ISellerEmailBusinessService, create new.
         Task SendOrderCreatedMailToSeller(OrderCreatedEmail orderCreatedEmail);
-
-
-    }
+        Task SendForgotMail(PersonnelCreatedEmail forgotEmail);
+        }
 }

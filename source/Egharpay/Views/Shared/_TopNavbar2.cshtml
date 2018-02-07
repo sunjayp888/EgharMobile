@@ -9,19 +9,23 @@
                     <form class="navbar-form navbar-left form-inline" role="search">
                         <div class="form-group">
                             <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search"/>
+                            
                             <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
                                 <i class="fa fa-search"></i>
                             </button>
                             <a class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder">Order</span></a>
-                            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                            @*<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                                 <i class="fa fa-reorder"></i>
+                            </button>*@
+                            <button class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle">
+                                <i class="fa fa-tasks"></i>
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        
+
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li class="dropdown mega-dropdown">
@@ -84,7 +88,7 @@
                 </li>
             </ul>
 
-            
+
 
             @if (User.Identity.IsAuthenticated)
             {
@@ -92,13 +96,12 @@
                 {
                     @Html.AntiForgeryToken()
                     <ul class="nav navbar-top-links navbar-right">
-                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-                        <li>@Html.ActionLink("Reset Password", "ResetPassword", "Account")</li>
-                        <li>
-                            <a class="right-sidebar-toggle">
-                                <i class="fa fa-tasks"></i>
-                            </a>
-                        </li>
+                        @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
+                       <li>
+                           <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartogglebutton">
+                               <i class="fa fa-tasks"></i>
+                           </button>
+                       </li>
                     </ul>
                 }
             }
@@ -114,10 +117,6 @@
             }
 
         </div>
-
-
-
-
 
     </nav>
 </div>

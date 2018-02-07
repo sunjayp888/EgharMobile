@@ -51,7 +51,8 @@ namespace Egharpay.Data
 
         public virtual DbSet<SellerOrderGrid> SellerOrderGrids { get; set; }
         public virtual DbSet<OrderSeller> OrderSellers { get; set; }
-
+        public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<AspNetUserMobileOtp> AspNetUserMobileOtps { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -542,8 +543,8 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
+                    .Property(e => e.Name)
+                    .IsUnicode(false);
 
             modelBuilder.Entity<SellerGrid>()
                 .Property(e => e.RegistrationNumber)

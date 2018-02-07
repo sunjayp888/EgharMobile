@@ -24,12 +24,7 @@
     "angular-daterangepicker": "^0.2.2",
     "cookieconsent": "3.0",
     "cropper": "2.3.0",
-    "datatables.net": ">=1.10.9",
-    "ion.rangeSlider": ">=2.2.0",
-    "wip-image-zoom": "1.0.3"
-  },
-  "resolutions": {
-    "angular": ">= 1.0.5",
-    "angular-sanitize": "1.6.2"
+    "datatables.net-bs": "1.10.12",
+    "ion.rangeSlider": ">=2.2.0"
   }
 }

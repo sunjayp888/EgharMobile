@@ -25,10 +25,13 @@ namespace Egharpay.Business.Interfaces
         //Task<PagedResult<PersonnelGrid>> Search(int centreId,string term, List<OrderBy> orderBy = null, Paging paging = null);
         Task<Personnel> RetrievePersonnel(string userId);
 
-            //Update
+        //Update
         Task<ValidationResult<Personnel>> UpdatePersonnel(Personnel department);
 
         //Delete
         Task<bool> DeletePersonnel(int id);
+
+        //Helper
+        Task<ValidationResult<Personnel>> PersonnelAlreadyExists(string mobileNumber, string email = null);
     }
 }

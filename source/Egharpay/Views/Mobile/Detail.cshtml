@@ -1,7 +1,7 @@
 ﻿@using Egharpay.Extensions
 @model Egharpay.Models.MobileViewModel
 @{
-    var layout = User.IsSuperUserOrAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
     Layout = layout;
     ViewBag.Title = "Detail";
 }
@@ -120,7 +120,7 @@
                         <li class=""><a data-toggle="tab" href="#tab-2"><strong> Gallery</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-3"><strong> Video</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-4"><strong> Reviews</strong></a></li>
-                        <li class=""><button class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to buy</strong></button></li>
+                        <li class=""><button ng-click="model.sellerMobileOrder()" class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to buy</strong></button></li>
                         <li class="" id="compareButton"><button class="btn btn-compare" ng-click="model.compareMobile('@Model.BrandId','@Model.MobileId')"><strong> Compare</strong></button></li>
                         @*<li class=""><button class="btn btn-compare" data-toggle="modal" data-target="#compareModal"><strong> Compare</strong></button></li>*@
                         <li class="" id="addToStoreButton"><button class="btn btn-compare" data-toggle="tab" href="#tab-7"><strong> Add to store</strong></button></li>
@@ -130,7 +130,6 @@
                         @Html.Partial("_Gallery")
                         @Html.Partial("_Video")
                         @Html.Partial("_Review")
-                        @Html.Partial("_Seller")
                         @Html.Partial("_Seller")
                         @Html.Partial("_AddToStore")
                     </div>

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Egharpay.Business.Models;
+using Egharpay.Entity;
+using Mobile = Egharpay.Business.Models.Mobile;
 
 
 namespace Egharpay.Models
@@ -16,5 +17,6 @@ namespace Egharpay.Models
         public int SellerId { get; set; }
         public SelectList Brands { get; set; }
         public string SearchKeyword { get; set; }
+        public Address Address { get; set; }
     }
 }

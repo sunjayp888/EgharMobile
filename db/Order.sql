@@ -1,7 +1,6 @@
 USE [mumbile]
 GO
 
-/****** Object:  Table [dbo].[Order]    Script Date: 04-02-2018 11:21:05 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,12 +12,12 @@ GO
 
 CREATE TABLE [dbo].[Order](
 	[OrderId] [int] IDENTITY(1,1) NOT NULL,
-	[OrderGuid] [uniqueidentifier] NULL,
+	[OrderGuid] [uniqueidentifier] NOT NULL,
 	[PersonnelId] [int] NOT NULL,
-	[CreatedDateTime] [datetime] NOT NULL,
+	[CreatedDateTime] [date] NOT NULL,
 	[OrderStateId] [int] NOT NULL,
 	[MobileId] [int] NOT NULL,
-	[PersonnelIP] [varchar](max) NULL,
+	[PersonnelIP] [nvarchar](max) NULL,
 	[ShippingAddressId] [int] NULL,
  CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 (
@@ -27,6 +26,7 @@ CREATE TABLE [dbo].[Order](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
+
 
 SET ANSI_PADDING OFF
 GO

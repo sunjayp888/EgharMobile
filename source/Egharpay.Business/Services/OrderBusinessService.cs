@@ -40,7 +40,7 @@ namespace Egharpay.Business.Services
             _mapper = mapper;
         }
 
-        public async Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, List<int> sellerIds)
+        public async Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, List<int> sellerIds, int shippingAddressId)
         {
             ValidationResult<Order> validationResult = new ValidationResult<Order>();
             try
@@ -52,7 +52,7 @@ namespace Egharpay.Business.Services
                     OrderGuid = Guid.NewGuid(),
                     OrderStateId = 1,
                     PersonnelId = personnelId,
-                    ShippingAddressId = 1
+                    ShippingAddressId = shippingAddressId
                 };
                 var orderEntity = await _dataService.CreateGetAsync(order);
                 var orderSellerList = sellerIds.Select(seller => new OrderSeller()
@@ -68,6 +68,7 @@ namespace Egharpay.Business.Services
                 await SendOrderEmailToCustomer(orderEntity, customerPersonnel, mobileData);
                 await SendOrderEmailToSellers(orderEntity, sellers, customerPersonnel, mobileData);
                 //SendSms(order, sellerList, personnel, mobile);
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {

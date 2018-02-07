@@ -17,9 +17,11 @@
             searchSeller: searchSeller,
             retrieveGalleryImages: retrieveGalleryImages,
             retrieveYoutubeVideos: retrieveYoutubeVideos,
-            requestMobile: requestMobile,
+            requestOrder: requestOrder,
             retrieveMobilesInStore: retrieveMobilesInStore,
             retrieveMobilesLatestInStore: retrieveMobilesLatestInStore,
+            retrieveGeoCoordinates: retrieveGeoCoordinates,
+            retrieveSellersFromGeoLocation: retrieveSellersFromGeoLocation
         };
 
         return service;
@@ -59,11 +61,12 @@
         }
 
 
-        function requestMobile(mobileId, sellerIds) {
-            var url = "/Order/RequestMobile",
+        function requestOrder(mobileId, sellerIds,shippingAddressId) {
+            var url = "/Order/RequestOrder",
                 data = {
                     mobileId: mobileId,
-                    sellerIds: sellerIds
+                    sellerIds: sellerIds,
+                    shippingAddressId: shippingAddressId
                 };
             return $http.post(url, data);
         }
@@ -107,6 +110,23 @@
             var url = "/Mobile/RetrieveMobilesLatestInStore",
                 data = {
                     paging: Paging,
+                    orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function retrieveGeoCoordinates() {
+            var url = "/Mobile/RetrieveCurrentGeoCoordinates";
+            return $http.post(url);
+        }
+
+        function retrieveSellersFromGeoLocation(pincode, latitude, longitude, Paging, OrderBy) {
+            var url = "/Mobile/RetrieveSellersByGeoLocation",
+                data = {
+                    pincode: pincode,
+                    latitude: latitude,
+                    longitude: longitude,
+                    paging:Paging,
                     orderBy: new Array(OrderBy)
                 };
             return $http.post(url, data);
