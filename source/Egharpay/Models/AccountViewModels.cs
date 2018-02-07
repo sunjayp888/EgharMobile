@@ -94,12 +94,14 @@ namespace Egharpay.Models
         [EmailAddress]
         [Display(Name = "Email")]
         [StringLength(256, ErrorMessage = "The Email field is required.")]
+        [Remote("PersonnelAlreadyExists", "Validation", AdditionalFields = "MobileNumber,Email", ErrorMessage = "User already exists.")]
         public string Email { get; set; }
 
         [Required]
         [MaxLength(10)]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Enter valid number.")]
         [Display(Name = "Mobile Number")]
+        [Remote("PersonnelAlreadyExists", "Validation", AdditionalFields = "MobileNumber,Email", ErrorMessage = "User already exists.")]
         public string MobileNumber { get; set; }
 
         [Required]

@@ -96,26 +96,26 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" ng-if="model.isOtpCreated">
+                            <div class="form-group" ng-if="model.isOtpCreated==true">
                                 <div>
                                     @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", @ng_model = "model.OTP" })
                                     @Html.ValidationMessageFor(m => m.OTP, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="form-group" ng-if="model.isOtpCreated">
+                            <div class="form-group" ng-if="model.isOtpCreated==true">
                                 <div>
                                     @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="form-group" ng-if="model.isOtpCreated">
+                            <div class="form-group" ng-if="model.isOtpCreated==true">
                                 <div>
                                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "ConfirmPassword" })
                                     @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
-                            <div class="form-group" ng-if="model.isSeller && model.isOtpCreated">
+                            <div class="form-group" ng-if="model.isSeller==true && model.isOtpCreated==true">
                                 <div>
                                     @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @placeholder = "Pincode", ng_model = "model.pinCode" })
                                     @Html.ValidationMessageFor(m => m.Pincode, "", new { @class = "text-danger" })
@@ -138,8 +138,8 @@
                             <p class="text-muted text-right">
                                 <small></small>
                             </p>
-                            <button ng-if="!model.isOtpCreated" type="button" ng-click="model.createLoginOtp(model.mobileNumber)" class="btn btn-primary block full-width m-b">Next</button>
-                            <button ng-if="model.isOtpCreated" type="submit" class="btn btn-primary block full-width m-b">Register</button>
+                            <button ng-if="!(model.isOtpCreated==true)" type="button" ng-click="model.createLoginOtp(model.mobileNumber)" class="btn btn-primary block full-width m-b">Next</button>
+                            <button ng-if="model.isOtpCreated==true" type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
                                 <p class="text-muted text-center">
                                     <small>Already have an account?</small>

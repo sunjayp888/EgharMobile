@@ -146,8 +146,8 @@
         }
 
         function onSellerChecked() {
-          
-        } 
+
+        }
     }
 
 })();

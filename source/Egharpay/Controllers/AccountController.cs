@@ -20,6 +20,7 @@ using Egharpay.Models.Authorization;
 using Egharpay.Models.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Egharpay.Business.Enum;
+using Egharpay.Extensions;
 
 namespace Egharpay.Controllers
 {
@@ -87,6 +88,11 @@ namespace Egharpay.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
+                if (model.UserName.IsValidEmail())
+                {
+                    var userByEmail = await UserManager.FindByEmailAsync(model.UserName);
+                    user = await UserManager.FindAsync(userByEmail.UserName, model.Password);
+                }
                 if (user != null)
                 {
                     //  if (user.EmailConfirmed)
@@ -226,25 +232,26 @@ namespace Egharpay.Controllers
                     ModelState.AddModelError("", otpValidationResult.Message);
                     return View(model);
                 }
-                var personnelResult = await CreatePersonnel(model);
-                if (!personnelResult.Succeeded)
-                {
-                    model.HasError = true;
-                    foreach (var error in personnelResult.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                    return View(model);
-                }
-
-                var user = new ApplicationUser { UserName = model.MobileNumber, Email = model.Email, PersonnelId = personnelResult.Entity.PersonnelId };
+                var user = new ApplicationUser { UserName = model.MobileNumber, Email = model.Email };
                 var role = model.IsSeller ? Role.Seller.ToString() : Role.Personnel.ToString();
                 var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == role).Id;
                 user.Roles.Add(new IdentityUserRole { UserId = user.Id, RoleId = roleId });
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var personnelResult = await CreatePersonnel(model);
+                    if (!personnelResult.Succeeded)
+                    {
+                        model.HasError = true;
+                        foreach (var error in personnelResult.Errors)
+                        {
+                            ModelState.AddModelError("", error);
+                        }
+                        return View(model);
+                    }
                     model.PersonnelId = personnelResult.Entity.PersonnelId;
+                    user.PersonnelId = personnelResult.Entity.PersonnelId;
+                    await UserManager.UpdateAsync(user);
                     if (model.IsSeller)
                         CreateSeller(model);
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

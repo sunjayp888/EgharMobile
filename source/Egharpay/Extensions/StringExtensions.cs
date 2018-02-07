@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -51,6 +52,16 @@ namespace Egharpay.Extensions
         public static bool IsValidMobileNumber(this string @mobileNumber)
         {
             return IsNumeric(@mobileNumber) && @mobileNumber.Length == 0;
+        }
+
+        public static bool IsValidEmail(this string email)
+        {
+            return new EmailAddressAttribute().IsValid(email);
+        }
+
+        public static bool IsValidUserName(this string userName)
+        {
+            return new EmailAddressAttribute().IsValid(userName) || (IsNumeric(userName) && userName.Length == 10);
         }
     }
 }

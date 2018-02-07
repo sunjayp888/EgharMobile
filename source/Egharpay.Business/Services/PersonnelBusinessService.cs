@@ -133,7 +133,7 @@ namespace Egharpay.Business.Services
             if (!string.IsNullOrEmpty(email))
                 personnels = await _dataService.RetrieveAsync<Personnel>(a => a.Email.ToLower() == email.ToLower());
             var alreadyExists = personnels.Any();
-            return new ValidationResult<Personnel>
+            return new ValidationResult<Personnel>  
             {
                 Succeeded = !alreadyExists,
                 Errors = alreadyExists ? new List<string> { "User already exists." } : null,
