@@ -27,6 +27,7 @@
         vm.mobileId;
         vm.sellerId;
         vm.assignMobileToSeller = assignMobileToSeller;
+        vm.isMobileAdded;
 
         function initialise(mobileId, sellerId) {
             //vm.orderBy.property = "Name";
@@ -44,7 +45,7 @@
                     vm.discountPrice,
                     vm.isEmiAvailable)
                 .then(function (response) {
-                    alert(response.data);
+                    vm.isMobileAdded = response.data.Succeeded;
                 });
         }
 

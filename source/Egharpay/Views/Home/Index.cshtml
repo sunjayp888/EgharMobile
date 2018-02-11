@@ -1,22 +1,38 @@
 ﻿@model Egharpay.Models.HomeViewModel
 @using Egharpay.Extensions
 @{
-    var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
-    Layout = layout;
+    if (User.IsSuperUserOrAdmin())
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (User.IsSeller() && Model.IsSellerApproved)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (User.IsSeller() && !Model.IsSellerApproved)
+    {
+        Layout = "~/Views/Shared/_LayoutUnApprovedSeller.cshtml";
+    }
+    if (User.IsPersonnel() || !User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout_2.cshtml";
+    }
     ViewBag.Title = "Home";
 }
 @{
-    Html.RenderPartial(User.IsSuperUserOrAdminOrSeller() ? "_Admin" : "_User", Model);
+
+    if (User.IsSuperUserOrAdmin())
+    {
+        Html.RenderPartial("_Admin", Model);
+    }
+
+    if (User.IsSeller())
+    {
+        Html.RenderPartial("_SellerDashboard", Model);
+    }
+
+    else
+    {
+        Html.RenderPartial("_User", Model);
+    }
 }
-
-@section scripts {
-    <script>
-        $('#submit').click(function () {
-            $('#txtArea').val('');
-        });
-
-    </script>
-}
-
-
-

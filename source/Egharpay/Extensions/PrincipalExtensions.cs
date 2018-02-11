@@ -31,6 +31,11 @@ namespace Egharpay.Extensions
             return principal.IsInRole(nameof(Role.Admin));
         }
 
+        public static bool IsSeller(this IPrincipal principal)
+        {
+            return principal.IsInRole(nameof(Role.Seller));
+        }
+
         public static bool IsSuperUserOrAdmin(this IPrincipal principal)
         {
             var roles = new string[] { Role.SuperUser.ToString(), Role.Admin.ToString() };

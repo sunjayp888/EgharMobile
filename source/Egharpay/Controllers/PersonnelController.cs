@@ -22,6 +22,7 @@ using Egharpay.Models.Identity;
 using Microsoft.Owin.Security.Authorization;
 using DocumentCategory = Egharpay.Business.Enum.DocumentCategory;
 using Role = Egharpay.Enums.Role;
+using Egharpay.Business.Enum;
 
 namespace Egharpay.Controllers
 {
@@ -31,16 +32,18 @@ namespace Egharpay.Controllers
         private readonly IPersonnelBusinessService _personnelBusinessService;
         private readonly IPersonnelDocumentBusinessService _personnelDocumentBusinessService;
         private readonly IDocumentsBusinessService _documentsBusinessService;
+        private readonly ISellerBusinessService _sellerBusinessService;
 
         // protected IAuthorizationService AuthorizationService { get; private set; }
         const string UserNotExist = "User does not exist.";
 
-        public PersonnelController(IPersonnelBusinessService personnelBusinessService, IPersonnelDocumentBusinessService personnelDocumentBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService)
+        public PersonnelController(IPersonnelBusinessService personnelBusinessService, IPersonnelDocumentBusinessService personnelDocumentBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService, ISellerBusinessService sellerBusinessService)
             : base(authorizationService)
         {
             _personnelBusinessService = personnelBusinessService;
             _personnelDocumentBusinessService = personnelDocumentBusinessService;
             _documentsBusinessService = documentsBusinessService;
+            _sellerBusinessService = sellerBusinessService;
         }
 
         // GET: Personnel
@@ -58,21 +61,25 @@ namespace Egharpay.Controllers
                 return HttpForbidden();
 
             if (id == 0)
-            {
                 return RedirectToAction("Login", "Account");
-            }
+
             var personnel = await _personnelBusinessService.RetrievePersonnel(id);
             if (personnel == null)
-            {
                 return HttpNotFound();
-            }
+
             var viewModel = new PersonnelProfileViewModel
             {
                 Personnel = personnel.Entity,
-                PersonnelId = personnel.Entity.PersonnelId
+                PersonnelId = personnel.Entity.PersonnelId,
                 //Permissions = EgharpayBusinessService.RetrievePersonnelPermissions(isAdmin, UserOrganisationId, UserPersonnelId, id),
                 //PhotoBytes = EgharpayBusinessService.RetrievePhoto(organisationId, id)
             };
+            if (User.IsSeller())
+            {
+                var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(personnel.Entity.PersonnelId);
+                viewModel.IsSellerApproved = seller.ApprovalStateId == (int)ApprovalState.Approved;
+            }
+
             return View(viewModel);
         }
 
@@ -166,7 +173,7 @@ namespace Egharpay.Controllers
         //    return View(viewModel);
         //}
 
-        [Authorize(Roles = "Admin,Personnel")]
+        [Authorize(Roles = "Admin,Personnel,Seller")]
         public async Task<ActionResult> Edit()
         {
             if (!User.Identity.IsAuthenticated)

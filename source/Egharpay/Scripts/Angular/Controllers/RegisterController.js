@@ -11,7 +11,8 @@
         /* jshint validthis:true */
         var vm = this;
         var country, state, city, pinCode, map, latitude, longitude, count, pin;
-
+        vm.latitude;
+        vm.longitude;
         vm.addPincode = addPincode;
         vm.modalInstance = null;
         vm.currentAddress;
@@ -73,8 +74,8 @@
         function geoLocation() {
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    latitude = position.coords.latitude;
-                    longitude = position.coords.longitude;
+                    vm.latitude = position.coords.latitude;
+                    vm.longitude = position.coords.longitude;
                     getLocationDetails();
                     //openPincodeModal(location);
                 });
@@ -100,7 +101,7 @@
         }
 
         function getLocationDetails() {
-            var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true";
+            var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + vm.latitude + "," + vm.longitude + "&sensor=true";
             var xhr = createCORSRequest('POST', url);
             if (!xhr) {
                 vm.Address = { Error: "CORS not supported" }

@@ -58,8 +58,7 @@
 
         function sellerApproveState(sellerId) {
             return SellerService.sellerApproveState(sellerId).then(function (response) {
-                vm.sellers = response.data;
-                return vm.sellers;
+                retrieveSellers();
             });
 
             function pageChanged() {

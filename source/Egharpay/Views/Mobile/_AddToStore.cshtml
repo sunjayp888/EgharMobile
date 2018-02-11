@@ -13,6 +13,12 @@
                         </div>
                     </div>
                     <div class="ibox-content">
+                        <div class="row xs-mt-8" ng-if="model.isMobileAdded">
+                            <div class="alert alert-success alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                Mobile added in your store.
+                            </div>
+                        </div>
                         <form class="form-horizontal ng-pristine ng-valid">
                             <div class="form-group">
                                 <label class="col-lg-4 control-label">Price</label>

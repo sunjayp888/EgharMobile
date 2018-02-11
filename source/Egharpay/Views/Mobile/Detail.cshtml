@@ -123,7 +123,9 @@
                         <li class=""><button ng-click="model.sellerMobileOrder()" class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to buy</strong></button></li>
                         <li class="" id="compareButton"><button class="btn btn-compare" ng-click="model.compareMobile('@Model.BrandId','@Model.MobileId')"><strong> Compare</strong></button></li>
                         @*<li class=""><button class="btn btn-compare" data-toggle="modal" data-target="#compareModal"><strong> Compare</strong></button></li>*@
+                        @if (User.IsSuperUserOrAdminOrSeller()) {
                         <li class="" id="addToStoreButton"><button class="btn btn-compare" data-toggle="tab" href="#tab-7"><strong> Add to store</strong></button></li>
+                        }
                     </ul>
                     <div class="tab-content">
                         @Html.Partial("_Detail")

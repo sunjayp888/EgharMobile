@@ -1,6 +1,22 @@
-﻿
+﻿@using Egharpay.Extensions
 @model Egharpay.Models.PersonnelProfileViewModel
 @{
+    if (User.IsSuperUserOrAdmin())
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (User.IsSeller() && Model.IsSellerApproved)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (User.IsSeller() && !Model.IsSellerApproved)
+    {
+        Layout = "~/Views/Shared/_LayoutUnApprovedSeller.cshtml";
+    }
+    if (User.IsPersonnel() || !User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout_2.cshtml";
+    }
     ViewBag.Title = "Personnel Profile";
 }
 <div class="row animated fadeInRight" ng-controller="PersonnelProfileController as model" ng-init="model.initialise(@Model.PersonnelId)">
@@ -13,7 +29,7 @@
                 <img alt="image" id="ProfilePicture" class="img-responsive">
             </div>
             <div class="ibox-content profile-content">
-                <h4><strong>@Model.Personnel.FullName.ToUpper()</strong></h4>
+                <h4><strong>@Model.Personnel.FullName</strong></h4>
                 <p><i class="fa fa-map-marker"></i> @Model.Personnel.FullAddress</p>
                 <h5>
                     About me

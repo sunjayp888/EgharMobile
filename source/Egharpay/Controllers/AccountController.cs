@@ -88,15 +88,26 @@ namespace Egharpay.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
+
                 if (model.UserName.IsValidEmail())
                 {
                     var userByEmail = await UserManager.FindByEmailAsync(model.UserName);
+                    if (userByEmail == null)
+                    {
+                        ModelState.AddModelError("", "Invalid username or password.");
+                        return View(model);
+                    }
+                    model.UserName = userByEmail.UserName;
                     user = await UserManager.FindAsync(userByEmail.UserName, model.Password);
+
                 }
                 if (user != null)
                 {
-                    //  if (user.EmailConfirmed)
-                    //  {
+                    if (User.IsSeller() && user.EmailConfirmed)
+                    {
+                        ModelState.AddModelError("", "Confirm Email Address.");
+                        return View(model);
+                    }
                     var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
                     switch (result)
                     {
@@ -111,18 +122,15 @@ namespace Egharpay.Controllers
                             ModelState.AddModelError("", "Invalid login attempt.");
                             return View(model);
                     }
-                    // }
-                    // ModelState.AddModelError("", "Confirm Email Address.");
+
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
+                ModelState.AddModelError("", "Invalid username or password.");
             }
             return View(model);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
         }
+
 
         //
         // GET: /Account/VerifyCode
@@ -300,8 +308,8 @@ namespace Egharpay.Controllers
                 Owner = string.Format("{0} {1}", model.FirstName, model.LastName),
                 Email = model.Email,
                 Pincode = model.Pincode,
-                Latitude = coordinates.IsUnknown != true ? coordinates.Latitude : 0.0,
-                Longitude = coordinates.IsUnknown != true ? coordinates.Longitude : 0.0,
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
                 ApprovalStateId = (int)ApprovalState.Pending
             };
             SellerBusinessService.CreateSeller(seller);

@@ -198,7 +198,7 @@ namespace Egharpay.Controllers
             return this.JsonNet(mobileList);
         }
 
-        [Route("Mobile/retrieveMobileByMobileIds")]
+        [Route("Mobile/RetrieveMobileByMobileIds")]
         public async Task<ActionResult> RetrieveMobileByMobileIds(string[] mobileIds)
         {
             var mobileList = new List<Mobile>();

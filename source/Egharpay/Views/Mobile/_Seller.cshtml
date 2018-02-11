@@ -32,7 +32,7 @@
                                     Order placed successfully. Seller will contact you soon for best deal and product will be delivered on prefered location.
                                 </div>
                             </div>
-                            <div class="row xs-mt-8">
+                            <div class="row xs-mt-8" ng-if="model.sellers.length > 0">
                                 <div class="table-responsive">
                                     <table class="table table-striped dataTable">
                                         <thead>
@@ -51,12 +51,19 @@
                                             <td><span ng-bind="seller.SellerAddress"></span></td>
                                             <td><span ng-bind="seller.SellerDistance"></span></td>
                                             <td><h3 ng-bind="seller.DiscountPrice"></h3></td>
-                                            <td><button class="btn btn-danger" data-toggle="modal"  ng-click="model.requestOrder(@Model.MobileId,seller.SellerId,'@User.Identity.IsAuthenticated')"> Request Deal</button></td>
+                                            <td><button class="btn btn-danger" data-toggle="modal" ng-click="model.requestOrder(@Model.MobileId,seller.SellerId,'@User.Identity.IsAuthenticated')"> Request Deal</button></td>
                                         </tr>
                                     </table>
                                     @*<button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestOrder(@Model.MobileId)" data-toggle="modal" data-target="#myModal5" ng-disabled="model.isAssignButtonEnable">Request Seller</button>*@
                                 </div>
                                 @Html.Partial("Pagination/_pagination")
+                            </div>
+
+                            <div class="row xs-mt-8" ng-if="model.sellers.length<=0">
+                                <div class="alert alert-success alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    No seller available. Change pincode and search again.
+                                </div>
                             </div>
                         </div>
                     </div>

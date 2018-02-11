@@ -44,7 +44,7 @@ namespace Egharpay.Business.Services
 
         private double DegreeToRadian(double deg)
         {
-            return deg * (Math.PI / 180);
+            return deg * (Math.PI / 180.00);
         }
     }
 }
