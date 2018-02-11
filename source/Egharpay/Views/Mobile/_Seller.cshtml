@@ -51,7 +51,7 @@
                                             <td><span ng-bind="seller.SellerAddress"></span></td>
                                             <td><span ng-bind="seller.SellerDistance"></span></td>
                                             <td><h3 ng-bind="seller.DiscountPrice"></h3></td>
-                                            <td><button class="btn btn-danger" data-toggle="modal" ng-click="model.requestOrder(@Model.MobileId,seller.SellerId,'@User.Identity.IsAuthenticated')"> Request Deal</button></td>
+                                            <td><button class="btn btn-danger" data-toggle="modal" ng-click="model.requestOrder(@Model.MobileId,seller.SellerId,'@User.Identity.IsAuthenticated==true')"> Request Deal</button></td>
                                         </tr>
                                     </table>
                                     @*<button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestOrder(@Model.MobileId)" data-toggle="modal" data-target="#myModal5" ng-disabled="model.isAssignButtonEnable">Request Seller</button>*@
