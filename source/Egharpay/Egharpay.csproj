@@ -2042,6 +2042,9 @@
     <Content Include="Views\Shared\_OutsideLayout.cshtml" />
     <Content Include="Views\Order\ViewOrder.cshtml" />
     <Content Include="Views\Mobile\_Address.cshtml" />
+    <Content Include="Views\Shared\_SellerDashboard.cshtml" />
+    <Content Include="Views\Shared\_NavigationUnApprovedSeller.cshtml" />
+    <Content Include="Views\Shared\_LayoutUnApprovedSeller.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -2084,7 +2087,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59003</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58897/</IISUrl>
+          <IISUrl>http://localhost:58894/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
