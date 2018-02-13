@@ -139,7 +139,7 @@
             vm.showMessage = false;
             vm.errorMessages = [];
             if (!vm.mobileNumber) vm.errorMessages.push('Enter mobile number.');
-            if (!vm.email && vm.isSeller) vm.errorMessages.push('Enter email.');
+            if (!vm.email && vm.isSeller==true) vm.errorMessages.push('Enter email.');
             if (vm.errorMessages.length > 0) return;
 
             return OTPService.createLoginOtp(vm.mobileNumber).then(function (response) {
