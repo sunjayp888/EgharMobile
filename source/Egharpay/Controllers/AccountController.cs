@@ -103,7 +103,8 @@ namespace Egharpay.Controllers
                 }
                 if (user != null)
                 {
-                    if (User.IsSeller() && user.EmailConfirmed)
+                    var isSeller = user.Roles.FirstOrDefault(e => e.RoleId == ((int)Role.Seller).ToString()) != null;
+                    if (isSeller && !user.EmailConfirmed)
                     {
                         ModelState.AddModelError("", "Confirm Email Address.");
                         return View(model);
@@ -233,6 +234,7 @@ namespace Egharpay.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.OtpCreated = true;
                 var otpValidationResult = await _otpBusinessService.IsValidOtp(Convert.ToInt32(model.OTP), Convert.ToDecimal(model.MobileNumber), (int)OtpReason.Login, DateTime.UtcNow);
                 if (!otpValidationResult.Succeeded)
                 {
@@ -261,15 +263,18 @@ namespace Egharpay.Controllers
                     user.PersonnelId = personnelResult.Entity.PersonnelId;
                     await UserManager.UpdateAsync(user);
                     if (model.IsSeller)
+                    {
                         CreateSeller(model);
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await SendConfirmationMail(personnelResult.Entity, callbackUrl);
+                        return RedirectToAction("Confirm", "Account", new { email = user.Email });
+                    }
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //  await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    await SendConfirmationMail(personnelResult.Entity, callbackUrl);
-                    return RedirectToAction("Confirm", "Account", new { email = user.Email });
+                    return RedirectToAction("Login", "Account");
                 }
                 model.HasError = true;
                 AddErrors(result);

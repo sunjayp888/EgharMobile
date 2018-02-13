@@ -39,7 +39,7 @@
             vm.mobileNumber = mobileNumber;
             vm.email = email;
             vm.isSeller = isSeller;
-            geoLocation();
+            //geoLocation();
             vm.isOtpCreated = hasError;
         }
 
