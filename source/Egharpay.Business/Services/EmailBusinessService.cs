@@ -14,17 +14,18 @@ namespace Egharpay.Business.Services
 {
     public class EmailBusinessService : IEmailBusinessService
     {
-        public void SendEmail(EmailData data)
+        public async Task<bool> SendEmail(EmailData data)
         {
             UseOverrideEmailDataIfSet(data);
             try
             {
                 var msg = CreateMessage(data);
-                SendEmail(msg);
+                await SendEmail(msg);
+                return true;
             }
             catch (Exception Ex)
             {
-                // ignored
+                return false;
             }
         }
 
@@ -42,7 +43,7 @@ namespace Egharpay.Business.Services
             }
         }
 
-        public void SendEmail(EmailData data, Dictionary<string, byte[]> attachments)
+        public async Task<bool> SendEmail(EmailData data, Dictionary<string, byte[]> attachments)
         {
             try
             {
@@ -51,11 +52,12 @@ namespace Egharpay.Business.Services
                 {
                     msg.Attachments.Add(new Attachment(new MemoryStream(attachment.Value), attachment.Key));
                 }
-                SendEmail(msg);
+                await SendEmail(msg);
+                return true;
             }
             catch (Exception Ex)
             {
-                // ignored
+                return false;
             }
         }
 
@@ -77,7 +79,7 @@ namespace Egharpay.Business.Services
             return mail;
         }
 
-        private void SendEmail(MailMessage msg)
+        private async Task SendEmail(MailMessage msg)
         {
             var host = ConfigurationManager.AppSettings["SMTPHost"];
             var port = int.Parse(ConfigurationManager.AppSettings["SMTPPort"]);
@@ -87,7 +89,7 @@ namespace Egharpay.Business.Services
                 var pwd = ConfigurationManager.AppSettings["SMTPLoginPwd"];
                 client.Credentials = new NetworkCredential(id, pwd);
                 client.EnableSsl = true;
-                client.Send(msg);
+                await client.SendMailAsync(msg);
             }
         }
 

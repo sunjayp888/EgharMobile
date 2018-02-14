@@ -21,45 +21,62 @@ namespace Egharpay.Business.Services
         private readonly ISellerDataService _dataService;
         private readonly IEmailBusinessService _emailBusinessService;
         private readonly IGoogleBusinessService _googleBusinessService;
+        private readonly IPersonnelEmailBusinessService _personnelEmailBusinessService;
 
-        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService, IGoogleBusinessService googleBusinessService)
+        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService, IGoogleBusinessService googleBusinessService,IPersonnelEmailBusinessService personnelEmailBusinessService)
         {
             _dataService = dataService;
             _emailBusinessService = emailBusinessService;
             _googleBusinessService = googleBusinessService;
+            _personnelEmailBusinessService = personnelEmailBusinessService;
         }
 
-        public async Task<ValidationResult<Seller>> CreateSeller(Seller seller)
+        public async Task<ValidationResult<Seller>> CreateSeller(Seller seller, string callBackUrl = null)
         {
-            ValidationResult<Seller> validationResult = new ValidationResult<Seller>();
+            var validationResult = new ValidationResult<Seller>();
             try
             {
                 await _dataService.CreateAsync(seller);
                 //Send Email
-                SendSellerEmail(seller);
-                validationResult.Entity = seller;
+                if (!string.IsNullOrEmpty(callBackUrl))
+                {
+                    var result = await SendSellerConfirmationEmail(seller, callBackUrl);
+                    validationResult.Entity = seller;
+                    validationResult.Succeeded = result.Succeeded;
+                    validationResult.Exception = result.Exception;
+                    return validationResult;
+                }
                 validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
                 validationResult.Succeeded = false;
-                validationResult.Errors = new List<string> { ex.InnerMessage() };
-                validationResult.Exception = ex;
+                validationResult.Message = "Error while creating seller.";
             }
             return validationResult;
         }
 
-        private void SendSellerEmail(Seller seller)
+        private async Task<ValidationResult> SendSellerConfirmationEmail(Seller seller, string callbackUrl)
         {
-            var emailData = new EmailData()
+            var validationResult = new ValidationResult();
+            var personnelConfirmedEmail = new PersonnelCreatedEmail()
             {
-                BCCAddressList = new List<string> { "sunjayp88@gmail.com" },
-                Body = String.Format("Dear {0} , Thanks For Registering on Mumbile.Com", seller.Owner),
-                Subject = "Welcome To Mumbile.Com",
-                IsHtml = true,
-                ToAddressList = new List<string> { seller.Email.ToLower() }
+                CallBackUrl = callbackUrl,
+                Subject = "Confirm your account",
+                TemplateName = "PersonnelCreatedEmail",
+                ToAddress = new List<string>() { seller.Email }
             };
-            _emailBusinessService.SendEmail(emailData);
+            try
+            {
+                await _personnelEmailBusinessService.SendConfirmationMail(personnelConfirmedEmail);
+                validationResult.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Exception = ex;
+            }
+            return validationResult;
         }
 
         public async Task<Seller> RetrieveSeller(int sellerId)

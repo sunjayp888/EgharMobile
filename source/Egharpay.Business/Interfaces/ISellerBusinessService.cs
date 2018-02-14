@@ -12,7 +12,7 @@ namespace Egharpay.Business.Interfaces
     public interface ISellerBusinessService
     {
         //Create
-        Task<ValidationResult<Seller>> CreateSeller(Seller seller);
+        Task<ValidationResult<Seller>> CreateSeller(Seller seller, string callBackUrl=null);
 
         //Retrieve
         Task<Seller> RetrieveSeller(int sellerId);

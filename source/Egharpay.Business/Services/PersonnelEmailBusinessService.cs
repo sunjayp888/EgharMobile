@@ -28,14 +28,20 @@ namespace Egharpay.Business.Services
             var body = _templateBusinessService.CreateText(templateJson, personnelCreatedEmail.TemplateName);
             if (body == null)
                 return;
-
-            _emailBusinessService.SendEmail(new EmailData
+            try
             {
-                Subject = personnelCreatedEmail.Subject, //ToDo
-                ToAddressList = personnelCreatedEmail.ToAddress,
-                IsHtml = true,
-                Body = body
-            });
+                await _emailBusinessService.SendEmail(new EmailData
+                {
+                    Subject = personnelCreatedEmail.Subject, //ToDo
+                    ToAddressList = personnelCreatedEmail.ToAddress,
+                    IsHtml = true,
+                    Body = body
+                });
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
         }
 
         public async Task SendOrderCreatedMail(OrderCreatedEmail orderCreatedEmail)
@@ -45,7 +51,7 @@ namespace Egharpay.Business.Services
             if (body == null)
                 return;
 
-            _emailBusinessService.SendEmail(new EmailData
+            await _emailBusinessService.SendEmail(new EmailData
             {
                 Subject = orderCreatedEmail.Subject, //ToDo
                 ToAddressList = orderCreatedEmail.ToAddress,
@@ -61,7 +67,7 @@ namespace Egharpay.Business.Services
             if (body == null)
                 return;
 
-            _emailBusinessService.SendEmail(new EmailData
+            await _emailBusinessService.SendEmail(new EmailData
             {
                 Subject = orderCreatedEmail.Subject, //ToDo
                 ToAddressList = orderCreatedEmail.ToAddress,
@@ -77,7 +83,7 @@ namespace Egharpay.Business.Services
             if (body == null)
                 return;
 
-            _emailBusinessService.SendEmail(new EmailData
+            await _emailBusinessService.SendEmail(new EmailData
             {
                 Subject = forgotEmail.Subject, //ToDo
                 ToAddressList = forgotEmail.ToAddress,
