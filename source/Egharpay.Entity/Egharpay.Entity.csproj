@@ -96,6 +96,7 @@
     <Compile Include="AspNetUsersAlertSchedule.cs" />
     <Compile Include="Brand.cs" />
     <Compile Include="BrandGrid.cs" />
+    <Compile Include="CouponCode.cs" />
     <Compile Include="DocumentCategory.cs" />
     <Compile Include="DocumentDetail.cs" />
     <Compile Include="Dto\Permissions.cs" />
@@ -113,7 +114,9 @@
     <Compile Include="Mobile.cs" />
     <Compile Include="MobileComment.cs" />
     <Compile Include="MobileCommentGrid.cs" />
+    <Compile Include="MobileCoupon.cs" />
     <Compile Include="MobileGrid.cs" />
+    <Compile Include="MobileRepair.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderSeller.cs" />

@@ -53,6 +53,9 @@ namespace Egharpay.Data
         public virtual DbSet<OrderSeller> OrderSellers { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<AspNetUserMobileOtp> AspNetUserMobileOtps { get; set; }
+        public virtual DbSet<CouponCode> CouponCodes { get; set; }
+        public virtual DbSet<MobileCoupon> MobileCoupons { get; set; }
+        public virtual DbSet<MobileRepair> MobileRepairs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

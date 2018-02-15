@@ -300,6 +300,7 @@
     <Compile Include="Controllers\MiscellaneousController.cs" />
     <Compile Include="Controllers\MobileCommentController.cs" />
     <Compile Include="Controllers\MobileController.cs" />
+    <Compile Include="Controllers\MobileRepairController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OTPController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
@@ -348,6 +349,7 @@
     <Compile Include="Models\MaintenanceViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MobileCommentViewModel.cs" />
+    <Compile Include="Models\MobileRepairViewModel.cs" />
     <Compile Include="Models\MobileViewModel.cs" />
     <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\PersonnelProfileViewModel.cs" />
@@ -2045,6 +2047,7 @@
     <Content Include="Views\Shared\_SellerDashboard.cshtml" />
     <Content Include="Views\Shared\_NavigationUnApprovedSeller.cshtml" />
     <Content Include="Views\Shared\_LayoutUnApprovedSeller.cshtml" />
+    <Content Include="Views\MobileRepair\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -2087,7 +2090,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59003</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58894/</IISUrl>
+          <IISUrl>http://localhost:58895/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
