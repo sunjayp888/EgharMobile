@@ -63,7 +63,7 @@ namespace Egharpay.Business.Services
                 MobileNumber = mobileNumber,
                 OTP = GenerateOtpHelper.GenerateOtp(),
                 OTPCreatedDateTime = DateTime.UtcNow,
-                OTPValidDateTime = DateTime.UtcNow.AddMinutes(2),
+                OTPValidDateTime = DateTime.UtcNow.AddMinutes(3),
                 OTPReasonId = otpReasonId,
                 UserId = aspNetUserId,
             };

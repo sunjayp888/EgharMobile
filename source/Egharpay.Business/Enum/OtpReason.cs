@@ -9,6 +9,7 @@ namespace Egharpay.Business.Enum
     public enum OtpReason
     {
         Login = 1,
+        MobileRepair,
         Order
     }
 }

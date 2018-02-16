@@ -1396,6 +1396,7 @@
     <Content Include="Scripts\Angular\Controllers\SellerMobileController.js" />
     <Content Include="Scripts\Angular\Controllers\TrendCommentController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileGalleryController.js" />
+    <Content Include="Scripts\Angular\Controllers\MobileRepairController.js" />
     <Content Include="Scripts\Angular\Controllers\YouTubeController.js" />
     <Content Include="Scripts\Angular\Controllers\MobileController.js" />
     <Content Include="Scripts\Angular\Controllers\PersonnelController.js" />
@@ -1432,6 +1433,7 @@
     <Content Include="Scripts\Angular\Services\TrendCommentService.js" />
     <Content Include="Scripts\Angular\Services\TrendService.js" />
     <Content Include="Scripts\Angular\Services\OTPService.js" />
+    <Content Include="Scripts\Angular\Services\MobileRepairService.js" />
     <Content Include="Scripts\Angular\Services\YouTubeService.js" />
     <Content Include="Scripts\Angular\Services\MobileService.js" />
     <Content Include="Scripts\Angular\Services\OrderService.js" />

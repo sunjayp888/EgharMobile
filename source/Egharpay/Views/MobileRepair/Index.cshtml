@@ -7,7 +7,7 @@
 
 }
 
-<div class="wrapper wrapper-content animated fadeInRight">
+<div ng-cloak ng-controller="MobileRepairController as model" class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
@@ -41,24 +41,32 @@
                                 </div>
                             </p>
                         </div>
-                        <div class="col-sm-6 b-r">
+                        <div class="col-lg-4">
+                            <div class="alert alert-danger alert-dismissable" ng-if="model.errorMessages.length>0">
+                                <ul>
+                                    <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                                </ul>
+                            </div>
                             <p>Enter your details.</p>
                             @using (Html.BeginForm(new { @class = "ng-pristine ng-valid" }))
                             {
                                 <div class="form-group">
-                                    @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", @placeholder = "Mobile Number" })
+                                    @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", @placeholder = "Mobile Number", @ng_model = "model.mobileNumber" })
+                                    @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
                                 </div>
-                                <div class="form-group" ng-if="model.isOtpCreated">
-                                    @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP" })
+                                <div class="form-group" ng-if="model.isOtpCreated==true">
+                                    @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", @ng_model = "model.OTP" })
+                                    @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
                                 </div>
-                                <div class="form-group" ng-if="model.isOtpCreated">
-                                    @Html.TextBoxFor(m => m.CouponCode, new { @class = "form-control", @placeholder = "Coupon Code" })
+                                <div class="form-group" ng-if="model.isOtpCreated==true">
+                                    @Html.TextBoxFor(m => m.CouponCode, new { @class = "form-control", @placeholder = "Coupon Code", @ng_model = "model.couponCode" })
                                 </div>
                                 <div class="form-group">
-                                    @Html.TextBoxFor(m => m.ModelName, new { @class = "form-control", @placeholder = "Model Name" })
+                                    @Html.TextBoxFor(m => m.ModelName, new { @class = "form-control", @placeholder = "Model Name", @ng_model = "model.modelName" })
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary pull-right col-xs-12" type="button"><strong>Next</strong></button>
+                                    <button ng-if="!model.isOtpCreated" ng-click="model.createMobileRepairOtp()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Next</strong></button>
+                                    <button ng-if="model.isOtpCreated" ng-click="model.createMobileRepairRequest()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Submit</strong></button>
                                 </div>
                             }
                         </div>
