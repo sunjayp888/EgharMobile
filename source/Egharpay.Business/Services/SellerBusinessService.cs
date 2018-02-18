@@ -21,12 +21,14 @@ namespace Egharpay.Business.Services
         private readonly ISellerDataService _dataService;
         private readonly IEmailBusinessService _emailBusinessService;
         private readonly IGoogleBusinessService _googleBusinessService;
+        private readonly ITemplateBusinessService _templateBusinessService;
 
-        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService, IGoogleBusinessService googleBusinessService)
+        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService, IGoogleBusinessService googleBusinessService, ITemplateBusinessService templateBusinessService)
         {
             _dataService = dataService;
             _emailBusinessService = emailBusinessService;
             _googleBusinessService = googleBusinessService;
+            _templateBusinessService = templateBusinessService;
         }
 
         public async Task<ValidationResult<Seller>> CreateSeller(Seller seller)
@@ -133,9 +135,28 @@ namespace Egharpay.Business.Services
         public async Task<ValidationResult<Seller>> UpdateSeller(Seller seller)
         {
             ValidationResult<Seller> validationResult = new ValidationResult<Seller>();
+            var personnelConfirmedEmail = new PersonnelCreatedEmail()
+            {
+                FullName = seller.Name,
+                Subject = "Seller Approval",
+                TemplateName = "SellerApprovalState",
+                ToAddress = new List<string>() { seller.Email }
+            };
             try
             {
+                var templateJson = personnelConfirmedEmail.ToJson();
+                var body = _templateBusinessService.CreateText(templateJson, personnelConfirmedEmail.TemplateName);
                 await _dataService.UpdateAsync(seller);
+                if (body != null)
+                {
+                    _emailBusinessService.SendEmail(new EmailData
+                    {
+                        Subject = personnelConfirmedEmail.Subject, //ToDo
+                        ToAddressList = personnelConfirmedEmail.ToAddress,
+                        IsHtml = true,
+                        Body = body
+                    });
+                }
                 validationResult.Entity = seller;
                 validationResult.Succeeded = true;
             }
