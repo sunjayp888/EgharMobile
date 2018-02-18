@@ -13,7 +13,7 @@ using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
 using Microsoft.Owin.Security.Authorization;
-
+using Egharpay.Business.Enum;
 
 namespace Egharpay.Controllers
 {
@@ -23,11 +23,13 @@ namespace Egharpay.Controllers
         private readonly IYouTubeBusinessService _youTubeBusinessService;
         private readonly IMobileBusinessService _mobileBusinessService;
         private readonly IPersonnelBusinessService _personnelBusinessService;
-        public HomeController(IMobileBusinessService mobileBusinessService, IYouTubeBusinessService youTubeBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IPersonnelBusinessService personnelBusinessService) : base(configurationManager, authorizationService)
+        private readonly ISellerBusinessService _sellerBusinessService;
+        public HomeController(IMobileBusinessService mobileBusinessService, IYouTubeBusinessService youTubeBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IPersonnelBusinessService personnelBusinessService, ISellerBusinessService sellerBusinessService) : base(configurationManager, authorizationService)
         {
             _youTubeBusinessService = youTubeBusinessService;
             _personnelBusinessService = personnelBusinessService;
             _mobileBusinessService = mobileBusinessService;
+            _sellerBusinessService = sellerBusinessService;
         }
 
         public async Task<ActionResult> Index()
@@ -35,6 +37,13 @@ namespace Egharpay.Controllers
             var viewModel = new HomeViewModel();
             if (User.Identity.IsAuthenticated && !User.IsSuperUserOrAdmin())
                 viewModel.PersonnelId = UserPersonnelId;
+            if (User.Identity.IsAuthenticated && User.IsSeller())
+            {
+                var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(viewModel.PersonnelId);
+                if (seller == null)
+                    return RedirectToAction("Login", "Account");
+                viewModel.IsSellerApproved = seller.ApprovalStateId == (int)ApprovalState.Approved;
+            }
             return View(viewModel);
         }
 

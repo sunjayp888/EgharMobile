@@ -34,10 +34,11 @@ namespace Egharpay.Controllers
         {
             if (ModelState.IsValid)
             {
-                var personnel = await _personnelBusinessService.RetrievePersonnel(User.Identity.GetUserId());
+                var personnelId = UserPersonnelId;
+                var personnel = await _personnelBusinessService.RetrievePersonnel(personnelId);
                 if (personnel == null)
                     return RedirectToAction("Login", "Account");
-                var result = await _addressBusinessService.CreateAddress(personnel.PersonnelId, address);
+                var result = await _addressBusinessService.CreateAddress(personnel.Entity.PersonnelId, address);
                 if (result.Succeeded)
                     return this.JsonNet(string.Empty);
                 foreach (var error in result.Errors)

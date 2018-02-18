@@ -1,0 +1,79 @@
+﻿@using Egharpay.Extensions
+@model Egharpay.Models.MobileRepairViewModel
+@{
+    var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    Layout = layout;
+    ViewBag.Title = "Repair Mobile";
+
+}
+
+<div ng-cloak ng-controller="MobileRepairController as model" class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Repair Mobile<small> repair phone online</small></h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>
+                                <label class="btn btn-primary">Offers</label> We have offer for you
+                            </h3>
+                            <p>Apply coupon</p>
+                            <p class="text-center">
+                                <div class="alert alert-success">
+                                    <ul>
+                                        <li>
+                                            How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
+                                        </li>
+                                        <li>
+                                            How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="alert alert-danger alert-dismissable" ng-if="model.errorMessages.length>0">
+                                <ul>
+                                    <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                                </ul>
+                            </div>
+                            <p>Enter your details.</p>
+                            @using (Html.BeginForm(new { @class = "ng-pristine ng-valid" }))
+                            {
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control", @placeholder = "Mobile Number", @ng_model = "model.mobileNumber" })
+                                    @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group" ng-if="model.isOtpCreated==true">
+                                    @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", @ng_model = "model.OTP" })
+                                    @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group" ng-if="model.isOtpCreated==true">
+                                    @Html.TextBoxFor(m => m.CouponCode, new { @class = "form-control", @placeholder = "Coupon Code", @ng_model = "model.couponCode" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.ModelName, new { @class = "form-control", @placeholder = "Model Name", @ng_model = "model.modelName" })
+                                </div>
+                                <div>
+                                    <button ng-if="!model.isOtpCreated" ng-click="model.createMobileRepairOtp()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Next</strong></button>
+                                    <button ng-if="model.isOtpCreated" ng-click="model.createMobileRepairRequest()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Submit</strong></button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>

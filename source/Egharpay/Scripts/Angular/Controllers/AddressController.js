@@ -10,7 +10,7 @@
     function AddressController($window, AddressService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
         var vm = this;
-        vm.address = [];
+        vm.personnelAddress = [];
         vm.showErrorSummary = false;
         vm.createAddress = createAddress;
         vm.fullname;
@@ -24,7 +24,7 @@
         vm.state;
         vm.phonenumber;
         vm.district;
-        vm.Errors = [];
+        vm.addressErrors = [];
         vm.canAddNewAddress = false;
         vm.addNewAddressButtonClick = addNewAddressButtonClick;
         vm.retrievePersonnelAddress = retrievePersonnelAddress;
@@ -53,7 +53,7 @@
                     } else {
                         $('#projectErrorSummary').show();
                         vm.showErrorSummary = true;
-                        vm.Errors = response.data;
+                        vm.addressErrors = response.data;
                         
                     }
                 });
@@ -77,7 +77,7 @@
         function retrievePersonnelAddress() {
             return AddressService.retrievePersonnelAddress()
                 .then(function (response) {
-                    vm.addresses = response.data;
+                    vm.personnelAddress = response.data;
                 });
         }
 

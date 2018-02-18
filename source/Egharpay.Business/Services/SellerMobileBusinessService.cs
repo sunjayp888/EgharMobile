@@ -19,7 +19,7 @@ namespace Egharpay.Business.Services
         private readonly IMobileDataService _mobileDataService;
         private readonly IMapper _mapper;
 
-        public SellerMobileBusinessService(ISellerDataService dataService, IMapper mapper,IMobileDataService mobileDataService)
+        public SellerMobileBusinessService(ISellerDataService dataService, IMapper mapper, IMobileDataService mobileDataService)
         {
             _dataService = dataService;
             _mapper = mapper;
@@ -31,7 +31,7 @@ namespace Egharpay.Business.Services
             var validationResult = await MobileAlreadyAssign(sellerMobile.MobileId, sellerMobile.SellerId);
             if (!validationResult.Succeeded)
             {
-                return validationResult;
+                _mobileDataService.DeleteById<SellerMobile>(validationResult.Entity.SellerMobileId);
             }
             try
             {
@@ -73,6 +73,7 @@ namespace Egharpay.Business.Services
             return new ValidationResult<SellerMobile>
             {
                 Succeeded = !alreadyExists,
+                Entity = sellerMobile.Any() ? sellerMobile.FirstOrDefault() : null,
                 Errors = alreadyExists ? new List<string> { "Mobile already exists in store." } : null
             };
         }

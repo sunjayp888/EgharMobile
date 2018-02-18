@@ -33,7 +33,7 @@
         }
 
         function retrieveMobileByMobileIds(mobileIds) {
-            var url = "/Mobile/retrieveMobileByMobileIds",
+            var url = "/Mobile/RetrieveMobileByMobileIds",
                   data = {
                       mobileIds: mobileIds
                   };;

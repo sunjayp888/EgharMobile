@@ -126,11 +126,12 @@ namespace Egharpay.Models
 
         public string AspNetUserId { get; set; }
 
-        public string Latitude { get; set; }
+        public double? Latitude { get; set; }
 
-        public string Longitude { get; set; }
+        public double? Longitude { get; set; }
         public int PersonnelId { get; set; }
         public bool HasError { get; set; }
+        public bool OtpCreated { get; set; }
     }
 
     public class ResetPasswordViewModel
