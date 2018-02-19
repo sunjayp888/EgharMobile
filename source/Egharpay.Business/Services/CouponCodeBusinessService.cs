@@ -39,7 +39,7 @@ namespace Egharpay.Business.Services
                 var couponResult = await _dataService.RetrieveAsync<CouponCode>(e => e.Code.ToLower() == couponCode.ToLower());
                 var couponId = couponResult.FirstOrDefault()?.CouponCodeId;
                 var result = await _dataService.RetrieveAsync<MobileCoupon>(e => e.MobileNumber == mobileNumber && e.CouponId == couponId);
-                if (result.FirstOrDefault() == null && couponId != null)
+                if (!result.Any() && couponId != null)
                 {
                     validationResult.Succeeded = true;
                     validationResult.Message = "Coupon is valid.";

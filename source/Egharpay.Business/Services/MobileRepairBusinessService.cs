@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
@@ -22,7 +23,8 @@ namespace Egharpay.Business.Services
             try
             {
                 await _mobileDataService.CreateAsync(mobileRepair);
-                validationResult.Message = "Request for mobile repair created successfully.";
+                await CreateMobileCoupon(mobileRepair.MobileNumber, mobileRepair.CouponCode);
+                validationResult.Message = "Request created successfully.";
                 validationResult.Succeeded = true;
 
             }
@@ -32,6 +34,22 @@ namespace Egharpay.Business.Services
                 validationResult.Message = ex.Message;
             }
             return validationResult;
+        }
+
+        private async Task CreateMobileCoupon(decimal mobileNumber, string couponCode)
+        {
+            var couponResult = await _mobileDataService.RetrieveAsync<CouponCode>(e => e.Code.ToLower() == couponCode.ToLower());
+            var couponId = couponResult.FirstOrDefault()?.CouponCodeId;
+            if (couponId.HasValue)
+            {
+                var mobileCoupon = new MobileCoupon()
+                {
+                    MobileNumber = mobileNumber,
+                    CouponId = couponId.Value,
+                    UsedDate = DateTime.UtcNow
+                };
+                await _mobileDataService.CreateAsync(mobileCoupon);
+            }
         }
     }
 }
