@@ -18,5 +18,6 @@ namespace Egharpay.Models
         public string CouponCode { get; set; }
         [Required]
         public int OTP { get; set; }
+        public bool IsOtpCreated { get; set; }
     }
 }

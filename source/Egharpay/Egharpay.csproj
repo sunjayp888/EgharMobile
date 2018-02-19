@@ -258,6 +258,7 @@
     <Folder Include="App_Data\uploads\" />
     <Folder Include="Attributes\" />
     <Folder Include="Views\Address\" />
+    <Folder Include="Views\CouponCode\" />
     <Folder Include="Views\HomeBannerImage\" />
     <Folder Include="Views\Maintenance\" />
     <Folder Include="Views\OTP\" />
@@ -282,6 +283,7 @@
     <Compile Include="Controllers\AppViewsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
+    <Compile Include="Controllers\CouponCodeController.cs" />
     <Compile Include="Controllers\CSSAnimationsController.cs" />
     <Compile Include="Controllers\EcommerceController.cs" />
     <Compile Include="Controllers\FormsController.cs" />

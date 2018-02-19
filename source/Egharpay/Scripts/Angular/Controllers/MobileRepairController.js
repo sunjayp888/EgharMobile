@@ -26,6 +26,8 @@
 
         function createMobileRepairOtp() {
             vm.showMessage = false;
+            vm.errorMessages = [];
+            vm.OTP = "";
             return OTPService.createMobileRepairOtp(vm.mobileNumber).then(function (response) {
                 vm.showMessage = true;
                 vm.isOtpCreated = response.data.Succeeded;
@@ -45,7 +47,6 @@
             }
             return MobileRepairService.createMobileRepairRequest(model).then(function (response) {
                 vm.showMessage = true;
-                vm.isOtpCreated = response.data.Succeeded;
                 vm.errorMessages.push(response.data.Message);
             });
         }

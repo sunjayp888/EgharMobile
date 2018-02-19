@@ -161,18 +161,21 @@
     <Compile Include="Extensions\SeoExtensions.cs" />
     <Compile Include="Helpers\GenerateOtpHelper.cs" />
     <Compile Include="Interfaces\IAddressBusinessService.cs" />
+    <Compile Include="Interfaces\IMobileRepairBusinessService.cs" />
     <Compile Include="Interfaces\IGoogleBusinessService.cs" />
     <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IOtpBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelEmailBusinessService.cs" />
     <Compile Include="Interfaces\ISellerMobileBusinessService.cs" />
     <Compile Include="Interfaces\ISmsBusinessService.cs" />
+    <Compile Include="Interfaces\ICouponCodeBusinessService.cs" />
     <Compile Include="Models\GeoPosition.cs" />
     <Compile Include="Models\HtmlEmail.cs" />
     <Compile Include="Models\Mobile.cs" />
     <Compile Include="Models\OrderCreatedEmail.cs" />
     <Compile Include="Models\PersonnelCreatedEmail.cs" />
     <Compile Include="Services\AddressBusinessService.cs" />
+    <Compile Include="Services\MobileRepairBusinessService.cs" />
     <Compile Include="Services\EmailBusinessService.cs" />
     <Compile Include="Enum\DocumentCategory.cs" />
     <Compile Include="Enum\FeeType.cs" />
@@ -257,6 +260,7 @@
     <Compile Include="Services\SmsBusinessService.cs" />
     <Compile Include="Services\TrendBusinessService.cs" />
     <Compile Include="Services\TrendCommentBusinessService.cs" />
+    <Compile Include="Services\CouponCodeBusinessService.cs" />
     <Compile Include="Services\YouTubeBusinessService.cs" />
     <Compile Include="Services\TemplateBusinessService.cs" />
   </ItemGroup>

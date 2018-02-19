@@ -11,10 +11,10 @@ namespace Egharpay.Entity
     {
         public int CouponCodeId { get; set; }
 
-        [Column("CouponCode")]
+        [Column("Code")]
         [Required]
-        [StringLength(50)]
-        public string CouponCode1 { get; set; }
+        [StringLength(10)]
+        public string Code { get; set; }
 
         [Required]
         [StringLength(1000)]
