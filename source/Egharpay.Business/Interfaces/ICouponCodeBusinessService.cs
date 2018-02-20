@@ -11,6 +11,6 @@ namespace Egharpay.Business.Interfaces
     public interface ICouponCodeBusinessService
     {
         Task<ValidationResult<CouponCode>> Create(CouponCode couponCode);
-        Task<ValidationResult> IsValidCoupon(decimal mobileNumber, string couponCode,bool? isLoggedIn);
+        Task<ValidationResult> IsValidCoupon(decimal mobileNumber, string couponCode, bool isLoggedIn = false);
     }
 }

@@ -31,15 +31,21 @@ namespace Egharpay.Business.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ValidationResult> IsValidCoupon(decimal mobileNumber, string couponCode, bool? isLoggedIn)
+        public async Task<ValidationResult> IsValidCoupon(decimal mobileNumber, string couponCode, bool isLoggedIn = false)
         {
             var validationResult = new ValidationResult();
             try
             {
                 var couponResult = await _dataService.RetrieveAsync<CouponCode>(e => e.Code.ToLower() == couponCode.ToLower());
-                var couponId = couponResult.FirstOrDefault()?.CouponCodeId;
-                var result = await _dataService.RetrieveAsync<MobileCoupon>(e => e.MobileNumber == mobileNumber && e.CouponId == couponId);
-                if (!result.Any() && couponId != null)
+                var data = couponResult.FirstOrDefault();
+                if (data?.IsAuthenticationRequired != null && data.IsAuthenticationRequired.Value == isLoggedIn)
+                {
+                    validationResult.Succeeded = false;
+                    validationResult.Message = "Invalid coupon code.Please login";
+                    return validationResult;
+                }
+                var result = await _dataService.RetrieveAsync<MobileCoupon>(e => e.MobileNumber == mobileNumber && e.CouponId == data.CouponCodeId);
+                if (!result.Any() && data != null)
                 {
                     validationResult.Succeeded = true;
                     validationResult.Message = "Coupon is valid.";

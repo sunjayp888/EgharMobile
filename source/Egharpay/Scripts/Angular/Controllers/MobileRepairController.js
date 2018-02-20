@@ -28,6 +28,8 @@
             vm.showMessage = false;
             vm.errorMessages = [];
             vm.OTP = "";
+            if (!vm.mobileNumber) vm.errorMessages.push('Enter mobile number.');
+            if (vm.errorMessages.length > 0) return;
             return OTPService.createMobileRepairOtp(vm.mobileNumber).then(function (response) {
                 vm.showMessage = true;
                 vm.isOtpCreated = response.data.Succeeded;
@@ -38,6 +40,8 @@
         function createMobileRepairRequest() {
             vm.showMessage = false;
             vm.errorMessages = [];
+            if (!vm.mobileNumber) vm.errorMessages.push('Enter mobile number.');
+            if (vm.errorMessages.length > 0) return;
             var model = {
                 MobileNumber: vm.mobileNumber,
                 ModelName: vm.modelName,

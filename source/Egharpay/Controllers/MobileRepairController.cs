@@ -42,12 +42,11 @@ namespace Egharpay.Controllers
                 ModelName = model.ModelName
             };
             var otpResult = await _otpBusinessService.IsValidOtp(model.OTP, model.MobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
-
             if (!otpResult.Succeeded)
                 return this.Json(otpResult);
             if (!string.IsNullOrEmpty(model.CouponCode))
             {
-                var couponCodeResult = await _couponCodeBusinessService.IsValidCoupon(model.MobileNumber, model.CouponCode, TODO);
+                var couponCodeResult = await _couponCodeBusinessService.IsValidCoupon(model.MobileNumber, model.CouponCode);
                 if (!couponCodeResult.Succeeded)
                     return this.Json(couponCodeResult);
             }
