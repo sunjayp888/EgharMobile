@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Egharpay.Business.Enum;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
@@ -22,6 +23,10 @@ namespace Egharpay.Business.Services
             var validationResult = new ValidationResult();
             try
             {
+                var alreadyCreated = await MobileRepairRequestAlreadyExists(mobileRepair.MobileNumber);
+                if (!alreadyCreated.Succeeded)
+                    return alreadyCreated;
+                mobileRepair.MobileRepairStateId = (int)MobileRepairRequestState.Created;
                 await _mobileDataService.CreateAsync(mobileRepair);
                 await CreateMobileCoupon(mobileRepair.MobileNumber, mobileRepair.CouponCode);
                 validationResult.Message = "Request created successfully.";
@@ -50,6 +55,24 @@ namespace Egharpay.Business.Services
                 };
                 await _mobileDataService.CreateAsync(mobileCoupon);
             }
+        }
+
+        private async Task<ValidationResult> MobileRepairRequestAlreadyExists(decimal mobileNumber)
+        {
+            var validationResult = new ValidationResult();
+            var data = await _mobileDataService.RetrieveAsync<MobileRepair>(m => m.MobileNumber == mobileNumber
+                && m.MobileRepairStateId != (int)MobileRepairRequestState.Completed ||
+                m.MobileRepairStateId != (int)MobileRepairRequestState.Cancelled);
+            if (data.Any())
+            {
+                validationResult.Message = "Request already created or inprogress.";
+                validationResult.Succeeded = false;
+            }
+            else
+            {
+                validationResult.Succeeded = true;
+            }
+            return validationResult;
         }
     }
 }

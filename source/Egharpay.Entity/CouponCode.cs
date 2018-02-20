@@ -23,5 +23,7 @@ namespace Egharpay.Entity
         public DateTime CreatedDateTime { get; set; }
 
         public DateTime ValidDateTime { get; set; }
+
+        public bool? IsAuthenticationRequired { get; set; }
     }
 }

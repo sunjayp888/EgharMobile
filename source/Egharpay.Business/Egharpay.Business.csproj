@@ -156,6 +156,7 @@
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Dto\Extensions.cs" />
     <Compile Include="Dto\Filter.cs" />
+    <Compile Include="Enum\MobileRepairRequestState.cs" />
     <Compile Include="Enum\OrderState.cs" />
     <Compile Include="Enum\OtpReason.cs" />
     <Compile Include="Extensions\SeoExtensions.cs" />

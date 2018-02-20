@@ -31,7 +31,7 @@ namespace Egharpay.Business.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ValidationResult> IsValidCoupon(decimal mobileNumber, string couponCode)
+        public async Task<ValidationResult> IsValidCoupon(decimal mobileNumber, string couponCode, bool? isLoggedIn)
         {
             var validationResult = new ValidationResult();
             try
