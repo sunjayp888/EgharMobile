@@ -53,5 +53,15 @@ namespace Egharpay.Controllers
             var mobileRepairResult = await _mobileRepairBusinessService.Create(mobileRepair);
             return this.Json(mobileRepairResult);
         }
+
+        [HttpPost]
+        [Route("MobileRepair/RetrieveMobileRepairOrders/{mobileNumber}")]
+        public async Task<ActionResult> RetrieveMobileRepairOrders(decimal mobileNumber)
+        {
+            var mobileRepairResult = await _mobileRepairBusinessService.RetrieveMobileRepair(e => e.MobileNumber == mobileNumber);
+            return this.Json(mobileRepairResult);
+        }
+
+
     }
 }

@@ -9,7 +9,8 @@
 
     function MobileRepairService($http) {
         var service = {
-            createMobileRepairRequest: createMobileRepairRequest
+            createMobileRepairRequest: createMobileRepairRequest,
+            retrieveMobileRepairOrders: retrieveMobileRepairOrders
         };
 
         return service;
@@ -20,6 +21,11 @@
                     model: model
                 };
             return $http.post(url, data);
+        }
+
+        function retrieveMobileRepairOrders(mobileNumber) {
+            var url = "/MobileRepair/RetrieveMobileRepairOrders/" + mobileNumber;
+            return $http.get(url, data);
         }
 
     }

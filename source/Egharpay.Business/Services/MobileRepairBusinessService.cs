@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Egharpay.Business.Enum;
 using Egharpay.Business.Interfaces;
@@ -73,6 +75,11 @@ namespace Egharpay.Business.Services
                 validationResult.Succeeded = true;
             }
             return validationResult;
+        }
+
+        public async Task<IEnumerable<MobileRepair>> RetrieveMobileRepair(Expression<Func<MobileRepair, bool>> predicate)
+        {
+            return await _mobileDataService.RetrieveAsync<MobileRepair>(predicate);
         }
     }
 }
