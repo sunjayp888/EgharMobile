@@ -13,5 +13,6 @@ namespace Egharpay.Business.Interfaces
     {
         Task<ValidationResult> Create(MobileRepair mobileRepair);
         Task<IEnumerable<MobileRepair>> RetrieveMobileRepair(Expression<Func<MobileRepair, bool>> predicate);
+        Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId);
     }
 }

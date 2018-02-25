@@ -1,4 +1,5 @@
-﻿@using Egharpay.Extensions
+﻿@using Egharpay.Business.Enum
+@using Egharpay.Extensions
 @model Egharpay.Models.MobileRepairViewModel
 @{
     var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
@@ -65,16 +66,16 @@
                                     <a ng-if="model.isOtpCreated" ng-click="model.isRepair ? model.createMobileRepairOtp():model.createMobileRepairManageOrderOtp()">&nbsp;&nbsp;&nbsp; ReSend OTP</a>
                                 </p>
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <button ng-if="!model.isOtpCreated && model.isRepair" ng-click="model.createMobileRepairOtp()" class="btn btn-danger pull-right col-xs-12" type="button"><strong>Repair</strong></button>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <button ng-if="!model.isOtpCreated" ng-click="model.createMobileRepairManageOrderOtp()" class="btn btn-default pull-right col-xs-12" type="button"><strong>Manage Order</strong></button>
                                     </div>
 
                                 </div>
                                 <div class="form-group">
-                                    <button ng-if="model.isOtpCreated" ng-click="model.isRepair ? model.retrieveMobileRepairOrders():model.retrieveMobileRepairOrders()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Submit</strong></button>
+                                    <button ng-if="model.isOtpCreated" ng-click="model.isRepair ? model.createMobileRepairRequest():model.retrieveMobileRepairOrders()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Submit</strong></button>
                                 </div>
                             }
                         </div>
@@ -85,7 +86,7 @@
         <div class="col-lg-2"></div>
     </div>
 
-    <div class="row">
+    <div class="row" ng-if="model.mobileRepairOrders.length>0">
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
             <div class="ibox float-e-margins">
@@ -100,30 +101,33 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-sm-12">
-                                <div class="project-list">
-                                    <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <span class="label label-primary">InProgress</span>
-                                                </td>
-                                                <td class="project-title">
-                                                    <a><span>Nokia 6</span></a>
-                                                    <br>
-                                                    <small>Requested Repair on 14.08.2014</small>
-                                                </td>
-                                                <td class="project-title">
-                                                    <a><span>Description</span></a>
-                                                    <br>
-                                                    <small>Faulty display</small>
-                                                </td>
-                                                <td class="project-actions">
-                                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Cancel Repair</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="project-list">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="mobileRepair in model.mobileRepairOrders">
+                                            <td>
+                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.Created)">Created</span>
+                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.InProgress)">InProgress</span>
+                                                <span class="label label-danger" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Cancelled)">Cancelled</span>
+                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Completed)">Completed</span>
+                                            </td>
+                                            <td class="project-title">
+                                                <a><span ng-bind="mobileRepair.ModelName"></span></a>
+                                                <br>
+                                                <small>Requested Repair on 14.08.2014</small>
+                                            </td>
+                                            <td class="project-title">
+                                                <a><span>Description</span></a>
+                                                <br>
+                                                <small ng-bind="mobileRepair.Description"></small>
+                                            </td>
+                                            <td class="project-actions">
+                                                <button ng-if="mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.InProgress) ||mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.Created)" ng-click="model.deleteMobileRepairRequest(mobileRepair.MobileRepairId)" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Cancel Repair</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

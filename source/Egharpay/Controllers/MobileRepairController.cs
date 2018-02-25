@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Egharpay.Business.Enum;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity;
+using Egharpay.Extensions;
 using Egharpay.Models;
 
 namespace Egharpay.Controllers
@@ -51,17 +52,28 @@ namespace Egharpay.Controllers
                     return this.Json(couponCodeResult);
             }
             var mobileRepairResult = await _mobileRepairBusinessService.Create(mobileRepair);
-            return this.Json(mobileRepairResult);
+            return this.JsonNet(mobileRepairResult);
+        }
+
+        [HttpGet]
+        [Route("MobileRepair/RetrieveMobileRepairOrders/{mobileNumber}/{otp}")]
+        public async Task<ActionResult> RetrieveMobileRepairOrders(decimal mobileNumber, int otp)
+        {
+            var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
+            if (!otpResult.Succeeded)
+                return this.JsonNet(otpResult);
+            var mobileRepairResult = await _mobileRepairBusinessService.RetrieveMobileRepair(e => e.MobileNumber == mobileNumber);
+            return this.JsonNet(mobileRepairResult);
         }
 
         [HttpPost]
-        [Route("MobileRepair/RetrieveMobileRepairOrders/{mobileNumber}")]
-        public async Task<ActionResult> RetrieveMobileRepairOrders(decimal mobileNumber)
+        [Route("MobileRepair/DeleteMobileRepairRequest")]
+        public async Task<ActionResult> DeleteMobileRepairRequest(int mobileRepairId, decimal mobileNumber, int otp)
         {
-            var mobileRepairResult = await _mobileRepairBusinessService.RetrieveMobileRepair(e => e.MobileNumber == mobileNumber);
-            return this.Json(mobileRepairResult);
+            var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
+            if (!otpResult.Succeeded)
+                return this.JsonNet(otpResult);
+            return this.JsonNet(await _mobileRepairBusinessService.CancelMobileRepairRequest(mobileRepairId));
         }
-
-
     }
 }

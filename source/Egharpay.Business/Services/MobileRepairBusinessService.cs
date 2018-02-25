@@ -63,8 +63,8 @@ namespace Egharpay.Business.Services
         {
             var validationResult = new ValidationResult();
             var data = await _mobileDataService.RetrieveAsync<MobileRepair>(m => m.MobileNumber == mobileNumber
-                && m.MobileRepairStateId != (int)MobileRepairRequestState.Completed ||
-                m.MobileRepairStateId != (int)MobileRepairRequestState.Cancelled);
+                && (m.MobileRepairStateId == (int)MobileRepairRequestState.InProgress ||
+                    m.MobileRepairStateId == (int)MobileRepairRequestState.Created));
             if (data.Any())
             {
                 validationResult.Message = "Request already created or inprogress.";
@@ -80,6 +80,24 @@ namespace Egharpay.Business.Services
         public async Task<IEnumerable<MobileRepair>> RetrieveMobileRepair(Expression<Func<MobileRepair, bool>> predicate)
         {
             return await _mobileDataService.RetrieveAsync<MobileRepair>(predicate);
+        }
+
+        public async Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId)
+        {
+            var validationResult = new ValidationResult();
+            try
+            {
+                var mobileRepair = await _mobileDataService.RetrieveByIdAsync<MobileRepair>(mobileRepairId);
+                mobileRepair.MobileRepairStateId = (int)MobileRepairRequestState.Cancelled;
+                await _mobileDataService.UpdateAsync(mobileRepair);
+                validationResult.Succeeded = true;
+            }
+            catch (Exception e)
+            {
+                validationResult.Succeeded = true;
+                validationResult.Message = e.Message;
+            }
+            return validationResult;
         }
     }
 }
