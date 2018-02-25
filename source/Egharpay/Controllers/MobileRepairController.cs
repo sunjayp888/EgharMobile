@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using Egharpay.Business.Enum;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity;
+using Egharpay.Entity.Dto;
+using Egharpay.Extensions;
 using Egharpay.Models;
 
 namespace Egharpay.Controllers
@@ -26,6 +28,12 @@ namespace Egharpay.Controllers
 
         // GET: MobileRepair
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        // GET: MobileRepair
+        public ActionResult MobileRepairOrder()
         {
             return View();
         }
@@ -55,13 +63,42 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [Route("MobileRepair/RetrieveMobileRepairOrders/{mobileNumber}")]
+        [Route("MobileRepair/retrieveMobileRepairOrdersByMobile/{mobileNumber}")]
         public async Task<ActionResult> RetrieveMobileRepairOrders(decimal mobileNumber)
         {
             var mobileRepairResult = await _mobileRepairBusinessService.RetrieveMobileRepair(e => e.MobileNumber == mobileNumber);
             return this.Json(mobileRepairResult);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
+        {
+            try
+            {
+                var data = await _mobileRepairBusinessService.RetrieveMobileRepairs(orderBy, paging);
+                return this.JsonNet(data);
+            }
+            catch (Exception ex)
+            {
+                return this.JsonNet("");
+            }
 
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateMobileRepairState(int mobileRepairId, int mobileRepairStateId)
+        {
+            var mobileRepairdata = await _mobileRepairBusinessService.RetrieveMobileRepair(mobileRepairId);
+            if (mobileRepairdata.MobileRepairStateId == 3)
+            {
+                mobileRepairdata.MobileRepairStateId = (int)MobileRepairRequestState.Completed;
+            }
+            else if (mobileRepairdata.MobileRepairStateId == 4)
+            {
+                mobileRepairdata.MobileRepairStateId = (int)MobileRepairRequestState.Cancelled;
+            }
+            await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairdata);
+            return this.JsonNet(mobileRepairdata);
+        }
     }
 }

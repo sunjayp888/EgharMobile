@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.Models;
 using Egharpay.Entity;
+using Egharpay.Entity.Dto;
 
 namespace Egharpay.Business.Interfaces
 {
@@ -13,5 +14,9 @@ namespace Egharpay.Business.Interfaces
     {
         Task<ValidationResult> Create(MobileRepair mobileRepair);
         Task<IEnumerable<MobileRepair>> RetrieveMobileRepair(Expression<Func<MobileRepair, bool>> predicate);
+        Task<PagedResult<MobileRepair>> RetrieveMobileRepairs(List<OrderBy> orderBy = null, Paging paging = null);
+        Task<MobileRepair> RetrieveMobileRepair(int mobileRepairId);
+
+        Task<ValidationResult<MobileRepair>> UpdateMobileRepair(MobileRepair mobileRepair);
     }
 }
