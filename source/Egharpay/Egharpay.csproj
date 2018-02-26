@@ -2052,6 +2052,7 @@
     <Content Include="Views\Shared\_NavigationUnApprovedSeller.cshtml" />
     <Content Include="Views\Shared\_LayoutUnApprovedSeller.cshtml" />
     <Content Include="Views\MobileRepair\Index.cshtml" />
+    <Content Include="Views\MobileRepair\MobileRepairOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

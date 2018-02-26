@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Egharpay.Business.Enum;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity;
+using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
 
@@ -27,6 +28,12 @@ namespace Egharpay.Controllers
 
         // GET: MobileRepair
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        // GET: MobileRepair
+        public ActionResult MobileRepairOrder()
         {
             return View();
         }
@@ -55,9 +62,12 @@ namespace Egharpay.Controllers
             return this.JsonNet(mobileRepairResult);
         }
 
+
+       
         [HttpGet]
         [Route("MobileRepair/RetrieveMobileRepairOrders/{mobileNumber}/{otp}")]
         public async Task<ActionResult> RetrieveMobileRepairOrders(decimal mobileNumber, int otp)
+
         {
             var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
             if (!otpResult.Succeeded)
@@ -67,6 +77,36 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
+        {
+            try
+            {
+                var data = await _mobileRepairBusinessService.RetrieveMobileRepairs(orderBy, paging);
+                return this.JsonNet(data);
+            }
+            catch (Exception ex)
+            {
+                return this.JsonNet("");
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateMobileRepairState(int mobileRepairId, int mobileRepairStateId)
+        {
+            var mobileRepairdata = await _mobileRepairBusinessService.RetrieveMobileRepair(mobileRepairId);
+            if (mobileRepairdata.MobileRepairStateId == 3)
+            {
+                mobileRepairdata.MobileRepairStateId = (int)MobileRepairRequestState.Completed;
+            }
+            else if (mobileRepairdata.MobileRepairStateId == 4)
+            {
+                mobileRepairdata.MobileRepairStateId = (int)MobileRepairRequestState.Cancelled;
+            }
+            await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairdata);
+            return this.JsonNet(mobileRepairdata);
+        }
+        
         [Route("MobileRepair/DeleteMobileRepairRequest")]
         public async Task<ActionResult> DeleteMobileRepairRequest(int mobileRepairId, decimal mobileNumber, int otp)
         {

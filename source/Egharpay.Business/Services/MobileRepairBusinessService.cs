@@ -8,6 +8,7 @@ using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
+using Egharpay.Entity.Dto;
 
 namespace Egharpay.Business.Services
 {
@@ -28,7 +29,7 @@ namespace Egharpay.Business.Services
                 var alreadyCreated = await MobileRepairRequestAlreadyExists(mobileRepair.MobileNumber);
                 if (!alreadyCreated.Succeeded)
                     return alreadyCreated;
-                mobileRepair.MobileRepairStateId = (int)MobileRepairRequestState.Created;
+                mobileRepair.MobileRepairState = (int)MobileRepairRequestState.Created;
                 await _mobileDataService.CreateAsync(mobileRepair);
                 await CreateMobileCoupon(mobileRepair.MobileNumber, mobileRepair.CouponCode);
                 validationResult.Message = "Request created successfully.";
@@ -62,7 +63,7 @@ namespace Egharpay.Business.Services
         private async Task<ValidationResult> MobileRepairRequestAlreadyExists(decimal mobileNumber)
         {
             var validationResult = new ValidationResult();
-            var data = await _mobileDataService.RetrieveAsync<MobileRepair>(m => m.MobileNumber == mobileNumber
+            var data = await _mobileDataService.RetrieveAsync<MobileRepair>(m => m.MobileNumber == mobileNumber            
                 && (m.MobileRepairStateId == (int)MobileRepairRequestState.InProgress ||
                     m.MobileRepairStateId == (int)MobileRepairRequestState.Created));
             if (data.Any())
@@ -82,6 +83,23 @@ namespace Egharpay.Business.Services
             return await _mobileDataService.RetrieveAsync<MobileRepair>(predicate);
         }
 
+        public async Task<PagedResult<MobileRepair>> RetrieveMobileRepairs(List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var mobileRepairs = await _mobileDataService.RetrievePagedResultAsync<MobileRepair>(a => true, orderBy, paging);
+            return mobileRepairs;
+        }
+
+        public async Task<MobileRepair> RetrieveMobileRepair(int mobileRepairId)
+        {
+            var mobileRepair = await _mobileDataService.RetrieveAsync<MobileRepair>(a => a.MobileRepairId == mobileRepairId);
+            return mobileRepair.FirstOrDefault();
+        }
+
+        public async Task<ValidationResult<MobileRepair>> UpdateMobileRepair(MobileRepair mobileRepair)
+        {
+            ValidationResult<MobileRepair> validationResult = new ValidationResult<MobileRepair>();
+            await _mobileDataService.UpdateAsync(mobileRepair);
+        }
         public async Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId)
         {
             var validationResult = new ValidationResult();

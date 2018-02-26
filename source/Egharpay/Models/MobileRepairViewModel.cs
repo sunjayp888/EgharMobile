@@ -19,5 +19,6 @@ namespace Egharpay.Models
         [Required]
         public int OTP { get; set; }
         public bool IsOtpCreated { get; set; }
+        public int MobileRepairStateId { get; set; }
     }
 }
