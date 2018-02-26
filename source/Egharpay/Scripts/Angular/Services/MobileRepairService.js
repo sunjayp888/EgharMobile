@@ -13,6 +13,7 @@
             retrieveMobileRepairOrders: retrieveMobileRepairOrders,
             retrieveMobileRepairOrdersByMobile: retrieveMobileRepairOrdersByMobile,
             mobileRepairState: mobileRepairState
+            deleteMobileRepairRequest: deleteMobileRepairRequest
         };
 
         return service;
@@ -28,6 +29,21 @@
         function retrieveMobileRepairOrdersByMobile(mobileNumber) {
             var url = "/MobileRepair/RetrieveMobileRepairOrders/" + mobileNumber;
             return $http.get(url, data);
+        }
+      
+        function retrieveMobileRepairOrders(mobileNumber, otp) {
+            var url = "/MobileRepair/RetrieveMobileRepairOrders/" + mobileNumber + "/" + otp;
+            return $http.get(url);
+        }
+
+        function deleteMobileRepairRequest(mobileRepairId, mobileNumber, otp) {
+            var url = "/MobileRepair/DeleteMobileRepairRequest",
+                 data = {
+                     mobileRepairId: mobileRepairId,
+                     mobileNumber: mobileNumber,
+                     otp: otp
+                 };
+            return $http.post(url, data);
         }
 
         function retrieveMobileRepairOrders(Paging, OrderBy) {

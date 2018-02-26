@@ -30,6 +30,8 @@
         vm.retrieveMobileRepairOrders = retrieveMobileRepairOrders;
         vm.createMobileRepairManageOrderOtp = createMobileRepairManageOrderOtp;
         vm.retrieveMobileRepairOrdersByMobile = retrieveMobileRepairOrdersByMobile;
+        vm.retrieveMobileRepairOrders = retrieveMobileRepairOrders;
+        vm.deleteMobileRepairRequest = deleteMobileRepairRequest;
         vm.isRepair = true;
         vm.mobileRepairOrders = [];
         vm.initialise = initialise;
@@ -123,6 +125,23 @@
 
         function mobileRepairState(mobileRepairId,mobileRepairStateId) {
             return MobileRepairService.mobileRepairState(mobileRepairId, mobileRepairStateId).then(function (response) {
+            }
+                                                                                                   
+        function retrieveMobileRepairOrders() {
+            vm.errorMessages = [];
+            if (!vm.mobileNumber) vm.errorMessages.push('Enter mobile number.');
+            if (!vm.OTP) vm.errorMessages.push('Enter OTP.');
+            if (vm.errorMessages.length > 0) return;
+            return MobileRepairService.retrieveMobileRepairOrders(vm.mobileNumber, vm.OTP).then(function (response) {
+                if (!response.data.Succeeded && response.data.Succeeded !== undefined) {
+                    vm.errorMessages.push(response.data.Message);
+                }
+                else { vm.mobileRepairOrders = response.data; }
+            });
+        }
+
+        function deleteMobileRepairRequest(mobileRepairId) {
+            return MobileRepairService.deleteMobileRepairRequest(mobileRepairId, vm.mobileNumber, vm.OTP).then(function (response) {
                 retrieveMobileRepairOrders();
             });
         }

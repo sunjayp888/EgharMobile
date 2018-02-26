@@ -59,15 +59,21 @@ namespace Egharpay.Controllers
                     return this.Json(couponCodeResult);
             }
             var mobileRepairResult = await _mobileRepairBusinessService.Create(mobileRepair);
-            return this.Json(mobileRepairResult);
+            return this.JsonNet(mobileRepairResult);
         }
 
-        [HttpPost]
-        [Route("MobileRepair/retrieveMobileRepairOrdersByMobile/{mobileNumber}")]
-        public async Task<ActionResult> RetrieveMobileRepairOrders(decimal mobileNumber)
+
+       
+        [HttpGet]
+        [Route("MobileRepair/RetrieveMobileRepairOrders/{mobileNumber}/{otp}")]
+        public async Task<ActionResult> RetrieveMobileRepairOrders(decimal mobileNumber, int otp)
+
         {
+            var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
+            if (!otpResult.Succeeded)
+                return this.JsonNet(otpResult);
             var mobileRepairResult = await _mobileRepairBusinessService.RetrieveMobileRepair(e => e.MobileNumber == mobileNumber);
-            return this.Json(mobileRepairResult);
+            return this.JsonNet(mobileRepairResult);
         }
 
         [HttpPost]
@@ -99,6 +105,15 @@ namespace Egharpay.Controllers
             }
             await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairdata);
             return this.JsonNet(mobileRepairdata);
+        }
+        
+        [Route("MobileRepair/DeleteMobileRepairRequest")]
+        public async Task<ActionResult> DeleteMobileRepairRequest(int mobileRepairId, decimal mobileNumber, int otp)
+        {
+            var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
+            if (!otpResult.Succeeded)
+                return this.JsonNet(otpResult);
+            return this.JsonNet(await _mobileRepairBusinessService.CancelMobileRepairRequest(mobileRepairId));
         }
     }
 }
