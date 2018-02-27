@@ -29,7 +29,7 @@ namespace Egharpay.Business.Services
                 var alreadyCreated = await MobileRepairRequestAlreadyExists(mobileRepair.MobileNumber);
                 if (!alreadyCreated.Succeeded)
                     return alreadyCreated;
-                mobileRepair.MobileRepairState = (int)MobileRepairRequestState.Created;
+                mobileRepair.MobileRepairStateId = (int)MobileRepairRequestState.Created;
                 await _mobileDataService.CreateAsync(mobileRepair);
                 await CreateMobileCoupon(mobileRepair.MobileNumber, mobileRepair.CouponCode);
                 validationResult.Message = "Request created successfully.";
@@ -95,10 +95,22 @@ namespace Egharpay.Business.Services
             return mobileRepair.FirstOrDefault();
         }
 
-        public async Task<ValidationResult<MobileRepair>> UpdateMobileRepair(MobileRepair mobileRepair)
+        public async Task<ValidationResult> UpdateMobileRepair(int mobileRepairId, int mobileRepairStateId)
         {
-            ValidationResult<MobileRepair> validationResult = new ValidationResult<MobileRepair>();
-            await _mobileDataService.UpdateAsync(mobileRepair);
+            var validationResult = new ValidationResult();
+            try
+            {
+                var mobileRepair = await _mobileDataService.RetrieveByIdAsync<MobileRepair>(mobileRepairId);
+                mobileRepair.MobileRepairStateId = mobileRepairStateId;
+                await _mobileDataService.UpdateAsync(mobileRepair);
+                validationResult.Succeeded = true;
+            }
+            catch (Exception e)
+            {
+                validationResult.Succeeded = true;
+                validationResult.Message = e.Message;
+            }
+            return validationResult;
         }
         public async Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId)
         {

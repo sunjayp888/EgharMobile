@@ -40,6 +40,7 @@
                     <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Index", "SellerMobile")">Seller Mobile</a></li>
                     <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Index", "HomeBanner")">HomeBanner</a></li>
                     <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Index", "Order")">Order</a></li>
+                    <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("MobileRepairOrder", "MobileRepair")">Mobile Repair</a></li>
                 </ul>
             </li>
             @if (User.IsSuperUserOrAdmin())

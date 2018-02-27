@@ -12,7 +12,8 @@
             createMobileRepairRequest: createMobileRepairRequest,
             retrieveMobileRepairOrders: retrieveMobileRepairOrders,
             retrieveMobileRepairOrdersByMobile: retrieveMobileRepairOrdersByMobile,
-            mobileRepairState: mobileRepairState
+            markAsCompleted: markAsCompleted,
+            markAsCancelled:markAsCancelled,
             deleteMobileRepairRequest: deleteMobileRepairRequest
         };
 
@@ -26,13 +27,13 @@
             return $http.post(url, data);
         }
 
-        function retrieveMobileRepairOrdersByMobile(mobileNumber) {
-            var url = "/MobileRepair/RetrieveMobileRepairOrders/" + mobileNumber;
-            return $http.get(url, data);
-        }
+        //function retrieveMobileRepairOrders() {
+        //    var url = "/MobileRepair/RetrieveMobileRepairOrders/" + mobileNumber;
+        //    return $http.get(url, data);
+        //}
       
-        function retrieveMobileRepairOrders(mobileNumber, otp) {
-            var url = "/MobileRepair/RetrieveMobileRepairOrders/" + mobileNumber + "/" + otp;
+        function retrieveMobileRepairOrdersByMobile(mobileNumber, otp) {
+            var url = "/MobileRepair/RetrieveMobileRepairOrdersByMobile/" + mobileNumber + "/" + otp;
             return $http.get(url);
         }
 
@@ -52,11 +53,20 @@
                 paging: Paging,
                 orderBy: new Array(OrderBy)
             };
-            return $http.get(url, data);
+            return $http.post(url, data);
         }
 
-        function mobileRepairState(mobileRepairId, mobileRepairStateId) {
-            var url = "/MobileRepair/UpdateMobileRepairState",
+        function markAsCompleted(mobileRepairId) {
+            var url = "/MobileRepair/MarkAsCompleted",
+            data = {
+                mobileRepairId: mobileRepairId,
+                mobileRepairStateId: mobileRepairStateId
+            };
+            return $http.post(url, data);
+        }
+
+        function markAsCancelled(mobileRepairId) {
+            var url = "/MobileRepair/MarkAsCompleted",
             data = {
                 mobileRepairId: mobileRepairId,
                 mobileRepairStateId: mobileRepairStateId

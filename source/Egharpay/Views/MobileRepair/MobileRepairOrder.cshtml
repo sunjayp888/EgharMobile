@@ -1,10 +1,12 @@
-﻿@using Egharpay.Extensions
-@model Egharpay.Models.MobileRepairViewModel
+﻿@using Egharpay.Business.Enum
+@using Egharpay.Extensions
 @{
+    var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    Layout = layout;
     ViewBag.Title = "MobileRepairOrder";
 }
 
-<div ng-controller="MobileRepairController as model" ng-init="model.retrieveMobileRepairOrders()">
+<div ng-controller="MobileRepairController as model" ng-init="model.initialise()">
     <div class="page-title">
         <div class="title_left">
             <h3>
@@ -70,6 +72,7 @@
                                                 <th ng-click="model.order('ModelName')" ng-class="model.orderClass('ModelName')">Model Name</th>
                                                 <th ng-click="model.order('Description')" ng-class="model.orderClass('Description')">Description</th>
                                                 <th ng-click="model.order('CouponCode')" ng-class="model.orderClass('CouponCode')">Coupon Code</th>
+                                                <th ng-click="model.order('CouponCode')" ng-class="model.orderClass('CouponCode')">Status</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -79,6 +82,7 @@
                                                 <td><span ng-bind="mobileRepairOrder.ModelName"></span></td>
                                                 <td><span ng-bind="mobileRepairOrder.Description"></span></td>
                                                 <td><span ng-bind="mobileRepairOrder.CouponCode"></span></td>
+                                                <td></td>
                                                 <td>
                                                     <div class="btn-group pull-right">
                                                         <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
@@ -86,13 +90,13 @@
                                                         </a>
                                                         <ul class="dropdown-menu slidedown">
                                                             <li>
-                                                                <a style="cursor: pointer;" ng-click="model.mobileRepairState(mobileRepairOrder.MobileRepairId,@Model.MobileRepairStateId=3)">
-                                                                    Mark As Completed
+                                                                <a ng-bootbox-confirm="Mark as Completed. Are you sure?" ng-bootbox-confirm-action="model.markAsCompleted(mobileRepairOrder.MobileRepairId)" ng-click="$event.originalEvent.ngClickHandled = true;">
+                                                                    Mark as Completed
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a style="cursor: pointer;" ng-click="model.mobileRepairState(mobileRepairOrder.MobileRepairId,@Model.MobileRepairStateId=4)">
-                                                                    Mark As Cancelled
+                                                                <a ng-bootbox-confirm="Mark as Cancelled. Are you sure?" ng-bootbox-confirm-action="model.markAsCancelled(mobileRepairOrder.MobileRepairId)" ng-click="$event.originalEvent.ngClickHandled = true;">
+                                                                    Mark as Cancelled
                                                                 </a>
                                                             </li>
                                                         </ul>

@@ -17,7 +17,7 @@ namespace Egharpay.Business.Interfaces
         Task<PagedResult<MobileRepair>> RetrieveMobileRepairs(List<OrderBy> orderBy = null, Paging paging = null);
         Task<MobileRepair> RetrieveMobileRepair(int mobileRepairId);
 
-        Task<ValidationResult<MobileRepair>> UpdateMobileRepair(MobileRepair mobileRepair);
+        Task<ValidationResult> UpdateMobileRepair(int mobileRepairId, int mobileRepairStateId);
         Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId);
     }
 }
