@@ -46,6 +46,7 @@ namespace Egharpay.Data
         public virtual DbSet<SellerMobile> SellerMobiles { get; set; }
         public virtual DbSet<MetaSearchKeyword> MetaSearchKeywords { get; set; }
         public virtual DbSet<OrderState> OrderStates { get; set; }
+        public virtual DbSet<MobileRepairPayment> MobileRepairPayments { get; set; }
 
         public virtual DbSet<SellerMobileGrid> SellerMobileGrids { get; set; }
 

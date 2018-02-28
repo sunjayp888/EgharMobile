@@ -11,7 +11,8 @@
         var service = {
             createLoginOtp: createLoginOtp,
             retrieveLoginOtp: retrieveLoginOtp,
-            createMobileRepairOtp: createMobileRepairOtp
+            createMobileRepairOtp: createMobileRepairOtp,
+            createMobileRepairPaymentOtp: createMobileRepairPaymentOtp
         };
 
         return service;
@@ -35,6 +36,14 @@
 
         function createMobileRepairOtp(mobileNumber) {
             var url = "/OTP/CreateMobileRepairOtp",
+                data = {
+                    mobileNumber: mobileNumber
+                };
+            return $http.post(url, data);
+        }
+
+        function createMobileRepairPaymentOtp(mobileNumber) {
+            var url = "/OTP/createMobileRepairPaymentOtp",
                 data = {
                     mobileNumber: mobileNumber
                 };

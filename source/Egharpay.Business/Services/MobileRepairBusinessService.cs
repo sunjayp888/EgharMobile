@@ -44,6 +44,23 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
+        public async Task<ValidationResult> CreateMobileRepairPayment(MobileRepairPayment mobileRepair)
+        {
+            var validationResult = new ValidationResult();
+            try
+            {
+                await _mobileDataService.CreateAsync(mobileRepair);
+                await UpdateMobileRepair(mobileRepair.MobileRepairId, (int)MobileRepairRequestState.Completed);
+                //Send SMS for mobile repair Payment.
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Message = ex.Message;
+            }
+            return validationResult;
+        }
+
         private async Task CreateMobileCoupon(decimal mobileNumber, string couponCode)
         {
             var couponResult = await _mobileDataService.RetrieveAsync<CouponCode>(e => e.Code.ToLower() == couponCode.ToLower());
@@ -63,7 +80,7 @@ namespace Egharpay.Business.Services
         private async Task<ValidationResult> MobileRepairRequestAlreadyExists(decimal mobileNumber)
         {
             var validationResult = new ValidationResult();
-            var data = await _mobileDataService.RetrieveAsync<MobileRepair>(m => m.MobileNumber == mobileNumber            
+            var data = await _mobileDataService.RetrieveAsync<MobileRepair>(m => m.MobileNumber == mobileNumber
                 && (m.MobileRepairStateId == (int)MobileRepairRequestState.InProgress ||
                     m.MobileRepairStateId == (int)MobileRepairRequestState.Created));
             if (data.Any())
@@ -112,6 +129,7 @@ namespace Egharpay.Business.Services
             }
             return validationResult;
         }
+
         public async Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId)
         {
             var validationResult = new ValidationResult();

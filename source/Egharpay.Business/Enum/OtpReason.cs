@@ -10,6 +10,7 @@ namespace Egharpay.Business.Enum
     {
         Login = 1,
         MobileRepair,
-        Order
+        Order,
+        MobileRepairPayment
     }
 }

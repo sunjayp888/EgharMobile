@@ -67,42 +67,42 @@
                                 <div class="col-xs-12">
                                     <table wt-responsive-table class="table table-responsive table-bordered table-hover dataTable" role="grid" aria-describedby="datatable-fixed-header_info">
                                         <thead>
-                                        <tr role="row">
-                                            <th ng-click="model.order('MobileNumber')" ng-class="model.orderClass('MobileNumber')">Mobile</th>
-                                            <th ng-click="model.order('ModelName')" ng-class="model.orderClass('ModelName')">Model Name</th>
-                                            <th ng-click="model.order('Description')" ng-class="model.orderClass('Description')">Description</th>
-                                            <th ng-click="model.order('CouponCode')" ng-class="model.orderClass('CouponCode')">Coupon Code</th>
-                                            <th ng-click="model.order('CouponCode')" ng-class="model.orderClass('CouponCode')">Status</th>
-                                            <th>Actions</th>
-                                        </tr>
+                                            <tr role="row">
+                                                <th ng-click="model.order('MobileNumber')" ng-class="model.orderClass('MobileNumber')">Mobile</th>
+                                                <th ng-click="model.order('ModelName')" ng-class="model.orderClass('ModelName')">Model Name</th>
+                                                <th ng-click="model.order('Description')" ng-class="model.orderClass('Description')">Description</th>
+                                                <th ng-click="model.order('CouponCode')" ng-class="model.orderClass('CouponCode')">Coupon Code</th>
+                                                <th ng-click="model.order('CouponCode')" ng-class="model.orderClass('CouponCode')">Status</th>
+                                                <th>Actions</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="mobileRepairOrder in model.mobileRepairOrders" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
-                                            <td><span ng-bind="mobileRepairOrder.MobileNumber"></span></td>
-                                            <td><span ng-bind="mobileRepairOrder.ModelName"></span></td>
-                                            <td><span ng-bind="mobileRepairOrder.Description"></span></td>
-                                            <td><span ng-bind="mobileRepairOrder.CouponCode"></span></td>
-                                            <td></td>
-                                            <td>
-                                                <div class="btn-group pull-right">
-                                                    <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
-                                                        <i class="fa fa-chevron-down"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu slidedown">
-                                                        <li>
-                                                            <a data-toggle="modal" data-target="#myModal6">
-                                                                Mark as Completed
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a ng-bootbox-confirm="Mark as Cancelled. Are you sure?" ng-bootbox-confirm-action="model.markAsCancelled(mobileRepairOrder.MobileRepairId)" ng-click="$event.originalEvent.ngClickHandled = true;">
-                                                                Mark as Cancelled
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            <tr ng-repeat="mobileRepairOrder in model.mobileRepairOrders" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
+                                                <td><span ng-bind="mobileRepairOrder.MobileNumber"></span></td>
+                                                <td><span ng-bind="mobileRepairOrder.ModelName"></span></td>
+                                                <td><span ng-bind="mobileRepairOrder.Description"></span></td>
+                                                <td><span ng-bind="mobileRepairOrder.CouponCode"></span></td>
+                                                <td></td>
+                                                <td>
+                                                    <div class="btn-group pull-right">
+                                                        <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
+                                                            <i class="fa fa-chevron-down"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu slidedown">
+                                                            <li>
+                                                                <a data-toggle="modal" data-target="#mobileRepairPaymentModal" ng-click="model.markAsCompleted(mobileRepairOrder.MobileRepairId,mobileRepairOrder.MobileNumber)">
+                                                                    Mark as Completed
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a ng-bootbox-confirm="Mark as Cancelled. Are you sure?" ng-bootbox-confirm-action="model.markAsCancelled(mobileRepairOrder.MobileRepairId)" ng-click="$event.originalEvent.ngClickHandled = true;">
+                                                                    Mark as Cancelled
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -119,35 +119,46 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Payment Detail</h4>
-            </div>
-            <div class="modal-body">
+    <div class="modal inmodal fade" id="mobileRepairPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Payment Detail</h4>
+                </div>
+
+                <div class="modal-body">
                     <div class="row">
-                        <div class="form-group">
-                            <input type="text" class="form-control required" placeholder="Amount" />
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control required" placeholder="OTP" />
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-danger col-lg-12">Send OTP</button>
+                        <div class="alert alert-danger alert-dismissable" ng-if="model.errorMessages.length>0">
+                            <ul>
+                                <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                            </ul>
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="number" class="form-control required" ng-model="model.amount" placeholder="Amount" />
+                        </div>
+                        <div class="form-group" ng-if="model.isOtpCreated">
+                            <input type="text" class="form-control required" ng-model="model.OTP" placeholder="OTP" />
+                        </div>
+                        <div class="form-group">
+                            <button type="button" ng-click="model.createMobileRepairPaymentOtp()" class="btn btn-danger col-lg-12 col-sm-12 col-xs-12">Send OTP</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                    <button ng-if="model.isOtpCreated" type="button" ng-click="model.createMobileRepairPayment()" class="btn btn-primary">Pay</button>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
+
+
 
 
 

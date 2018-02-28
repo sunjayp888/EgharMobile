@@ -14,7 +14,8 @@
             retrieveMobileRepairOrdersByMobile: retrieveMobileRepairOrdersByMobile,
             markAsCompleted: markAsCompleted,
             markAsCancelled:markAsCancelled,
-            deleteMobileRepairRequest: deleteMobileRepairRequest
+            deleteMobileRepairRequest: deleteMobileRepairRequest,
+            createMobileRepairPayment: createMobileRepairPayment
         };
 
         return service;
@@ -74,5 +75,12 @@
             return $http.post(url, data);
         }
 
+        function createMobileRepairPayment(model) {
+            var url = "/MobileRepair/CreateMobileRepairPayment",
+                data = {
+                    model: model
+                };
+            return $http.post(url, data);
+        }
     }
 })();
