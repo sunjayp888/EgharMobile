@@ -90,6 +90,11 @@
                                                         </a>
                                                         <ul class="dropdown-menu slidedown">
                                                             <li>
+                                                                <a href="Edit/{{mobileRepairOrder.MobileRepairId}}">
+                                                                    Edit
+                                                                </a>
+                                                            </li>
+                                                            <li>
                                                                 <a data-toggle="modal" data-target="#mobileRepairPaymentModal" ng-click="model.markAsCompleted(mobileRepairOrder.MobileRepairId,mobileRepairOrder.MobileNumber)">
                                                                     Mark as Completed
                                                                 </a>
@@ -150,7 +155,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                    <button ng-if="model.isOtpCreated" type="button" ng-click="model.createMobileRepairPayment()" class="btn btn-primary">Pay</button>
+                    <button ng-disabled="model.disablePay" ng-if="model.isOtpCreated" type="button" ng-click="model.createMobileRepairPayment()" class="btn btn-primary">Pay</button>
                 </div>
             </div>
         </div>

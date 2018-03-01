@@ -141,5 +141,24 @@ namespace Egharpay.Controllers
             return this.JsonNet(result);
         }
 
+        [Route("MobileRepair/Edit/{mobileRepairId}")]
+        public async Task<ActionResult> Edit(int mobileRepairId)
+        {
+            var mobileRepair = await _mobileRepairBusinessService.RetrieveMobileRepair(mobileRepairId);
+            var model = new MobileRepairViewModel()
+            {
+                MobileRepair = mobileRepair
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("MobileRepair/Edit/{mobileRepairId}")]
+        public async Task<ActionResult> Edit(MobileRepairViewModel model)
+        {
+            await _mobileRepairBusinessService.UpdateMobileRepair(model.MobileRepair);
+            return RedirectToAction("MobileRepairOrder");
+        }
+
     }
 }

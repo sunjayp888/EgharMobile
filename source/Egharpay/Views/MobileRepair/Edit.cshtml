@@ -1,0 +1,73 @@
+﻿@model Egharpay.Models.MobileRepairViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+<h2>Edit</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h3>@Model.MobileRepair.MobileNumber <small> Edit Mobile Repair Request</small></h3>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <div>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-horizontal">
+                                    @if (ViewContext.ViewData.ModelState.Any(x => x.Key == ""))
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-12 col-xs-12 col-md-offset-3">
+                                                @Html.ValidationSummary(false, null, new { @class = "row alert alert-error" })
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="form-control-required-example">&nbsp; = Required</div>
+                                    <br />
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.MobileNumber, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.MobileNumber, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.MobileNumber, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12 col-xs-12 col-md-offset-3">
+                                        <div class="form-group">
+                                            <div class="pull-right">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2></h2>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+

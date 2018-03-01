@@ -9,6 +9,10 @@ namespace Egharpay.Entity
     [Table("MobileRepair")]
     public partial class MobileRepair
     {
+        public MobileRepair()
+        {
+            CreatedDateTime = DateTime.UtcNow;
+        }
         public int MobileRepairId { get; set; }
 
         public decimal MobileNumber { get; set; }
@@ -22,5 +26,37 @@ namespace Egharpay.Entity
         public string CouponCode { get; set; }
 
         public int? MobileRepairStateId { get; set; }
+
+        public DateTime CreatedDateTime { get; set; }
+
+        [StringLength(100)]
+        public string Company { get; set; }
+
+        public int? CountryId { get; set; }
+
+        public int? StateId { get; set; }
+
+        [StringLength(100)]
+        public string City { get; set; }
+
+        public string Address1 { get; set; }
+
+        public string Address2 { get; set; }
+
+        [StringLength(100)]
+        public string ZipPostalCode { get; set; }
+
+        [StringLength(100)]
+        public string PhoneNumber { get; set; }
+
+        [StringLength(100)]
+        public string LandMark { get; set; }
+
+        [StringLength(100)]
+        public string District { get; set; }
+
+        public decimal? AlternateNumber { get; set; }
+
+        public DateTime? AppointmentDate { get; set; }
     }
 }

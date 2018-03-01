@@ -37,6 +37,7 @@
         vm.mobileRepairOrders = [];
         vm.initialise = initialise;
         vm.amount;
+        vm.disablePay = false;
         //vm.mobileRepairState = mobileRepairState;
 
         function initialise() {
@@ -132,9 +133,10 @@
         }
 
         function markAsCompleted(mobileRepairId, mobileNumber) {
+            vm.amount = "";
             vm.mobileRepairId = mobileRepairId;
             vm.mobileNumber = mobileNumber;
-
+            vm.errorMessages = [];
             //return MobileRepairService.markAsCompleted(mobileRepairId).then(function (response) {
             //    retrieveMobileRepairOrders();
             //});
@@ -160,14 +162,15 @@
         }
 
         function createMobileRepairPayment() {
+            vm.disablePay = true;
             vm.errorMessages = [];
-            var model = { Amount: vm.amount, OTP: vm.OTP, MobileRepairId: vm.mobileRepairId,MobileNumber : vm.mobileNumber }
+            var model = { Amount: vm.amount, OTP: vm.OTP, MobileRepairId: vm.mobileRepairId, MobileNumber: vm.mobileNumber }
             return MobileRepairService.createMobileRepairPayment(model).then(function (response) {
                 vm.showMessage = true;
                 vm.isOtpCreated = response.data.Succeeded;
                 vm.errorMessages.push(response.data.Message);
                 retrieveMobileRepairOrders();
-                $('#mobileRepairPaymentModal').modal('toggle');
+                angular.element('#mobileRepairPaymentModal').modal('toggle');
             });
         }
     }

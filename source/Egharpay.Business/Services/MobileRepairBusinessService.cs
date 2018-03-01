@@ -130,6 +130,22 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
+        public async Task<ValidationResult<MobileRepair>> UpdateMobileRepair(MobileRepair mobileRepair)
+        {
+            var validationResult = new ValidationResult<MobileRepair>();
+            try
+            {
+                await _mobileDataService.UpdateAsync(mobileRepair);
+                validationResult.Succeeded = true;
+            }
+            catch (Exception e)
+            {
+                validationResult.Succeeded = true;
+                validationResult.Message = e.Message;
+            }
+            return validationResult;
+        }
+
         public async Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId)
         {
             var validationResult = new ValidationResult();
