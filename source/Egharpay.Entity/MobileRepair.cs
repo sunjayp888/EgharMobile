@@ -9,10 +9,6 @@ namespace Egharpay.Entity
     [Table("MobileRepair")]
     public partial class MobileRepair
     {
-        public MobileRepair()
-        {
-            CreatedDateTime = DateTime.UtcNow;
-        }
         public int MobileRepairId { get; set; }
 
         public decimal MobileNumber { get; set; }
@@ -58,5 +54,7 @@ namespace Egharpay.Entity
         public decimal? AlternateNumber { get; set; }
 
         public DateTime? AppointmentDate { get; set; }
+
+        public string Comment { get; set; }
     }
 }
