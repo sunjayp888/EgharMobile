@@ -1,4 +1,5 @@
-﻿@using Egharpay.Extensions
+﻿@using Egharpay.Business.Enum
+@using Egharpay.Extensions
 @model Egharpay.Models.MobileRepairViewModel
 @{
     var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
@@ -23,21 +24,18 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-sm-6">
+
                             <h3>
                                 <label class="btn btn-primary">Offers</label> We have offer for you
                             </h3>
                             <p>Apply coupon</p>
                             <p class="text-center">
-                                <div class="alert alert-success">
+                                <div class="alert alert-danger">
                                     <ul>
                                         <li>
-                                            How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
-                                        </li>
-                                        <li>
-                                            How quickly daft jumping zebras vex. <a class="alert-link" href="#">Alert Link</a>.
+                                            Register account on mumbile.Get Back cover for Rs 50 only. Apply Coupon code MUM001
                                         </li>
                                     </ul>
-
                                 </div>
                             </p>
                         </div>
@@ -56,19 +54,110 @@
                                 </div>
                                 <div class="form-group" ng-if="model.isOtpCreated==true">
                                     @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", @ng_model = "model.OTP" })
-                                    @Html.ValidationMessageFor(m => m.MobileNumber, "", new { @class = "text-danger" })
+                                    @Html.ValidationMessageFor(m => m.OTP, "", new { @class = "text-danger" })
                                 </div>
-                                <div class="form-group" ng-if="model.isOtpCreated==true">
+                                <div class="form-group" ng-if="model.isOtpCreated && model.isRepair">
                                     @Html.TextBoxFor(m => m.CouponCode, new { @class = "form-control", @placeholder = "Coupon Code", @ng_model = "model.couponCode" })
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" ng-if="model.isRepair">
                                     @Html.TextBoxFor(m => m.ModelName, new { @class = "form-control", @placeholder = "Model Name", @ng_model = "model.modelName" })
                                 </div>
-                                <div>
-                                    <button ng-if="!model.isOtpCreated" ng-click="model.createMobileRepairOtp()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Next</strong></button>
-                                    <button ng-if="model.isOtpCreated" ng-click="model.createMobileRepairRequest()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Submit</strong></button>
+                                <p class="text-muted text-left">
+                                    <a ng-if="model.isOtpCreated" ng-click="model.isRepair ? model.createMobileRepairOtp():model.createMobileRepairManageOrderOtp()">&nbsp;&nbsp;&nbsp; ReSend OTP</a>
+                                </p>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button ng-if="!model.isOtpCreated && model.isRepair" ng-click="model.createMobileRepairOtp()" class="btn btn-danger pull-right col-xs-12" type="button"><strong>Repair</strong></button>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button ng-if="!model.isOtpCreated" ng-click="model.createMobileRepairManageOrderOtp()" class="btn btn-default pull-right col-xs-12" type="button"><strong>Manage Order</strong></button>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <button ng-if="model.isOtpCreated" ng-click="model.isRepair ? model.createMobileRepairRequest():model.retrieveMobileRepairOrdersByMobile()" class="btn btn-primary pull-right col-xs-12" type="button"><strong>Submit</strong></button>
                                 </div>
                             }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+
+    <div class="row" ng-if="model.mobileRepairOrders.length>0">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Manage Mobile Repair Orders<small> check your orders</small></h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="project-list">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr ng-repeat="mobileRepair in model.mobileRepairOrders">
+                                            <td>
+                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.Created)">Created</span>
+                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.InProgress)">InProgress</span>
+                                                <span class="label label-danger" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Cancelled)">Cancelled</span>
+                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Completed)">Completed</span>
+                                            </td>
+                                            <td class="project-title">
+                                                <a><span ng-bind="mobileRepair.ModelName"></span></a>
+                                                <br>
+                                                <small>Requested Repair on 14.08.2014</small>
+                                            </td>
+                                            <td class="project-title">
+                                                <a><span>Description</span></a>
+                                                <br>
+                                                <small ng-bind="mobileRepair.Description"></small>
+                                            </td>
+                                            <td class="project-actions">
+                                                <button ng-if="mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.InProgress) ||mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.Created)" ng-click="model.deleteMobileRepairRequest(mobileRepair.MobileRepairId)" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Cancel Repair</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Offers</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="ibox float-e-margins">
+                                <div>
+                                    <div class="ibox-content no-padding border-left-right">
+                                        <img alt="image" class="img-responsive" src="/Images/profile_big.jpg">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

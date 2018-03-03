@@ -9,7 +9,13 @@
 
     function MobileRepairService($http) {
         var service = {
-            createMobileRepairRequest: createMobileRepairRequest
+            createMobileRepairRequest: createMobileRepairRequest,
+            retrieveMobileRepairOrders: retrieveMobileRepairOrders,
+            retrieveMobileRepairOrdersByMobile: retrieveMobileRepairOrdersByMobile,
+            markAsCompleted: markAsCompleted,
+            markAsCancelled:markAsCancelled,
+            deleteMobileRepairRequest: deleteMobileRepairRequest,
+            createMobileRepairPayment: createMobileRepairPayment
         };
 
         return service;
@@ -22,5 +28,59 @@
             return $http.post(url, data);
         }
 
+        //function retrieveMobileRepairOrders() {
+        //    var url = "/MobileRepair/RetrieveMobileRepairOrders/" + mobileNumber;
+        //    return $http.get(url, data);
+        //}
+      
+        function retrieveMobileRepairOrdersByMobile(mobileNumber, otp) {
+            var url = "/MobileRepair/RetrieveMobileRepairOrdersByMobile/" + mobileNumber + "/" + otp;
+            return $http.get(url);
+        }
+
+        function deleteMobileRepairRequest(mobileRepairId, mobileNumber, otp) {
+            var url = "/MobileRepair/DeleteMobileRepairRequest",
+                 data = {
+                     mobileRepairId: mobileRepairId,
+                     mobileNumber: mobileNumber,
+                     otp: otp
+                 };
+            return $http.post(url, data);
+        }
+
+        function retrieveMobileRepairOrders(Paging, OrderBy) {
+            var url = "/MobileRepair/List",
+            data = {
+                paging: Paging,
+                orderBy: new Array(OrderBy)
+            };
+            return $http.post(url, data);
+        }
+
+        function markAsCompleted(mobileRepairId) {
+            var url = "/MobileRepair/MarkAsCompleted",
+            data = {
+                mobileRepairId: mobileRepairId,
+                mobileRepairStateId: mobileRepairStateId
+            };
+            return $http.post(url, data);
+        }
+
+        function markAsCancelled(mobileRepairId) {
+            var url = "/MobileRepair/MarkAsCompleted",
+            data = {
+                mobileRepairId: mobileRepairId,
+                mobileRepairStateId: mobileRepairStateId
+            };
+            return $http.post(url, data);
+        }
+
+        function createMobileRepairPayment(model) {
+            var url = "/MobileRepair/CreateMobileRepairPayment",
+                data = {
+                    model: model
+                };
+            return $http.post(url, data);
+        }
     }
 })();

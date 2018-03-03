@@ -53,7 +53,7 @@ namespace Egharpay.Controllers
         }
 
         // GET: Personnel/Profile/{id}
-        [PolicyAuthorize(Roles = new[] { Role.Seller, Role.Seller })]
+        [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller })]
         public async Task<ActionResult> Profile()
         {
             var id = UserPersonnelId;

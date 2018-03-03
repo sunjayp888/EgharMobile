@@ -63,7 +63,7 @@ namespace Egharpay.Business.Services
                 MobileNumber = mobileNumber,
                 OTP = GenerateOtpHelper.GenerateOtp(),
                 OTPCreatedDateTime = DateTime.UtcNow,
-                OTPValidDateTime = DateTime.UtcNow.AddMinutes(3),
+                OTPValidDateTime = DateTime.UtcNow.AddMinutes(30),
                 OTPReasonId = otpReasonId,
                 UserId = aspNetUserId,
             };
@@ -94,10 +94,10 @@ namespace Egharpay.Business.Services
                 var data = await _otpDataService.RetrieveAsync<AspNetUserMobileOtp>(e => e.MobileNumber == mobileNumber && e.OTPReasonId == reasonId);
                 if (validityDateTime.HasValue)
                     data = data.Where(e => e.OTPValidDateTime >= validityDateTime.Value);
-                var result = data.ToList().FirstOrDefault();
+                var result = data.FirstOrDefault();
                 if (result != null && result.OTP == otpNumber)
                 {
-                    validationResult.Entity = data.FirstOrDefault();
+                    validationResult.Entity = result;
                     validationResult.Message = "Valid OTP";
                     validationResult.Succeeded = true;
                 }

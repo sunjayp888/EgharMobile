@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IAddressDataService.cs" />
     <Compile Include="Interfaces\IAuthorizationDataService.cs" />
+    <Compile Include="Interfaces\IMobileRepairDataService.cs" />
     <Compile Include="Interfaces\IOtpDataService.cs" />
     <Compile Include="Interfaces\IProductDataService.cs" />
     <Compile Include="Interfaces\IAdvertiseDataService.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Interfaces\ISellerOrderDataService.cs" />
     <Compile Include="Interfaces\ITemplateDataService.cs" />
     <Compile Include="Interfaces\ITrendCommentDataService.cs" />
+    <Compile Include="Interfaces\ICouponDataService.cs" />
     <Compile Include="Interfaces\ITrendDataService.cs" />
     <Compile Include="Models\EgharpayDatabaseFactory.cs" />
     <Compile Include="Extensions\Ordering.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Partials\EgharpayDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthorizationDataService.cs" />
+    <Compile Include="Services\MobileRepairDataService.cs" />
     <Compile Include="Services\IAddressDataService.cs" />
     <Compile Include="Services\OtpDataService.cs" />
     <Compile Include="Services\ProductDataService.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Services\SellerOrderDataService.cs" />
     <Compile Include="Services\TemplateDataService.cs" />
     <Compile Include="Services\TrendCommentDataService.cs" />
+    <Compile Include="Services\CouponDataService.cs" />
     <Compile Include="Services\TrendDataService.cs" />
   </ItemGroup>
   <ItemGroup>

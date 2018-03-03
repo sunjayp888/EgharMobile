@@ -18,5 +18,10 @@ namespace Egharpay.Models
         public string CouponCode { get; set; }
         [Required]
         public int OTP { get; set; }
+        public bool IsOtpCreated { get; set; }
+        public int MobileRepairStateId { get; set; }
+        public int MobileRepairId { get; set; }
+        public decimal Amount { get; set; }
+        public MobileRepair MobileRepair { get; set; }
     }
 }
