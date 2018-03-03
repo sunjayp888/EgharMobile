@@ -166,6 +166,7 @@
     <Compile Include="Interfaces\IOtpBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelEmailBusinessService.cs" />
     <Compile Include="Interfaces\ISellerMobileBusinessService.cs" />
+    <Compile Include="Interfaces\ISellerOrderBusinessService.cs" />
     <Compile Include="Interfaces\ISmsBusinessService.cs" />
     <Compile Include="Models\GeoPosition.cs" />
     <Compile Include="Models\HtmlEmail.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Services\RequestTypeBusinessService.cs" />
     <Compile Include="Services\SellerBusinessService.cs" />
     <Compile Include="Services\SellerMobileBusinessService.cs" />
+    <Compile Include="Services\SellerOrderBusinessService.cs" />
     <Compile Include="Services\SmsBusinessService.cs" />
     <Compile Include="Services\TrendBusinessService.cs" />
     <Compile Include="Services\TrendCommentBusinessService.cs" />

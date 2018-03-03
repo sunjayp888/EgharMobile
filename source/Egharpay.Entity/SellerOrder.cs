@@ -6,13 +6,17 @@ namespace Egharpay.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("OrderSeller")]
-    public partial class OrderSeller
+    [Table("SellerOrder")]
+    public partial class SellerOrder
     {
-        public int OrderSellerId { get; set; }
+        public int SellerOrderId { get; set; }
 
         public int OrderId { get; set; }
 
         public int SellerId { get; set; }
+
+        public int OrderStateId { get; set; }
+
+        public virtual OrderState OrderState { get; set; }
     }
 }

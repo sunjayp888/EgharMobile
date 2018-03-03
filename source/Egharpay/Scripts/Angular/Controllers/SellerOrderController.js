@@ -18,6 +18,7 @@
         vm.initialise = initialise;
         vm.retrieveSellerOrders = retrieveSellerOrders;
         vm.updateSellerOrder = updateSellerOrder;
+        vm.initialiseinitialise = initialise;
 
         function initialise() {
             vm.orderBy.property = "OrderId";

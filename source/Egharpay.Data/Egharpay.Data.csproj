@@ -86,6 +86,7 @@
     <Compile Include="Interfaces\IRequestTypeDataService.cs" />
     <Compile Include="Interfaces\ISellerDataService.cs" />
     <Compile Include="Interfaces\ISellerMobileDataService.cs" />
+    <Compile Include="Interfaces\ISellerOrderDataService.cs" />
     <Compile Include="Interfaces\ITemplateDataService.cs" />
     <Compile Include="Interfaces\ITrendCommentDataService.cs" />
     <Compile Include="Interfaces\ITrendDataService.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Services\RequestTypeDataService.cs" />
     <Compile Include="Services\SellerDataService.cs" />
     <Compile Include="Services\SellerMobileDataService.cs" />
+    <Compile Include="Services\SellerOrderDataService.cs" />
     <Compile Include="Services\TemplateDataService.cs" />
     <Compile Include="Services\TrendCommentDataService.cs" />
     <Compile Include="Services\TrendDataService.cs" />

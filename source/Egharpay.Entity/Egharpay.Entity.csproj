@@ -119,7 +119,7 @@
     <Compile Include="MobileRepair.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
-    <Compile Include="OrderSeller.cs" />
+    <Compile Include="SellerOrder.cs" />
     <Compile Include="OrderState.cs" />
     <Compile Include="Partials\Address.cs" />
     <Compile Include="Partials\Seller.cs" />
