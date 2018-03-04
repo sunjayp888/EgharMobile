@@ -311,6 +311,7 @@
     <Compile Include="Controllers\ScaffoldingController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Controllers\SellerMobileController.cs" />
+    <Compile Include="Controllers\SellerOrderController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\TrendCommentController.cs" />
     <Compile Include="Controllers\TrendController.cs" />
@@ -359,6 +360,7 @@
     <Compile Include="Models\ScaffoldingContext.cs" />
     <Compile Include="Models\ScaffoldingController.cs" />
     <Compile Include="Models\PersonnelDocumentViewModel.cs" />
+    <Compile Include="Models\SellerOrderViewModel.cs" />
     <Compile Include="Models\SellerViewModel.cs" />
     <Compile Include="Models\TrendCommentViewModel.cs" />
     <Compile Include="Models\TrendViewModel.cs" />
@@ -2052,6 +2054,7 @@
     <Content Include="Views\Shared\_NavigationUnApprovedSeller.cshtml" />
     <Content Include="Views\Shared\_LayoutUnApprovedSeller.cshtml" />
     <Content Include="Views\MobileRepair\Index.cshtml" />
+    <Content Include="Views\SellerOrder\Index.cshtml" />
     <Content Include="Views\MobileRepair\MobileRepairOrder.cshtml" />
     <Content Include="Views\MobileRepair\Edit.cshtml" />
   </ItemGroup>

@@ -14,7 +14,7 @@ namespace Egharpay.Business.Interfaces
     {
         //Create
         Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, List<int> sellerIds,int shippingAddressId);
-        Task<ValidationResult<OrderSeller>> CreateOrderSeller(OrderSeller orderSeller);
+        Task<ValidationResult<SellerOrder>> CreateSellerOrder(SellerOrder sellerOrder);
 
         //Retrieve
         Task<Order> RetrieveOrder(int orderId);

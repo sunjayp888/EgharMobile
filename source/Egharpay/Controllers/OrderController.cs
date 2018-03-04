@@ -65,7 +65,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RequestOrder(int? mobileId, List<int> sellerIds,int shippingAddressId)
+        public async Task<ActionResult> RequestOrder(int? mobileId, List<int> sellerIds, int shippingAddressId)
         {
             //if (mobileId == null)
             //{
@@ -85,8 +85,21 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _orderBusinessService.RetrieveSellerOrders(e => true, orderBy, paging);
-            return this.JsonNet(data);
+            try
+            {
+                var personnelId = UserPersonnelId;
+                var personnel = _personnelBusinessService.RetrievePersonnel(UserPersonnelId);
+                var personnelData = personnel.Result.Entity;
+                //var personnelData = _personnelBusinessService.RetrievePersonnels(null, null).Result.Items.FirstOrDefault();
+                var isSeller = personnelData.IsSeller;
+                var data = isSeller ? await _orderBusinessService.RetrieveSellerOrders(e => e.SellerPersonnelId == personnelData.PersonnelId, orderBy, paging) : await _orderBusinessService.RetrieveSellerOrders(e => e.BuyerPersonnelId == personnelData.PersonnelId, orderBy, paging);
+                return this.JsonNet(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         [HttpPost]

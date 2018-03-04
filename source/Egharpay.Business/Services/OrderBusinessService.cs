@@ -55,12 +55,12 @@ namespace Egharpay.Business.Services
                     ShippingAddressId = shippingAddressId
                 };
                 var orderEntity = await _dataService.CreateGetAsync(order);
-                var orderSellerList = sellerIds.Select(seller => new OrderSeller()
+                var sellerOrderList = sellerIds.Select(seller => new SellerOrder()
                 {
                     OrderId = orderEntity.OrderId,
                     SellerId = seller
                 }).ToList();
-                await _dataService.CreateRangeAsync(orderSellerList);
+                await _dataService.CreateRangeAsync(sellerOrderList);
                 var customerPersonnel = await _personnelDataService.RetrieveByIdAsync<Personnel>(personnelId);
                 var sellers = await _sellerBusinessService.RetrieveSellers(sellerIds);
                 //var personnelData = await _personnelDataService.RetrieveByIdAsync<Personnel>(mobileId.PersonnelId);
@@ -79,13 +79,13 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<ValidationResult<OrderSeller>> CreateOrderSeller(OrderSeller orderSeller)
+        public async Task<ValidationResult<SellerOrder>> CreateSellerOrder(SellerOrder sellerOrder)
         {
-            var validationResult = new ValidationResult<OrderSeller>();
+            var validationResult = new ValidationResult<SellerOrder>();
             try
             {
-                await _dataService.CreateAsync(orderSeller);
-                validationResult.Entity = orderSeller;
+                await _dataService.CreateAsync(sellerOrder);
+                validationResult.Entity = sellerOrder;
                 validationResult.Succeeded = true;
             }
             catch (Exception ex)
@@ -198,10 +198,10 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<PagedResult<OrderSeller>> RetrieveOrderSellers(Expression<Func<OrderSeller, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<SellerOrder>> RetrieveSellerOrders(Expression<Func<SellerOrder, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var result = await _dataService.RetrievePagedResultAsync<OrderSeller>(expression, orderBy, paging);
-            return _mapper.MapToPagedResult<OrderSeller>(result);
+            var result = await _dataService.RetrievePagedResultAsync<SellerOrder>(expression, orderBy, paging);
+            return _mapper.MapToPagedResult<SellerOrder>(result);
         }
     }
 }
