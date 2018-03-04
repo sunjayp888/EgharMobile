@@ -51,7 +51,7 @@ namespace Egharpay.Data
         public virtual DbSet<SellerMobileGrid> SellerMobileGrids { get; set; }
 
         public virtual DbSet<SellerOrderGrid> SellerOrderGrids { get; set; }
-        public virtual DbSet<OrderSeller> OrderSellers { get; set; }
+        public virtual DbSet<SellerOrder> SellerOrders { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<AspNetUserMobileOtp> AspNetUserMobileOtps { get; set; }
         public virtual DbSet<CouponCode> CouponCodes { get; set; }
@@ -861,6 +861,22 @@ namespace Egharpay.Data
 
             modelBuilder.Entity<SellerOrderGrid>()
                 .Property(e => e.MobileName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerOrderGrid>()
+                .Property(e => e.ShopName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerOrderGrid>()
+                .Property(e => e.SellerAddress)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerOrderGrid>()
+                .Property(e => e.SellerPincode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerOrderGrid>()
+                .Property(e => e.SellerEmail)
                 .IsUnicode(false);
         }
     }

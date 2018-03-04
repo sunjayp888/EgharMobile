@@ -65,7 +65,7 @@ namespace Egharpay.Entity
         [StringLength(128)]
         public string UserId { get; set; }
 
-        public bool? IsSeller { get; set; }
+        public bool IsSeller { get; set; }
 
     }
 }
