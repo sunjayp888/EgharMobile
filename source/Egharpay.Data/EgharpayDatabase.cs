@@ -863,6 +863,49 @@ namespace Egharpay.Data
                 .Property(e => e.MobileName)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.MobileNumber)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.ModelName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.CouponCode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.Company)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.City)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.ZipPostalCode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.PhoneNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.LandMark)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.District)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.AlternateNumber)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<MobileRepair>()
+                .Property(e => e.Comment)
+
             modelBuilder.Entity<SellerOrderGrid>()
                 .Property(e => e.ShopName)
                 .IsUnicode(false);

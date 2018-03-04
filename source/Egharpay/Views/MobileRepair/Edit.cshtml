@@ -30,6 +30,7 @@
                                             </div>
                                         </div>
                                     }
+                                    @Html.HiddenFor(model => Model.MobileRepair.MobileRepairId)
                                     <div class="form-control-required-example">&nbsp; = Required</div>
                                     <br />
                                     <div class="form-group">
@@ -37,6 +38,111 @@
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             @Html.TextBoxFor(model => model.MobileRepair.MobileNumber, new { @class = "form-control col-md-6 col-xs-12" })
                                             @Html.ValidationMessageFor(model => model.MobileRepair.MobileNumber, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.ModelName, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.ModelName, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.ModelName, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.Description, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.Description, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.Description, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.CouponCode, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.CouponCode, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.CouponCode, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.Company, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.Company, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.Company, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.Address1, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.Address1, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.Address1, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.Address2, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.Address2, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.Address2, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.CountryId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.CountryId, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.CountryId, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.StateId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.StateId, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.StateId, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.District, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.District, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.District, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.City, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.City, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.City, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.ZipPostalCode, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.ZipPostalCode, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.ZipPostalCode, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.LandMark, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.LandMark, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.LandMark, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.AlternateNumber, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.AlternateNumber, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.AlternateNumber, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.AppointmentDate, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.AppointmentDate, new { @class = "form-control col-md-6 col-xs-12 date" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.AppointmentDate, "", new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MobileRepair.Comment, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            @Html.TextBoxFor(model => model.MobileRepair.Comment, new { @class = "form-control col-md-6 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.Comment, "", new { @class = "help-block" })
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-12 col-xs-12 col-md-offset-3">
@@ -68,6 +174,35 @@
     </div>
 
 </div>
+@section scripts {
+    <script>
+    $(function () {
 
+        var daterangepickerOptions = {
+            autoApply: true,
+            singleDatePicker: true,
+            showDropdowns: true,
+            showCustomRangeLabel: false,
+            opens: 'left',
+            //minDate: moment(),
+            //maxDate: moment().add('2', 'days').format('DD MMMM YYYY'),
+            onSelect: function () {
+                selectedDate = moment().format('DD MMMM YYYY');
+            },
+            locale: {
+                "format": "DD MMMM YYYY"
+            }
+        };
+
+        jQuery(function () {
+            jQuery(".date").daterangepicker(daterangepickerOptions);
+            $('.date').val(moment().format('DD MMMM YYYY'));
+            $(".date").on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('DD MMMM YYYY'));
+            });
+        });
+    });
+    </script>
+}
 
 
