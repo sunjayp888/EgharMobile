@@ -8,6 +8,7 @@
     moment.$inject = ['$window'];
 
     function moment($window) {
+        $window.moment.locale("en-gb");
         return $window.moment;
     }
 })();

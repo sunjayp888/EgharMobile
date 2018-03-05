@@ -154,6 +154,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/Edit/{mobileRepairId}")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(MobileRepairViewModel model)
         {
             await _mobileRepairBusinessService.UpdateMobileRepair(model.MobileRepair);

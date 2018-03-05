@@ -904,7 +904,7 @@ namespace Egharpay.Data
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<MobileRepair>()
-                .Property(e => e.Comment)
+                .Property(e => e.Comment);
 
             modelBuilder.Entity<SellerOrderGrid>()
                 .Property(e => e.ShopName)

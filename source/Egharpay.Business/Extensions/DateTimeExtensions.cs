@@ -36,5 +36,14 @@ namespace Egharpay.Business.Extensions
             }
             return dt.AddDays(-1 * diff).Date;
         }
+        public static string Formatted(this DateTime dateTime)
+        {
+            return dateTime.ToString("dd MMM yyyy", System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        public static string Formatted(this DateTime? dateTime)
+        {
+            return dateTime.HasValue == false ? "" : dateTime.Value.Formatted();
+        }
     }
 }

@@ -1,18 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>INSPINIA | @ViewBag.Title</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <!-- Add local styles, mostly for plugins css file -->
     @if (IsSectionDefined("Styles"))
-    {@RenderSection("Styles", required: false)}
+    {@RenderSection("Styles", required: false)
+    }
 
     <!-- Add jQuery Style direct - used for jQGrid plugin -->
-    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css"/>
 
     <!-- Primary Inspinia style -->
     @Styles.Render("~/font-awesome/css")
@@ -25,70 +26,70 @@
 </head>
 <body class="top-navigation">
 
-    <!-- Skin configuration box -->
-    @*@Html.Partial("_SkinConfig")*@
+<!-- Skin configuration box -->
+@*@Html.Partial("_SkinConfig")*@
 
-    <!-- Wrapper-->
-    <!-- PageClass give you ability to specify custom style for specific view based on action -->
-    <div id="wrapper" class="@Html.PageClass()" ng-app="Egharpay">
+<!-- Wrapper-->
+<!-- PageClass give you ability to specify custom style for specific view based on action -->
+<div id="wrapper" class="@Html.PageClass()" ng-app="Egharpay">
 
-        <!-- Navigation -->
-        @*@Html.Partial("_Navigation")*@
+    <!-- Navigation -->
+    @*@Html.Partial("_Navigation")*@
 
-        <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
+    <!-- Page wraper -->
+    <div id="page-wrapper" class="gray-bg @ViewBag.SpecialClass">
 
-            <!-- Top Navbar -->
-            @Html.Partial("_TopNavbar2")
-            <br />
-            <br />
-            <br />
-            <!-- Main view -->
-            @RenderBody()
-            <br />
-            <br />
-            <!-- Footer -->
-            @Html.Partial("_Footer")
+        <!-- Top Navbar -->
+        @Html.Partial("_TopNavbar2")
+        <br/>
+        <br/>
+        <br/>
+        <!-- Main view -->
+        @RenderBody()
+        <br/>
+        <br/>
+        <!-- Footer -->
+        @Html.Partial("_Footer")
 
-
-        </div>
-        <!-- End page wrapper-->
-        <!-- Right Sidebar -->
-        @Html.Partial("_RightSidebar")
 
     </div>
+    <!-- End page wrapper-->
+    <!-- Right Sidebar -->
+    @Html.Partial("_RightSidebar")
+
+</div>
 
 
-    <!-- End wrapper-->
-    <!-- Section for main scripts render -->
-    @Scripts.Render("~/Scripts/bower")
-    @*@Scripts.Render("~/bundles/jquery")*@
-    @*@Scripts.Render("~/bundles/bootstrap")*@
-    @Scripts.Render("~/plugins/slimScroll")
-    @Scripts.Render("~/bundles/inspinia")
-    @Scripts.Render("~/Scripts/Application")
+<!-- End wrapper-->
+<!-- Section for main scripts render -->
+@Scripts.Render("~/Scripts/bower")
+@*@Scripts.Render("~/bundles/jquery")*@
+@*@Scripts.Render("~/bundles/bootstrap")*@
+@Scripts.Render("~/plugins/slimScroll")
+@Scripts.Render("~/bundles/inspinia")
+@Scripts.Render("~/Scripts/Application")
 
 
-    @Scripts.Render("~/plugins/peity")
-    @Scripts.Render("~/plugins/iCheck")
-    @Scripts.Render("~/plugins/imagecropper")
-    @Scripts.Render("~/plugins/dataTables")
+@Scripts.Render("~/plugins/peity")
+@Scripts.Render("~/plugins/iCheck")
+@Scripts.Render("~/plugins/imagecropper")
+@Scripts.Render("~/plugins/dataTables")
 
 
-    @*@Scripts.Render("~/plugins/ionRange")*@
+@*@Scripts.Render("~/plugins/ionRange")*@
 
-    <!-- Skin config script - only for demo purpose-->
-    @Scripts.Render("~/bundles/skinConfig")
+<!-- Skin config script - only for demo purpose-->
+@Scripts.Render("~/bundles/skinConfig")
 
-    @Scripts.Render("~/plugins/typehead")
+@Scripts.Render("~/plugins/typehead")
 
 
 
-    <!-- Handler for local scripts -->
-    @RenderSection("scripts", required: false)
+<!-- Handler for local scripts -->
+@RenderSection("scripts", required: false)
 </body>
 </html>
-<link href="~/bower_components/wip-image-zoom/dist/wip-image-zoom.min.css" rel="stylesheet" />
+
 <script type="text/javascript">
     $(document).on('click',
         '.mega-dropdown',

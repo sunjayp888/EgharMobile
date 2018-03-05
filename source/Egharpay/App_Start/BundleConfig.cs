@@ -25,7 +25,7 @@ namespace Egharpay
                 "~/bower_components/angular-ui-uploader/dist/uploader.min.js",
                 "~/bower_components/angular-img-cropper/dist/angular-img-cropper.min.js",
                 "~/bower_components/angular-ui-mask/dist/mask.min.js",
-                "~/bower_components/bootstrap-daterangepicker/daterangepicker.js",
+                //"~/bower_components/bootstrap-daterangepicker/daterangepicker.js",
                 "~/bower_components/bootbox/bootbox.js",
                 "~/bower_components/ngBootbox/ngBootbox.js",
                 "~/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js",
@@ -42,7 +42,8 @@ namespace Egharpay
                 //"~/Scripts/moris/*.js",
                 "~/Scripts/Angular/Services/*.js",
                 "~/Scripts/Angular/Filters/*.js",
-                "~/Scripts/Angular/Directives/*.js"
+                "~/Scripts/Angular/Directives/*.js",
+                "~/Scripts/App/*.js"
 
                 ));
 
@@ -55,7 +56,8 @@ namespace Egharpay
                       "~/bower_components/ion.rangeSlider/css/ion.rangeSlider.css",
                       "~/bower_components/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css",
                       "~/bower_components/angular-ui-select/dist/select.min.css",
-                      "~/bower_components/font-awesome/css/font-awesome.min.css"
+                      "~/bower_components/font-awesome/css/font-awesome.min.css",
+                      "~/bower_components/bootstrap-daterangepicker/daterangepicker.css"
                       //"~/bower_components/wip-image-zoom/dist/wip-image-zoom.min.css"
                       ));
 

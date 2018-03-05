@@ -38,6 +38,7 @@
         vm.initialise = initialise;
         vm.amount;
         vm.disablePay = false;
+        vm.AppointmentDate = null;
         //vm.mobileRepairState = mobileRepairState;
 
         function initialise() {
