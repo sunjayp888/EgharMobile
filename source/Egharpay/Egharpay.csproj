@@ -334,10 +334,12 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddressViewModel.cs" />
     <Compile Include="Models\Authorization\Handlers\PermissionsAuthorizationHandler.cs" />
+    <Compile Include="Models\Authorization\Handlers\MobileRepairAdminAuthorizationHandler.cs" />
     <Compile Include="Models\Authorization\Handlers\PersonnelAuthorizationHandler.cs" />
     <Compile Include="Models\Authorization\PermissionsRequirement.cs" />
     <Compile Include="Models\Authorization\Policies.cs" />
     <Compile Include="Models\Authorization\PolicyAuthorizeAttribute.cs" />
+    <Compile Include="Models\Authorization\Requirements\MobileRepairAdminRequirement.cs" />
     <Compile Include="Models\Authorization\Requirements\PersonnelRequirement.cs" />
     <Compile Include="Models\Authorization\UnityAuthorizationDependencies.cs" />
     <Compile Include="Models\BaseViewModel.cs" />

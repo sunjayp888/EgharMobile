@@ -17,11 +17,15 @@
     {
         Layout = "~/Views/Shared/_Layout_2.cshtml";
     }
+    if (User.IsMobileRepairAdmin())
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
     ViewBag.Title = "Home";
 }
 @{
 
-    if (User.IsSuperUserOrAdmin())
+    if (User.IsSuperUserOrAdmin() || User.IsMobileRepairAdmin())
     {
         Html.RenderPartial("_Admin", Model);
     }
@@ -31,8 +35,9 @@
         Html.RenderPartial("_SellerDashboard", Model);
     }
 
-    else
+    if (User.IsPersonnel() || !User.Identity.IsAuthenticated)
     {
         Html.RenderPartial("_User", Model);
     }
+
 }

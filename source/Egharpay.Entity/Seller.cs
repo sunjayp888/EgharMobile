@@ -9,6 +9,10 @@ namespace Egharpay.Entity
     [Table("Seller")]
     public partial class Seller
     {
+        public Seller()
+        {
+            CreatedDate = DateTime.UtcNow;
+        }
         public int SellerId { get; set; }
 
         public int? PersonnelId { get; set; }
@@ -44,7 +48,7 @@ namespace Egharpay.Entity
         public string Pincode { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public string Remarks { get; set; }
 
@@ -57,5 +61,7 @@ namespace Egharpay.Entity
         public double? Latitude { get; set; }
 
         public double? Longitude { get; set; }
+
+        public decimal? MobileNumber { get; set; }
     }
 }

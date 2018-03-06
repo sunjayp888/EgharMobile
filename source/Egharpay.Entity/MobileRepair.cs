@@ -56,5 +56,7 @@ namespace Egharpay.Entity
         public DateTime? AppointmentDate { get; set; }
 
         public string Comment { get; set; }
+
+        public string AppointmentTime { get; set; }
     }
 }

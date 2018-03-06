@@ -51,6 +51,7 @@ namespace Egharpay.Business.Services
             {
                 await _mobileDataService.CreateAsync(mobileRepair);
                 await UpdateMobileRepair(mobileRepair.MobileRepairId, (int)MobileRepairRequestState.Completed);
+                validationResult.Succeeded = false;
                 //Send SMS for mobile repair Payment.
             }
             catch (Exception ex)

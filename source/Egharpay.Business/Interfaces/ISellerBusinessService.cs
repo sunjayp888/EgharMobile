@@ -23,5 +23,6 @@ namespace Egharpay.Business.Interfaces
         PagedResult<SellerMobileGrid> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null);
         //Update
         Task<ValidationResult<Seller>> UpdateSeller(Seller seller);
+        Task<ValidationResult<Seller>> UpdateSellerApprovalState(Seller seller);
     }
 }

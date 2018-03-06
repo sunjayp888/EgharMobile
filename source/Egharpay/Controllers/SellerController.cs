@@ -51,8 +51,8 @@ namespace Egharpay.Controllers
             {
                 //Create Seller
                 sellerViewModel.Seller.CreatedDate = DateTime.UtcNow;
-                sellerViewModel.Seller.ApprovalStateId = (int) ApprovalState.Pending;
-                sellerViewModel.Seller.ApprovalStateId = (int) ApprovalState.Pending;
+                sellerViewModel.Seller.ApprovalStateId = (int)SellerApprovalState.Pending;
+                sellerViewModel.Seller.ApprovalStateId = (int)SellerApprovalState.Pending;
                 var result = await _sellerBusinessService.CreateSeller(sellerViewModel.Seller);
                 if (result.Succeeded)
                 {
@@ -119,7 +119,7 @@ namespace Egharpay.Controllers
             {
                 return this.JsonNet(""); ;
             }
-            
+
         }
 
         [HttpPost]
@@ -132,9 +132,9 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> UpdateSellerApprovalState(int sellerId)
         {
             var sellerdata = await _sellerBusinessService.RetrieveSeller(sellerId);
-            sellerdata.ApprovalStateId = (int)ApprovalState.Approved;
-            await _sellerBusinessService.UpdateSeller(sellerdata);
-            return this.JsonNet(sellerdata);
+            sellerdata.ApprovalStateId = (int)SellerApprovalState.Approved;
+            var data = await _sellerBusinessService.UpdateSellerApprovalState(sellerdata);
+            return this.JsonNet(data);
 
         }
     }

@@ -1,6 +1,6 @@
 ﻿@using Egharpay.Extensions
 <div class="row border-bottom">
-    @if (User.IsSuperUserOrAdminOrSeller())
+    @if (User.IsSuperUserOrAdminOrSeller() || User.IsMobileRepairAdmin())
     {
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">

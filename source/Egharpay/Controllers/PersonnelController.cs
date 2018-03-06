@@ -9,16 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using Configuration.Interface;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
-using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
 using Egharpay.Models.Authorization;
-using Egharpay.Models.Identity;
 using Microsoft.Owin.Security.Authorization;
 using DocumentCategory = Egharpay.Business.Enum.DocumentCategory;
 using Role = Egharpay.Enums.Role;
@@ -37,7 +33,7 @@ namespace Egharpay.Controllers
         // protected IAuthorizationService AuthorizationService { get; private set; }
         const string UserNotExist = "User does not exist.";
 
-        public PersonnelController(IPersonnelBusinessService personnelBusinessService, IPersonnelDocumentBusinessService personnelDocumentBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService, ISellerBusinessService sellerBusinessService)
+        public PersonnelController(IPersonnelBusinessService personnelBusinessService, IPersonnelDocumentBusinessService personnelDocumentBusinessService, IAuthorizationService authorizationService, IDocumentsBusinessService documentsBusinessService, ISellerBusinessService sellerBusinessService)
             : base(authorizationService)
         {
             _personnelBusinessService = personnelBusinessService;
@@ -77,7 +73,7 @@ namespace Egharpay.Controllers
             if (User.IsSeller())
             {
                 var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(personnel.Entity.PersonnelId);
-                viewModel.IsSellerApproved = seller.ApprovalStateId == (int)ApprovalState.Approved;
+                viewModel.IsSellerApproved = seller.ApprovalStateId == (int)SellerApprovalState.Approved;
             }
 
             return View(viewModel);

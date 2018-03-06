@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.EmailServiceReference;
+using Egharpay.Business.Enum;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
@@ -23,7 +24,7 @@ namespace Egharpay.Business.Services
         private readonly IGoogleBusinessService _googleBusinessService;
         private readonly ITemplateBusinessService _templateBusinessService;
         private readonly IPersonnelEmailBusinessService _personnelEmailBusinessService;
-        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService, IGoogleBusinessService googleBusinessService,IPersonnelEmailBusinessService personnelEmailBusinessService,ITemplateBusinessService templateBusinessService)
+        public SellerBusinessService(ISellerDataService dataService, IEmailBusinessService emailBusinessService, IGoogleBusinessService googleBusinessService, IPersonnelEmailBusinessService personnelEmailBusinessService, ITemplateBusinessService templateBusinessService)
         {
             _dataService = dataService;
             _emailBusinessService = emailBusinessService;
@@ -151,29 +152,59 @@ namespace Egharpay.Business.Services
         public async Task<ValidationResult<Seller>> UpdateSeller(Seller seller)
         {
             ValidationResult<Seller> validationResult = new ValidationResult<Seller>();
-            var personnelConfirmedEmail = new PersonnelCreatedEmail()
+            try
+            {
+                await _dataService.UpdateAsync(seller);
+                validationResult.Entity = seller;
+                validationResult.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Errors = new List<string> { ex.InnerMessage() };
+                validationResult.Exception = ex;
+            }
+            return validationResult;
+        }
+
+        public async Task<ValidationResult<Seller>> UpdateSellerApprovalState(Seller seller)
+        {
+            var validationResult = new ValidationResult<Seller>();
+            var sellerApprovalEmail = await SendSellerApprovalStateEmail(seller);
+            if (sellerApprovalEmail.Succeeded)
+            {
+               await _dataService.UpdateAsync(seller);
+                validationResult.Succeeded = true;
+                validationResult.Entity = seller;
+            }
+            return validationResult;
+        }
+
+        private async Task<ValidationResult> SendSellerApprovalStateEmail(Seller seller)
+        {
+            var validationResult = new ValidationResult();
+            var sellerApprovalStateEmail = new SellerApprovalStateEmail()
             {
                 FullName = seller.Name,
                 Subject = "Seller Approval",
                 TemplateName = "SellerApprovalState",
-                ToAddress = new List<string>() { seller.Email }
+                ToAddress = new List<string>() { seller.Email },
+                ApprovalState = System.Enum.GetName(typeof(SellerApprovalState), seller.ApprovalStateId)
             };
             try
             {
-                var templateJson = personnelConfirmedEmail.ToJson();
-                var body = _templateBusinessService.CreateText(templateJson, personnelConfirmedEmail.TemplateName);
-                await _dataService.UpdateAsync(seller);
+                var templateJson = sellerApprovalStateEmail.ToJson();
+                var body = _templateBusinessService.CreateText(templateJson, sellerApprovalStateEmail.TemplateName);
                 if (body != null)
                 {
-                    _emailBusinessService.SendEmail(new EmailData
+                    await _emailBusinessService.SendEmail(new EmailData
                     {
-                        Subject = personnelConfirmedEmail.Subject, //ToDo
-                        ToAddressList = personnelConfirmedEmail.ToAddress,
+                        Subject = sellerApprovalStateEmail.Subject, //ToDo
+                        ToAddressList = sellerApprovalStateEmail.ToAddress,
                         IsHtml = true,
                         Body = body
                     });
                 }
-                validationResult.Entity = seller;
                 validationResult.Succeeded = true;
             }
             catch (Exception ex)

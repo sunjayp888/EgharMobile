@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +11,10 @@ using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
+using Egharpay.Models.Authorization;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
@@ -20,7 +24,7 @@ namespace Egharpay.Controllers
         private readonly ICouponCodeBusinessService _couponCodeBusinessService;
         private readonly IOtpBusinessService _otpBusinessService;
 
-        public MobileRepairController(IMobileRepairBusinessService mobileRepairBusinessService, IOtpBusinessService otpBusinessService, ICouponCodeBusinessService couponCodeBusinessService)
+        public MobileRepairController(IMobileRepairBusinessService mobileRepairBusinessService, IOtpBusinessService otpBusinessService, ICouponCodeBusinessService couponCodeBusinessService, IAuthorizationService authorizationService) : base(authorizationService)
         {
             _mobileRepairBusinessService = mobileRepairBusinessService;
             _otpBusinessService = otpBusinessService;
@@ -34,8 +38,11 @@ namespace Egharpay.Controllers
         }
 
         // GET: MobileRepair
-        public ActionResult MobileRepairOrder()
+        public async Task<ActionResult> MobileRepairOrder()
         {
+            var id = UserPersonnelId;
+            if (User.IsSuperUserOrAdmin() && !await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
+                return HttpForbidden();
             return View(new MobileRepairViewModel());
         }
 
@@ -93,6 +100,9 @@ namespace Egharpay.Controllers
         [Route("MobileRepair/MarkAsCompleted")]
         public async Task<ActionResult> MarkAsCompleted(int mobileRepairId)
         {
+            var id = UserPersonnelId;
+            if (User.IsSuperUserOrAdmin() && !await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
+                return HttpForbidden();
             var result = await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairId, (int)MobileRepairRequestState.Completed);
             return this.JsonNet(result);
         }

@@ -59,10 +59,16 @@ namespace Egharpay
 
             var options = new AuthorizationOptions();
             //Permission policy
-            options.AddPolicy(nameof(Policies.Permission.SuperUser), policy => { policy.Requirements.Add(new PermissionsRequirement("SuperUser")); });
-            options.AddPolicy(nameof(Policies.Permission.Personnel), policy => { policy.Requirements.Add(new PermissionsRequirement("Personnel")); });
+            options.AddPolicy(nameof(Policies.Permission.SuperUser), policy => { policy.Requirements.Add(new PermissionsRequirement(Policies.Permission.SuperUser.ToString())); });
+            options.AddPolicy(nameof(Policies.Permission.Personnel), policy => { policy.Requirements.Add(new PermissionsRequirement(Policies.Permission.Personnel.ToString())); });
+            options.AddPolicy(nameof(Policies.Permission.AdministratorMobileRepair), policy => { policy.Requirements.Add(new PermissionsRequirement(Policies.Permission.AdministratorMobileRepair.ToString())); });
+            options.AddPolicy(nameof(Policies.Permission.Seller), policy => { policy.Requirements.Add(new PermissionsRequirement(Policies.Permission.Seller.ToString())); });
+            
             //Resource Policy
             options.AddPolicy(nameof(Policies.Resource.Personnel), policy => { policy.Requirements.Add(new PersonnelRequirement()); });
+            options.AddPolicy(nameof(Policies.Resource.Seller), policy => { policy.Requirements.Add(new PersonnelRequirement()); });
+            options.AddPolicy(nameof(Policies.Resource.Personnel), policy => { policy.Requirements.Add(new PersonnelRequirement()); });
+            options.AddPolicy(nameof(Policies.Resource.MobileRepair), policy => { policy.Requirements.Add(new MobileRepairAdminRequirement()); });
 
             var container = UnityConfig.GetConfiguredContainer();
 
@@ -77,7 +83,9 @@ namespace Egharpay
             container.RegisterInstance<IEnumerable<IAuthorizationHandler>>(
                 new IAuthorizationHandler[]
                 {
+                    new PermissionsAuthorizationHandler(container.Resolve<IAuthorizationBusinessService>()),
                     new PersonnelAuthorizationHandler(container.Resolve<IAuthorizationBusinessService>()),
+                    new MobileRepairAdminAuthorizationHandler(container.Resolve<IAuthorizationBusinessService>())
                 },
                 new ContainerControlledLifetimeManager());
 

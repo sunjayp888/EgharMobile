@@ -311,7 +311,8 @@ namespace Egharpay.Controllers
                 Pincode = model.Pincode,
                 Latitude = model.Latitude,
                 Longitude = model.Longitude,
-                ApprovalStateId = (int)ApprovalState.Pending
+                ApprovalStateId = (int)SellerApprovalState.Pending,
+                MobileNumber = Convert.ToDecimal(model.MobileNumber)
             };
             var validationResult = await SellerBusinessService.CreateSeller(seller, callbackUrl);
             return validationResult;
@@ -351,6 +352,8 @@ namespace Egharpay.Controllers
                 return View("Error");
             }
             ApplicationUser user = this.UserManager.FindById(userId);
+            if (user == null)
+                return View("Error");
 
             if (user.Id == userId)
             {

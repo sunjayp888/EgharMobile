@@ -17539,3 +17539,11 @@ body.md-skin {
 .anchor-black a {
   color: black !important;
 }
+.daterangepickerdirective {
+  float: right;
+  margin-right: 10px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 5;
+  color: #999;
+}

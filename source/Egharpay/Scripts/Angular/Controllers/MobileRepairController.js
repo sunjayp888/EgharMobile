@@ -37,8 +37,9 @@
         vm.mobileRepairOrders = [];
         vm.initialise = initialise;
         vm.amount;
-        vm.disablePay = false;
+        vm.disablePay = true;
         vm.AppointmentDate = null;
+        vm.otpInputChanged = otpInputChanged;
         //vm.mobileRepairState = mobileRepairState;
 
         function initialise() {
@@ -173,6 +174,12 @@
                 retrieveMobileRepairOrders();
                 angular.element('#mobileRepairPaymentModal').modal('toggle');
             });
+        }
+
+        function otpInputChanged() {
+            if (vm.OTP.length === 6) {
+                vm.disablePay = false;
+            }
         }
     }
 

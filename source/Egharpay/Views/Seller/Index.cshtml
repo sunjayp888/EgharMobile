@@ -1,4 +1,5 @@
-﻿@using Egharpay.Extensions
+﻿@using Egharpay.Business.Enum
+@using Egharpay.Extensions
 
 @{
     ViewBag.Title = "Seller";
@@ -72,6 +73,7 @@
                                                 <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
                                                 <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
                                                 <th ng-click="model.order('ApprovalStateId')" ng-class="model.orderClass('ApprovalStateId')">Approved Status</th>
+                                                <th ng-click="model.order('MobileNumber')" ng-class="model.orderClass('MobileNumber')">MobileNumber</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -83,10 +85,11 @@
                                                 <td><span ng-bind="seller.Address1"></span><span ng-bind="seller.Address2"></span><span ng-bind="seller.Address3"></span><span ng-bind="seller.Address4"></span></td>
                                                 <td><span ng-bind="seller.Pincode"></span></td>
                                                 <td>
-                                                    <button ng-if="seller.ApprovalStateId==1" type="button" class="btn btn-round btn-warning btn-xs">Pending</button>
-                                                    <button ng-if="seller.ApprovalStateId==2" type="button" class="btn btn-round btn-success btn-xs">Approved</button>
-                                                    <button ng-if="seller.ApprovalStateId==3" type="button" class="btn btn-round btn-danger btn-xs">UnApproved</button>
+                                                    <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.Pending)" type="button" class="btn btn-round btn-warning btn-xs">Pending</button>
+                                                    <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.Approved)" type="button" class="btn btn-round btn-success btn-xs">Approved</button>
+                                                    <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.UnApproved)" type="button" class="btn btn-round btn-danger btn-xs">UnApproved</button>
                                                 </td>
+                                                <td><span ng-bind="seller.MobileNumber"></span></td>
                                                 <td>
                                                     <div class="btn-group pull-right">
                                                         <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
@@ -99,10 +102,10 @@
                                                                 </a>
                                                             </li>
                                                             @*<li>
-                                                                <a style="cursor: pointer;" ng-click="model.sellerApproveState(seller.SellerId)">
-                                                                    Un-Approve
-                                                                </a>
-                                                            </li>*@
+                                                                    <a style="cursor: pointer;" ng-click="model.sellerApproveState(seller.SellerId)">
+                                                                        Un-Approve
+                                                                    </a>
+                                                                </li>*@
                                                         </ul>
                                                     </div>
                                                 </td>

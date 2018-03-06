@@ -58,6 +58,7 @@ namespace Egharpay.Data
         public virtual DbSet<MobileCoupon> MobileCoupons { get; set; }
         public virtual DbSet<MobileRepair> MobileRepairs { get; set; }
 
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Advertise>()
@@ -921,6 +922,29 @@ namespace Egharpay.Data
             modelBuilder.Entity<SellerOrderGrid>()
                 .Property(e => e.SellerEmail)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<AspNetPermission>()
+                 .HasMany(e => e.AspNetRoles)
+                 .WithMany(e => e.AspNetPermissions)
+                 .Map(m => m.ToTable("AspNetRolePermissions").MapLeftKey("PermissionId").MapRightKey("RoleId"));
+
+            modelBuilder.Entity<AspNetPermission>()
+                .HasMany(e => e.AspNetUsers)
+                .WithMany(e => e.AspNetPermissions)
+                .Map(m => m.ToTable("AspNetUserPermissions").MapLeftKey("PermissionId").MapRightKey("UserId"));
+
+            modelBuilder.Entity<AspNetRole>()
+                .HasMany(e => e.AspNetUsers)
+                .WithMany(e => e.AspNetRoles)
+                .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
+
+            modelBuilder.Entity<AspNetUser>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<AspNetUser>()
+                .Property(e => e.MobileNumber)
+                .HasPrecision(18, 0);
         }
     }
 }

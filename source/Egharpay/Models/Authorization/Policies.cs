@@ -6,13 +6,18 @@
         public enum Permission
         {
             SuperUser,
-            Administrator_Admin,
-            Personnel
+            Admin,
+            Seller,
+            Personnel,
+            AdministratorMobileRepair
         }
 
         public enum Resource
         {
-            Personnel
+            Personnel,
+            Admin,
+            Seller,
+            MobileRepair
         }
     }
 }

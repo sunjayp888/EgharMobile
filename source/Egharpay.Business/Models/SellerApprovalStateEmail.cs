@@ -7,8 +7,9 @@ using Egharpay.Entity;
 
 namespace Egharpay.Business.Models
 {
-    public class PersonnelCreatedEmail : HtmlEmail
+    public class SellerApprovalStateEmail : HtmlEmail
     {
         public string FullName { get; set; }
+        public string ApprovalState { get; set; }
     }
 }

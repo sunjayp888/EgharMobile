@@ -175,6 +175,7 @@
     <Compile Include="Models\HtmlEmail.cs" />
     <Compile Include="Models\Mobile.cs" />
     <Compile Include="Models\OrderCreatedEmail.cs" />
+    <Compile Include="Models\SellerApprovalStateEmail.cs" />
     <Compile Include="Models\PersonnelCreatedEmail.cs" />
     <Compile Include="Services\AddressBusinessService.cs" />
     <Compile Include="Services\MobileRepairBusinessService.cs" />

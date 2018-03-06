@@ -31,6 +31,11 @@ namespace Egharpay.Extensions
             return principal.IsInRole(nameof(Role.Admin));
         }
 
+        public static bool IsMobileRepairAdmin(this IPrincipal principal)
+        {
+            return principal.IsInRole(nameof(Role.MobileRepairAdmin));
+        }
+
         public static bool IsSeller(this IPrincipal principal)
         {
             return principal.IsInRole(nameof(Role.Seller));

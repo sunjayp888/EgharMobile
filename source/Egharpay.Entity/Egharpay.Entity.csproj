@@ -118,6 +118,8 @@
     <Compile Include="MobileGrid.cs" />
     <Compile Include="MobileRepair.cs" />
     <Compile Include="MobileRepairPayment.cs" />
+    <Compile Include="Model1.cs" />
+    <Compile Include="Model2.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="SellerOrder.cs" />

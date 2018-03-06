@@ -8,6 +8,13 @@ namespace Egharpay.Entity
 
     public partial class AspNetRole
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AspNetRole()
+        {
+            AspNetPermissions = new HashSet<AspNetPermission>();
+            AspNetUsers = new HashSet<AspNetUser>();
+        }
+
         public string Id { get; set; }
 
         [Required]
@@ -17,5 +24,11 @@ namespace Egharpay.Entity
         [Required]
         [StringLength(128)]
         public string Discriminator { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetPermission> AspNetPermissions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

@@ -11,7 +11,11 @@ namespace Egharpay.Business.Interfaces
     {
         Task<bool> CreateUserPermissions(string userId, IEnumerable<string> permissionIds);
 
-        Task<bool> CanAccessPersonnel(string userId, int clientPersonnelId);
+        Task<bool> CanAccessPersonnel(string userId, int personnelId);
+
+        Task<bool> CanAccessAdmin(string userId, int personnelId);
+
+        Task<bool> CanAccessMobileRepairPersonnel(string userId, int personnelId);
 
         Task<IEnumerable<AspNetPermission>> RetrieveRolePermissions(string roleId);
         Task<IEnumerable<AspNetPermission>> RetrieveUserPermissions(string userId);

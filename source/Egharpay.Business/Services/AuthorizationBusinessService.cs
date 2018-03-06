@@ -87,25 +87,38 @@ namespace Egharpay.Business.Services
 
         public async Task<bool> CanAccessPersonnel(string userId, int personnelId)
         {
-            var userWorker = await _authorizationDataService.RetrieveUserPersonnel(userId, personnelId);
-            return userWorker != null;
+            var personnel = await _authorizationDataService.RetrieveUserPersonnel(userId, personnelId);
+            return personnel != null;
+        }
+
+
+        public async Task<bool> CanAccessMobileRepairPersonnel(string userId, int personnelId)
+        {
+            var personnel = await _authorizationDataService.RetrieveUserPersonnel(userId, personnelId);
+            return personnel != null;
+        }
+
+        public async Task<bool> CanAccessAdmin(string userId, int personnelId)
+        {
+            var personnel = await _authorizationDataService.RetrieveUserPersonnel(userId, personnelId);
+            return personnel != null;
         }
 
         public virtual async Task<bool> UserHasPermissions(string userId, string permissions)
         {
             var userPermissions = await RetrieveUserPermissions(userId);
 
-            //foreach (var permission in permissions.Split(','))
-            //{
-            //    var trimmedPermission = permission.Trim();
-            //    if (string.IsNullOrWhiteSpace(trimmedPermission))
-            //        continue;
+            foreach (var permission in permissions.Split(','))
+            {
+                var trimmedPermission = permission.Trim();
+                if (string.IsNullOrWhiteSpace(trimmedPermission))
+                    continue;
 
-            //    if (userPermissions.Any(up => up.Name.ToUpper().Equals(trimmedPermission.ToUpper())))
-            //        return true;
-            //}
+                if (userPermissions.Any(up => up.Name.ToUpper().Equals(trimmedPermission.ToUpper())))
+                    return true;
+            }
 
-            return true;
+            return false;
         }
 
 
