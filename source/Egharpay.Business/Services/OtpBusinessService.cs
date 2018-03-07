@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Egharpay.Business.Enum;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
@@ -48,7 +49,40 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<ValidationResult<AspNetUserMobileOtp>> CreateOtp(decimal mobileNumber, string ipAddress, int otpReasonId, string aspNetUserId = null)
+        public async Task<ValidationResult<AspNetUserMobileOtp>> CreateLoginOtp(decimal mobileNumber, string ipAddress)
+        {
+            var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.Login);
+            if (validationResult.Succeeded)
+            {
+                var message = string.Format("Your OTP for login : {0}.Do not share your OTP.", validationResult.Entity.OTP);
+                _smsBusinessService.SendSMS(mobileNumber.ToString(), message);
+            }
+            return validationResult;
+        }
+
+        public async Task<ValidationResult<AspNetUserMobileOtp>> CreateMobileRepairOtp(decimal mobileNumber, string ipAddress)
+        {
+            var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.Login);
+            if (validationResult.Succeeded)
+            {
+                var message = string.Format("Your OTP for mobile repair : {0}.Do not share your OTP.", validationResult.Entity.OTP);
+                _smsBusinessService.SendSMS(mobileNumber.ToString(), message);
+            }
+            return validationResult;
+        }
+
+        public async Task<ValidationResult<AspNetUserMobileOtp>> CreateMobileRepairPaymentOtp(decimal mobileNumber, string ipAddress)
+        {
+            var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.Login);
+            if (validationResult.Succeeded)
+            {
+                var message = string.Format("Your OTP for mobile repair payment : {0}.Do not share your OTP.", validationResult.Entity.OTP);
+                _smsBusinessService.SendSMS(mobileNumber.ToString(), message);
+            }
+            return validationResult;
+        }
+
+        private async Task<ValidationResult<AspNetUserMobileOtp>> CreateOtp(decimal mobileNumber, string ipAddress, int otpReasonId, string aspNetUserId = null, string message = null)
         {
             var validationResult = new ValidationResult<AspNetUserMobileOtp>();
             if (!mobileNumber.ToString().IsValidMobileNumber())
@@ -73,9 +107,8 @@ namespace Egharpay.Business.Services
                 if (otpResult.Entity != null)
                     await _otpDataService.DeleteAsync<AspNetUserMobileOtp>(otpResult.Entity);
                 var otpGenerated = await _otpDataService.CreateGetAsync(aspnetOtp);
-                _smsBusinessService.SendSMS(mobileNumber.ToString(), otpGenerated.OTP.ToString());
-                //Send to mobile
                 validationResult.Succeeded = true;
+                validationResult.Entity = otpGenerated;
                 validationResult.Message = "OTP send successfully";
             }
             catch (Exception ex)

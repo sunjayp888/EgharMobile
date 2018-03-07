@@ -1,7 +1,7 @@
 ﻿@using Egharpay.Business.Enum
 @using Egharpay.Extensions
 @{
-    var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    var layout = User.IsSuperUserOrAdminOrSeller()|| User.IsMobileRepairAdmin() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
     Layout = layout;
     ViewBag.Title = "MobileRepairOrder";
 }

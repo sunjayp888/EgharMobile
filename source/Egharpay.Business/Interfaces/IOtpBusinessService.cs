@@ -16,9 +16,11 @@ namespace Egharpay.Business.Interfaces
         Task<ValidationResult<AspNetUserMobileOtp>> RetrieveOtp(decimal mobileNumber, int reasonId);
 
         //Create
-        Task<ValidationResult<AspNetUserMobileOtp>> CreateOtp(decimal mobileNumber, string ipAddress, int otpReasonId, string aspNetUserId = null);
-
+        Task<ValidationResult<AspNetUserMobileOtp>> CreateLoginOtp(decimal mobileNumber, string ipAddress);
+        Task<ValidationResult<AspNetUserMobileOtp>> CreateMobileRepairOtp(decimal mobileNumber, string ipAddress);
+        Task<ValidationResult<AspNetUserMobileOtp>> CreateMobileRepairPaymentOtp(decimal mobileNumber, string ipAddress);
+        
         //Validate
-        Task<ValidationResult<AspNetUserMobileOtp>> IsValidOtp(int otpNumber,decimal mobileNumber, int reasonId,DateTime? validityDateTime);
+        Task<ValidationResult<AspNetUserMobileOtp>> IsValidOtp(int otpNumber, decimal mobileNumber, int reasonId, DateTime? validityDateTime);
     }
 }

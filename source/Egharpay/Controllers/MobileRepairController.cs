@@ -41,7 +41,9 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> MobileRepairOrder()
         {
             var id = UserPersonnelId;
-            if (User.IsSuperUserOrAdmin() && !await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
+            if (id == 0)
+                return HttpForbidden();
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
                 return HttpForbidden();
             return View(new MobileRepairViewModel());
         }
@@ -101,7 +103,9 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> MarkAsCompleted(int mobileRepairId)
         {
             var id = UserPersonnelId;
-            if (User.IsSuperUserOrAdmin() && !await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
+            if (id == 0)
+                return HttpForbidden();
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
                 return HttpForbidden();
             var result = await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairId, (int)MobileRepairRequestState.Completed);
             return this.JsonNet(result);
@@ -111,6 +115,11 @@ namespace Egharpay.Controllers
         [Route("MobileRepair/MarkAsCancelled")]
         public async Task<ActionResult> MarkAsCancelled(int mobileRepairId)
         {
+            var id = UserPersonnelId;
+            if (id == 0)
+                return HttpForbidden();
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
+                return HttpForbidden();
             var result = await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairId, (int)MobileRepairRequestState.Cancelled);
             return this.JsonNet(result);
         }
@@ -119,6 +128,11 @@ namespace Egharpay.Controllers
         [Route("MobileRepair/UpdateMobileRepairState")]
         public async Task<ActionResult> UpdateMobileRepairState(int mobileRepairId, int mobileRepairStateId)
         {
+            var id = UserPersonnelId;
+            if (id == 0)
+                return HttpForbidden();
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
+                return HttpForbidden();
             var result = await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairId, mobileRepairStateId);
             return this.JsonNet(result);
         }
@@ -127,6 +141,11 @@ namespace Egharpay.Controllers
         [Route("MobileRepair/DeleteMobileRepairRequest")]
         public async Task<ActionResult> DeleteMobileRepairRequest(int mobileRepairId, decimal mobileNumber, int otp)
         {
+            var id = UserPersonnelId;
+            if (id == 0)
+                return HttpForbidden();
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
+                return HttpForbidden();
             var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
             if (!otpResult.Succeeded)
                 return this.JsonNet(otpResult);
@@ -154,6 +173,11 @@ namespace Egharpay.Controllers
         [Route("MobileRepair/Edit/{mobileRepairId}")]
         public async Task<ActionResult> Edit(int mobileRepairId)
         {
+            var id = UserPersonnelId;
+            if (id == 0)
+                return HttpForbidden();
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
+                return HttpForbidden();
             var mobileRepair = await _mobileRepairBusinessService.RetrieveMobileRepair(mobileRepairId);
             var model = new MobileRepairViewModel()
             {

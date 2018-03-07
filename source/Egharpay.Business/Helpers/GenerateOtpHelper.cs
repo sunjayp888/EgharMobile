@@ -16,6 +16,9 @@ namespace Egharpay.Business.Helpers
                 var temp = objrandom.Next(0, numbers.Length);
                 strrandom += temp;
             }
+            while (strrandom.Length != 6)
+                GenerateOtp();
+
             return Convert.ToInt32(strrandom);
         }
     }

@@ -286,6 +286,7 @@
     <Compile Include="Controllers\CouponCodeController.cs" />
     <Compile Include="Controllers\CSSAnimationsController.cs" />
     <Compile Include="Controllers\EcommerceController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\GraphsController.cs" />
@@ -2054,6 +2055,9 @@
     <Content Include="Views\SellerOrder\Index.cshtml" />
     <Content Include="Views\MobileRepair\MobileRepairOrder.cshtml" />
     <Content Include="Views\MobileRepair\Edit.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

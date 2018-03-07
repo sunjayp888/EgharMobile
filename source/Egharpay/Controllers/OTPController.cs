@@ -32,10 +32,10 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> CreateLoginOtp(string mobileNumber)
         {
             var ipAddress = Request.UserHostAddress;
-            var personnelResult = await _personnelBusinessService.PersonnelAlreadyExists(mobileNumber.ToString());
+            var personnelResult = await _personnelBusinessService.PersonnelAlreadyExists(mobileNumber);
             if (!personnelResult.Succeeded)
                 return this.JsonNet(personnelResult);
-            var data = await _otpBusinessService.CreateOtp(Convert.ToDecimal(mobileNumber), ipAddress, (int)OtpReason.Login);
+            var data = await _otpBusinessService.CreateLoginOtp(Convert.ToDecimal(mobileNumber), ipAddress);
             return this.JsonNet(data);
         }
 
