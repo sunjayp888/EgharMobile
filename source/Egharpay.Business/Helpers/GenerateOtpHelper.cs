@@ -6,19 +6,14 @@ namespace Egharpay.Business.Helpers
     {
         public static int GenerateOtp()
         {
-            const int length = 6;
             const string numbers = "0123456789";
             var objrandom = new Random();
             var strrandom = string.Empty;
-            const int noofnumbers = length;
-            for (var i = 0; i < noofnumbers; i++)
+            while (strrandom.Length != 6)
             {
                 var temp = objrandom.Next(0, numbers.Length);
                 strrandom += temp;
             }
-            while (strrandom.Length != 6)
-                GenerateOtp();
-
             return Convert.ToInt32(strrandom);
         }
     }

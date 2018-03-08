@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Egharpay.Business.Enum;
 using Egharpay.Business.Interfaces;
@@ -44,7 +41,7 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> CreateMobileRepairOtp(decimal mobileNumber)
         {
             var ipAddress = Request.UserHostAddress;
-            var data = await _otpBusinessService.CreateOtp(Convert.ToDecimal(mobileNumber), ipAddress, (int)OtpReason.MobileRepair);
+            var data = await _otpBusinessService.CreateMobileRepairOtp(Convert.ToDecimal(mobileNumber), ipAddress);
             return this.JsonNet(data);
         }
 
@@ -61,7 +58,7 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> CreateMobileRepairPaymentOtp(decimal mobileNumber)
         {
             var ipAddress = Request.UserHostAddress;
-            var data = await _otpBusinessService.CreateOtp(Convert.ToDecimal(mobileNumber), ipAddress, (int)OtpReason.MobileRepairPayment);
+            var data = await _otpBusinessService.CreateMobileRepairPaymentOtp(Convert.ToDecimal(mobileNumber), ipAddress);
             return this.JsonNet(data);
         }
     }
