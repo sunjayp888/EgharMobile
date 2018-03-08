@@ -18,6 +18,7 @@ namespace Egharpay.Business.Interfaces
         Task<IEnumerable<MobileRepair>> RetrieveMobileRepair(Expression<Func<MobileRepair, bool>> predicate);
         Task<PagedResult<MobileRepair>> RetrieveMobileRepairs(List<OrderBy> orderBy = null, Paging paging = null);
         Task<MobileRepair> RetrieveMobileRepair(int mobileRepairId);
+        Task<PagedResult<MobileRepairGrid>> RetrieveMobileRepairGrids(List<OrderBy> orderBy = null, Paging paging = null);
 
         Task<ValidationResult> UpdateMobileRepair(int mobileRepairId, int mobileRepairStateId);
         Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId);

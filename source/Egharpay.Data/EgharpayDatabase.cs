@@ -57,7 +57,7 @@ namespace Egharpay.Data
         public virtual DbSet<CouponCode> CouponCodes { get; set; }
         public virtual DbSet<MobileCoupon> MobileCoupons { get; set; }
         public virtual DbSet<MobileRepair> MobileRepairs { get; set; }
-
+        public virtual DbSet<MobileRepairGrid> MobileRepairGrids { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -945,6 +945,54 @@ namespace Egharpay.Data
             modelBuilder.Entity<AspNetUser>()
                 .Property(e => e.MobileNumber)
                 .HasPrecision(18, 0);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.MobileNumber)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.ModelName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.CouponCode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.Company)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.City)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.ZipPostalCode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.PhoneNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.LandMark)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.District)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.AlternateNumber)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.AppointmentTime)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.SearchField)
+                .IsUnicode(false);
         }
     }
 }

@@ -89,7 +89,7 @@ namespace Egharpay.Controllers
         {
             try
             {
-                var data = await _mobileRepairBusinessService.RetrieveMobileRepairs(orderBy, paging);
+                var data = await _mobileRepairBusinessService.RetrieveMobileRepairGrids(orderBy, paging);
                 return this.JsonNet(data);
             }
             catch (Exception)

@@ -44,8 +44,8 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> CreateMobileRepairOtp(decimal mobileNumber)
         {
             var ipAddress = Request.UserHostAddress;
-            var data = await _otpBusinessService.CreateOtp(Convert.ToDecimal(mobileNumber), ipAddress, (int)OtpReason.MobileRepair);
-            return this.JsonNet(data);
+            //var data = await _otpBusinessService.CreateOtp(Convert.ToDecimal(mobileNumber), ipAddress, (int)OtpReason.MobileRepair);
+            return this.JsonNet(null);
         }
 
         [HttpPost]
@@ -61,8 +61,8 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> CreateMobileRepairPaymentOtp(decimal mobileNumber)
         {
             var ipAddress = Request.UserHostAddress;
-            var data = await _otpBusinessService.CreateOtp(Convert.ToDecimal(mobileNumber), ipAddress, (int)OtpReason.MobileRepairPayment);
-            return this.JsonNet(data);
+            //var data = await _otpBusinessService.CreateOtp(Convert.ToDecimal(mobileNumber), ipAddress, (int)OtpReason.MobileRepairPayment);
+            return this.JsonNet(null);
         }
     }
 }
