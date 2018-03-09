@@ -62,7 +62,7 @@ namespace Egharpay.Business.Services
 
         public async Task<ValidationResult<AspNetUserMobileOtp>> CreateMobileRepairOtp(decimal mobileNumber, string ipAddress)
         {
-            var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.Login);
+            var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.MobileRepair);
             if (validationResult.Succeeded)
             {
                 var message = string.Format("Your OTP for mobile repair : {0}.Do not share your OTP.", validationResult.Entity.OTP);
@@ -73,7 +73,7 @@ namespace Egharpay.Business.Services
 
         public async Task<ValidationResult<AspNetUserMobileOtp>> CreateMobileRepairPaymentOtp(decimal mobileNumber, string ipAddress)
         {
-            var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.Login);
+            var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.MobileRepairPayment);
             if (validationResult.Succeeded)
             {
                 var message = string.Format("Your OTP for mobile repair payment : {0}.Do not share your OTP.", validationResult.Entity.OTP);

@@ -179,6 +179,8 @@
         function otpInputChanged() {
             if (vm.OTP.length === 6) {
                 vm.disablePay = false;
+            } else {
+                vm.disablePay = true;
             }
         }
     }

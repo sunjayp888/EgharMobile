@@ -9,6 +9,11 @@ namespace Egharpay.Entity
     [Table("MobileRepair")]
     public partial class MobileRepair
     {
+        public MobileRepair()
+        {
+            CreatedDateTime = DateTime.UtcNow;
+        }
+
         public int MobileRepairId { get; set; }
 
         public decimal MobileNumber { get; set; }
