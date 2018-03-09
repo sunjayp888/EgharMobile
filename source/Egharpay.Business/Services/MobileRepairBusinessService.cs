@@ -113,6 +113,12 @@ namespace Egharpay.Business.Services
             return mobileRepair.FirstOrDefault();
         }
 
+        public async Task<PagedResult<MobileRepairGrid>> RetrieveMobileRepairGrids(List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            var mobileRepairGrids = await _mobileDataService.RetrievePagedResultAsync<MobileRepairGrid>(a => true, orderBy, paging);
+            return mobileRepairGrids;
+        }
+
         public async Task<ValidationResult> UpdateMobileRepair(int mobileRepairId, int mobileRepairStateId)
         {
             var validationResult = new ValidationResult();
