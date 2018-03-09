@@ -15,11 +15,6 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Repair Mobile<small> repair phone online</small></h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
@@ -92,11 +87,6 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Manage Mobile Repair Orders<small> check your orders</small></h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
@@ -114,12 +104,13 @@
                                             <td class="project-title">
                                                 <a><span ng-bind="mobileRepair.ModelName"></span></a>
                                                 <br>
-                                                <small>Requested Repair on 14.08.2014</small>
+                                                <small>Requested Repair on {{mobileRepair.CreatedDateTime}}</small>
                                             </td>
                                             <td class="project-title">
-                                                <a><span>Description</span></a>
+                                                <a><span>Appointment Date</span></a>
                                                 <br>
-                                                <small ng-bind="mobileRepair.Description"></small>
+                                                <small ng-bind="mobileRepair.AppointmentDate|date:'dd MMM yyyy'"></small>
+                                                <small ng-bind="mobileRepair.AppointmentTime"></small>
                                             </td>
                                             <td class="project-actions">
                                                 <button ng-if="mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.InProgress) ||mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.Created)" ng-click="model.deleteMobileRepairRequest(mobileRepair.MobileRepairId)" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Cancel Repair</button>

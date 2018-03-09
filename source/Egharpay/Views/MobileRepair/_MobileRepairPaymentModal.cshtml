@@ -1,0 +1,35 @@
+﻿<div class="modal inmodal fade" id="mobileRepairPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Payment Detail</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="alert alert-danger alert-dismissable" ng-if="model.errorMessages.length>0">
+                        <ul>
+                            <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <input type="number" class="form-control required" ng-model="model.amount" placeholder="Amount" />
+                    </div>
+                    <div class="form-group" ng-if="model.isOtpCreated">
+                        <input type="text" ng-change="model.otpInputChanged()" class="form-control required" ng-model="model.OTP" placeholder="OTP" />
+                    </div>
+                    <div class="form-group">
+                        <button type="button" ng-click="model.createMobileRepairPaymentOtp()" class="btn btn-danger col-lg-12 col-sm-12 col-xs-12">Send OTP</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button ng-disabled="model.disablePay" ng-if="model.isOtpCreated" type="button" ng-click="model.createMobileRepairPayment()" class="btn btn-primary">Pay</button>
+            </div>
+        </div>
+    </div>
+</div>

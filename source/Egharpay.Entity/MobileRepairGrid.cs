@@ -23,6 +23,9 @@ namespace Egharpay.Entity
         public string Description { get; set; }
 
         [StringLength(50)]
+        public string MobileRepairStateDescription { get; set; }
+        
+        [StringLength(50)]
         public string CouponCode { get; set; }
 
         public int? MobileRepairStateId { get; set; }

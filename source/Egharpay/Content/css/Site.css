@@ -9157,6 +9157,9 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   #rightsidebartogglebutton {
     display: block !important;
   }
+  #mobileOrderButton {
+    display: none !important;
+  }
 }
 @media (max-width: 767px) {
   .navbar-toggle {
@@ -9169,6 +9172,9 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     display: block;
   }
   #navbar {
+    display: none !important;
+  }
+  #mobileOrderButton {
     display: none !important;
   }
 }
@@ -9203,6 +9209,12 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   }
   .menu-visible-lg {
     display: block !important;
+  }
+  #mobileOrderButton {
+    display: none !important;
+  }
+  .margin-top-override {
+    margin-top: 80px !important;
   }
 }
 #rightsidebartogglebutton {
@@ -17546,4 +17558,7 @@ body.md-skin {
   position: relative;
   z-index: 5;
   color: #999;
+}
+.margin-top-override {
+  margin-top: 60px;
 }

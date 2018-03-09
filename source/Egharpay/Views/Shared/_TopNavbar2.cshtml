@@ -1,4 +1,4 @@
-﻿<div class="row border-bottom white-bg" ng-controller="HomeController as model" ng-init="model.initialise()">
+﻿<div class="row white-bg" ng-controller="HomeController as model" ng-init="model.initialise()">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <div class="row">
@@ -9,12 +9,12 @@
                     <form class="navbar-form navbar-left form-inline" role="search">
                         <div class="form-group">
                             <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search"/>
-                            
+
                             <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
                                 <i class="fa fa-search"></i>
                             </button>
-                            <a class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder">Order</span></a>
-                            <a class="btn btn-danger xs-ml-8" ng-href="/MobileRepair"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder">Repair Phone</span></a>
+                            <a id="mobileOrderButton" class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder">Order</span></a>
+                            <a class="btn btn-danger xs-ml-8" ng-href="/MobileRepair"><i class="fa fa-wrench "></i> <span id="spanOrder">Repair Phone</span></a>
                             <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartoggle">
                                 <i class="fa fa-tasks"></i>
                             </button>
@@ -90,16 +90,16 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-                using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                using (Html.BeginForm("Logout", "Account", FormMethod.Post, new {id = "logoutForm"}))
                 {
                     @Html.AntiForgeryToken()
                     <ul class="nav navbar-top-links navbar-right">
                         @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
-                       <li>
-                           <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartogglebutton">
-                               <i class="fa fa-tasks"></i>
-                           </button>
-                       </li>
+                        <li>
+                            <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartogglebutton">
+                                <i class="fa fa-tasks"></i>
+                            </button>
+                        </li>
                     </ul>
                 }
             }
@@ -118,6 +118,9 @@
 
     </nav>
 </div>
+<div class="margin-top-override">
+</div>
+
 @section Scripts {
     @Scripts.Render("~/plugins/typehead")
 

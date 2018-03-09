@@ -53,7 +53,7 @@ namespace Egharpay.Business.Services
                 else
                 {
                     validationResult.Succeeded = false;
-                    validationResult.Message = "Invalid coupon code.";
+                    validationResult.Message = "Invalid coupon code or already used.";
                 }
             }
             catch (Exception ex)

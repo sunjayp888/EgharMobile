@@ -55,10 +55,10 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("OTP/CreateMobileRepairPaymentOtp")]
-        public async Task<ActionResult> CreateMobileRepairPaymentOtp(decimal mobileNumber)
+        public async Task<ActionResult> CreateMobileRepairPaymentOtp(decimal mobileNumber, decimal amount)
         {
             var ipAddress = Request.UserHostAddress;
-            var data = await _otpBusinessService.CreateMobileRepairPaymentOtp(Convert.ToDecimal(mobileNumber), ipAddress);
+            var data = await _otpBusinessService.CreateMobileRepairPaymentOtp(Convert.ToDecimal(mobileNumber), ipAddress, amount);
             return this.JsonNet(data);
         }
     }

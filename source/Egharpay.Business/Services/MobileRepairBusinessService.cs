@@ -15,12 +15,15 @@ namespace Egharpay.Business.Services
     public class MobileRepairBusinessService : IMobileRepairBusinessService
     {
         private readonly IMobileDataService _mobileDataService;
+        private readonly ISmsBusinessService _smsBusinessService;
 
-        public MobileRepairBusinessService(IMobileDataService mobileDataService)
+        public MobileRepairBusinessService(IMobileDataService mobileDataService, ISmsBusinessService smsBusinessService)
         {
             _mobileDataService = mobileDataService;
+            _smsBusinessService = smsBusinessService;
         }
 
+        #region Create
         public async Task<ValidationResult> Create(MobileRepair mobileRepair)
         {
             var validationResult = new ValidationResult();
@@ -44,15 +47,18 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<ValidationResult> CreateMobileRepairPayment(MobileRepairPayment mobileRepair)
+        public async Task<ValidationResult> CreateMobileRepairPayment(MobileRepairPayment mobileRepairPayment)
         {
             var validationResult = new ValidationResult();
             try
             {
-                await _mobileDataService.CreateAsync(mobileRepair);
-                await UpdateMobileRepair(mobileRepair.MobileRepairId, (int)MobileRepairRequestState.Completed);
-                validationResult.Succeeded = false;
+                await _mobileDataService.CreateAsync(mobileRepairPayment);
+                var mobileRepairData = await _mobileDataService.RetrieveByIdAsync<MobileRepair>(mobileRepairPayment.MobileRepairId);
+                await UpdateMobileRepairState(mobileRepairPayment.MobileRepairId, (int)MobileRepairRequestState.Completed);
                 //Send SMS for mobile repair Payment.
+                var message = $"Payment of amount {mobileRepairPayment.Amount} recieved successfully.Thank you for using mumbile.com";
+                _smsBusinessService.SendSMS(mobileRepairData.MobileNumber.ToString(), message);
+                validationResult.Succeeded = true;
             }
             catch (Exception ex)
             {
@@ -77,25 +83,9 @@ namespace Egharpay.Business.Services
                 await _mobileDataService.CreateAsync(mobileCoupon);
             }
         }
+        #endregion
 
-        private async Task<ValidationResult> MobileRepairRequestAlreadyExists(decimal mobileNumber)
-        {
-            var validationResult = new ValidationResult();
-            var data = await _mobileDataService.RetrieveAsync<MobileRepair>(m => m.MobileNumber == mobileNumber
-                && (m.MobileRepairStateId == (int)MobileRepairRequestState.InProgress ||
-                    m.MobileRepairStateId == (int)MobileRepairRequestState.Created));
-            if (data.Any())
-            {
-                validationResult.Message = "Request already created or inprogress.";
-                validationResult.Succeeded = false;
-            }
-            else
-            {
-                validationResult.Succeeded = true;
-            }
-            return validationResult;
-        }
-
+        #region Retrieve
         public async Task<IEnumerable<MobileRepair>> RetrieveMobileRepair(Expression<Func<MobileRepair, bool>> predicate)
         {
             return await _mobileDataService.RetrieveAsync<MobileRepair>(predicate);
@@ -118,8 +108,10 @@ namespace Egharpay.Business.Services
             var mobileRepairGrids = await _mobileDataService.RetrievePagedResultAsync<MobileRepairGrid>(a => true, orderBy, paging);
             return mobileRepairGrids;
         }
+        #endregion
 
-        public async Task<ValidationResult> UpdateMobileRepair(int mobileRepairId, int mobileRepairStateId)
+        #region Update
+        public async Task<ValidationResult> UpdateMobileRepairState(int mobileRepairId, int mobileRepairStateId)
         {
             var validationResult = new ValidationResult();
             try
@@ -170,5 +162,26 @@ namespace Egharpay.Business.Services
             }
             return validationResult;
         }
+        #endregion
+
+        #region Helper
+        private async Task<ValidationResult> MobileRepairRequestAlreadyExists(decimal mobileNumber)
+        {
+            var validationResult = new ValidationResult();
+            var data = await _mobileDataService.RetrieveAsync<MobileRepair>(m => m.MobileNumber == mobileNumber
+                && (m.MobileRepairStateId == (int)MobileRepairRequestState.InProgress ||
+                    m.MobileRepairStateId == (int)MobileRepairRequestState.Created));
+            if (data.Any())
+            {
+                validationResult.Message = "Request already created or inprogress.";
+                validationResult.Succeeded = false;
+            }
+            else
+            {
+                validationResult.Succeeded = true;
+            }
+            return validationResult;
+        }
+        #endregion
     }
 }

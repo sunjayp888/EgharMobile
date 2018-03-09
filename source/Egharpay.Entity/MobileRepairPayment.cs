@@ -29,5 +29,7 @@ namespace Egharpay.Entity
         public int Otp { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
+
+
     }
 }

@@ -107,7 +107,7 @@ namespace Egharpay.Controllers
                 return HttpForbidden();
             if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
                 return HttpForbidden();
-            var result = await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairId, (int)MobileRepairRequestState.Completed);
+            var result = await _mobileRepairBusinessService.UpdateMobileRepairState(mobileRepairId, (int)MobileRepairRequestState.Completed);
             return this.JsonNet(result);
         }
 
@@ -115,12 +115,7 @@ namespace Egharpay.Controllers
         [Route("MobileRepair/MarkAsCancelled")]
         public async Task<ActionResult> MarkAsCancelled(int mobileRepairId)
         {
-            var id = UserPersonnelId;
-            if (id == 0)
-                return HttpForbidden();
-            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
-                return HttpForbidden();
-            var result = await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairId, (int)MobileRepairRequestState.Cancelled);
+            var result = await _mobileRepairBusinessService.UpdateMobileRepairState(mobileRepairId, (int)MobileRepairRequestState.Cancelled);
             return this.JsonNet(result);
         }
 
@@ -133,7 +128,7 @@ namespace Egharpay.Controllers
                 return HttpForbidden();
             if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
                 return HttpForbidden();
-            var result = await _mobileRepairBusinessService.UpdateMobileRepair(mobileRepairId, mobileRepairStateId);
+            var result = await _mobileRepairBusinessService.UpdateMobileRepairState(mobileRepairId, mobileRepairStateId);
             return this.JsonNet(result);
         }
 
@@ -141,11 +136,6 @@ namespace Egharpay.Controllers
         [Route("MobileRepair/DeleteMobileRepairRequest")]
         public async Task<ActionResult> DeleteMobileRepairRequest(int mobileRepairId, decimal mobileNumber, int otp)
         {
-            var id = UserPersonnelId;
-            if (id == 0)
-                return HttpForbidden();
-            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.MobileRepair.ToString()))
-                return HttpForbidden();
             var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
             if (!otpResult.Succeeded)
                 return this.JsonNet(otpResult);

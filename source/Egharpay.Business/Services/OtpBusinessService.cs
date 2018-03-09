@@ -54,7 +54,7 @@ namespace Egharpay.Business.Services
             var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.Login);
             if (validationResult.Succeeded)
             {
-                var message = string.Format("Your OTP for login : {0}.Do not share your OTP.", validationResult.Entity.OTP);
+                var message = $"Your OTP for login : {validationResult.Entity.OTP}.Do not share your OTP.";
                 _smsBusinessService.SendSMS(mobileNumber.ToString(), message);
             }
             return validationResult;
@@ -65,18 +65,18 @@ namespace Egharpay.Business.Services
             var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.MobileRepair);
             if (validationResult.Succeeded)
             {
-                var message = string.Format("Your OTP for mobile repair : {0}.Do not share your OTP.", validationResult.Entity.OTP);
+                var message = $"Your OTP for mobile repair : {validationResult.Entity.OTP}.Do not share your OTP.";
                 _smsBusinessService.SendSMS(mobileNumber.ToString(), message);
             }
             return validationResult;
         }
 
-        public async Task<ValidationResult<AspNetUserMobileOtp>> CreateMobileRepairPaymentOtp(decimal mobileNumber, string ipAddress)
+        public async Task<ValidationResult<AspNetUserMobileOtp>> CreateMobileRepairPaymentOtp(decimal mobileNumber, string ipAddress, decimal amount)
         {
             var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.MobileRepairPayment);
             if (validationResult.Succeeded)
             {
-                var message = string.Format("Your OTP for mobile repair payment : {0}.Do not share your OTP.", validationResult.Entity.OTP);
+                var message = $"Your OTP for mobile repair payment : {validationResult.Entity.OTP}.Please pay amount of {amount}.Do not share your OTP.";
                 _smsBusinessService.SendSMS(mobileNumber.ToString(), message);
             }
             return validationResult;
@@ -91,7 +91,7 @@ namespace Egharpay.Business.Services
                 validationResult.Succeeded = false;
                 return validationResult;
             }
-            
+
             var aspnetOtp = new AspNetUserMobileOtp()
             {
                 IPAddress = ipAddress,

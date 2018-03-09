@@ -63,5 +63,6 @@ namespace Egharpay.Entity
         public string Comment { get; set; }
 
         public string AppointmentTime { get; set; }
+
     }
 }
