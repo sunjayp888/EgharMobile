@@ -249,6 +249,7 @@ namespace Egharpay.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    model.AspNetUserId = user.Id;
                     var personnelResult = await CreatePersonnel(model);
                     if (!personnelResult.Succeeded)
                     {

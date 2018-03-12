@@ -13,8 +13,6 @@
                     <i class="fa fa-gear"></i>
                 </a>
             </li>
-
-
         </ul>
 
         <div class="tab-content">
@@ -40,11 +38,9 @@
                             using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
                             {
                                 @Html.AntiForgeryToken()
-
                                 <a href="javascript:document.getElementById('logoutForm').submit()">
                                     <i class="fa fa-sign-out"></i> Log Off
                                 </a>
-
                             }
                         }
                         else
@@ -66,9 +62,9 @@
                     <small><i class="fa fa-tim"></i> You can change your account details.</small>
                 </div>
                 <div class="setings-item">
-                    <span>
-                        <img alt="image" src="/images/a6.jpg">
-                    </span>
+                    @*<span>
+                        <img alt="image" src="/images/gallery/image2.jpg">
+                    </span>*@
                 </div>
                 <div class="setings-item">
                     <span>
@@ -93,14 +89,9 @@
                 <div class="sidebar-content">
                     <h4>Settings</h4>
                     <div class="small">
-                        We belive that. Mumbile will give you a better experience of browsing in store.
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
 </div>

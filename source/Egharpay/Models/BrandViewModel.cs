@@ -9,7 +9,5 @@ namespace Egharpay.Models
     public class BrandViewModel : BaseViewModel
     {
         public Brand Brand { get; set; }
-        public int BrandId { get; set; }
-        public string BrandName { get; set; }
     }
 }
