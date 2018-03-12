@@ -91,33 +91,28 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="project-list">
-                                <table class="table table-hover">
-                                    <tbody>
-                                        <tr ng-repeat="mobileRepair in model.mobileRepairOrders">
-                                            <td>
-                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.Created)">Created</span>
-                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.InProgress)">InProgress</span>
-                                                <span class="label label-danger" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Cancelled)">Cancelled</span>
-                                                <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Completed)">Completed</span>
-                                            </td>
-                                            <td class="project-title">
-                                                <a><span ng-bind="mobileRepair.ModelName"></span></a>
-                                                <br>
-                                                <small>Requested Repair on {{mobileRepair.CreatedDateTime}}</small>
-                                            </td>
-                                            <td class="project-title">
-                                                <a><span>Appointment Date</span></a>
-                                                <br>
-                                                <small ng-bind="mobileRepair.AppointmentDate|date:'dd MMM yyyy'"></small>
-                                                <small ng-bind="mobileRepair.AppointmentTime"></small>
-                                            </td>
-                                            <td class="project-actions">
-                                                <button ng-if="mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.InProgress) ||mobileRepair.MobileRepairStateId ==  @((int)MobileRepairRequestState.Created)" ng-click="model.deleteMobileRepairRequest(mobileRepair.MobileRepairId)" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Cancel Repair</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="feed-activity-list">
+                                <div class="feed-element" ng-repeat="mobileRepair in model.mobileRepairOrders">
+                                    <div class="media-body ">
+                                        <small class="pull-right">
+                                            <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Created)">Created</span>
+                                            <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.InProgress)">InProgress</span>
+                                            <span class="label label-danger" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Cancelled)">Cancelled</span>
+                                            <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Completed)">Completed</span>
+                                        </small>
+                                        <strong>Mobile RepairId</strong> - {{mobileRepair.MobileRepairId}}
+                                        <br>
+                                        <div class="well">
+                                            <div ng-if="mobileRepair.AppointmentDate"><strong>Appointment Datetime</strong> - <span ng-bind="mobileRepair.AppointmentDate|date:'dd MMM yyyy'"></span> - <span ng-bind="mobileRepair.AppointmentTime"></span></div><br />
+                                            <strong>Created Date</strong> - <span ng-bind="mobileRepair.CreatedDateTime|date:'dd MMM yyyy'"></span><br />
+                                            <strong>Model Name</strong> - <span ng-bind="mobileRepair.ModelName"></span><br />
+                                            <strong>Fault Description</strong> - <span ng-bind="mobileRepair.Description"></span><br />
+                                        </div>
+                                        <div class="pull-right">
+                                            <button ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.InProgress) ||mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Created)" ng-click="model.deleteMobileRepairRequest(mobileRepair.MobileRepairId)" class="btn btn-danger btn-sm"><i class="fa fa-close"></i> Cancel Repair</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
