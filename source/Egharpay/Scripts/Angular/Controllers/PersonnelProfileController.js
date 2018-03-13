@@ -26,7 +26,7 @@
         var cropImage = $('#UploadProfilePicture');
         var options = {
             aspectRatio: 1 / 1,
-            responsive : true,
+            responsive: true,
             crop: function (e) {
             }
         };
@@ -116,16 +116,19 @@
         function deletePhoto() {
             return PersonnelProfileService.DeletePhoto(vm.personnelId)
                     .then(function (response) {
-                        document.getElementById('ProfilePicture').setAttribute('src', location.protocol + '//' + location.host + '/Content/images/user.png');
-                    $("#ProfilePictureModal").modal("hide");
-                });
+                        document.getElementById('ProfilePicture').setAttribute('src', location.protocol + '//' + location.host + '/Images/Avatar.png');
+                        $("#ProfilePictureModal").modal("hide");
+                    });
         }
 
         function retrieveProfileImage() {
             return PersonnelProfileService.retrieveProfileImage(vm.personnelId)
                 .then(function (response) {
                     //If response is null then default image
-                    document.getElementById('ProfilePicture').setAttribute('src', response.data.RelativePath);
+                    if (response == null)
+                        document.getElementById('ProfilePicture').setAttribute('src', location.protocol + '//' + location.host + "/Images/Avatar.png");
+                    else
+                        document.getElementById('ProfilePicture').setAttribute('src', response.data.RelativePath);
                 });
         }
     }

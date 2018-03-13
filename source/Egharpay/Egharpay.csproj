@@ -1452,6 +1452,7 @@
     <Content Include="Content\plugins\slick\fonts\slick.ttf" />
     <Content Include="Content\plugins\slick\fonts\slick.woff" />
     <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Images\Avatar.png" />
     <Content Include="Images\blank.png" />
     <Content Include="Images\gallery\Image2.jpg" />
     <Content Include="Images\gallery\Image3.jpg" />
