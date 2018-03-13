@@ -53,6 +53,7 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> Profile()
         {
             var id = UserPersonnelId;
+            var t = User.IsPersonnel();
             if (User.IsPersonnel() && !await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
                 return HttpForbidden();
 
