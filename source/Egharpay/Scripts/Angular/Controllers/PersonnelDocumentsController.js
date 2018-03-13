@@ -29,7 +29,7 @@
         vm.uploadSelfie = uploadSelfie;
         vm.retrievePersonnelSelfies = retrievePersonnelSelfies;
         vm.personnelSelfieImages = [];
-        vm.tagline;
+        vm.tagline = "";
         var cropImage;
 
         function initialise(personnelId) {
@@ -69,6 +69,9 @@
         //Cropper
 
         function uploadSelfie(base64String) {
+            if (vm.personnelId === 0)
+                return window.location.href = "/Account/Login";
+
             var filevalue = angular.element('#fileUpload').val();
             var validFormats = ['jpg', 'gif', 'jpeg', 'png', 'bmp'];
             if (filevalue == "") {

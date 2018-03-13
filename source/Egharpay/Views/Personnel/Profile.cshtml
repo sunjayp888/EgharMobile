@@ -31,12 +31,12 @@
             <div class="ibox-content profile-content">
                 <h4><strong>@Model.Personnel.FullName</strong></h4>
                 <p><i class="fa fa-map-marker"></i> @Model.Personnel.FullAddress</p>
-                <h5>
+                @*<h5>
                     About me
                 </h5>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
-                </p>
+                </p>*@
                 <div class="">
                     <div class="row">
                         <div class="col-md-12">
@@ -87,6 +87,7 @@
 
                         }
                         @Html.HiddenFor(model => Model.Personnel.PersonnelId)
+                        @Html.HiddenFor(model => Model.Personnel.UserId)
                         @Html.Partial("_PersonnelProfile", Model)
                         <div class="col-md-4 col-sm-12 col-xs-12 col-md-offset-3">
                             <div class="form-group">

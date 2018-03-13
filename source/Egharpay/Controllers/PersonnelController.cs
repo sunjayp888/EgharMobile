@@ -48,10 +48,9 @@ namespace Egharpay.Controllers
 
         // GET: Personnel/Profile/{id}
         [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller })]
-        public async Task<ActionResult> Profile()
+        public async Task<ActionResult> Profile(bool? profileUpdated)
         {
             var id = UserPersonnelId;
-            var t = User.IsPersonnel();
             if (User.IsPersonnel() && !await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
                 return HttpForbidden();
 
@@ -66,6 +65,7 @@ namespace Egharpay.Controllers
             {
                 Personnel = personnel.Entity,
                 PersonnelId = personnel.Entity.PersonnelId,
+                ProfileUpdated = profileUpdated ?? false
                 //Permissions = EgharpayBusinessService.RetrievePersonnelPermissions(isAdmin, UserOrganisationId, UserPersonnelId, id),
                 //PhotoBytes = EgharpayBusinessService.RetrievePhoto(organisationId, id)
             };
@@ -191,7 +191,7 @@ namespace Egharpay.Controllers
         }
 
         // POST: Personnels/Edit/{id}
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,Personnel")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(PersonnelProfileViewModel personnelViewModel)
@@ -206,7 +206,8 @@ namespace Egharpay.Controllers
                     //editUser.Email = personnelViewModel.Personnel.Email;
                     //var result = UserManager.Update(editUser);
                     //if (result.Succeeded)
-                    return RedirectToAction("Profile", new { id = personnelViewModel.Personnel.PersonnelId });
+                    personnelViewModel.ProfileUpdated = resultData.Succeeded;
+                    return RedirectToAction("Profile", new { profileUpdated = personnelViewModel.ProfileUpdated });
                 }
                 ModelState.AddModelError("", resultData.Exception);
                 foreach (var error in resultData.Errors)

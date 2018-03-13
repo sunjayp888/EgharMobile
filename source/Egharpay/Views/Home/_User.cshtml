@@ -1,183 +1,183 @@
-﻿<div class="wrapper wrapper-content">
-    <div>
-        <div class="row" ng-controller="HomeBannerController as model" ng-init="model.retrieveHomeBannerImage()">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content-image">
-                        <div class="carousel slide" id="carousel1">
-                            <div class="carousel-inner carosel-home-height">
-                                <div class="item" ng-class='{active: $first}' ng-repeat="homeBannerImage in model.homeBannerImages">
-                                    <img alt="image" class="img-responsive" ng-src="{{homeBannerImage.RelativePath}}">
-                                </div>
-                            </div>
-                            <a data-slide="prev" href="#carousel1" class="left carousel-control">
-                                <span class="icon-prev"></span>
-                            </a>
-                            <a data-slide="next" href="#carousel1" class="right carousel-control">
-                                <span class="icon-next"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+﻿<div class="wrapper wrapper-content" ng-cloak>
 
-        <div class="row" ng-controller="MobileController as model" ng-init="model.retrieveMobilesInStore()">
-            <div class="col-lg-3">
-                @Html.Partial("_PersonnelHomeSelfie")
-
-
-                <div>
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content-image-static">
-                            <div>
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img alt="image" class="img-responsive" src="~/Images/gallery/ZTE.png">
-                                        <div class="carousel-caption">
-                                            <p>mumbile....</p>
-                                        </div>
-                                    </div>
-                                </div>
+    <div class="row" ng-controller="HomeBannerController as model" ng-init="model.retrieveHomeBannerImage()">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content-image">
+                    <div class="carousel slide" id="carousel1">
+                        <div class="carousel-inner carosel-home-height">
+                            <div class="item" ng-class='{active: $first}' ng-repeat="homeBannerImage in model.homeBannerImages">
+                                <img alt="image" class="img-responsive" ng-src="{{homeBannerImage.RelativePath}}">
                             </div>
                         </div>
-                    </div>
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content-image-static">
-                            <div>
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img alt="image" class="img-responsive" src="~/Images/gallery/Image3.jpg">
-                                        <div class="carousel-caption">
-                                            <p>mumbile....</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content-image-static">
-                            <div>
-                                <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img alt="image" class="img-responsive" src="~/Images/gallery/Image2.jpg">
-                                        <div class="carousel-caption">
-                                            <p>mumbile....</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="col-lg-6 trend-scroll" ng-controller="TrendController as model" ng-init="model.initialise()">
-                <div class="social-feed-box" ng-repeat="trend in model.trends">
-                    <div class="social-avatar">
-                        <a href="" class="pull-left">
-                            <img alt="image" src="~/Images/Gallery/ZTE.png">
+                        <a data-slide="prev" href="#carousel1" class="left carousel-control">
+                            <span class="icon-prev"></span>
                         </a>
-                        <div class="media-body">
-                            <a ng-href="/Trend/Detail/{{trend.TrendId}}">
-                                <span ng-bind="trend.Name"></span>
-                            </a>
-                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
-                        </div>
-                    </div>
-                    <div class="social-body">
-                        <p>
-                            <span ng-bind="trend.ShortDescription"></span>
-                        </p>
-                    </div>
-                    <div class="social-footer">
-                        <div class="social-comment">
-                            <a href="" class="pull-left">
-                                <img alt="image" src="~/Images/Gallery/Image3.jpg">
-                            </a>
-                            <div class="media-body">
-                                <textarea id="txtArea" ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>
-                                <button id="submit" type="submit" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createTrendComment(trend,model.trend[trend.TrendId])"> Comment</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="ibox float-e-margins" id="deviceinstore">
-                    <div class="ibox-title">
-                        <h5>Device in store</h5>
-                        <button class="btn btn-danger btn-xs pull-right">View All</button>
-                    </div>
-                    <div class="ibox-content-image">
-                        <div class="carousel slide" id="carousel2">
-                            <div class="carousel-inner">
-                                <div class="item" ng-class='{active: $first}' ng-repeat="mobile in model.mobilesInStore">
-                                    <img alt="image" class="img-responsive" src="~/Images/Gallery/Image2.jpg">
-                                </div>
-                            </div>
-                            <a data-slide="prev" href="#carousel2" class="left carousel-control">
-                                <span class="icon-prev"></span>
-                            </a>
-                            <a data-slide="next" href="#carousel2" class="right carousel-control">
-                                <span class="icon-next"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>Top Selling Phones</h5>
-                        </div>
-                        <div class="ibox-content no-padding">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span class="badge badge-primary">16565656</span>
-                                    Samsung
-                                </li>
-                                <li class="list-group-item ">
-                                    <span class="badge badge-info">125665</span>
-                                    Apple
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="badge badge-danger">1054565</span>
-                                    Nokia
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="badge badge-success">16454650</span>
-                                    Redmi
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="badge badge-warning">754566</span>
-                                    On the other hand
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="ibox">
-                    <div class="ibox-content">
-                        <h3>Top Sellers</h3>
-                        <ul class="list-unstyled file-list">
-                            <li><a href="" class="client-link"><i></i> Samsung</a></li>
-                            <li><a href=""><i></i> Logo_zender_company.jpg</a></li>
-                            <li><a href=""><i></i> Email_from_Alex.mln</a></li>
-                            <li><a href=""><i></i> Contract_20_11_2014.docx</a></li>
-                            <li><a href=""><i></i> Presentation.pptx</a></li>
-                            <li><a href=""><i></i> 10_08_2015.docx</a></li>
-                        </ul>
+                        <a data-slide="next" href="#carousel1" class="right carousel-control">
+                            <span class="icon-next"></span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row" ng-controller="MobileController as model" ng-init="model.retrieveMobilesInStore()">
+        <div class="col-lg-3">
+            @Html.Partial("_PersonnelHomeSelfie")
+
+
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content-image-static">
+                        <div>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img alt="image" class="img-responsive" src="~/Images/gallery/ZTE.png">
+                                    <div class="carousel-caption">
+                                        <p>mumbile....</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content-image-static">
+                        <div>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img alt="image" class="img-responsive" src="~/Images/gallery/Image3.jpg">
+                                    <div class="carousel-caption">
+                                        <p>mumbile....</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content-image-static">
+                        <div>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img alt="image" class="img-responsive" src="~/Images/gallery/Image2.jpg">
+                                    <div class="carousel-caption">
+                                        <p>mumbile....</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-6 trend-scroll" ng-controller="TrendController as model" ng-init="model.initialise()">
+            <div class="social-feed-box" ng-repeat="trend in model.trends">
+                <div class="social-avatar">
+                    <a href="" class="pull-left">
+                        <img alt="image" src="~/Images/Gallery/ZTE.png">
+                    </a>
+                    <div class="media-body">
+                        <a ng-href="/Trend/Detail/{{trend.TrendId}}">
+                            <span ng-bind="trend.Name"></span>
+                        </a>
+                        <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                    </div>
+                </div>
+                <div class="social-body">
+                    <p>
+                        <span ng-bind="trend.ShortDescription"></span>
+                    </p>
+                </div>
+                <div class="social-footer">
+                    <div class="social-comment">
+                        <a href="" class="pull-left">
+                            <img alt="image" src="~/Images/Gallery/Image3.jpg">
+                        </a>
+                        <div class="media-body">
+                            <textarea id="txtArea" ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>
+                            <button id="submit" type="submit" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createTrendComment(trend,model.trend[trend.TrendId])"> Comment</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins" id="deviceinstore">
+                <div class="ibox-title">
+                    <h5>Device in store</h5>
+                    <button class="btn btn-danger btn-xs pull-right">View All</button>
+                </div>
+                <div class="ibox-content-image">
+                    <div class="carousel slide" id="carousel2">
+                        <div class="carousel-inner">
+                            <div class="item" ng-class='{active: $first}' ng-repeat="mobile in model.mobilesInStore">
+                                <img alt="image" class="img-responsive" src="~/Images/Gallery/Image2.jpg">
+                            </div>
+                        </div>
+                        <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                            <span class="icon-prev"></span>
+                        </a>
+                        <a data-slide="next" href="#carousel2" class="right carousel-control">
+                            <span class="icon-next"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Top Selling Phones</h5>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge badge-primary">16565656</span>
+                                Samsung
+                            </li>
+                            <li class="list-group-item ">
+                                <span class="badge badge-info">125665</span>
+                                Apple
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge badge-danger">1054565</span>
+                                Nokia
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge badge-success">16454650</span>
+                                Redmi
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge badge-warning">754566</span>
+                                On the other hand
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>Top Sellers</h3>
+                    <ul class="list-unstyled file-list">
+                        <li><a href="" class="client-link"><i></i> Samsung</a></li>
+                        <li><a href=""><i></i> Logo_zender_company.jpg</a></li>
+                        <li><a href=""><i></i> Email_from_Alex.mln</a></li>
+                        <li><a href=""><i></i> Contract_20_11_2014.docx</a></li>
+                        <li><a href=""><i></i> Presentation.pptx</a></li>
+                        <li><a href=""><i></i> 10_08_2015.docx</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 

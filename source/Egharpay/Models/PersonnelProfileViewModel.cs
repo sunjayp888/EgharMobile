@@ -11,5 +11,6 @@ namespace Egharpay.Models
         public string PhotoBytes { get; set; }
         public SelectList Centres { get; set; }
         public bool IsSellerApproved { get; set; }
+        public bool ProfileUpdated { get; set; }
     }
 }

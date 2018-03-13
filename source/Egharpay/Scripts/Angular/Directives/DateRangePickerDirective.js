@@ -135,8 +135,11 @@
                 currentScope.modelString = null;
                 return;
             }
-
-            currentScope.modelString = currentScope.model.format(format).toString();
+            if (currentScope.model !== undefined && currentScope.model._isValid) {
+                currentScope.modelString = currentScope.model.format(format).toString();
+            } else {
+                currentScope.modelString = currentScope.model;
+            }
         }
 
         function setHighlight() {
