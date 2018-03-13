@@ -29,9 +29,9 @@ namespace Egharpay
                 "~/bower_components/bootbox/bootbox.js",
                 "~/bower_components/ngBootbox/ngBootbox.js",
                 "~/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js",
+                "~/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js"
                 //"~/bower_components/ez-plus/src/jquery.ez-plus.js"
                 //"~/bower_components/angular-ez-plus/js/angular-ezplus.js"
-                "~/bower_components/wip-image-zoom/dist/wip-image-zoom.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/Scripts/Application").Include(

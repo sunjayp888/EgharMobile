@@ -35,10 +35,17 @@
             latestMobiles(vm.showAll);
         }
 
+
         function retrieveSearchField() {
             MobileService.retrieveSearchField().then(function (response) {
                 vm.SearchFields = response.data;
-                $(".typeahead_2").typeahead({ source: vm.SearchFields });
+                $(".typeahead_2").typeahead({
+                    source: vm.SearchFields,
+                    afterSelect: function (item) {
+                        vm.searchKeyword = item;
+                        searchMobiles();
+                    }
+                });
             });
         };
 
