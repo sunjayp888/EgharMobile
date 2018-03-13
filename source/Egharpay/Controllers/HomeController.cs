@@ -27,8 +27,9 @@ namespace Egharpay.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var viewModel = new HomeViewModel();
-            viewModel.PersonnelId = UserPersonnelId;
+            var viewModel = new HomeViewModel { PersonnelId = UserPersonnelId };
+            if (User.Identity.IsAuthenticated && viewModel.PersonnelId == 0)
+                return RedirectToAction("Logout", "Account");
             if (User.Identity.IsAuthenticated && User.IsSeller())
             {
                 var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(viewModel.PersonnelId);
@@ -37,9 +38,8 @@ namespace Egharpay.Controllers
                 viewModel.IsSellerApproved = seller.ApprovalStateId == (int)SellerApprovalState.Approved;
             }
             if (User.Identity.IsAuthenticated && User.IsMobileRepairAdmin())
-            {
                 viewModel.HasMobileRepairPermission = User.IsSuperUser() || await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, Policies.Permission.AdministratorMobileRepair.ToString());
-            }
+
             return View(viewModel);
         }
 

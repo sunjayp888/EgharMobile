@@ -2,10 +2,10 @@
 using System.Web.Mvc;
 using Configuration.Interface;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Egharpay.Business.Interfaces;
 using Egharpay.Models.Identity;
 using Microsoft.Owin.Security.Authorization;
-
 namespace Egharpay.Controllers
 {
     public class BaseController : Controller

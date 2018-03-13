@@ -6,7 +6,7 @@
                     @*<img class="image img-mobile-profile" ng-src="mobile.ProfileImagePath" />*@
                     @*<img class="image img-mobile-profile" src="~/MobileImage/Acer/Acer Allegro/acer-allego.jpg"/>*@
                     <img class="image img-mobile-profile" src="{{mobile.ProfileImagePath}}" />
-                    
+
                 </div>
                 <div class="product-desc-mobile">
                     <span class="product-price">
@@ -34,4 +34,16 @@
             </div>
         </div>
     </a>
+</div>
+
+<div ng-if="model.mobiles.length<=0">
+    <div class="ibox float-e-margins col-sm-8">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="text-center">
+                    <h1>No record found.</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
