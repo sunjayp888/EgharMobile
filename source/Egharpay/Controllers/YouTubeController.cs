@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Configuration.Interface;
 using Egharpay.Business.Interfaces;
-using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Microsoft.Owin.Security.Authorization;
 

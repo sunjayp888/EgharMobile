@@ -1,23 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
 using Configuration.Interface;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
-using Egharpay.Helpers;
 using Egharpay.Models;
-using LinqKit;
 using Microsoft.Owin.Security.Authorization;
 using Filter = Egharpay.Business.Dto.Filter;
 

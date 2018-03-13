@@ -1,13 +1,8 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using Configuration.Interface;
-using Egharpay.Business;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Egharpay.Business.Interfaces;
-using Egharpay.Entity.Dto;
-using Egharpay.Models;
-using Egharpay.Models.Authorization;
 using Egharpay.Models.Identity;
 using Microsoft.Owin.Security.Authorization;
 

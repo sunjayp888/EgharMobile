@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Configuration.Interface;
-using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
