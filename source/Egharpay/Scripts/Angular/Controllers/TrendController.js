@@ -19,6 +19,7 @@
         vm.detailTrend = detailTrend;
         vm.trendComment = "";
         vm.createTrendComment = createTrendComment;
+        vm.retrieveTrends = retrieveTrends;
         vm.initialise = initialise;
 
         function initialise() {
