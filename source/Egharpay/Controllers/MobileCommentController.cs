@@ -8,7 +8,9 @@ using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
+using Egharpay.Models.Authorization;
 using Microsoft.Owin.Security.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
@@ -28,7 +30,7 @@ namespace Egharpay.Controllers
         }
 
         // POST: TrendComment/Create
-        //[Authorize(Roles = "Admin")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser,Role.Personnel })]
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(MobileComment mobileComment)

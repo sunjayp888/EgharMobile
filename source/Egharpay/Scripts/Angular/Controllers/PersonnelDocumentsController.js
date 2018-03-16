@@ -29,7 +29,7 @@
         vm.uploadSelfie = uploadSelfie;
         vm.retrievePersonnelSelfies = retrievePersonnelSelfies;
         vm.personnelSelfieImages = [];
-        vm.tagline = "";
+        vm.tagline = null;
         var cropImage;
 
         function initialise(personnelId) {

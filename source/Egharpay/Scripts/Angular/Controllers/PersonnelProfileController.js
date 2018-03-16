@@ -125,7 +125,7 @@
             return PersonnelProfileService.retrieveProfileImage(vm.personnelId)
                 .then(function (response) {
                     //If response is null then default image
-                    if (response == null)
+                    if (response.data === "")
                         document.getElementById('ProfilePicture').setAttribute('src', location.protocol + '//' + location.host + "/Images/Avatar.png");
                     else
                         document.getElementById('ProfilePicture').setAttribute('src', response.data.RelativePath);

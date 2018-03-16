@@ -98,7 +98,7 @@ namespace Egharpay.Controllers
                         var documentMeta = new Document()
                         {
                             Content = fileData,
-                            Description = tagLine,
+                            Description = tagLine=="null" ? string.Empty : tagLine,
                             FileName = file.FileName.Split('\\').Last() + ".png",
                             PersonnelName = personnel.FullName,
                             CreatedBy = User.Identity.GetUserId(),

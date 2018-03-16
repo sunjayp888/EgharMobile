@@ -20,7 +20,7 @@
     ViewBag.Title = "Personnel Profile";
 }
 <div class="row animated fadeInRight" ng-controller="PersonnelProfileController as model" ng-init="model.initialise(@Model.PersonnelId)">
-    <div class="col-md-4">
+    <div class="col-md-2">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Profile Detail</h5>
@@ -32,11 +32,11 @@
                 <h4><strong>@Model.Personnel.FullName</strong></h4>
                 <p><i class="fa fa-map-marker"></i> @Model.Personnel.FullAddress</p>
                 @*<h5>
-                    About me
-                </h5>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
-                </p>*@
+                        About me
+                    </h5>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.
+                    </p>*@
                 <div class="">
                     <div class="row">
                         <div class="col-md-12">
@@ -48,33 +48,20 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Edit Profile</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="#">Config option 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
+    <div class="col-md-10">
+        @using (Html.BeginForm("Edit", "Personnel", FormMethod.Post))
+        {
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Edit Profile</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="ibox-content">
-                @using (Html.BeginForm("Edit", "Personnel", FormMethod.Post))
-                {
+                <div class="ibox-content">
+
                     @Html.AntiForgeryToken()
                     <div class="form-horizontal">
                         @if (ViewContext.ViewData.ModelState.Any(x => x.Key == ""))
@@ -89,35 +76,38 @@
                         @Html.HiddenFor(model => Model.Personnel.PersonnelId)
                         @Html.HiddenFor(model => Model.Personnel.UserId)
                         @Html.Partial("_PersonnelProfile", Model)
+
+                    </div>
+                </div>
+                <div class="ibox-footer">
+                    <div class="row">
                         <div class="col-md-4 col-sm-12 col-xs-12 col-md-offset-3">
                             <div class="form-group">
                                 <div class="pull-right">
-                                    <button type="submit" class="btn btn-danger">Save</button>
+                                    <button type="submit" class="btn btn-block btn-danger">Save</button>
                                 </div>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
-                }
-                <div>
-                    <button class="btn btn-primary btn-block m"></button>
+
                 </div>
             </div>
-        </div>
+        }
     </div>
-    
+
 
     <div>
         <div class="modal fade" id="ProfilePictureModal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <form class="avatar-form" enctype="multipart/form-data" method="post">
                         <div class="modal-header">
                             <button class="close" data-dismiss="modal" type="button">&times;</button>
                             <h4 class="modal-title" id="avatar-modal-label">Edit Profile Image</h4>
                             <div class="row">
-                                <div class="col-md-3 col-md-offset-9">
-                                    <button class="btn btn-primary" type="button" ng-click="model.uploadPhoto(cropper.croppedImage)">Upload</button>
-                                    <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
+                                <div class="col-md-6 col-md-offset-9">
+                                    @*<button class="btn btn-primary" type="button" ng-click="model.uploadPhoto(cropper.croppedImage)">Upload</button>
+                                        <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>*@
                                 </div>
                             </div>
                             <br />
@@ -130,11 +120,13 @@
                         </div>
                         <div class="modal-body">
                             <div>
-                                <canvas width="400" height="400" class="center-block" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="400" crop-height="400" keep-aspect="true" touch-radius="30" crop-area-bounds="0"></canvas>
+                                <canvas width="200" height="200" class="center-block" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="400" crop-height="400" keep-aspect="true" touch-radius="30" crop-area-bounds="0"></canvas>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <input type="file" id="fileUpload" img-cropper-fileread image="cropper.sourceImage" class="form-control required" accept=".jpg,.jpeg,.png,.gif,.bmp" />
+                            <br />
+                            <button class="btn btn-primary" type="button" ng-click="model.uploadPhoto(cropper.croppedImage)">Upload</button>
                         </div>
                     </form>
                 </div>
@@ -142,4 +134,3 @@
         </div>
     </div>
 </div>
-

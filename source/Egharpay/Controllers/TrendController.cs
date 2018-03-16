@@ -11,7 +11,9 @@ using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
+using Egharpay.Models.Authorization;
 using Microsoft.Owin.Security.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
@@ -31,7 +33,7 @@ namespace Egharpay.Controllers
         }
 
         // GET: Trend/Create
-        [Authorize(Roles = "Admin")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser })]
         public async Task<ActionResult> Create()
         {
             var viewModel = new TrendViewModel()
@@ -42,7 +44,7 @@ namespace Egharpay.Controllers
         }
 
         // POST: Trend/Create
-        [Authorize(Roles = "Admin")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser})]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TrendViewModel trendViewModel)

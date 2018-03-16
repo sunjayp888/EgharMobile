@@ -18,7 +18,9 @@
         <div class="tab-content">
             <div id="tab-2" class="tab-pane active">
                 <div class="sidebar-title">
-                    <h3><i class="fa fa-gears"></i> Store</h3>
+                    <h3>
+                        <i class="fa fa-gears"></i> Store
+                    </h3>
                     <small><i class="fa fa-tim"></i> Browse in store.</small>
                 </div>
                 <div class="setings-item">
@@ -51,47 +53,48 @@
                         }
                     </span>
                 </div>
-
-
             </div>
-            <div id="tab-3" class="tab-pane">
-                <div class="sidebar-title">
-                    <h3>
-                        <i class="fa fa-gears"></i> Settings
-                    </h3>
-                    <small><i class="fa fa-tim"></i> You can change your account details.</small>
-                </div>
-                <div class="setings-item">
-                    @*<span>
-                        <img alt="image" src="/images/gallery/image2.jpg">
-                    </span>*@
-                </div>
-                <div class="setings-item">
-                    <span>
-                        @User.Identity.GetUserName()
-                    </span>
-                </div>
-                <div class="setings-item">
-                    <span>
-                        @Html.ActionLink("Edit Profile", "Profile", "Personnel", null, new { @class = "btn btn-danger" })
-                    </span>
-                </div>
-                <div class="setings-item anchor-black">
-                    <span>
-                        @Html.ActionLink("Reset Password", "ResetPassword", "Account")
-                    </span>
-                </div>
-                <div class="setings-item anchor-black">
-                    <span>
-                        @Html.ActionLink("My Orders", "ResetPassword", "Account")
-                    </span>
-                </div>
-                <div class="sidebar-content">
-                    <h4>Settings</h4>
-                    <div class="small">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div id="tab-3" class="tab-pane">
+                    <div class="sidebar-title">
+                        <h3>
+                            <i class="fa fa-gears"></i> Settings
+                        </h3>
+                        <small><i class="fa fa-tim"></i> You can change your account details.</small>
+                    </div>
+                    <div class="setings-item">
+                        @*<span>
+                                <img alt="image" src="/images/gallery/image2.jpg">
+                            </span>*@
+                    </div>
+                    <div class="setings-item">
+                        <span>
+                            @User.Identity.GetUserName()
+                        </span>
+                    </div>
+                    <div class="setings-item">
+                        <span>
+                            @Html.ActionLink("Edit Profile", "Profile", "Personnel", null, new { @class = "btn btn-danger" })
+                        </span>
+                    </div>
+                    <div class="setings-item anchor-black">
+                        <span>
+                            @Html.ActionLink("Reset Password", "ResetPassword", "Account")
+                        </span>
+                    </div>
+                    <div class="setings-item anchor-black">
+                        <span>
+                            @Html.ActionLink("My Orders", "ResetPassword", "Account")
+                        </span>
+                    </div>
+                    <div class="sidebar-content">
+                        <h4>Settings</h4>
+                        <div class="small">
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>
