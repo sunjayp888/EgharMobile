@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Configuration.Interface;
 using Egharpay.Business.Interfaces;
-using Egharpay.Business.Models;
+using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
+using HtmlAgilityPack;
 using Microsoft.Owin.Security.Authorization;
 using Filter = Egharpay.Business.Dto.Filter;
+using Mobile = Egharpay.Business.Models.Mobile;
 
 namespace Egharpay.Controllers
 {
@@ -96,6 +100,8 @@ namespace Egharpay.Controllers
         // GET: Enquiry/View/{id}
         public async Task<ActionResult> Detail(int? id)
         {
+
+            await CreateTrend();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -241,6 +247,44 @@ namespace Egharpay.Controllers
             return this.JsonNet(await _mobileBusinessService.RetrieveMobiles(e => true, orderBy, paging));
         }
 
+        private async Task CreateTrend()
+        {
+            var trendHtmlData = GetHtmlData(string.Format("http://www.gsmarena.com{0}{1}", "/", ""));
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(trendHtmlData);
+            var newsItem = htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'news-item')]");
+            foreach (var item in htmlDocument.DocumentNode.SelectNodes("//div[contains(@class, 'news-item')]"))
+            {
+                var shortDesription = item.ChildNodes.FirstOrDefault(c => c.Name == "a")?
+                          .ChildNodes.FirstOrDefault(e => e.Name == "p")?.InnerHtml;
+
+                if (shortDesription != null)
+                {
+                    var firstOrDefault = item.ChildNodes.FirstOrDefault(c => c.Name == "a")?
+                        .ChildNodes.FirstOrDefault(e => e.Name == "div")?
+                        .ChildNodes.FirstOrDefault(e => e.Name == "img");
+                    if (firstOrDefault != null)
+                    {
+                        var imageLink1 = firstOrDefault?.Attributes[0].Value;
+
+                        var trendShortName = firstOrDefault?.Attributes[1].Value;
+
+                        //Write File
+                        const string trendsDirectory = @"G:\MobileImage\TrendImage";
+                        var uri = new Uri(imageLink1);
+                        var filename = trendShortName?.Replace(" ", "") + imageLink1?.Split('/').Last();
+                        if (uri.IsFile)
+                            filename = System.IO.Path.GetFileName(uri.LocalPath);
+
+                        var saveImageFullPath = Path.Combine(trendsDirectory, filename);
+                        using (var client = new WebClient())
+                        {
+                            client.DownloadFile(new Uri(imageLink1), saveImageFullPath);
+                        }
+                    }
+                }
+            }
+        }
 
 
         //private List<Mobile> CreateMobileData(List<Brand> brands)
@@ -591,47 +635,47 @@ namespace Egharpay.Controllers
         //    return brandList;
         //}
 
-        //public string GetHtmlData(string url)
-        //{
-        //    try
-        //    {
-        //        string data = null;
-        //        var request = WebRequest.Create(url);
-        //        using (var response = (HttpWebResponse)request.GetResponse())
-        //        {
-        //            request.Timeout = 300000;
-        //            using (Stream receiveStream = response.GetResponseStream())
-        //            {
-        //                if (response.StatusCode == HttpStatusCode.OK)
-        //                {
-        //                    //  var receiveStream = response.GetResponseStream();
-        //                    StreamReader readStream = null;
+        public string GetHtmlData(string url)
+        {
+            try
+            {
+                string data = null;
+                var request = WebRequest.Create(url);
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    request.Timeout = 300000;
+                    using (Stream receiveStream = response.GetResponseStream())
+                    {
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            //  var receiveStream = response.GetResponseStream();
+                            StreamReader readStream = null;
 
-        //                    if (response.CharacterSet == null)
-        //                    {
-        //                        readStream = new StreamReader(receiveStream);
-        //                    }
-        //                    else
-        //                    {
-        //                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-        //                    }
+                            if (response.CharacterSet == null)
+                            {
+                                readStream = new StreamReader(receiveStream);
+                            }
+                            else
+                            {
+                                readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                            }
 
-        //                    data = readStream.ReadToEnd();
-        //                    //response.Close();
-        //                    //response.Dispose();
-        //                    //readStream.Close();
-        //                    //readStream.Dispose();
-        //                }
-        //                return data;
-        //            }
-        //        }
+                            data = readStream.ReadToEnd();
+                            //response.Close();
+                            //response.Dispose();
+                            //readStream.Close();
+                            //readStream.Dispose();
+                        }
+                        return data;
+                    }
+                }
 
-        //    }
-        //    catch (WebException e)
-        //    {
-        //        return null;
-        //    }
-        //}
+            }
+            catch (WebException e)
+            {
+                return null;
+            }
+        }
     }
     //public class BrandData
     //{
