@@ -29,7 +29,7 @@ namespace Egharpay
                 "~/bower_components/bootbox/bootbox.js",
                 "~/bower_components/ngBootbox/ngBootbox.js",
                 "~/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js",
-                "~/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js"
+                "~/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js"
                 //"~/bower_components/ez-plus/src/jquery.ez-plus.js"
                 //"~/bower_components/angular-ez-plus/js/angular-ezplus.js"
                 ));

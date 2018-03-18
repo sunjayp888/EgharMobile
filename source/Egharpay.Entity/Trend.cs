@@ -13,6 +13,7 @@ namespace Egharpay.Entity
         public Trend()
         {
             TrendComments = new HashSet<TrendComment>();
+            CreatedDateTime = DateTime.UtcNow;
         }
 
         public int TrendId { get; set; }
@@ -21,16 +22,14 @@ namespace Egharpay.Entity
         [StringLength(500)]
         public string Name { get; set; }
 
-        [Required]
         [StringLength(500)]
         public string Image { get; set; }
 
-        [Required]
-        [StringLength(500)]
         public string Detail { get; set; }
 
-        [Required]
         public string ShortDescription { get; set; }
+
+        public string Filename { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
 

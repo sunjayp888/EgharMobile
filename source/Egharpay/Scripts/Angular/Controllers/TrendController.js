@@ -29,6 +29,8 @@
         }
 
         function retrieveTrends() {
+            vm.paging.page = 1;
+            vm.paging.pageSize = vm.paging.pageSize + 5;
             return TrendService.retrieveTrends(vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.trends = response.data.Items;

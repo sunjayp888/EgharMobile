@@ -1293,6 +1293,8 @@
     <Content Include="bower_components\ngBootbox\typings\angularjs\angular.d.ts" />
     <Content Include="bower_components\ngBootbox\typings\jquery\jquery.d.ts" />
     <Content Include="bower_components\ngBootbox\typings\tsd.d.ts" />
+    <Content Include="bower_components\ngInfiniteScroll\build\ng-infinite-scroll.js" />
+    <Content Include="bower_components\ngInfiniteScroll\build\ng-infinite-scroll.min.js" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -1874,6 +1876,8 @@
     <Content Include="bower_components\ngBootbox\package.json" />
     <Content Include="bower_components\ngBootbox\README.md" />
     <Content Include="bower_components\ngBootbox\tsd.json" />
+    <Content Include="bower_components\ngInfiniteScroll\.bower.json" />
+    <Content Include="bower_components\ngInfiniteScroll\bower.json" />
     <None Include="Properties\PublishProfiles\Inspinia.pubxml" />
     <Content Include="Content\landing\avatar_all.png" />
     <Content Include="Content\landing\header_one.jpg" />
