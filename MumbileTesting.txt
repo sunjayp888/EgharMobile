@@ -1,0 +1,9 @@
+-order button click go to login
+-New in store
+-Latest Device in store view all button click
+-Top Seller should be commented
+-Trend Comment not working.
+-Trend Detail UI
+-Top Selling brand phone.
+-Search with proper data.
+-Mobile Detail 
