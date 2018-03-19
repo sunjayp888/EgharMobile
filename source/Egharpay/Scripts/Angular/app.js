@@ -14,9 +14,10 @@
         'ngBootbox',
         'moment-module',
         'angular-img-cropper',
-         'daterangepicker',
+        'daterangepicker',
         'ui.select',
-        'checklist-model'
+        'checklist-model',
+        'infinite-scroll'
     ]);
 
 

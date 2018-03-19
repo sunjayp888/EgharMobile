@@ -25,12 +25,14 @@ namespace Egharpay.Controllers
         private readonly IBrandBusinessService _brandBusinessService;
         private readonly ISellerBusinessService _sellerBusinessService;
         private readonly IGoogleBusinessService _googleBusinessService;
-        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService, ISellerBusinessService sellerBusinessService, IGoogleBusinessService googleBusinessService) : base(configurationManager, authorizationService)
+        private readonly ITrendBusinessService _trendBusinessService;
+        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService, ISellerBusinessService sellerBusinessService, IGoogleBusinessService googleBusinessService, ITrendBusinessService trendBusinessService) : base(configurationManager, authorizationService)
         {
             _mobileBusinessService = mobileBusinessService;
             _brandBusinessService = brandBusinessService;
             _sellerBusinessService = sellerBusinessService;
             _googleBusinessService = googleBusinessService;
+            _trendBusinessService = trendBusinessService;
         }
 
         // GET: Mobile
@@ -272,7 +274,7 @@ namespace Egharpay.Controllers
                         //Write File
                         const string trendsDirectory = @"G:\MobileImage\TrendImage";
                         var uri = new Uri(imageLink1);
-                        var filename = trendShortName?.Replace(" ", "") + imageLink1?.Split('/').Last();
+                        var filename = trendShortName?.Replace(" ", "").Replace(":", "") + imageLink1?.Split('/').Last();
                         if (uri.IsFile)
                             filename = System.IO.Path.GetFileName(uri.LocalPath);
 
@@ -281,6 +283,14 @@ namespace Egharpay.Controllers
                         {
                             client.DownloadFile(new Uri(imageLink1), saveImageFullPath);
                         }
+
+                        var trend = new Trend
+                        {
+                            Name = trendShortName,
+                            ShortDescription = shortDesription,
+                            Filename = filename
+                        };
+                        await _trendBusinessService.CreateTrend(trend);
                     }
                 }
             }
