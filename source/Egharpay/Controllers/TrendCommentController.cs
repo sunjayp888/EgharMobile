@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Configuration.Interface;
 using Egharpay.Business.Interfaces;
+using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
@@ -41,35 +42,34 @@ namespace Egharpay.Controllers
         //    return View(viewModel);
         //}
 
-        // POST: TrendComment/Create
-        //[Authorize(Roles = "Admin")]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TrendComment trendComment)
         {
+            var validationresult = new ValidationResult();
+            if (!User.Identity.IsAuthenticated)
+            {
+                validationresult.Succeeded = false;
+                validationresult.Message = "Invalid Login.";
+                return this.JsonNet(validationresult);
+            }
             try
             {
                 if (ModelState.IsValid)
                 {
                     //Create Trend
-                    trendComment.UserId = 1;
-                    trendComment.CreatedDateTime = DateTime.UtcNow;
+                    trendComment.PersonnelId = UserPersonnelId;
                     var result = await _trendCommentBusinessService.CreateTrendComment(trendComment);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index");
-                    }
-                    ModelState.AddModelError("", result.Exception);
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
+                        validationresult.Succeeded = true;
+                        return this.JsonNet(validationresult);
                     }
                 }
-                return this.JsonNet(true);
+                return this.JsonNet(validationresult);
             }
             catch (Exception e)
             {
-                return this.JsonNet(false);
+                return this.JsonNet(validationresult);
             }
         }
 

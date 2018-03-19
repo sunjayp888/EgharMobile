@@ -9,7 +9,10 @@ namespace Egharpay.Entity
     [Table("TrendComment")]
     public partial class TrendComment
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public TrendComment()
+        {
+            CreatedDateTime = DateTime.UtcNow;
+        }
         public int TrendCommentId { get; set; }
 
         public int TrendId { get; set; }
@@ -17,12 +20,14 @@ namespace Egharpay.Entity
         [Required]
         public string Comment { get; set; }
 
-        public int UserId { get; set; }
+        public int PersonnelId { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
 
         public bool Approve { get; set; }
 
         public virtual Trend Trend { get; set; }
+
+        public virtual Personnel Personnel { get; set; }
     }
 }

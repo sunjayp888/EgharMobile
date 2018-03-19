@@ -1,12 +1,16 @@
 ﻿@model Egharpay.Models.TrendViewModel
-
+@using Egharpay.Business.Enum
+@using Egharpay.Extensions
 @{
-    ViewBag.Title = "Detail";
+    var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
+    Layout = layout;
+    ViewBag.Title = "Repair Mobile";
 }
+
 
 <div class="wrapper wrapper-content">
     <div class="row">
-    <div class="col-lg-12">
+    @*<div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-content-image">
                 <div class="carousel slide" id="carousel1">
@@ -31,7 +35,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 
     <div class="col-lg-3">
         <div class="ibox float-e-margins">
@@ -133,14 +137,6 @@
         <div class="col-lg-9">
             <div ng-controller="TrendController as model" ng-init="model.detailTrend(@Model.TrendId)">
                 <div class="social-feed-box">
-                    <div class="pull-right social-action dropdown">
-                        <button data-toggle="dropdown" class="dropdown-toggle btn-white">
-                            <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu m-t-xs">
-                            <li><a href="#">Config</a></li>
-                        </ul>
-                    </div>
                     <div class="social-avatar">
                         <a href="" class="pull-left">
                             <img src="~/Images/p_big3.jpg"/>
@@ -149,7 +145,7 @@
                             <a href="#">
                                 <span ng-bind="model.trends.Name"></span>
                             </a>
-                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                            <small class="text-muted"><span ng-bind="model.trends.CreatedDateTime | date"></span></small>
                         </div>
                     </div>
                     <div class="social-body">
@@ -161,11 +157,11 @@
                         <p>
                             <span ng-bind="model.trends.Detail"></span>
                         </p>
-                        <div class="btn-group">
+                        @*<div class="btn-group">
                             <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
                             <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
                             <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
-                        </div>
+                        </div>*@
                     </div>
 
                 </div>

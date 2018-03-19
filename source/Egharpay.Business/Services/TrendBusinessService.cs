@@ -48,8 +48,8 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<Trend>> RetrieveTrends(List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var trends = await _dataService.RetrievePagedResultAsync<Trend>(a => true, orderBy, paging);
-            return trends;
+                var trends = await _dataService.RetrievePagedResultAsync<Trend>(a => true, orderBy, paging, e => e.TrendComments, e => e.TrendComments.Select(s => s.Personnel));
+                return trends;
         }
 
         //public async Task<PagedResult<Trend>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)

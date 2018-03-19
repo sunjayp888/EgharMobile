@@ -93,9 +93,29 @@
                         <p>
                             <span ng-bind="trend.ShortDescription"></span>
                         </p>
+                        <img src="~/TrendImage/{{trend.Filename}}"  class="img-responsive social-feed-image"/>
                     </div>
                     <div class="social-footer">
+                        <div ng-repeat="trendcomment in trend.TrendComments" class="social-comment">
+                            <a href="" class="pull-left">
+                                <img alt="image" src="/Images/Avatar.png">
+                            </a>
+                            <div class="media-body">
+                                <a href="#">
+                                    <span ng-bind="trendcomment.Personnel.Forenames==''?'Unknown':(trendcomment.Personnel.Forenames)"></span>
+                                </a>
+                                {{trendcomment.Comment}}
+                                <br>
+                                @*<a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -*@
+                                <small class="text-muted"><span ng-bind="trendcomment.CreatedDateTime | date"></span></small>
+                            </div>
+                        </div>
                         <div class="social-comment">
+                            <div class="alert alert-danger alert-dismissable" ng-if="model.errorMessages.length>0">
+                                <ul>
+                                    <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                                </ul>
+                            </div>
                             <a href="" class="pull-left">
                                 <img alt="image" src="~/Images/Gallery/Image3.jpg">
                             </a>
@@ -104,7 +124,6 @@
                                 <button id="submit" type="submit" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createTrendComment(trend,model.trend[trend.TrendId])"> Comment</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

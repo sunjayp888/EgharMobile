@@ -26,6 +26,7 @@ namespace Egharpay.Business.Services
             ValidationResult<TrendComment> validationResult = new ValidationResult<TrendComment>();
             try
             {
+
                 await _dataService.CreateAsync(trendComment);
                 validationResult.Entity = trendComment;
                 validationResult.Succeeded = true;
