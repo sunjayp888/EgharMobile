@@ -6,4 +6,38 @@
 -Trend Detail UI
 -Top Selling brand phone.
 -Search with proper data.
--Mobile Detail 
+-Mobile Detail. 
+-Lost your password.
+
+
+USE [mumbile]
+GO
+
+/****** Object:  Table [dbo].[Trend]    Script Date: 19-03-2018 08:05:24 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Trend](
+	[TrendId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](500) NOT NULL,
+	[Image] [varchar](500) NULL,
+	[Detail] [varchar](500) NULL,
+	[ShortDescription] [varchar](max) NULL,
+	[CreatedDateTime] [datetime] NOT NULL,
+	[Filename] [varchar](500) NULL,
+ CONSTRAINT [PK_Trend] PRIMARY KEY CLUSTERED 
+(
+	[TrendId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
