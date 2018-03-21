@@ -20,6 +20,8 @@
         vm.trendComment = "";
         vm.createTrendComment = createTrendComment;
         vm.initialise = initialise;
+        vm.readMore = readMore;
+        vm.isreadMore = false;
 
         function initialise() {
             vm.orderBy.property = "Name";
@@ -68,6 +70,13 @@
                 Comment:trendComment
             }
             return TrendService.createTrendComment(trendCommentData);
+        }
+
+        function readMore(trend) {
+            if (trend.IsReadMore === undefined)
+            {
+                trend.IsReadMore = true;
+            }
         }
     }
 })();

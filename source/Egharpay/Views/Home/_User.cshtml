@@ -75,25 +75,27 @@
 
 
 
-        <div  class="col-lg-6 trend-scroll" ng-controller="TrendController as model">
+        <div class="col-lg-6 trend-scroll" ng-controller="TrendController as model">
             <div infinite-scroll="model.initialise()" infinite-scroll-distance="3">
                 <div class="social-feed-box" ng-repeat="trend in model.trends">
                     <div class="social-avatar">
                         <a href="" class="pull-left">
-                            <img alt="image" src="~/Images/Gallery/ZTE.png">
+                            <img alt="image" src="~/TrendImage/{{trend.Filename}}">
                         </a>
                         <div class="media-body">
-                            <a ng-href="/Trend/Detail/{{trend.TrendId}}">
+                            <h3>
                                 <span ng-bind="trend.Name"></span>
-                            </a>
-                            <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                            </h3>
+                            <small class="text-muted"><span ng-bind="trend.CreatedDateTime | date"></span></small>
                         </div>
                     </div>
                     <div class="social-body">
                         <p>
                             <span ng-bind="trend.ShortDescription"></span>
+                            <span ng-if="trend.IsReadMore==true" ng-bind="trend.Detail"></span>
+                            <button ng-if="!trend.IsReadMore" ng-click="model.readMore(trend)" class="btn btn-danger btn-xs">Read more..</button>
                         </p>
-                        <img src="~/TrendImage/{{trend.Filename}}"  class="img-responsive social-feed-image"/>
+                        <img src="~/TrendImage/{{trend.Filename}}" class="img-responsive social-feed-image" />
                     </div>
                     <div class="social-footer">
                         <div ng-repeat="trendcomment in trend.TrendComments" class="social-comment">
@@ -117,7 +119,7 @@
                                 </ul>
                             </div>
                             <a href="" class="pull-left">
-                                <img alt="image" src="~/Images/Gallery/Image3.jpg">
+                                <img alt="image" src="~/Images/Avatar.png">
                             </a>
                             <div class="media-body">
                                 <textarea id="txtArea" ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>

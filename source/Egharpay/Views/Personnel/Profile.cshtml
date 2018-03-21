@@ -19,7 +19,7 @@
     }
     ViewBag.Title = "Personnel Profile";
 }
-<div class="row animated fadeInRight" ng-controller="PersonnelProfileController as model" ng-init="model.initialise(@Model.PersonnelId)">
+<div ng-cloak class="row animated fadeInRight" ng-controller="PersonnelProfileController as model" ng-init="model.initialise(@Model.PersonnelId)">
     <div class="col-md-2">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -30,7 +30,7 @@
             </div>
             <div class="ibox-content profile-content">
                 <h4><strong>@Model.Personnel.FullName</strong></h4>
-                <p><i class="fa fa-map-marker"></i> @Model.Personnel.FullAddress</p>
+                <p><i ng-if="@Model.Personnel.FullAddress" class="fa fa-map-marker"></i> @Model.Personnel.FullAddress</p>
                 @*<h5>
                         About me
                     </h5>
@@ -39,7 +39,7 @@
                     </p>*@
                 <div class="">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div>
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ProfilePictureModal"><i class="fa fa-upload"></i> Upload Profile Picture</button>
                         </div>
                     </div>

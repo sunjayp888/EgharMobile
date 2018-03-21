@@ -268,13 +268,13 @@ namespace Egharpay.Controllers
                     if (firstOrDefault != null)
                     {
                         var imageLink1 = firstOrDefault?.Attributes[0].Value;
-
+                        var f = imageLink1.Split('/')[7];
                         var trendShortName = firstOrDefault?.Attributes[1].Value;
 
                         //Write File
-                        const string trendsDirectory = @"G:\MobileImage\TrendImage";
+                        const string trendsDirectory = @"E:\MobileImage\TrendImage";
                         var uri = new Uri(imageLink1);
-                        var filename = trendShortName?.Replace(" ", "").Replace(":", "") + imageLink1?.Split('/').Last();
+                        var filename = f + imageLink1?.Split('/').Last();
                         if (uri.IsFile)
                             filename = System.IO.Path.GetFileName(uri.LocalPath);
 

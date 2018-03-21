@@ -8,12 +8,17 @@
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left form-inline" role="search">
                         <div class="form-group">
-                            <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search"/>
+                            <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search" />
 
                             <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
                                 <i class="fa fa-search"></i>
                             </button>
-                            <a id="mobileOrderButton" class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder">Order</span></a>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a id="mobileOrderButton" class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder"> Order </span></a>
+                            }
+
                             <a class="btn btn-danger xs-ml-8" ng-href="/MobileRepair"><i class="fa fa-wrench "></i> <span id="spanOrder">Repair Phone</span></a>
                             <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartoggle">
                                 <i class="fa fa-tasks"></i>
@@ -90,7 +95,7 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-                using (Html.BeginForm("Logout", "Account", FormMethod.Post, new {id = "logoutForm"}))
+                using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))
                 {
                     @Html.AntiForgeryToken()
                     <ul class="nav navbar-top-links navbar-right">
