@@ -444,13 +444,20 @@ namespace Egharpay.Controllers
         }
 
         // GET: /Account/ResetPassword
+        //[AllowAnonymous]
+        //public async Task<ActionResult> ResetPassword(string code)
+        //{
+        //    //return code == null ? View("Error") : View();
+        //    var resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(User.Identity.GetUserId());
+        //    var model = new ResetPasswordViewModel() { Code = resetPasswordToken };
+        //    return View(model);
+        //}
+
         [AllowAnonymous]
-        public async Task<ActionResult> ResetPassword(string code)
+        public async Task<ActionResult> ResetPassword()
         {
             //return code == null ? View("Error") : View();
-            var resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(User.Identity.GetUserId());
-            var model = new ResetPasswordViewModel() { Code = resetPasswordToken };
-            return View(model);
+            return View(new ResetPasswordViewModel());
         }
 
         //

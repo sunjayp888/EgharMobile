@@ -30,6 +30,7 @@
         vm.email;
         vm.errorMessages = [];
         vm.onSellerChecked = onSellerChecked;
+        vm.createForgetPasswordOtp = createForgetPasswordOtp;
         function addPincode() {
             geoLocation();
         }
@@ -151,6 +152,19 @@
 
         function onSellerChecked() {
 
+        }
+
+        function createForgetPasswordOtp(mobileNumber) {
+            vm.showMessage = false;
+            vm.errorMessages = [];
+            if (!mobileNumber) vm.errorMessages.push('Enter mobile number.');
+            if (vm.errorMessages.length > 0) return;
+
+            return OTPService.createForgetPasswordOtp(mobileNumber).then(function (response) {
+                vm.showMessage = true;
+                vm.isOtpCreated = response.data.Succeeded;
+                vm.errorMessages.push(response.data.Message);
+            });
         }
     }
 

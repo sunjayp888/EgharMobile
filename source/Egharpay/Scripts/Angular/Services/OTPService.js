@@ -12,7 +12,8 @@
             createLoginOtp: createLoginOtp,
             retrieveLoginOtp: retrieveLoginOtp,
             createMobileRepairOtp: createMobileRepairOtp,
-            createMobileRepairPaymentOtp: createMobileRepairPaymentOtp
+            createMobileRepairPaymentOtp: createMobileRepairPaymentOtp,
+            createForgetPasswordOtp: createForgetPasswordOtp
         };
 
         return service;
@@ -49,6 +50,15 @@
                 };
             return $http.post(url, data);
         }
+
+        function createForgetPasswordOtp(mobileNumber) {
+            var url = "/OTP/CreateForgetPasswordOtp",
+                data = {
+                    mobileNumber: mobileNumber
+                };
+            return $http.post(url, data);
+        }
+        
 
 
     }

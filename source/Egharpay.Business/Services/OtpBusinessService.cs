@@ -82,6 +82,17 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
+        public async Task<ValidationResult<AspNetUserMobileOtp>> CreateForgetPasswordOtp(decimal mobileNumber, string ipAddress)
+        {
+            var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.ForgetPassword);
+            if (validationResult.Succeeded)
+            {
+                var message = $"Your OTP to reset password : {validationResult.Entity.OTP}.";
+                _smsBusinessService.SendSMS(mobileNumber.ToString(), message);
+            }
+            return validationResult;
+        }
+
         private async Task<ValidationResult<AspNetUserMobileOtp>> CreateOtp(decimal mobileNumber, string ipAddress, int otpReasonId, string aspNetUserId = null, string message = null)
         {
             var validationResult = new ValidationResult<AspNetUserMobileOtp>();

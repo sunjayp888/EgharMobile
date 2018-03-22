@@ -61,5 +61,14 @@ namespace Egharpay.Controllers
             var data = await _otpBusinessService.CreateMobileRepairPaymentOtp(Convert.ToDecimal(mobileNumber), ipAddress, amount);
             return this.JsonNet(data);
         }
+
+        [HttpPost]
+        [Route("OTP/CreateForgetPasswordOtp")]
+        public async Task<ActionResult> CreateForgetPasswordOtp(decimal mobileNumber)
+        {
+            var ipAddress = Request.UserHostAddress;
+            var data = await _otpBusinessService.CreateForgetPasswordOtp(Convert.ToDecimal(mobileNumber), ipAddress);
+            return this.JsonNet(data);
+        }
     }
 }
