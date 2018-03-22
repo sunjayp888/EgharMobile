@@ -10,20 +10,20 @@
 -Lost your password.
 
 ======================================
-Add spinner on search
+Add spinner on search - completed
 Order
-	show order button only if user is logged in.
+	show order button only if user is logged in. - completed
 	Order page is showing customer as well as super admin view.If user is login show user grid.
 
 On compare page 
        On click of mobile name navigate to mobile detail.
 
 InStore
-	Remove accessories and news letter.
-	Show new in store from actual data.
+	Remove accessories and news letter. - completed
+	Show new in store from actual data. - image is not coming
 Filter 
 	Make sure filter is working properly.
 
-Reset Password UI shoul be proper.
+Reset Password UI should be proper.
 	OTP to reset password. 	
 	 
