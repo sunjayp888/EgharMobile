@@ -3,12 +3,15 @@
 
     angular
         .module('Egharpay')
-        .controller('MobileController', MobileController);
+        .controller('MobileController', MobileController)
+        .config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+            usSpinnerConfigProvider.setTheme('smallRed', { color: 'red', radius: 6 });
+        }]);
 
 
-    MobileController.$inject = ['$window', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location'];
+    MobileController.$inject = ['$window', 'usSpinnerService', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location'];
 
-    function MobileController($window, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location) {
+    function MobileController($window, usSpinnerService, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location) {
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
@@ -127,6 +130,7 @@
         }
 
         function searchMobile(searchKeyword) {
+            usSpinnerService.spin('spinner-1');
             vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
@@ -138,6 +142,7 @@
                     vm.paging.totalPages = response.data.TotalPages;
                     vm.paging.totalResults = response.data.TotalResults;
                     vm.searchMessage = vm.mobiles.length === 0 ? "No Records Found" : "";
+                    usSpinnerService.stop('spinner-1');
                     return vm.mobiles;
                 });
         }
@@ -306,7 +311,7 @@
         function onPriceFilter() {
             vm.filter = {
                 IsFilter: true,
-                IsPriceFilter: vm.ramSize,
+                IsPriceFilter: true,
                 FromPrice: vm.fromPrice,
                 ToPrice: vm.toPrice
             }

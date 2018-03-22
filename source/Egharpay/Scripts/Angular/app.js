@@ -17,8 +17,8 @@
         'daterangepicker',
         'ui.select',
         'checklist-model',
-        'infinite-scroll'
+        'infinite-scroll',
+        'angularSpinner'
     ]);
-
 
 })();

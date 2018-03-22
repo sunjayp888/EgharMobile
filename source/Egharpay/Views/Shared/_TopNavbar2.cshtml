@@ -40,9 +40,12 @@
                                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="item" ng-class='{active: $first}' ng-repeat="latestMobile in model.latestMobileList">
-                                            <a href="#"><img src="http://placehold.it/254x150/3498db/f5f5f5/&amp;text=New+Collection" class="img-responsive" alt="product 1"></a>
+                                            <a href="#"><img src="~/Images/gallery/Image2.jpg" class="img-responsive" alt="product 1"></a>
                                             <h4><small><span ng-bind="latestMobile.Name"></span></small></h4>
-                                            <button class="btn btn-warning" type="button">Detail</button> <button ng-href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
+                                            <a href="/Mobile/Detail/{{latestMobile.MobileId}}-{{latestMobile.Name}}" class="btn btn-warning">Detail</a>
+                                            @*<button ng-href="#" class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-heart"></span> Add to Wishlist
+                                            </button>*@
                                         </div><!-- End Item -->
                                     </div><!-- End Carousel Inner -->
                                 </div><!-- /.carousel -->
@@ -69,7 +72,7 @@
                                 <li><button class="btn btn-danger" ng-click="model.showAllLatestMobile()">Show all latest</button></li>
                             </ul>
                         </li>
-                        <li class="col-sm-3">
+                        @*<li class="col-sm-3">
                             <ul>
                                 <li class="dropdown-header">Accessories</li>
                                 <li><a href="#">Default Navbar</a></li>
@@ -85,7 +88,7 @@
                                     <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                                 </form>
                             </ul>
-                        </li>
+                        </li>*@
                     </ul>
 
                 </li>

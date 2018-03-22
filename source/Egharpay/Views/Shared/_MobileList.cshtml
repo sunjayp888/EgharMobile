@@ -36,12 +36,12 @@
     </a>
 </div>
 
-<div ng-if="model.mobiles.length<=0">
+<div ng-cloak ng-if="model.mobiles.length ==0 && model.searchMessage == 'No Records Found'">
     <div class="ibox float-e-margins col-sm-8">
         <div class="ibox-content">
             <div class="row">
                 <div class="text-center">
-                    <h1>No record found.</h1>
+                    <h1><span ng-bind="model.searchMessage"></span></h1>
                 </div>
             </div>
         </div>

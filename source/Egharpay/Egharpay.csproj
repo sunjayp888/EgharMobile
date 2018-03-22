@@ -399,6 +399,9 @@
     <Content Include="bower_components\angular-sanitize\angular-sanitize.js" />
     <Content Include="bower_components\angular-sanitize\angular-sanitize.min.js" />
     <Content Include="bower_components\angular-sanitize\index.js" />
+    <Content Include="bower_components\angular-spinner\.gitignore" />
+    <Content Include="bower_components\angular-spinner\dist\angular-spinner.js" />
+    <Content Include="bower_components\angular-spinner\dist\angular-spinner.min.js" />
     <Content Include="bower_components\angular-ui-select\dist\select.css" />
     <Content Include="bower_components\angular-ui-select\dist\select.js" />
     <Content Include="bower_components\angular-ui-select\dist\select.min.css" />
@@ -1878,6 +1881,10 @@
     <Content Include="bower_components\ngBootbox\tsd.json" />
     <Content Include="bower_components\ngInfiniteScroll\.bower.json" />
     <Content Include="bower_components\ngInfiniteScroll\bower.json" />
+    <Content Include="bower_components\angular-spinner\.bower.json" />
+    <Content Include="bower_components\angular-spinner\bower.json" />
+    <Content Include="bower_components\angular-spinner\dist\angular-spinner.js.map" />
+    <Content Include="bower_components\angular-spinner\README.md" />
     <None Include="Properties\PublishProfiles\Inspinia.pubxml" />
     <Content Include="Content\landing\avatar_all.png" />
     <Content Include="Content\landing\header_one.jpg" />

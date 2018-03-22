@@ -35,8 +35,10 @@
             }
         </div>*@
     <br />
-
-    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="spinner-center">
+        <span us-spinner spinner-key="spinner-1" spinner-start-active="true" spinner-theme="smallRed"></span>
+    </div>
+    <div ng-cloak class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-2">
                 @Html.Partial("_Filter")
@@ -45,6 +47,7 @@
                 @Html.Partial("_MobileList")
             </div>
         </div>
+
         <div ng-if="model.mobiles.length>0" class="form-inline">
             <div class="col-lg-2">
             </div>

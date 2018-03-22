@@ -103,7 +103,7 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> Detail(int? id)
         {
 
-            await CreateTrend();
+          //  await CreateTrend();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
