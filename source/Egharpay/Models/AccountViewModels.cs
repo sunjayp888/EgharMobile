@@ -136,7 +136,6 @@ namespace Egharpay.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -154,10 +153,15 @@ namespace Egharpay.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Remote("CompareConfirmPassword", "Validation", AdditionalFields = "ConfirmPassword,Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
+
+        public string OTP { get; set; }
+
+        public bool HasError { get; set; }
+
     }
 
     public class ForgotPasswordViewModel

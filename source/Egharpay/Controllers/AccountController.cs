@@ -456,6 +456,10 @@ namespace Egharpay.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ResetPassword()
         {
+            //    //return code == null ? View("Error") : View();
+            //    var resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(User.Identity.GetUserId());
+            //    var model = new ResetPasswordViewModel() { Code = resetPasswordToken };
+            //    return View(model);
             //return code == null ? View("Error") : View();
             return View(new ResetPasswordViewModel());
         }
@@ -471,27 +475,27 @@ namespace Egharpay.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByNameAsync(model.MobileNumber);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+            var otpValidationResult = await _otpBusinessService.IsValidOtp(Convert.ToInt32(model.OTP), Convert.ToDecimal(model.MobileNumber), (int)OtpReason.ForgetPassword, DateTime.UtcNow);
+            if (!otpValidationResult.Succeeded)
+            {
+                model.HasError = true;
+                ModelState.AddModelError("", otpValidationResult.Message);
+                return View(model);
+            }
             //var personnelData = PersonnelBusinessService.RetrievePersonnel(centreId,user.PersonnelId);
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            var resetPasswordToken = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            var result = await UserManager.ResetPasswordAsync(user.Id, resetPasswordToken, model.Password);
             if (result.Succeeded)
             {
-                //var emailData = new EmailData()
-                //{
-                //    BCCAddressList = new List<string> { "developer@nidantech.com" },
-                //    Body = String.Format("Dear {0}.{1} {2}, Your Password has been changed successfully. And your New Password is {3}", personnelData.Title, personnelData.Forenames, personnelData.Surname, model.Password),
-                //    Subject = "Changed Password For Nidan ERP",
-                //    IsHtml = true,
-                //    ToAddressList = new List<string> { personnelData.Email }
-
-                //};
-                //_emailService.SendEmail(emailData);
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                model.HasError = true;
+                ModelState.AddModelError("", "Password changed successfully.");
+                return View(model);
             }
             AddErrors(result);
             return View();
