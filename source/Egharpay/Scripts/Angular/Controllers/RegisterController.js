@@ -5,9 +5,9 @@
         .module('Egharpay')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$window', 'Paging', 'OrderService', 'OTPService', 'OrderBy', 'Order', '$uibModal'];
+    RegisterController.$inject = ['$window', 'Paging', 'OrderService', 'RegisterService', 'OTPService', 'OrderBy', 'Order', '$uibModal'];
 
-    function RegisterController($window, Paging, OrderService, OTPService, OrderBy, Order, $uibModal) {
+    function RegisterController($window, Paging, OrderService, RegisterService, OTPService, OrderBy, Order, $uibModal) {
         /* jshint validthis:true */
         var vm = this;
         var country, state, city, pinCode, map, latitude, longitude, count, pin;
@@ -77,6 +77,9 @@
                 navigator.geolocation.getCurrentPosition(function (position) {
                     vm.latitude = position.coords.latitude;
                     vm.longitude = position.coords.longitude;
+                    RegisterService.getLocation(vm.latitude, vm.longitude).then(function(response) {
+                        var data = response;
+                    });
                     getLocationDetails();
                     //openPincodeModal(location);
                 });
@@ -140,7 +143,7 @@
             vm.showMessage = false;
             vm.errorMessages = [];
             if (!vm.mobileNumber) vm.errorMessages.push('Enter mobile number.');
-            if (!vm.email && vm.isSeller==true) vm.errorMessages.push('Enter email.');
+            if (!vm.email && vm.isSeller == true) vm.errorMessages.push('Enter email.');
             if (vm.errorMessages.length > 0) return;
 
             return OTPService.createLoginOtp(vm.mobileNumber).then(function (response) {

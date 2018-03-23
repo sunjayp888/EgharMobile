@@ -24,6 +24,6 @@ InStore
 Filter 
 	Make sure filter is working properly.
 
-Reset Password UI should be proper.
-	OTP to reset password. 	
+Reset Password UI should be proper. - completed
+	OTP to reset password. - completed	
 	 
