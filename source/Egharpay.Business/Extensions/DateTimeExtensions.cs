@@ -45,5 +45,19 @@ namespace Egharpay.Business.Extensions
         {
             return dateTime.HasValue == false ? "" : dateTime.Value.Formatted();
         }
+
+        public static DateTime? CombineDateTime(this DateTime? dateTime, string time)
+        {
+            var timeSplit = time.Split(':');
+            if (!dateTime.HasValue || string.IsNullOrEmpty(time))
+                return null;
+            var hour = Convert.ToInt32(timeSplit[0]);
+            var minute = Convert.ToInt32(timeSplit[1]);
+            var date = new DateTime(dateTime.Value.Year,
+                                    dateTime.Value.Month,
+                                    dateTime.Value.Day,
+                                    hour, minute, 0);
+            return date;
+        }
     }
 }

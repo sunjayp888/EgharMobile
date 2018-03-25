@@ -85,19 +85,19 @@
                                         </div>
                                     </div>
                                     @*<div class="form-group">
-                                        @Html.LabelFor(model => model.MobileRepair.CountryId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
-                                            @Html.TextBoxFor(model => model.MobileRepair.CountryId, new { @class = "form-control col-md-6 col-xs-12" })
-                                            @Html.ValidationMessageFor(model => model.MobileRepair.CountryId, "", new { @class = "help-block" })
-                                        </div>
-                                    </div>*@
+                                            @Html.LabelFor(model => model.MobileRepair.CountryId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                @Html.TextBoxFor(model => model.MobileRepair.CountryId, new { @class = "form-control col-md-6 col-xs-12" })
+                                                @Html.ValidationMessageFor(model => model.MobileRepair.CountryId, "", new { @class = "help-block" })
+                                            </div>
+                                        </div>*@
                                     @*<div class="form-group">
-                                        @Html.LabelFor(model => model.MobileRepair.StateId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-                                        <div class="col-md-4 col-sm-4 col-xs-12">
-                                            @Html.TextBoxFor(model => model.MobileRepair.StateId, new { @class = "form-control col-md-6 col-xs-12" })
-                                            @Html.ValidationMessageFor(model => model.MobileRepair.StateId, "", new { @class = "help-block" })
-                                        </div>
-                                    </div>*@
+                                            @Html.LabelFor(model => model.MobileRepair.StateId, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                @Html.TextBoxFor(model => model.MobileRepair.StateId, new { @class = "form-control col-md-6 col-xs-12" })
+                                                @Html.ValidationMessageFor(model => model.MobileRepair.StateId, "", new { @class = "help-block" })
+                                            </div>
+                                        </div>*@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.MobileRepair.District, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
                                         <div class="col-md-4 col-sm-4 col-xs-12">
@@ -161,7 +161,7 @@
                                     <div class="form-group">
                                         @Html.LabelFor(model => model.MobileRepair.Comment, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
                                         <div class="col-md-4 col-sm-4 col-xs-12">
-                                            @Html.TextAreaFor(model => model.MobileRepair.Comment, new { @class = "form-control col-md-6 col-xs-12",@rows="6" })
+                                            @Html.TextAreaFor(model => model.MobileRepair.Comment, new { @class = "form-control col-md-6 col-xs-12", @rows = "6" })
                                             @Html.ValidationMessageFor(model => model.MobileRepair.Comment, "", new { @class = "help-block" })
                                         </div>
                                     </div>
@@ -200,7 +200,4 @@
 }
 @section Scripts {
     @Scripts.Render("~/plugins/clockpicker")
-    <script type="text/javascript">
-        $('.clockpicker').clockpicker();
-    </script>
 }

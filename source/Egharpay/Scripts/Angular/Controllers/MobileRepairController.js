@@ -49,6 +49,12 @@
             order("MobileRepairId");
         }
 
+        $('.clockpicker').clockpicker({ afterDone: retrieveMobileRepairPersonnel });
+
+        function retrieveMobileRepairPersonnel() {
+            alert('hi');
+        }
+
         function createMobileRepairOtp() {
             vm.showMessage = false;
             vm.isRepair = true;

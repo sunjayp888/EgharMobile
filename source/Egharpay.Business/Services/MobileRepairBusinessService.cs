@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Egharpay.Business.Enum;
+using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
@@ -134,6 +135,7 @@ namespace Egharpay.Business.Services
             var validationResult = new ValidationResult<MobileRepair>();
             try
             {
+                mobileRepair.AppointmentDate = mobileRepair.AppointmentDate.CombineDateTime(mobileRepair.AppointmentTime);
                 await _mobileDataService.UpdateAsync(mobileRepair);
                 validationResult.Succeeded = true;
             }
