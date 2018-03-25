@@ -167,6 +167,15 @@ namespace Egharpay
                       "~/Scripts/plugins/typehead/bootstrap3-typeahead.min.js"));
 
 
+            // Clockpicker styles
+            bundles.Add(new StyleBundle("~/plugins/clockpickerStyles").Include(
+                      "~/Content/plugins/clockpicker/clockpicker.css"));
+
+            // Clockpicker
+            bundles.Add(new ScriptBundle("~/plugins/clockpicker").Include(
+                      "~/Scripts/plugins/clockpicker/clockpicker.js"));
+
+
 
         }
     }
