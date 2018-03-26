@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IAddressDataService.cs" />
     <Compile Include="Interfaces\IAuthorizationDataService.cs" />
+    <Compile Include="Interfaces\IMobileRepairAdminDataService.cs" />
     <Compile Include="Interfaces\IMobileRepairDataService.cs" />
     <Compile Include="Interfaces\IOtpDataService.cs" />
     <Compile Include="Interfaces\IProductDataService.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Partials\EgharpayDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthorizationDataService.cs" />
+    <Compile Include="Services\MobileRepairAdminDataService.cs" />
     <Compile Include="Services\MobileRepairDataService.cs" />
     <Compile Include="Services\IAddressDataService.cs" />
     <Compile Include="Services\OtpDataService.cs" />

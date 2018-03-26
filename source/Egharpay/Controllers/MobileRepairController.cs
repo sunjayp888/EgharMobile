@@ -21,12 +21,15 @@ namespace Egharpay.Controllers
         private readonly IMobileRepairBusinessService _mobileRepairBusinessService;
         private readonly ICouponCodeBusinessService _couponCodeBusinessService;
         private readonly IOtpBusinessService _otpBusinessService;
+        private readonly IMobileRepairAdminBusinessService _mobileRepairAdminBusinessService;
 
-        public MobileRepairController(IMobileRepairBusinessService mobileRepairBusinessService, IOtpBusinessService otpBusinessService, ICouponCodeBusinessService couponCodeBusinessService, IAuthorizationService authorizationService) : base(authorizationService)
+        public MobileRepairController(IMobileRepairBusinessService mobileRepairBusinessService, IOtpBusinessService otpBusinessService, ICouponCodeBusinessService couponCodeBusinessService,
+            IMobileRepairAdminBusinessService mobileRepairAdminBusinessService, IAuthorizationService authorizationService) : base(authorizationService)
         {
             _mobileRepairBusinessService = mobileRepairBusinessService;
             _otpBusinessService = otpBusinessService;
             _couponCodeBusinessService = couponCodeBusinessService;
+            _mobileRepairAdminBusinessService = mobileRepairAdminBusinessService;
         }
 
         // GET: MobileRepair
@@ -181,6 +184,14 @@ namespace Egharpay.Controllers
         {
             await _mobileRepairBusinessService.UpdateMobileRepair(model.MobileRepair);
             return RedirectToAction("MobileRepairOrder");
+        }
+
+
+        [Route("MobileRepair/RetrieveMobileRepairAdmins")]
+        public async Task<ActionResult> RetrieveMobileRepairAdmins()
+        {
+            var data = await _mobileRepairAdminBusinessService.RetrieveAvailableMobileRepairAdmin(e => true);
+            return this.JsonNet(data);
         }
 
     }

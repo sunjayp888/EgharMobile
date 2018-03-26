@@ -28,6 +28,8 @@ namespace Egharpay.Entity
 
         public int? MobileRepairStateId { get; set; }
 
+        public int? MobileRepairAdminPersonnelId { get; set; }
+
         public DateTime CreatedDateTime { get; set; }
 
         [StringLength(100)]

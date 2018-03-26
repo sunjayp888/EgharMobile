@@ -40,13 +40,17 @@
         vm.disablePay = true;
         vm.AppointmentDate = null;
         vm.otpInputChanged = otpInputChanged;
+        vm.retrieveMobileRepairAdmins = retrieveMobileRepairAdmins;
+        vm.mobileRepairAdmins = [];
         //vm.mobileRepairState = mobileRepairState;
+
 
         function initialise() {
             vm.orderBy.property = "MobileRepairId";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
             order("MobileRepairId");
+            retrieveMobileRepairAdmins();
         }
 
         $('.clockpicker').clockpicker({ afterDone: retrieveMobileRepairPersonnel });
@@ -188,6 +192,11 @@
             } else {
                 vm.disablePay = true;
             }
+        }
+        function retrieveMobileRepairAdmins() {
+            return MobileRepairService.retrieveMobileRepairAdmins().then(function (response) {
+                vm.mobileRepairAdmins = response.data;
+            });
         }
     }
 
