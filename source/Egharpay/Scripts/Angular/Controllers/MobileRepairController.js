@@ -5,9 +5,9 @@
         .module('Egharpay')
         .controller('MobileRepairController', MobileRepairController);
 
-    MobileRepairController.$inject = ['$window', '$sce', 'MobileRepairService', 'OTPService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
+    MobileRepairController.$inject = ['$window','$filter', '$sce', 'MobileRepairService', 'OTPService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
 
-    function MobileRepairController($window, $sce, MobileRepairService, OTPService, Paging, OrderService, OrderBy, Order) {
+    function MobileRepairController($window, $filter, $sce, MobileRepairService, OTPService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
         var vm = this;
         vm.errorMessages = [];
@@ -42,6 +42,8 @@
         vm.otpInputChanged = otpInputChanged;
         vm.retrieveMobileRepairAdmins = retrieveMobileRepairAdmins;
         vm.mobileRepairAdmins = [];
+        vm.selectedMobileRepairAdmin = selectMobileRepairAdmin;
+        vm.selectedMobileRepairAdmin = null;
         //vm.mobileRepairState = mobileRepairState;
 
 
@@ -50,7 +52,6 @@
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";
             order("MobileRepairId");
-            retrieveMobileRepairAdmins();
         }
 
         $('.clockpicker').clockpicker({ afterDone: retrieveMobileRepairPersonnel });
@@ -196,7 +197,17 @@
         function retrieveMobileRepairAdmins() {
             return MobileRepairService.retrieveMobileRepairAdmins().then(function (response) {
                 vm.mobileRepairAdmins = response.data;
+                selectMobileRepairAdmin();
             });
+        }
+        function selectMobileRepairAdmin() {
+            if (vm.mobileRepairAdmins.length > 0) {
+                var admin = $filter('filter')(vm.mobileRepairAdmins,
+                    { PersonnelId: vm.selectedMobileRepairAdmin.PersonnelId }, true);
+
+                if (admin.length > 0) vm.selectedMobileRepairAdmin = admin[0];
+                //else vm.selectedAssignment = vm.assignments[0];
+            }
         }
     }
 

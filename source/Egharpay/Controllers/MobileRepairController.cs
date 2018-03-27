@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Egharpay.Business.Enum;
+using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
@@ -187,9 +188,10 @@ namespace Egharpay.Controllers
         }
 
 
-        [Route("MobileRepair/RetrieveMobileRepairAdmins")]
-        public async Task<ActionResult> RetrieveMobileRepairAdmins()
+        [Route("MobileRepair/RetrieveMobileRepairAdmins/{date}/{time}")]
+        public async Task<ActionResult> RetrieveMobileRepairAdmins(DateTime? date, string time)
         {
+            var fromDateTime = date.CombineDateTime(time);
             var data = await _mobileRepairAdminBusinessService.RetrieveAvailableMobileRepairAdmin(e => true);
             return this.JsonNet(data);
         }
