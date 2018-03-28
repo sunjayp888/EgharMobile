@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 <h2>Edit</h2>
-<div class="row" ng-controller="MobileRepairController as model" ng-init="model.retrieveMobileRepairAdmins()">
+<div class="row" ng-controller="MobileRepairController as model" ng-init="model.retrieveMobileRepairAdmins('@Model.MobileRepair.AppointmentDate','@Model.MobileRepair.AppointmentTime')">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -141,11 +141,11 @@
                                     </div>
 
                                     <div class="form-group clockpicker" data-autoclose="true">
-                                        @Html.LabelFor(model => model.MobileRepair.AppointmentTime, new {@class = "control-label col-md-3 col-sm-3 col-xs-12"})
+                                        @Html.LabelFor(model => model.MobileRepair.AppointmentTime, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
                                         <div class="col-md-4 col-sm-4 col-xs-12">
-                                            @Html.TextBoxFor(model => model.MobileRepair.AppointmentTime, new {@class = "form-control col-md-6 col-xs-12"})
+                                            @Html.TextBoxFor(model => model.MobileRepair.AppointmentTime, new { @class = "form-control col-md-6 col-xs-12" })
                                             <span class="fa fa-clock-o daterangepickerdirective"></span>
-                                            @Html.ValidationMessageFor(model => model.MobileRepair.AppointmentTime, "", new {@class = "help-block"})
+                                            @Html.ValidationMessageFor(model => model.MobileRepair.AppointmentTime, "", new { @class = "help-block" })
                                         </div>
                                     </div>
                                     @{
@@ -192,7 +192,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            }
+                                        }
                         </div>
                     </div>
                 </div>

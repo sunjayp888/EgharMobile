@@ -84,9 +84,14 @@
             return $http.post(url, data);
         }
 
-        function retrieveMobileRepairAdmins() {
-            var url = "/MobileRepair/RetrieveMobileRepairAdmins";
-            return $http.get(url);
+        function retrieveMobileRepairAdmins(date, time) {
+            var url = "/MobileRepair/RetrieveMobileRepairAdmins",
+            data = {
+                date: date,
+                time: time
+            }
+
+            return $http.post(url, data);
         }
     }
 })();

@@ -194,8 +194,8 @@
                 vm.disablePay = true;
             }
         }
-        function retrieveMobileRepairAdmins() {
-            return MobileRepairService.retrieveMobileRepairAdmins().then(function (response) {
+        function retrieveMobileRepairAdmins(date,time) {
+            return MobileRepairService.retrieveMobileRepairAdmins(date,time).then(function (response) {
                 vm.mobileRepairAdmins = response.data;
                 selectMobileRepairAdmin();
             });

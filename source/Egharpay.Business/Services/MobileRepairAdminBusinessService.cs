@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -8,6 +9,7 @@ using Egharpay.Business.Interfaces;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
+using Egharpay.Business.Extensions;
 
 namespace Egharpay.Business.Services
 {
@@ -21,10 +23,19 @@ namespace Egharpay.Business.Services
         }
 
 
-        public async Task<IEnumerable<AvailableMobileRepairAdmin>> RetrieveAvailableMobileRepairAdmin(Expression<Func<AvailableMobileRepairAdmin, bool>> predicate)
+        public async Task<IEnumerable<AvailableMobileRepairAdmin>> RetrieveAvailableMobileRepairAdmin(DateTime? date, string time)
         {
-            return await _mobileRepairAdminDataService.RetrieveAsync<AvailableMobileRepairAdmin>(predicate);
+            var appointmentDateTime = date.CombineDateTime(time);
+            var startTime = appointmentDateTime.Value.AddHours(1);
+            var endTime = appointmentDateTime.Value.AddHours(3);
+            TimeSpan start = new TimeSpan(appointmentDateTime.Value.AddHours(1).Hour, appointmentDateTime.Value.Minute, 0);
+            TimeSpan end = new TimeSpan(start.Hours + 3, start.Minutes, start.Seconds);
+            return await _mobileRepairAdminDataService.RetrieveAsync<AvailableMobileRepairAdmin>
+                (e => !e.AppointmentDate.HasValue || (e.AppointmentDate.HasValue && !e.AppointmentDate.Value.IsBetween(start, end)));
+
         }
+
+
 
 
     }

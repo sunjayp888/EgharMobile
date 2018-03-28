@@ -187,12 +187,12 @@ namespace Egharpay.Controllers
             return RedirectToAction("MobileRepairOrder");
         }
 
-
-        [Route("MobileRepair/RetrieveMobileRepairAdmins/{date}/{time}")]
+        [HttpPost]
+        [Route("MobileRepair/RetrieveMobileRepairAdmins")]
         public async Task<ActionResult> RetrieveMobileRepairAdmins(DateTime? date, string time)
         {
             var fromDateTime = date.CombineDateTime(time);
-            var data = await _mobileRepairAdminBusinessService.RetrieveAvailableMobileRepairAdmin(e => true);
+            var data = await _mobileRepairAdminBusinessService.RetrieveAvailableMobileRepairAdmin(date, time);
             return this.JsonNet(data);
         }
 

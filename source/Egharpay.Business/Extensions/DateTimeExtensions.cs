@@ -59,5 +59,16 @@ namespace Egharpay.Business.Extensions
                                     hour, minute, 0);
             return date;
         }
+
+        public static bool IsBetween(this DateTime date, TimeSpan start, TimeSpan end)
+        {
+            
+            var time = date.TimeOfDay;
+            // If the start time and the end time is in the same day.
+            if (start <= end)
+                return time >= start && time <= end;
+            // The start time and end time is on different days.
+            return time >= start || time <= end;
+        }
     }
 }

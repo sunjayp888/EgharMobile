@@ -12,6 +12,6 @@ namespace Egharpay.Business.Interfaces
     public interface IMobileRepairAdminBusinessService
     {
         //Retrieve
-        Task<IEnumerable<AvailableMobileRepairAdmin>> RetrieveAvailableMobileRepairAdmin(Expression<Func<AvailableMobileRepairAdmin, bool>> predicate);
+        Task<IEnumerable<AvailableMobileRepairAdmin>> RetrieveAvailableMobileRepairAdmin(DateTime? date,string time);
     }
 }
