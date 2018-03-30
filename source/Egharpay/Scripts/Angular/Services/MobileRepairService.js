@@ -13,9 +13,10 @@
             retrieveMobileRepairOrders: retrieveMobileRepairOrders,
             retrieveMobileRepairOrdersByMobile: retrieveMobileRepairOrdersByMobile,
             markAsCompleted: markAsCompleted,
-            markAsCancelled:markAsCancelled,
+            markAsCancelled: markAsCancelled,
             deleteMobileRepairRequest: deleteMobileRepairRequest,
-            createMobileRepairPayment: createMobileRepairPayment
+            createMobileRepairPayment: createMobileRepairPayment,
+            retrieveMobileRepairAdmins: retrieveMobileRepairAdmins
         };
 
         return service;
@@ -32,7 +33,7 @@
         //    var url = "/MobileRepair/RetrieveMobileRepairOrders/" + mobileNumber;
         //    return $http.get(url, data);
         //}
-      
+
         function retrieveMobileRepairOrdersByMobile(mobileNumber, otp) {
             var url = "/MobileRepair/RetrieveMobileRepairOrdersByMobile/" + mobileNumber + "/" + otp;
             return $http.get(url);
@@ -80,6 +81,16 @@
                 data = {
                     model: model
                 };
+            return $http.post(url, data);
+        }
+
+        function retrieveMobileRepairAdmins(date, time) {
+            var url = "/MobileRepair/RetrieveMobileRepairAdmins",
+            data = {
+                date: date,
+                time: time
+            }
+
             return $http.post(url, data);
         }
     }

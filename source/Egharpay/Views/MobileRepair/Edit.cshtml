@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 <h2>Edit</h2>
-<div class="row" ng-controller="MobileRepairController as model">
+<div class="row" ng-controller="MobileRepairController as model" ng-init="model.retrieveMobileRepairAdmins('@Model.MobileRepair.AppointmentDate','@Model.MobileRepair.AppointmentTime')">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -148,9 +148,28 @@
                                             @Html.ValidationMessageFor(model => model.MobileRepair.AppointmentTime, "", new { @class = "help-block" })
                                         </div>
                                     </div>
-
-
-
+                                    @{
+                                        var mobileRepairAdminPersonnelId = Model.MobileRepair.MobileRepairAdminPersonnelId == 0 || Model.MobileRepair.MobileRepairAdminPersonnelId == null ? -1 : Model.MobileRepair.MobileRepairAdminPersonnelId;
+                                    }
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Available Mobile Repairer</label>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <span ng-init="model.selectedMobileRepairAdmin.PersonnelId=@mobileRepairAdminPersonnelId"></span>
+                                            <ui-select ng-model="model.selectedMobileRepairAdmin" data-val="true">
+                                                <ui-select-match placeholder="Select Personnel">
+                                                    <span ng-bind-html="model.selectedMobileRepairAdmin.Forenames"></span>
+                                                </ui-select-match>
+                                                <ui-select-choices repeat="admin in model.mobileRepairAdmins | filter:$select.search">
+                                                    <div class="row">
+                                                        <div class="col-sm-3" ng-bind-html="admin.Forenames"></div>
+                                                        <div class="col-sm-3" ng-bind-html="admin.Surname"></div>
+                                                        <div class="col-sm-3" ng-bind-html="admin.Address"></div>
+                                                    </div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="MobileRepair.MobileRepairAdminPersonnelId" value="{{model.selectedMobileRepairAdmin.MobileRepairAdminPersonnelId===-1 ? null : model.selectedMobileRepairAdmin.PersonnelId}}" />
                                     @*<div class="form-group">
                                             @Html.LabelFor(model => model.MobileRepair.AppointmentDate, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
                                             <div class="input-group date col-md-4 col-sm-4 col-xs-12">
@@ -173,7 +192,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            }
+                                        }
                         </div>
                     </div>
                 </div>

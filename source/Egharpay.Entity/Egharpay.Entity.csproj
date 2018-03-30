@@ -94,6 +94,7 @@
     <Compile Include="AspNetUserMobile.cs" />
     <Compile Include="AspNetUserRole.cs" />
     <Compile Include="AspNetUsersAlertSchedule.cs" />
+    <Compile Include="AvailableMobileRepairAdmin.cs" />
     <Compile Include="Brand.cs" />
     <Compile Include="BrandGrid.cs" />
     <Compile Include="CouponCode.cs" />

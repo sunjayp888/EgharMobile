@@ -23,5 +23,6 @@ namespace Egharpay.Models
         public int MobileRepairId { get; set; }
         public decimal Amount { get; set; }
         public MobileRepair MobileRepair { get; set; }
+        public int? MobileRepairAdminPersonnelId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Egharpay.Business.Enum;
+using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
@@ -21,12 +22,15 @@ namespace Egharpay.Controllers
         private readonly IMobileRepairBusinessService _mobileRepairBusinessService;
         private readonly ICouponCodeBusinessService _couponCodeBusinessService;
         private readonly IOtpBusinessService _otpBusinessService;
+        private readonly IMobileRepairAdminBusinessService _mobileRepairAdminBusinessService;
 
-        public MobileRepairController(IMobileRepairBusinessService mobileRepairBusinessService, IOtpBusinessService otpBusinessService, ICouponCodeBusinessService couponCodeBusinessService, IAuthorizationService authorizationService) : base(authorizationService)
+        public MobileRepairController(IMobileRepairBusinessService mobileRepairBusinessService, IOtpBusinessService otpBusinessService, ICouponCodeBusinessService couponCodeBusinessService,
+            IMobileRepairAdminBusinessService mobileRepairAdminBusinessService, IAuthorizationService authorizationService) : base(authorizationService)
         {
             _mobileRepairBusinessService = mobileRepairBusinessService;
             _otpBusinessService = otpBusinessService;
             _couponCodeBusinessService = couponCodeBusinessService;
+            _mobileRepairAdminBusinessService = mobileRepairAdminBusinessService;
         }
 
         // GET: MobileRepair
@@ -181,6 +185,15 @@ namespace Egharpay.Controllers
         {
             await _mobileRepairBusinessService.UpdateMobileRepair(model.MobileRepair);
             return RedirectToAction("MobileRepairOrder");
+        }
+
+        [HttpPost]
+        [Route("MobileRepair/RetrieveMobileRepairAdmins")]
+        public async Task<ActionResult> RetrieveMobileRepairAdmins(DateTime? date, string time)
+        {
+            var fromDateTime = date.CombineDateTime(time);
+            var data = await _mobileRepairAdminBusinessService.RetrieveAvailableMobileRepairAdmin(date, time);
+            return this.JsonNet(data);
         }
 
     }
