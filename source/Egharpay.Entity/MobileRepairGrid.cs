@@ -66,8 +66,10 @@ namespace Egharpay.Entity
 
         public string Comment { get; set; }
 
-
         public string MobileRepairAdminName { get; set; }
+
+        public int? MobileRepairAdminPersonnelId { get; set; }
+
         [StringLength(10)]
         public string AppointmentTime { get; set; }
 

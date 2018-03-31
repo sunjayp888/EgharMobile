@@ -20,7 +20,7 @@ using Egharpay.Business.Enum;
 
 namespace Egharpay.Controllers
 {
-    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel })]
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel, Role.MobileRepairAdmin })]
     public class PersonnelController : BaseController
     {
         private readonly IPersonnelBusinessService _personnelBusinessService;
@@ -47,7 +47,7 @@ namespace Egharpay.Controllers
         }
 
         // GET: Personnel/Profile/{id}
-        [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller })]
+        [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller, Role.MobileRepairAdmin })]
         public async Task<ActionResult> Profile(bool? profileUpdated)
         {
             var id = UserPersonnelId;
@@ -168,7 +168,7 @@ namespace Egharpay.Controllers
         //    return View(viewModel);
         //}
 
-        [Authorize(Roles = "Admin,Personnel,Seller")]
+        [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller, Role.MobileRepairAdmin })]
         public async Task<ActionResult> Edit()
         {
             if (!User.Identity.IsAuthenticated)
@@ -191,7 +191,7 @@ namespace Egharpay.Controllers
         }
 
         // POST: Personnels/Edit/{id}
-        [Authorize(Roles = "Admin,Personnel")]
+        [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller, Role.MobileRepairAdmin })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(PersonnelProfileViewModel personnelViewModel)

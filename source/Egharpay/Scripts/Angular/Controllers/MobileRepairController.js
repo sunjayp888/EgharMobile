@@ -154,7 +154,7 @@
         }
 
         function markAsCancelled(mobileRepairId) {
-            return MobileRepairService.markAsCompleted(mobileRepairId).then(function (response) {
+            return MobileRepairService.markAsCancelled(mobileRepairId).then(function (response) {
                 retrieveMobileRepairOrders();
             });
         }

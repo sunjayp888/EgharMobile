@@ -34,17 +34,10 @@ namespace Egharpay.Business.Services
                 if (!alreadyCreated.Succeeded)
                     return alreadyCreated;
                 mobileRepair.MobileRepairStateId = (int)MobileRepairRequestState.Created;
-                try
-                {
-                    await _mobileDataService.CreateAsync(mobileRepair);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                    throw;
-                }
-                
+                var data = await _mobileDataService.CreateGetAsync(mobileRepair);
                 await CreateMobileCoupon(mobileRepair.MobileNumber, mobileRepair.CouponCode);
+                var message = $"Your request to repair is created.Request id :{data.MobileRepairId}. mumbile team will contact you on {data.MobileNumber}. Thank you for choosing mumbile.com";
+                _smsBusinessService.SendSMS(mobileRepair.MobileNumber.ToString(), message);
                 validationResult.Message = "Request created successfully.";
                 validationResult.Succeeded = true;
 
@@ -66,7 +59,7 @@ namespace Egharpay.Business.Services
                 var mobileRepairData = await _mobileDataService.RetrieveByIdAsync<MobileRepair>(mobileRepairPayment.MobileRepairId);
                 await UpdateMobileRepairState(mobileRepairPayment.MobileRepairId, (int)MobileRepairRequestState.Completed);
                 //Send SMS for mobile repair Payment.
-                var message = $"Payment of amount {mobileRepairPayment.Amount} recieved successfully.Thank you for using mumbile.com";
+                var message = $"Payment of amount {mobileRepairPayment.Amount} recieved successfully.Invoice will be generated very soon.Thank you for using mumbile.com";
                 _smsBusinessService.SendSMS(mobileRepairData.MobileNumber.ToString(), message);
                 validationResult.Succeeded = true;
             }
@@ -113,7 +106,7 @@ namespace Egharpay.Business.Services
             return mobileRepair.FirstOrDefault();
         }
 
-        public async Task<PagedResult<MobileRepairGrid>> RetrieveMobileRepairGrids(Expression<Func<MobileRepairGrid, bool>> predicate,List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<MobileRepairGrid>> RetrieveMobileRepairGrids(Expression<Func<MobileRepairGrid, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null)
         {
             var mobileRepairGrids = await _mobileDataService.RetrievePagedResultAsync<MobileRepairGrid>(predicate, orderBy, paging);
             return mobileRepairGrids;

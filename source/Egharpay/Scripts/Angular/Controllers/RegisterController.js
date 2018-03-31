@@ -5,9 +5,9 @@
         .module('Egharpay')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$window', 'Paging', 'OrderService', 'RegisterService', 'OTPService', 'OrderBy', 'Order', '$uibModal'];
+    RegisterController.$inject = ['$window', 'Paging', 'OrderService', 'GoogleService', 'OTPService', 'OrderBy', 'Order', '$uibModal'];
 
-    function RegisterController($window, Paging, OrderService, RegisterService, OTPService, OrderBy, Order, $uibModal) {
+    function RegisterController($window, Paging, OrderService, GoogleService, OTPService, OrderBy, Order, $uibModal) {
         /* jshint validthis:true */
         var vm = this;
         var country, state, city, pinCode, map, latitude, longitude, count, pin;
@@ -77,11 +77,25 @@
                 navigator.geolocation.getCurrentPosition(function (position) {
                     vm.latitude = position.coords.latitude;
                     vm.longitude = position.coords.longitude;
-                    RegisterService.getLocation(vm.latitude, vm.longitude).then(function(response) {
-                        var data = response;
+                    GoogleService.getLocation(vm.latitude, vm.longitude).then(function(response) {
+                        var data = response.data;
+                        if (data.results.length > 0) {
+                            var locationDetails = data.results[0].formatted_address;
+                            var value = locationDetails.split(",");
+                            count = value.length;
+                            country = value[count - 1];
+                            state = value[count - 2];
+                            city = value[count - 3];
+                            pin = state.split(" ");
+                            vm.pinCode = pin[pin.length - 1];
+                            state = state.replace(pinCode, ' ');
+                            vm.currentAddress = locationDetails;
+                            vm.Address = { City: city, State: state, Country: country, PinCode: vm.pinCode }
+                        }
+                        else {
+                            vm.Address = { Error: "No location available for provided details." }
+                        }
                     });
-                    getLocationDetails();
-                    //openPincodeModal(location);
                 });
             } else {
                 console.log("Browser doesn't support geolocation!");

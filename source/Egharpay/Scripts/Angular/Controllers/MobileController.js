@@ -9,9 +9,9 @@
         }]);
 
 
-    MobileController.$inject = ['$window', 'usSpinnerService', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location'];
+    MobileController.$inject = ['$window', 'GoogleService', 'usSpinnerService', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location'];
 
-    function MobileController($window, usSpinnerService, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location) {
+    function MobileController($window, GoogleService, usSpinnerService, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location) {
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
@@ -108,6 +108,7 @@
         vm.sellerMobileOrder = sellerMobileOrder;
         vm.sellerMobileOrderClass = sellerMobileOrderClass;
         vm.isOrderPlacedSuccess = false;
+        var count, country, state, city, pin, pinCode;
 
         function initialise(filter) {
             vm.filter = filter;
@@ -197,7 +198,25 @@
                 navigator.geolocation.getCurrentPosition(function (position) {
                     vm.latitude = position.coords.latitude;
                     vm.longitude = position.coords.longitude;
-                    getLocationDetails();
+                    GoogleService.getLocation(vm.latitude, vm.longitude).then(function (response) {
+                        var data = response.data;
+                        if (data.results.length > 0) {
+                            var locationDetails = data.results[0].formatted_address;
+                            var value = locationDetails.split(",");
+                            count = value.length;
+                            country = value[count - 1];
+                            state = value[count - 2];
+                            city = value[count - 3];
+                            pin = state.split(" ");
+                            vm.pinCode = pin[pin.length - 1];
+                            state = state.replace(pinCode, ' ');
+                            vm.currentAddress = locationDetails;
+                            vm.Address = { City: city, State: state, Country: country, PinCode: vm.pinCode }
+                        }
+                        else {
+                            vm.Address = { Error: "No location available for provided details." }
+                        }
+                    });
                 });
             } else {
                 console.log("Browser doesn't support geolocation!");
@@ -219,41 +238,6 @@
             }
             return xhr;
         }
-
-        function getLocationDetails() {
-            var url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + vm.latitude + "," + vm.longitude + "&sensor=true";
-            var xhr = createCORSRequest('POST', url);
-            if (!xhr) {
-                vm.Address = { Error: "CORS not supported" }
-                //openPincodeModal(false);
-            }
-            xhr.onload = function () {
-                var data = JSON.parse(xhr.responseText);
-                if (data.results.length > 0) {
-                    var locationDetails = data.results[0].formatted_address;
-                    var value = locationDetails.split(",");
-                    vm.count = value.length;
-                    vm.country = value[vm.count - 1];
-                    vm.state = value[vm.count - 2];
-                    vm.city = value[vm.count - 3];
-                    vm.pin = vm.state.split(" ");
-                    vm.pinCode = vm.pin[vm.pin.length - 1];
-                    vm.state = vm.state.replace(vm.pinCode, ' ');
-                    vm.currentAddress = locationDetails == "" ? "Please allow location or refresh the page." : locationDetails;
-                    vm.Address = { City: vm.city, State: vm.state, Country: vm.country, PinCode: vm.pinCode }
-                }
-                else {
-                    vm.Address = { Error: "No location available for provided details." }
-                    //openPincodeModal(false);
-                }
-            };
-            xhr.onerror = function () {
-                vm.Address = { Error: "Woops, there was an error making the request." }
-                //openPincodeModal(false);
-            };
-            xhr.send();
-        }
-
 
         function searchSeller(searchKeyword) {
             vm.searchKeyword = searchKeyword;

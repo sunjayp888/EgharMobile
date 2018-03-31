@@ -16,6 +16,8 @@ namespace Egharpay.Business.Services
         {
             try
             {
+                if (!ConfigHelper.SendSMS)
+                    return false;
                 var url = CreateSmsUrl(to, message);
                 GetResponse(url);
                 return true;

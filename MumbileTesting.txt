@@ -26,4 +26,12 @@ Filter
 
 Reset Password UI should be proper. - completed
 	OTP to reset password. - completed	
+
+=============================
+MobileRepairOrder
+	-Search not working.
+	-
+No records found on seller Mobile
+Search is not working in mobile tab when user is logged in as seller.
+In Request to seller search is not working after pincode entered in search box 
 	 

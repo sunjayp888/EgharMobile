@@ -844,11 +844,23 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
         width: 750px;
         height: 250px !important;
     }
+
+    .web-view {
+        display: none !important;
+    }
+    .mobile-view{
+        display: inline-block !important;
+    }
+
+    .tab-pane .panel-body{
+        margin-top: 20px !important;
+    }
 }
 
 @media (max-width:592px) {
 
     #searchField {
+
         width: 60% !important;
         margin-left: 15px;
     }
@@ -10878,14 +10890,29 @@ body.md-skin {
     display: none;
 }
 
-.spinner-center{
-    position: fixed; top: 50%; left: 50%
+.spinner-center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
 }
 
-.validation-summary-valid{
-    display:none !important;
+.validation-summary-valid {
+    display: none !important;
 }
 
-.validation-summary-valid.validation-summary-errors{
-    display:block;
+.validation-summary-valid.validation-summary-errors {
+    display: block;
+}
+
+.mobile-view {
+    display: none;
+}
+
+.xs-ml-20 {
+    margin-left: 20px;
+}
+
+.mobile-logo {
+    margin-left: 8px;
+    margin-right: -10px;
 }

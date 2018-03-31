@@ -1949,7 +1949,7 @@
     <Content Include="Scripts\Angular\Services\TrendService.js" />
     <Content Include="Scripts\Angular\Services\OTPService.js" />
     <Content Include="Scripts\Angular\Services\MobileRepairService.js" />
-    <Content Include="Scripts\Angular\Services\RegisterService.js" />
+    <Content Include="Scripts\Angular\Services\GoogleService.js" />
     <Content Include="Scripts\Angular\Services\YouTubeService.js" />
     <Content Include="Scripts\Angular\Services\MobileService.js" />
     <Content Include="Scripts\Angular\Services\OrderService.js" />
