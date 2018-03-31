@@ -5,7 +5,7 @@
         .module('Egharpay')
         .controller('MobileRepairController', MobileRepairController);
 
-    MobileRepairController.$inject = ['$window','$filter', '$sce', 'MobileRepairService', 'OTPService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
+    MobileRepairController.$inject = ['$window', '$filter', '$sce', 'MobileRepairService', 'OTPService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
 
     function MobileRepairController($window, $filter, $sce, MobileRepairService, OTPService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
@@ -39,11 +39,15 @@
         vm.amount;
         vm.disablePay = true;
         vm.AppointmentDate = null;
+        vm.appointmentTime;
         vm.otpInputChanged = otpInputChanged;
-        vm.retrieveMobileRepairAdmins = retrieveMobileRepairAdmins;
+        vm.retrieveAvailableMobileRepairAdmin = retrieveAvailableMobileRepairAdmin;
         vm.mobileRepairAdmins = [];
         vm.selectedMobileRepairAdmin = selectMobileRepairAdmin;
         vm.selectedMobileRepairAdmin = null;
+        vm.clockChange = clockChange;
+        vm.retrieveMobileRepairAdmins = retrieveMobileRepairAdmins;
+        vm.markAsInProgress = markAsInProgress;
         //vm.mobileRepairState = mobileRepairState;
 
 
@@ -54,11 +58,15 @@
             order("MobileRepairId");
         }
 
-        $('.clockpicker').clockpicker({ afterDone: retrieveMobileRepairPersonnel });
+        $('.clockpicker').clockpicker({ afterDone: retrieveAvailableMobileRepairAdmin });
 
         function retrieveMobileRepairPersonnel() {
-            alert('hi');
+            retrieveMobileRepairAdmins(vm.AppointmentDate, vm.appointmentTime);
         }
+
+        function clockChange() {
+            alert(vm.appointmentTime);
+        };
 
         function createMobileRepairOtp() {
             vm.showMessage = false;
@@ -78,7 +86,7 @@
             vm.errorMessages = [];
             if (!vm.amount) vm.errorMessages.push('Enter amount.');
             if (vm.errorMessages.length > 0) return;
-            return OTPService.createMobileRepairPaymentOtp(vm.mobileNumber).then(function (response) {
+            return OTPService.createMobileRepairPaymentOtp(vm.mobileNumber, vm.amount).then(function (response) {
                 vm.showMessage = true;
                 vm.isOtpCreated = response.data.Succeeded;
                 vm.errorMessages.push(response.data.Message);
@@ -139,6 +147,12 @@
             return OrderService.orderClass(vm.orderBy, property);
         }
 
+        function markAsInProgress(mobileRepairId) {
+            return MobileRepairService.markAsInProgress(mobileRepairId).then(function (response) {
+                retrieveMobileRepairOrders();
+            });
+        }
+
         function markAsCancelled(mobileRepairId) {
             return MobileRepairService.markAsCompleted(mobileRepairId).then(function (response) {
                 retrieveMobileRepairOrders();
@@ -194,12 +208,22 @@
                 vm.disablePay = true;
             }
         }
-        function retrieveMobileRepairAdmins(date,time) {
-            return MobileRepairService.retrieveMobileRepairAdmins(date,time).then(function (response) {
+        function retrieveAvailableMobileRepairAdmin() {
+            var appointmentTime = $('#MobileRepair_AppointmentTime').val();
+            return MobileRepairService.retrieveAvailableMobileRepairAdmin(vm.AppointmentDate, appointmentTime).then(function (response) {
                 vm.mobileRepairAdmins = response.data;
                 selectMobileRepairAdmin();
             });
         }
+
+        function retrieveMobileRepairAdmins() {
+            return MobileRepairService.retrieveMobileRepairAdmins().then(function (response) {
+                vm.mobileRepairAdmins = response.data;
+                selectMobileRepairAdmin();
+            });
+        }
+
+        
         function selectMobileRepairAdmin() {
             if (vm.mobileRepairAdmins.length > 0) {
                 var admin = $filter('filter')(vm.mobileRepairAdmins,

@@ -81,8 +81,8 @@ namespace Egharpay.Controllers
             var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
             if (!otpResult.Succeeded)
                 return this.JsonNet(otpResult);
-            var mobileRepairResult = await _mobileRepairBusinessService.RetrieveMobileRepair(e => e.MobileNumber == mobileNumber);
-            return this.JsonNet(mobileRepairResult);
+            var mobileRepairResult = await _mobileRepairBusinessService.RetrieveMobileRepairGrids(e => e.MobileNumber == mobileNumber);
+            return this.JsonNet(mobileRepairResult.Items);
         }
 
         [HttpPost]
@@ -91,7 +91,7 @@ namespace Egharpay.Controllers
         {
             try
             {
-                var data = await _mobileRepairBusinessService.RetrieveMobileRepairGrids(orderBy, paging);
+                var data = await _mobileRepairBusinessService.RetrieveMobileRepairGrids(e => true, orderBy, paging);
                 return this.JsonNet(data);
             }
             catch (Exception)
@@ -118,6 +118,14 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> MarkAsCancelled(int mobileRepairId)
         {
             var result = await _mobileRepairBusinessService.UpdateMobileRepairState(mobileRepairId, (int)MobileRepairRequestState.Cancelled);
+            return this.JsonNet(result);
+        }
+
+        [HttpPost]
+        [Route("MobileRepair/MarkAsInProgress")]
+        public async Task<ActionResult> MarkAsInProgress(int mobileRepairId)
+        {
+            var result = await _mobileRepairBusinessService.UpdateMobileRepairState(mobileRepairId, (int)MobileRepairRequestState.InProgress);
             return this.JsonNet(result);
         }
 
@@ -188,11 +196,19 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [Route("MobileRepair/RetrieveMobileRepairAdmins")]
-        public async Task<ActionResult> RetrieveMobileRepairAdmins(DateTime? date, string time)
+        [Route("MobileRepair/RetrieveAvailableMobileRepairAdmin")]
+        public async Task<ActionResult> RetrieveAvailableMobileRepairAdmin(DateTime? date, string time)
         {
             var fromDateTime = date.CombineDateTime(time);
             var data = await _mobileRepairAdminBusinessService.RetrieveAvailableMobileRepairAdmin(date, time);
+            return this.JsonNet(data);
+        }
+
+
+        [Route("MobileRepair/RetrieveMobileRepairAdmins")]
+        public async Task<ActionResult> RetrieveMobileRepairAdmins()
+        {
+            var data = await _mobileRepairAdminBusinessService.RetrieveAvailableMobileRepairAdmins();
             return this.JsonNet(data);
         }
 

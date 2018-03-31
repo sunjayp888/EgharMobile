@@ -13,5 +13,6 @@ namespace Egharpay.Business.Interfaces
     {
         //Retrieve
         Task<IEnumerable<AvailableMobileRepairAdmin>> RetrieveAvailableMobileRepairAdmin(DateTime? date,string time);
+        Task<IEnumerable<MobileRepairAdminPersonnel>> RetrieveAvailableMobileRepairAdmins();
     }
 }

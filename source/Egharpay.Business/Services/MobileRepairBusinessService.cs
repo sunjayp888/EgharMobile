@@ -34,7 +34,16 @@ namespace Egharpay.Business.Services
                 if (!alreadyCreated.Succeeded)
                     return alreadyCreated;
                 mobileRepair.MobileRepairStateId = (int)MobileRepairRequestState.Created;
-                await _mobileDataService.CreateAsync(mobileRepair);
+                try
+                {
+                    await _mobileDataService.CreateAsync(mobileRepair);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    throw;
+                }
+                
                 await CreateMobileCoupon(mobileRepair.MobileNumber, mobileRepair.CouponCode);
                 validationResult.Message = "Request created successfully.";
                 validationResult.Succeeded = true;
@@ -104,9 +113,9 @@ namespace Egharpay.Business.Services
             return mobileRepair.FirstOrDefault();
         }
 
-        public async Task<PagedResult<MobileRepairGrid>> RetrieveMobileRepairGrids(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<MobileRepairGrid>> RetrieveMobileRepairGrids(Expression<Func<MobileRepairGrid, bool>> predicate,List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var mobileRepairGrids = await _mobileDataService.RetrievePagedResultAsync<MobileRepairGrid>(a => true, orderBy, paging);
+            var mobileRepairGrids = await _mobileDataService.RetrievePagedResultAsync<MobileRepairGrid>(predicate, orderBy, paging);
             return mobileRepairGrids;
         }
         #endregion

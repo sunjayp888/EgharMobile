@@ -16,7 +16,9 @@
             markAsCancelled: markAsCancelled,
             deleteMobileRepairRequest: deleteMobileRepairRequest,
             createMobileRepairPayment: createMobileRepairPayment,
-            retrieveMobileRepairAdmins: retrieveMobileRepairAdmins
+            retrieveAvailableMobileRepairAdmin: retrieveAvailableMobileRepairAdmin,
+            retrieveMobileRepairAdmins: retrieveMobileRepairAdmins,
+            markAsInProgress: markAsInProgress
         };
 
         return service;
@@ -70,8 +72,15 @@
         function markAsCancelled(mobileRepairId) {
             var url = "/MobileRepair/MarkAsCompleted",
             data = {
-                mobileRepairId: mobileRepairId,
-                mobileRepairStateId: mobileRepairStateId
+                mobileRepairId: mobileRepairId
+            };
+            return $http.post(url, data);
+        }
+
+        function markAsInProgress(mobileRepairId) {
+            var url = "/MobileRepair/MarkAsInProgress",
+            data = {
+                mobileRepairId: mobileRepairId
             };
             return $http.post(url, data);
         }
@@ -84,14 +93,19 @@
             return $http.post(url, data);
         }
 
-        function retrieveMobileRepairAdmins(date, time) {
-            var url = "/MobileRepair/RetrieveMobileRepairAdmins",
+        function retrieveAvailableMobileRepairAdmin(date, time) {
+            var url = "/MobileRepair/RetrieveAvailableMobileRepairAdmin",
             data = {
                 date: date,
                 time: time
             }
 
             return $http.post(url, data);
+        }
+
+        function retrieveMobileRepairAdmins() {
+            var url = "/MobileRepair/RetrieveMobileRepairAdmins";
+            return $http.get(url);
         }
     }
 })();

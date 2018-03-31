@@ -94,13 +94,9 @@
                             <div class="feed-activity-list">
                                 <div class="feed-element" ng-repeat="mobileRepair in model.mobileRepairOrders">
                                     <div class="media-body ">
-                                        <small class="pull-right">
-                                            <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Created)">Created</span>
-                                            <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.InProgress)">InProgress</span>
-                                            <span class="label label-danger" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Cancelled)">Cancelled</span>
-                                            <span class="label label-primary" ng-if="mobileRepair.MobileRepairStateId ==  @((int) MobileRepairRequestState.Completed)">Completed</span>
-                                        </small>
-                                        <strong>Mobile RepairId</strong> - {{mobileRepair.MobileRepairId}}
+                                        
+                                        <strong>Mobile RepairId</strong> - {{mobileRepair.MobileRepairId}}<br />
+                                        <strong>Request Status</strong> &nbsp;&nbsp;&nbsp;<label class="label label-warning"><span ng-bind="mobileRepair.MobileRepairStateDescription"></span></label>
                                         <br>
                                         <div class="well">
                                             <div ng-if="mobileRepair.AppointmentDate"><strong>Appointment Datetime</strong> - <span ng-bind="mobileRepair.AppointmentDate|date:'dd MMM yyyy'"></span> - <span ng-bind="mobileRepair.AppointmentTime"></span></div><br />

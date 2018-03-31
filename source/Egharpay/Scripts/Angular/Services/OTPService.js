@@ -43,10 +43,11 @@
             return $http.post(url, data);
         }
 
-        function createMobileRepairPaymentOtp(mobileNumber) {
+        function createMobileRepairPaymentOtp(mobileNumber, amount) {
             var url = "/OTP/createMobileRepairPaymentOtp",
                 data = {
-                    mobileNumber: mobileNumber
+                    mobileNumber: mobileNumber,
+                    amount: amount
                 };
             return $http.post(url, data);
         }
@@ -58,7 +59,7 @@
                 };
             return $http.post(url, data);
         }
-        
+
 
 
     }
