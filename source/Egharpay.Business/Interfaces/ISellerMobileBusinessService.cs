@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.Models;
@@ -14,7 +15,7 @@ namespace Egharpay.Business.Interfaces
         Task<ValidationResult<SellerMobile>> AddMobileInStore(SellerMobile seller);
 
         //Retrieve
-        Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(Expression<Func<MobileRepairGrid, bool>> predicate,List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<SellerMobileGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
     }
 }

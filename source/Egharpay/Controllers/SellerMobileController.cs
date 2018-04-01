@@ -35,7 +35,7 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _sellerMobileBusinessService.RetrieveSellerMobileGrids(orderBy, paging);
+            var data = await _sellerMobileBusinessService.RetrieveSellerMobileGrids(e=>true, orderBy, paging);
             return this.JsonNet(data);
         }
 
@@ -43,6 +43,13 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _sellerMobileBusinessService.Search(searchKeyword, orderBy, paging));
+        }
+
+        [HttpPost]
+        public ActionResult SearchByDate(DateTime fromDate, DateTime toDate, Paging paging, List<OrderBy> orderBy)
+        {
+            bool isSuperAdmin = User.IsInAnyRoles("SuperAdmin");
+            return this.JsonNet(_sellerMobileBusinessService.RetrieveSellerMobileGrids(e => e.AppointmentDate >= fromDate && e.AppointmentDate <= toDate, orderBy, paging));
         }
     }
 }
