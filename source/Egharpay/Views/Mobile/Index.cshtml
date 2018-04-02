@@ -24,6 +24,20 @@
                 </a>
             </div>
         }
+        @if (User.IsSuperUserOrAdminOrSeller())
+        {
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)" class="form-control" placeholder="Search for Mobile...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="model.searchMobile(searchField)" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
     <br />
     <div ng-cloak class="wrapper wrapper-content animated fadeInRight">

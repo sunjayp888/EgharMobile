@@ -190,6 +190,7 @@
         function addPincode() {
             geoLocation();
             $("#txtSearchPincode").val(vm.Address.PinCode);
+            vm.searchKeyword = vm.Address.PinCode;
         }
 
         function geoLocation() {
@@ -256,7 +257,7 @@
 
 
         function searchSeller(searchKeyword) {
-            vm.searchKeyword = searchKeyword;
+            vm.searchKeyword = searchKeyword == undefined ? vm.searchKeyword : searchKeyword;
             vm.orderBy.property = "Name";
             vm.orderBy.direction = "Ascending";
             vm.orderBy.class = "asc";

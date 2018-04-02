@@ -549,38 +549,6 @@ namespace Egharpay.Data
                 .Property(e => e.Comment)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<SellerGrid>()
-                    .Property(e => e.Name)
-                    .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.RegistrationNumber)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Owner)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Address1)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Address2)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Address3)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.Address4)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<SellerGrid>()
-                .Property(e => e.SearchField)
-                .IsUnicode(false);
-
             modelBuilder.Entity<TrendCommentGrid>()
                 .Property(e => e.TrendName)
                 .IsUnicode(false);
@@ -993,6 +961,42 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<MobileRepairGrid>()
+                .Property(e => e.SearchField)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.RegistrationNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Owner)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address1)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address2)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address3)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Address4)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.Pincode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerGrid>()
                 .Property(e => e.SearchField)
                 .IsUnicode(false);
         }
