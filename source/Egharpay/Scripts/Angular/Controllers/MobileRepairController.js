@@ -49,7 +49,9 @@
         vm.retrieveMobileRepairAdmins = retrieveMobileRepairAdmins;
         vm.markAsInProgress = markAsInProgress;
         //vm.mobileRepairState = mobileRepairState;
-
+        vm.searchMobileRepairByDate = searchMobileRepairByDate;
+        vm.fromDate;
+        vm.toDate;
 
         function initialise() {
             vm.orderBy.property = "MobileRepairId";
@@ -232,6 +234,18 @@
                 if (admin.length > 0) vm.selectedMobileRepairAdmin = admin[0];
                 //else vm.selectedAssignment = vm.assignments[0];
             }
+        }
+
+        function searchMobileRepairByDate() {
+            vm.searchKeyword = null;
+            return MobileRepairService.searchMobileRepairByDate(vm.fromDate, vm.toDate, vm.paging, vm.orderBy)
+              .then(function (response) {
+                  vm.mobileRepairOrders = response.data.Items;
+                  vm.paging.totalPages = response.data.TotalPages;
+                  vm.paging.totalResults = response.data.TotalResults;
+                  vm.searchMessage = vm.mobileRepairOrders.length === 0 ? "No Records Found" : "";
+                  return vm.mobileRepairOrders;
+              });
         }
     }
 

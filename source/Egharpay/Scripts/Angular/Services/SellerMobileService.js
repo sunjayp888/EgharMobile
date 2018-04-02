@@ -11,7 +11,8 @@
         var service = {
             assignMobileToSeller: assignMobileToSeller,
             retrieveSellerMobiles: retrieveSellerMobiles,
-            searchSellerMobile: searchSellerMobile
+            searchSellerMobile: searchSellerMobile,
+            searchSellerMobileByDate: searchSellerMobileByDate
         };
 
         return service;
@@ -39,6 +40,18 @@
                     paging: Paging,
                     orderBy: new Array(OrderBy)
                 };
+            return $http.post(url, data);
+        }
+
+        function searchSellerMobileByDate(FromDate, ToDate, Paging, OrderBy) {
+            var url = "/SellerMobile/SearchByDate",
+            data = {
+                fromDate: FromDate,
+                toDate: ToDate,
+                paging: Paging,
+                orderBy: new Array(OrderBy)
+            };
+
             return $http.post(url, data);
         }
     }
