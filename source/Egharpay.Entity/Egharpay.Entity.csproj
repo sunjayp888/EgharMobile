@@ -123,6 +123,7 @@
     <Compile Include="MobileRepairPayment.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="SellerGrid.cs" />
     <Compile Include="SellerOrder.cs" />
     <Compile Include="OrderState.cs" />
     <Compile Include="Partials\Address.cs" />
@@ -141,7 +142,6 @@
     <Compile Include="MetaSearchKeyword.cs" />
     <Compile Include="RequestType.cs" />
     <Compile Include="Seller.cs" />
-    <Compile Include="SellerGrid.cs" />
     <Compile Include="SellerMobile.cs" />
     <Compile Include="SellerMobileGrid.cs" />
     <Compile Include="SellerOrderGrid.cs" />

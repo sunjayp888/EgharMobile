@@ -101,7 +101,8 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<SellerGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            return await _dataService.RetrievePagedResultAsync<SellerGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
+            var data= await _dataService.RetrievePagedResultAsync<SellerGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
+            return data;
         }
 
         public async Task<List<Seller>> RetrieveSellers(List<int> sellerIds)
