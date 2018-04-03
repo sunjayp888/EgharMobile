@@ -18,7 +18,8 @@
             createMobileRepairPayment: createMobileRepairPayment,
             retrieveAvailableMobileRepairAdmin: retrieveAvailableMobileRepairAdmin,
             retrieveMobileRepairAdmins: retrieveMobileRepairAdmins,
-            markAsInProgress: markAsInProgress
+            markAsInProgress: markAsInProgress,
+            searchMobileRepairByDate:searchMobileRepairByDate
         };
 
         return service;
@@ -105,6 +106,18 @@
         function retrieveMobileRepairAdmins() {
             var url = "/MobileRepair/RetrieveMobileRepairAdmins";
             return $http.get(url);
+        }
+
+        function searchMobileRepairByDate(FromDate, ToDate, Paging, OrderBy) {
+            var url = "/MobileRepair/SearchByDate",
+            data = {
+                fromDate: FromDate,
+                toDate: ToDate,
+                paging: Paging,
+                orderBy: new Array(OrderBy)
+            };
+
+            return $http.post(url, data);
         }
     }
 })();

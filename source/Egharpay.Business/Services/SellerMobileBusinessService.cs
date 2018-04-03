@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -55,7 +56,7 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(Expression<Func<MobileRepairGrid, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null)
         {
             var sellerMobiles = await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => true, orderBy, paging);
             return sellerMobiles;

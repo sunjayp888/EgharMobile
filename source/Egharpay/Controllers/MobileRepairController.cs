@@ -216,5 +216,12 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
+        [HttpPost]
+        public ActionResult SearchByDate(DateTime fromDate, DateTime toDate, Paging paging, List<OrderBy> orderBy)
+        {
+            bool isSuperAdmin = User.IsInAnyRoles("SuperAdmin");
+            return this.JsonNet(_mobileRepairBusinessService.RetrieveMobileRepairGrids( e=> e.AppointmentDate >= fromDate && e.AppointmentDate <= toDate, orderBy, paging));
+        }
+
     }
 }

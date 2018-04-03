@@ -28,6 +28,7 @@
         vm.sellerId;
         vm.assignMobileToSeller = assignMobileToSeller;
         vm.isMobileAdded;
+        vm.searchSellerMobileByDate = searchSellerMobileByDate;
 
         function initialise(mobileId, sellerId) {
             //vm.orderBy.property = "Name";
@@ -95,6 +96,18 @@
 
         function orderClass(property) {
             return OrderService.orderClass(vm.orderBy, property);
+        }
+
+        function searchSellerMobileByDate() {
+            vm.searchKeyword = null;
+            return SellerMobileService.searchSellerMobileByDate(vm.fromDate, vm.toDate, vm.paging, vm.orderBy)
+              .then(function (response) {
+                  vm.mobileRepairOrders = response.data.Items;
+                  vm.paging.totalPages = response.data.TotalPages;
+                  vm.paging.totalResults = response.data.TotalResults;
+                  vm.searchMessage = vm.mobileRepairOrders.length === 0 ? "No Records Found" : "";
+                  return vm.mobileRepairOrders;
+              });
         }
     }
 })();
