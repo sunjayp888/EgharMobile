@@ -16,21 +16,21 @@ namespace Egharpay.Business.Interfaces
     public interface IMobileBusinessService
     {
         //Create
-        Task<ValidationResult<Models.Mobile>> CreateMobile(Models.Mobile mobile);
-        Task<bool> CreateMobile(List<Models.Mobile> mobile);
+        Task<ValidationResult<Mobile>> CreateMobile(Mobile mobile);
+        Task<bool> CreateMobile(List<Mobile> mobile);
         Task<bool> CreateBrand(List<Brand> brands);
         Task<bool> CreateMobileImage(List<MobileImage> brands);
 
 
         //Retrieve
-        Task<Models.Mobile> RetrieveMobile(int mobileId);
+        Task<Mobile> RetrieveMobile(int mobileId);
         Task<List<MobileImage>> RetrieveMobileGalleryImages(int mobileId);
 
         Task<PagedResult<Mobile>> RetrieveMobiles(Expression<Func<MobileGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
-        Task<PagedResult<Models.Mobile>> RetrieveMobiles(Filter filter, List<OrderBy> orderBy = null, Paging paging = null);
-        Task<PagedResult<Models.Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Mobile>> RetrieveMobiles(Filter filter, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId, List<OrderBy> orderBy = null, Paging paging = null);
-        Task<IEnumerable<Models.Mobile>> RetrieveLatestMobile();
+        Task<IEnumerable<Mobile>> RetrieveLatestMobile();
         Task<IEnumerable<MetaSearchKeyword>> RetrieveMetaSearchKeyword();
     }
 }

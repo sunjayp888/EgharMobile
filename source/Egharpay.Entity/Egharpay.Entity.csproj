@@ -123,6 +123,7 @@
     <Compile Include="MobileRepairPayment.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="Search.cs" />
     <Compile Include="SellerGrid.cs" />
     <Compile Include="SellerOrder.cs" />
     <Compile Include="OrderState.cs" />

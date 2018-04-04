@@ -10,6 +10,7 @@ using Egharpay.Business.Dto;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
+using Egharpay.Data.Extensions;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
@@ -132,11 +133,21 @@ namespace Egharpay.Business.Services
         {
             if (!string.IsNullOrEmpty(term))
             {
-                var data = await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.SearchField.Replace(" ", "").ToLower().Contains(term.Replace(" ", "").ToLower()), orderBy, paging);
-                return _mapper.MapToPagedResult<Models.Mobile>(data);
+                try
+                {
+                    var data = _dataService.Search(term.Replace(" ", "").ToLower(), orderBy, paging);
+                    var dataPage = await data.PaginateAsync(paging);
+                    return _mapper.MapToPagedResult<Mobile>(dataPage);
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
             }
             var result = await _dataService.RetrievePagedResultAsync<MobileGrid>(e => true);
-            return _mapper.MapToPagedResult<Models.Mobile>(result);
+            return _mapper.MapToPagedResult<Mobile>(result);
         }
 
         public async Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId, List<OrderBy> orderBy = null, Paging paging = null)
@@ -153,15 +164,7 @@ namespace Egharpay.Business.Services
 
         public async Task<IEnumerable<MetaSearchKeyword>> RetrieveMetaSearchKeyword()
         {
-            try
-            {
-                return await _dataService.RetrieveAsync<MetaSearchKeyword>(e => true);
-            }
-            catch (Exception exception)
-            {
-                throw new Exception();
-            }
-
+            return await _dataService.RetrieveAsync<MetaSearchKeyword>(e => true);
         }
 
         private ExpressionStarter<Entity.Mobile> BuildMobileSearchPredicate(Filter filter)

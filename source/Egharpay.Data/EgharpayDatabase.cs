@@ -60,6 +60,7 @@ namespace Egharpay.Data
         public virtual DbSet<MobileRepairGrid> MobileRepairGrids { get; set; }
         public virtual DbSet<AvailableMobileRepairAdmin> AvailableMobileRepairAdmins { get; set; }
         public virtual DbSet<MobileRepairAdminPersonnel> MobileRepairAdminPersonnels { get; set; }
+        public virtual DbSet<Search> Searches { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

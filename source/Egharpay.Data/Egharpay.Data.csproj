@@ -101,7 +101,7 @@
     <Compile Include="Services\AuthorizationDataService.cs" />
     <Compile Include="Services\MobileRepairAdminDataService.cs" />
     <Compile Include="Services\MobileRepairDataService.cs" />
-    <Compile Include="Services\IAddressDataService.cs" />
+    <Compile Include="Services\AddressDataService.cs" />
     <Compile Include="Services\OtpDataService.cs" />
     <Compile Include="Services\ProductDataService.cs" />
     <Compile Include="Services\AdvertiseDataService.cs" />
