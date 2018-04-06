@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Egharpay.Data.Extensions;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity.Dto;
+using System.Data.SqlClient;
 
 namespace Egharpay.Data.Services
 {
@@ -49,7 +50,7 @@ namespace Egharpay.Data.Services
         protected virtual IQueryable<T> RetrieveQueryable<T>(Expression<Func<T, bool>> predicate, List<OrderBy> orderBy = null, params Expression<Func<T, object>>[] includeExpressions) where T : class
         {
             var query = Context.Set<T>().AsQueryable<T>();
-
+            
             if (includeExpressions?.Any() ?? false)
                 query = includeExpressions.Aggregate(query, (current, expression) => current.Include(expression));
 
@@ -127,6 +128,20 @@ namespace Egharpay.Data.Services
         public virtual async Task<PagedResult<T>> RetrievePagedResultAsync<T>(Expression<Func<T, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null, params Expression<Func<T, object>>[] includeExpressions) where T : class
         {
             return await RetrieveQueryable(predicate, orderBy, includeExpressions).PaginateAsync(paging);
+        }
+
+        public virtual async Task<PagedResult<T>> RetrieveStoreProcPagedResultAsync<T>(Expression<Func<T, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null) where T : class
+        {
+            var query = Context.Set<T>().
+                SqlQuery("[dbo].[Search] @SearchKeyword", new SqlParameter("@SearchKeyword", "Nokia"))
+                .AsQueryable<T>();
+
+            if (predicate != null)
+                query = query.Where(predicate);
+
+            if (orderBy != null)
+                query = query.OrderBy(orderBy);
+            return await query.PaginateAsync(paging);
         }
 
         #endregion

@@ -11,6 +11,6 @@ namespace Egharpay.Data.Interfaces
 {
     public interface IMobileDataService : IEgharpayDataService
     {
-        IQueryable<Search> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<List<Search>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null);
     }
 }

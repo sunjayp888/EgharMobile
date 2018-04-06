@@ -131,23 +131,9 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            if (!string.IsNullOrEmpty(term))
-            {
-                try
-                {
-                    var data = _dataService.Search(term.Replace(" ", "").ToLower(), orderBy, paging);
-                    var dataPage = await data.PaginateAsync(paging);
-                    return _mapper.MapToPagedResult<Mobile>(dataPage);
-                }
-                catch (Exception ex)
-                {
-
-                    throw;
-                }
-
-            }
-            var result = await _dataService.RetrievePagedResultAsync<MobileGrid>(e => true);
-            return _mapper.MapToPagedResult<Mobile>(result);
+            var data = await _dataService.Search(term, orderBy, paging);
+            var mobiles = _mapper.MapToList<Mobile>(data);
+            return mobiles.AsQueryable().Paginate(paging);
         }
 
         public async Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId, List<OrderBy> orderBy = null, Paging paging = null)

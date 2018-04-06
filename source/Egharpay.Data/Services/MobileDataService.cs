@@ -19,15 +19,14 @@ namespace Egharpay.Data.Services
         {
         }
 
-        public IQueryable<Search> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<List<Search>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
         {
             using (ReadUncommitedTransactionScopeAsync)
             using (var context = _databaseFactory.CreateContext())
             {
                 var search = context.Searches.
-                 SqlQuery("[dbo].[Search] @SearchKeyword", new SqlParameter("SearchKeyword", term))
-                  .AsQueryable();
-                return search;
+                    SqlQuery("[dbo].[Search] @SearchKeyword", new SqlParameter("SearchKeyword", term));
+                return await search.ToListAsync();
             }
         }
 
