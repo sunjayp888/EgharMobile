@@ -67,7 +67,7 @@ namespace Egharpay.Business.Services
                 var mobileData = await _mobileDataService.RetrieveByIdAsync<Entity.Mobile>(mobileId);
                 await SendOrderEmailToCustomer(orderEntity, customerPersonnel, mobileData);
                 await SendOrderEmailToSellers(orderEntity, sellers, customerPersonnel, mobileData);
-                //SendSms(order, sellerList, personnel, mobile);
+                //SendOrderSms();
                 validationResult.Succeeded = true;
             }
             catch (Exception ex)
@@ -131,7 +131,7 @@ namespace Egharpay.Business.Services
             }
         }
 
-        private void SendSms(Order order, Seller seller, Personnel personnel, Entity.Mobile mobile)
+        private void SendOrderSms(Order order, Seller seller, Personnel personnel, Entity.Mobile mobile)
         {
             if (!string.IsNullOrEmpty(personnel.Mobile))
             {
