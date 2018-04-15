@@ -126,7 +126,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-4" ng-repeat="address in model.personnelAddress">
+                        <div class="col-lg-4" ng-repeat="address in model.addresses">
                             <div class="ibox">
                                 <div class="ibox-content">
                                     <div class="row">
@@ -147,7 +147,7 @@
                                                 <br><abbr title="Phone">P:</abbr><span ng-bind="address.PhoneNumber"></span>
                                             </address>
                                             <label class="btn btn-primary col-sm-12 col-xs-12 col-lg-12">
-                                                <input ng-model="address.IsChecked" ng-click="model.onSelectAddress($index, model.personnelAddress)" type="checkbox" /> Ship Here.
+                                                <input ng-model="address.IsChecked" ng-click="model.onSelectAddress($index, model.addresses)" type="checkbox" /> Ship Here.
                                             </label>
                                         </p>
                                     </div>
