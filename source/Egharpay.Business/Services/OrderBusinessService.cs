@@ -67,7 +67,7 @@ namespace Egharpay.Business.Services
                 var mobileData = await _mobileDataService.RetrieveByIdAsync<Entity.Mobile>(mobileId);
                 await SendOrderEmailToCustomer(orderEntity, customerPersonnel, mobileData);
                 await SendOrderEmailToSellers(orderEntity, sellers, customerPersonnel, mobileData);
-                //SendOrderSms();
+                SendOrderSms(order,sellers,customerPersonnel,mobileData);
                 validationResult.Succeeded = true;
             }
             catch (Exception ex)
@@ -131,7 +131,7 @@ namespace Egharpay.Business.Services
             }
         }
 
-        private void SendOrderSms(Order order, Seller seller, Personnel personnel, Entity.Mobile mobile)
+        private void SendOrderSms(Order order, List<Seller> sellers, Personnel personnel, Entity.Mobile mobile)
         {
             if (!string.IsNullOrEmpty(personnel.Mobile))
             {
@@ -139,13 +139,15 @@ namespace Egharpay.Business.Services
                 var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
                 _smsBusinessService.SendSMS(personnel.Mobile, msg);
             }
-            if (!string.IsNullOrEmpty(seller.Contact1.ToString()))
+            foreach (var seller in sellers)
             {
-                //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
-                var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
-                _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
+                if (!string.IsNullOrEmpty(seller.Contact1.ToString()))
+                {
+                    //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
+                    var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
+                    _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
+                }
             }
-
         }
 
         public async Task<Order> RetrieveOrder(int orderId)
