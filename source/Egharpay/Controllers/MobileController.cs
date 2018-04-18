@@ -66,7 +66,7 @@ namespace Egharpay.Controllers
 
             //}
 
-            var brands = await _brandBusinessService.RetrieveBrands();
+            var brands = await _brandBusinessService.RetrieveBrands(e => true);
             var brandList = brands.Items.ToList();
             var viewModel = new MobileViewModel()
             {
@@ -103,7 +103,7 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> Detail(int? id)
         {
 
-          //  await CreateTrend();
+            //  await CreateTrend();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

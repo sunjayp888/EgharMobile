@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Entity;
@@ -12,7 +13,7 @@ namespace Egharpay.Business.Interfaces
     {
         //Retrieve
         Task<Brand> RetrieveBrand(int brandId);
-        Task<PagedResult<Brand>> RetrieveBrands(List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Brand>> RetrieveBrands(Expression<Func<Brand, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<BrandGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
     }
 }

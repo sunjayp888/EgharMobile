@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Egharpay.Business.Interfaces;
@@ -10,7 +11,7 @@ using Egharpay.Entity.Dto;
 
 namespace Egharpay.Business.Services
 {
-   public partial class BrandBusinessService : IBrandBusinessService
+    public partial class BrandBusinessService : IBrandBusinessService
     {
         protected IBrandDataService _dataService;
 
@@ -25,9 +26,9 @@ namespace Egharpay.Business.Services
             return brand.FirstOrDefault();
         }
 
-        public async Task<PagedResult<Brand>> RetrieveBrands(List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<Brand>> RetrieveBrands(Expression<Func<Brand, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var brands = await _dataService.RetrievePagedResultAsync<Brand>(a => true, orderBy, paging);
+            var brands = await _dataService.RetrievePagedResultAsync<Brand>(expression, orderBy, paging);
             return brands;
         }
 

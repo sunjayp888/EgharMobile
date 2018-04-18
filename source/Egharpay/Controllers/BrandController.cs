@@ -29,7 +29,7 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(List<OrderBy> orderBy)
         {
-            var data = await _brandBusinessService.RetrieveBrands(orderBy);
+            var data = await _brandBusinessService.RetrieveBrands(e=>true, orderBy);
             return this.JsonNet(data);
         }
 
@@ -37,6 +37,13 @@ namespace Egharpay.Controllers
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
             var data = await _brandBusinessService.Search(searchKeyword, orderBy, paging);
+            return this.JsonNet(data);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> TopSellingBrands(List<OrderBy> orderBy)
+        {
+            var data = await _brandBusinessService.RetrieveBrands(e=>e.IsTopSellingBrand, orderBy);
             return this.JsonNet(data);
         }
     }

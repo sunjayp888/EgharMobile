@@ -70,8 +70,9 @@ namespace Egharpay.Controllers
             //}
             try
             {
-                var personnel = await _personnelBusinessService.RetrievePersonnel(User.Identity.GetUserId());
-                return this.JsonNet(await _orderBusinessService.CreateOrder(mobileId.Value, personnel.PersonnelId, sellerIds, shippingAddressId));
+                var personnelId = UserPersonnelId;
+                //var personnel = await _personnelBusinessService.RetrievePersonnel(personnelId);
+                return this.JsonNet(await _orderBusinessService.CreateOrder(mobileId.Value, personnelId, sellerIds, shippingAddressId));
             }
             catch (Exception e)
             {
