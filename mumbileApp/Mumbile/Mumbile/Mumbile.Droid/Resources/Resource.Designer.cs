@@ -2192,8 +2192,26 @@ namespace Mumbile.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
+			// aapt resource value: 0x7f02010e
+			public const int avd_hide_password_1 = 2130837774;
+			
+			// aapt resource value: 0x7f02010f
+			public const int avd_hide_password_2 = 2130837775;
+			
+			// aapt resource value: 0x7f020110
+			public const int avd_hide_password_3 = 2130837776;
+			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
+			
+			// aapt resource value: 0x7f020111
+			public const int avd_show_password_1 = 2130837777;
+			
+			// aapt resource value: 0x7f020112
+			public const int avd_show_password_2 = 2130837778;
+			
+			// aapt resource value: 0x7f020113
+			public const int avd_show_password_3 = 2130837779;
 			
 			// aapt resource value: 0x7f020055
 			public const int design_bottom_navigation_item_background = 2130837589;
@@ -4282,6 +4300,15 @@ namespace Mumbile.Droid
 			
 			// aapt resource value: 0x7f0b000e
 			public const int CardView_Light = 2131427342;
+			
+			// aapt resource value: 0x7f0b018a
+			public const int MyTheme = 2131427722;
+			
+			// aapt resource value: 0x7f0b0189
+			public const int MyTheme_Base = 2131427721;
+			
+			// aapt resource value: 0x7f0b018b
+			public const int MyTheme_Splash = 2131427723;
 			
 			// aapt resource value: 0x7f0b002d
 			public const int Platform_AppCompat = 2131427373;
