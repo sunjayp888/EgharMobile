@@ -1123,6 +1123,11 @@
     <Content Include="bower_components\ngBootbox\typings\angularjs\angular.d.ts" />
     <Content Include="bower_components\ngBootbox\typings\jquery\jquery.d.ts" />
     <Content Include="bower_components\ngBootbox\typings\tsd.d.ts" />
+    <Content Include="bower_components\ngGeolocation\demo\app.js" />
+    <Content Include="bower_components\ngGeolocation\demo\index.html" />
+    <Content Include="bower_components\ngGeolocation\demo\ngGeolocation.js" />
+    <Content Include="bower_components\ngGeolocation\ngGeolocation.js" />
+    <Content Include="bower_components\ngGeolocation\ngGeolocation.min.js" />
     <Content Include="bower_components\ngInfiniteScroll\build\ng-infinite-scroll.js" />
     <Content Include="bower_components\ngInfiniteScroll\build\ng-infinite-scroll.min.js" />
     <Content Include="Content\animate.css" />
@@ -1630,6 +1635,10 @@
     <Content Include="bower_components\angular-spinner\bower.json" />
     <Content Include="bower_components\angular-spinner\dist\angular-spinner.js.map" />
     <Content Include="bower_components\angular-spinner\README.md" />
+    <Content Include="bower_components\ngGeolocation\.bower.json" />
+    <Content Include="bower_components\ngGeolocation\bower.json" />
+    <Content Include="bower_components\ngGeolocation\LICENSE" />
+    <Content Include="bower_components\ngGeolocation\README.md" />
     <None Include="Properties\PublishProfiles\Inspinia.pubxml" />
     <Content Include="Content\landing\avatar_all.png" />
     <Content Include="Content\landing\header_one.jpg" />

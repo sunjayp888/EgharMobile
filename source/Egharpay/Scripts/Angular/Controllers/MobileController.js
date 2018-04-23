@@ -9,9 +9,9 @@
         }]);
 
 
-    MobileController.$inject = ['$window', 'GoogleService', 'usSpinnerService', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location'];
+    MobileController.$inject = ['$window', 'GoogleService', 'usSpinnerService', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location', '$geolocation'];
 
-    function MobileController($window, GoogleService, usSpinnerService, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location) {
+    function MobileController($window, GoogleService, usSpinnerService, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location, $geolocation) {
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
@@ -112,6 +112,7 @@
 
         function initialise(filter) {
             vm.filter = filter;
+
             //vm.orderBy.property = "Name";
             //vm.orderBy.direction = "Ascending";
             //vm.orderBy.class = "asc";
@@ -181,7 +182,6 @@
         }
 
         function detailMobile(mobileId) {
-            geoLocation();
             return MobileService.detailMobile(mobileId).then(function (response) {
                 vm.mobiles = response.data;
                 return vm.mobiles;
@@ -195,6 +195,7 @@
         }
 
         function geoLocation() {
+            usSpinnerService.spin('locationSpinner');
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     vm.latitude = position.coords.latitude;
@@ -202,6 +203,7 @@
                     GoogleService.getLocation(vm.latitude, vm.longitude).then(function (response) {
                         var data = response.data;
                         if (data.results.length > 0) {
+                            usSpinnerService.stop('locationSpinner');
                             var locationDetails = data.results[0].formatted_address;
                             var value = locationDetails.split(",");
                             count = value.length;
@@ -222,22 +224,6 @@
             } else {
                 console.log("Browser doesn't support geolocation!");
             }
-        }
-
-        function createCORSRequest(method, url) {
-            var xhr = new XMLHttpRequest();
-            if ("withCredentials" in xhr) {
-                // XHR for Chrome/Firefox/Opera/Safari.
-                xhr.open(method, url, true);
-            } else if (typeof XDomainRequest != "undefined") {
-                // XDomainRequest for IE.
-                xhr = new XDomainRequest();
-                xhr.open(method, url);
-            } else {
-                // CORS not supported.
-                xhr = null;
-            }
-            return xhr;
         }
 
         function searchSeller(searchKeyword) {
@@ -369,15 +355,19 @@
         }
 
         function retrieveSellersFromGeoLocation() {
-            geoLocation();
-            return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
-                           .then(function (response) {
-                               vm.sellers = response.data.Items;
-                               vm.paging.totalPages = response.data.TotalPages;
-                               vm.paging.totalResults = response.data.TotalResults;
-                               vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
-                               return vm.sellers;
-                           });
+            $geolocation.getCurrentPosition({
+                timeout: 60000
+            }).then(function (position) {
+                alert(position);
+                return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
+                         .then(function (response) {
+                             vm.sellers = response.data.Items;
+                             vm.paging.totalPages = response.data.TotalPages;
+                             vm.paging.totalResults = response.data.TotalResults;
+                             vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
+                             return vm.sellers;
+                         });
+            });
         }
 
         function createAddress() {

@@ -12,9 +12,10 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="alert alert-danger alert-dismissable">
-                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                     <span><i class="fa fa-map-marker"></i></span>
-                                    Your current location : <span ng-bind="model.currentAddress"></span>
+                                    Your current location :
+                                    <span us-spinner spinner-key="locationSpinner" spinner-start-active="true" spinner-theme="smallRed"></span>
+                                    <span ng-bind="model.currentAddress"></span>
                                 </div>
                             </div>
                             <div class="row">
