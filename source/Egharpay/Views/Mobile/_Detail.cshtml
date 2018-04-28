@@ -1,328 +1,610 @@
 ﻿<div id="tab-1" class="tab-pane active">
-    <div class="panel-body">
-        <div>
+
+    <!-- #region Network -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>NETWORK</strong></button>
+            </h3>
             <div class="row">
-                <table class="table">
-                    <tbody>
-                        <!-- #region NetWork -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">NETWORK</button>
-                            </td>
-                            <td><strong>Technology</strong></td>
-                            <td><span ng-bind="model.mobiles.Technology"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>2G Bands</strong></td>
-                            <td><span ng-bind="model.mobiles.Network2GBands"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>3G Bands</strong></td>
-                            <td><span ng-bind="model.mobiles.Network3GBands"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>4G Bands</strong></td>
-                            <td><span ng-bind="model.mobiles.Network4GBands"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Speed</strong></td>
-                            <td><span ng-bind="model.mobiles.Speed"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>GPRS</strong></td>
-                            <td><span ng-bind="model.mobiles.Gprs"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>EDGE</strong></td>
-                            <td><span ng-bind="model.mobiles.Edge"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region Launch -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">LAUNCH</button>
-                            </td>
-                            <td><strong>Announced</strong></td>
-                            <td><span ng-bind="model.mobiles.Announced"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Status</strong></td>
-                            <td><button type="button" class="btn btn-info btn-xs"><span ng-bind="model.mobiles.Status"></span></button><span> </span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region Body -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">BODY</button>
-                            </td>
-                            <td><strong>Dimensions</strong></td>
-                            <td><span ng-bind="model.mobiles.Dimensions"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Weight</strong></td>
-                            <td><span ng-bind="model.mobiles.Weight"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Build</strong></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>SIM</strong></td>
-                            <td>
-                                <span ng-bind="model.mobiles.Sim"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong></strong></td>
-                            <td><span ng-bind="model.mobiles.MiscellaneousBody"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region Display -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">DISPLAY</button>
-                            </td>
-                            <td><strong>Type</strong></td>
-                            <td><span ng-bind="model.mobiles.DisplayType"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Size</strong></td>
-                            <td><span ng-bind="model.mobiles.DisplaySize"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Resolution</strong></td>
-                            <td><span ng-bind="model.mobiles.DisplayResolution"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Multitouch</strong></td>
-                            <td><span ng-bind="model.mobiles.Multitouch"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Protection</strong></td>
-                            <td><span ng-bind="model.mobiles.Protection"></span></td>
-                        </tr>
-                        @*<tr>
-                                <td></td>
-                                <td><strong></strong></td>
-                                <td>MiscDisplay</td>
-                            </tr>*@
-                        <!-- #endregion -->
-                        <!-- #region PLATFORM -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">PLATFORM</button>
-                            </td>
-                            <td><strong>OS</strong></td>
-                            <td><span ng-bind="model.mobiles.OS"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Chipset</strong></td>
-                            <td><span ng-bind="model.mobiles.Chipset"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>CPU</strong></td>
-                            <td><span ng-bind="model.mobiles.Cpu"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>GPU</strong></td>
-                            <td><span ng-bind="model.mobiles.Gpu"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region MEMORY -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">MEMORY</button>
-                            </td>
-                            <td><strong>Card Slot</strong></td>
-                            <td><span ng-bind="model.mobiles.CardSlot"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Internal</strong></td>
-                            <td><span ng-bind="model.mobiles.InternalMemory"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region CAMERA -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">CAMERA</button>
-                            </td>
-                            <td><strong>Primary</strong></td>
-                            <td><span ng-bind="model.mobiles.PrimaryCamera"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Features</strong></td>
-                            <td><span ng-bind="model.mobiles.CameraFeatures"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Video</strong></td>
-                            <td><span ng-bind="model.mobiles.Video"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Secondary</strong></td>
-                            <td><span ng-bind="model.mobiles.SecondaryCamera"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region SOUND -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">SOUND</button>
-                            </td>
-                            <td><strong>Alert Types</strong></td>
-                            <td><span ng-bind="model.mobiles.AlertTypes"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Loudspeaker</strong></td>
-                            <td><span ng-bind="model.mobiles.Loudspeaker"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>3.5mm Jack</strong></td>
-                            <td><span ng-bind="model.mobiles.Sound3Point5MmJack"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong></strong></td>
-                            <td><span ng-bind="model.mobiles.MiscellaneousSound"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region COMMUNICATION -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">COMMUNICATION</button>
-                            </td>
-                            <td><strong>WLAN</strong></td>
-                            <td><span ng-bind="model.mobiles.Wlan"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Bluetooth</strong></td>
-                            <td><span ng-bind="model.mobiles.Bluetooth"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>GPS</strong></td>
-                            <td><span ng-bind="model.mobiles.Gps"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>NFC</strong></td>
-                            <td><span ng-bind="model.mobiles.Nfc"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Radio</strong></td>
-                            <td><span ng-bind="model.mobiles.Radio"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>USB</strong></td>
-                            <td><span ng-bind="model.mobiles.Usb"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region FEATURES -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">FEATURES</button>
-                            </td>
-                            <td><strong>Sensors</strong></td>
-                            <td><span ng-bind="model.mobiles.Sensors"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Messaging</strong></td>
-                            <td><span ng-bind="model.mobiles.Messaging"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Browser</strong></td>
-                            <td><span ng-bind="model.mobiles.Browser"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Java</strong></td>
-                            <td><span ng-bind="model.mobiles.Java"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong></strong></td>
-                            <td><span ng-bind="model.mobiles.MiscellaneousFeatures"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region BATTERY -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">BATTERY</button>
-                            </td>
-                            <td><strong></strong></td>
-                            <td><span ng-bind="model.mobiles.MiscellaneousBattery"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Stand-by</strong></td>
-                            <td><span ng-bind="model.mobiles.StandBy"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Talk Time</strong></td>
-                            <td><span ng-bind="model.mobiles.BatteryTalkTime"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Music Play</strong></td>
-                            <td><span ng-bind="model.mobiles.BatteryMusicPlay"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                        <!-- #region MISCELLANEOUS -->
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-xs">MISCELLANEOUS</button>
-                            </td>
-                            <td><strong>Colors</strong></td>
-                            <td><span ng-bind="model.mobiles.Colours"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>SAR</strong></td>
-                            <td><span ng-bind="model.mobiles.Sar"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>SAR EU</strong></td>
-                            <td><span ng-bind="model.mobiles.SarEu"></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><strong>Price</strong></td>
-                            <td><span ng-bind="model.mobiles.Price"></span></td>
-                        </tr>
-                        <!-- #endregion -->
-                    </tbody>
-                </table>
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Technology</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Technology"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>2G Bands</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Network2GBands"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4><strong>3G Bands</strong></h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Network3GBands"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>4G Bands</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Network4GBands"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4><strong>Speed</strong></h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Speed"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>GPRS</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Gprs"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>EDGE</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Edge"></span>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- #endregion -->
+    <!-- #region Launch -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>LAUNCH</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Announced</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Announced"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Status</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Status"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region Body -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>BODY</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Dimensions</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Dimensions"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Weight</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Weight"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>SIM</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.SIM"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Miscellaneous Body</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.MiscellaneousBody"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region Display -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>DISPLAY</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Type</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.DisplayType"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Size</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.DisplaySize"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Resolution</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.DisplayResolution"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Multitouch</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Multitouch"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Protection</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Protection"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region Platform -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>PLATFORM</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>OS</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.OS"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Chipset</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Chipset"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>CPU</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Cpu"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>GPU</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Gpu"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region Memory -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>MEMORY</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Card Slot</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.CardSlot"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Internal</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.InternalMemory"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region Camera -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>CAMERA</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Primary</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.PrimaryCamera"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Features</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.CameraFeatures"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Video</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Video"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Secondary</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Secondary"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region Sound -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>SOUND</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Alert Types</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.AlertTypes"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Loudspeaker</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Loudspeaker"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>3.5mm Jack</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Sound3Point5MmJack"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Miscellaneous Sound</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.MiscellaneousSound"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region Communication -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>COMMUNICATION</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>WLAN</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Wlan"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Bluetooth</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Bluetooth"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>GPS</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Gps"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>NFC</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Nfc"></span>
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Radio</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Radio"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>USB</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Usb"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region Features -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>FEATURES</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Sensors</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Sensors"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Messaging</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Messaging"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Browser</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Browser"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Java</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Java"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Miscellaneous Features</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.MiscellaneousFeatures"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region BATTERY -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>BATTERY</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Miscellaneous Battery</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.MiscellaneousBattery"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Stand-by</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.StandBy"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Talk Time</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.BatteryTalkTime"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Music Play</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.BatteryMusicPlay"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- #region MISCELLANEOUS -->
+    <div class="ibox">
+        <div class="ibox-content">
+            <h3>
+                <button type="button" class="btn btn-warning btn-xs"><strong>MISCELLANEOUS</strong></button>
+            </h3>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>Colors</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Colours"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>SAR</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.Sar"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>
+                        <strong>SAR EU</strong>
+                    </h4>
+                </div>
+                <div class="col-lg-6">
+                    <span ng-bind="model.mobiles.SarEu"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+</div>

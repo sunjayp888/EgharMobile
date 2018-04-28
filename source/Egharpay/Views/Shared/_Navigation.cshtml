@@ -44,8 +44,7 @@
                     <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("Index", "Trend")">Trend</a></li>
                 </ul>
             </li>
-            @if (User.IsSuperUserOrAdmin())
-            {
+           
                 <li class="@Html.IsSelected(controller: "Centre")">
                     <a href="@Url.Action("Index", "Centre")"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Apartments</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Dashboards", cssClass: "in")">
@@ -256,7 +255,7 @@
                 <li class="special_link @Html.IsSelected(controller: " Json")">
                     <a href="@Url.Action("Index", "Json")"><i class="fa fa-plug"></i> <span class="nav-label">JSON Examples</span></a>
                 </li>
-            }
+            
         </ul>
     </div>
 </nav>

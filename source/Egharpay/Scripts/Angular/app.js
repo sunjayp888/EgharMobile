@@ -18,7 +18,8 @@
         'ui.select',
         'checklist-model',
         'infinite-scroll',
-        'angularSpinner'
+        'angularSpinner',
+        'ngGeolocation'
     ]);
 
 })();
