@@ -1,6 +1,6 @@
 /*
  *
- *   INSPINIA - Responsive Admin Theme
+ *   Mumbile - Responsive Admin Theme
  *   version 2.7
  *
  */

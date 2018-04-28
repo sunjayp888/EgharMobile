@@ -31,7 +31,7 @@ namespace Egharpay.Business.Services
                 {
                     Description = item.Snippet.Description,
                     Title = item.Snippet.Title,
-                    URL = $"http://www.youtube.com/embed/{item.Id.VideoId}"
+                    URL = $"https://www.youtube.com/embed/{item.Id.VideoId}"
                 });
             }
             return youtube;

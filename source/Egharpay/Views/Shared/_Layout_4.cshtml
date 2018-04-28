@@ -5,8 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>INSPINIA | @ViewBag.Title</title>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <title>Mumbile | @ViewBag.Title</title>
     <!-- Add local styles, mostly for plugins css file -->
     @if (IsSectionDefined("Styles"))
         {@RenderSection("Styles", required: false)}
@@ -14,7 +13,7 @@
     <!-- Add jQuery Style direct - used for jQGrid plugin -->
     <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
 
-    <!-- Primary Inspinia style -->     
+    <!-- Primary Mumbile style -->     
     @Styles.Render("~/font-awesome/Styles")                                                
     @Styles.Render("~/Content/Styles")
 </head>
@@ -51,7 +50,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/plugins/slimScroll")
-    @Scripts.Render("~/bundles/inspinia")
+    @Scripts.Render("~/bundles/Mumbile")
 
     <!-- Skin config script - only for demo purpose-->
     @Scripts.Render("~/bundles/skinConfig")

@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "INSPINIA 2.4"
+    "name": "Mumbile 2.4"
   },
   "nav": {
     "dashboard": "Salpicadero",
@@ -32,7 +32,7 @@
     "messageinfo": "Usted tiene 42 mensajes y 6 notificaciones.",
     "search": "Buscar algo...",
     "logout": "Cerrar sesión",
-    "welcometext": "Bienvenido a INSPINIA + administración Tema.",
+    "welcometext": "Bienvenido a Mumbile + administración Tema.",
     "language": "Lenguaje"
   },
   "demo": {

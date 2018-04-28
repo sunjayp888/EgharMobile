@@ -49,7 +49,7 @@ namespace Egharpay
 
                 ));
 
-            // CSS style (bootstrap/inspinia)
+            // CSS style (bootstrap/Mumbile)
             bundles.Add(new StyleBundle("~/Content/Styles").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/animate.css",
@@ -84,13 +84,13 @@ namespace Egharpay
             //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
             //          "~/Scripts/bootstrap.min.js"));
 
-            // Inspinia script
-            bundles.Add(new ScriptBundle("~/bundles/inspinia").Include(
+            // Mumbile script
+            bundles.Add(new ScriptBundle("~/bundles/Mumbile").Include(
                       "~/Scripts/plugins/metisMenu/metisMenu.min.js",
                       "~/Scripts/plugins/pace/pace.min.js"
-                      /*"~/Scripts/app/inspinia.js"*/));
+                      /*"~/Scripts/app/Mumbile.js"*/));
 
-            // Inspinia skin config script
+            // Mumbile skin config script
             bundles.Add(new ScriptBundle("~/bundles/skinConfig").Include(
                       "~/Scripts/app/skin.config.min.js"));
 
