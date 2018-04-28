@@ -82,6 +82,8 @@
 
         function searchMobiles() {
             //vm.searchKeyword = searchKeyword;
+            if (vm.searchKeyword === "")
+                return;
             $window.location.href = "/Home/Mobile/" + vm.searchKeyword;
             //return HomeService.searchMobiles(searchKeyword);
         }
