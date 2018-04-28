@@ -9,9 +9,9 @@
         }]);
 
 
-    MobileController.$inject = ['$window', 'GoogleService', 'usSpinnerService', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location', '$geolocation'];
+    MobileController.$inject = ['$window', 'GoogleService', 'usSpinnerService', 'MobileService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order', '$location'];
 
-    function MobileController($window, GoogleService, usSpinnerService, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location, $geolocation) {
+    function MobileController($window, GoogleService, usSpinnerService, MobileService, AddressService, Paging, OrderService, OrderBy, Order, $location) {
         /* jshint validthis:true */
         var vm = this;
         vm.mobiles = [];
@@ -182,6 +182,7 @@
         }
 
         function detailMobile(mobileId) {
+            geoLocation();
             return MobileService.detailMobile(mobileId).then(function (response) {
                 vm.mobiles = response.data;
                 return vm.mobiles;
@@ -190,8 +191,12 @@
 
         function addPincode() {
             geoLocation();
-            $("#txtSearchPincode").val(vm.Address.PinCode);
-            vm.searchKeyword = vm.Address.PinCode;
+            if(vm.Address.PinCode!==undefined)
+            {
+                $("#txtSearchPincode").val(vm.Address.PinCode);
+                vm.searchKeyword = vm.Address.PinCode;
+                usSpinnerService.stop('locationSpinner');
+            }   
         }
 
         function geoLocation() {
@@ -207,12 +212,10 @@
                             var locationDetails = data.results[0].formatted_address;
                             var value = locationDetails.split(",");
                             count = value.length;
-                            country = value[count - 1];
-                            state = value[count - 2];
-                            city = value[count - 3];
-                            pin = state.split(" ");
-                            vm.pinCode = pin[pin.length - 1];
-                            state = state.replace(pinCode, ' ');
+                            vm.country = value[count - 1];
+                            vm.state = value[count - 2];
+                            vm.city = value[count - 3];
+                            vm.pinCode = data.results[0].address_components[7].long_name;
                             vm.currentAddress = locationDetails;
                             vm.Address = { City: city, State: state, Country: country, PinCode: vm.pinCode }
                         }
@@ -354,22 +357,18 @@
                });
         }
 
-        function retrieveSellersFromGeoLocation() {
-            $geolocation.getCurrentPosition({
-                timeout: 60000
-            }).then(function (position) {
-                alert(position);
-                return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
-                         .then(function (response) {
-                             vm.sellers = response.data.Items;
-                             vm.paging.totalPages = response.data.TotalPages;
-                             vm.paging.totalResults = response.data.TotalResults;
-                             vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
-                             return vm.sellers;
-                         });
-            });
+      function retrieveSellersFromGeoLocation() {
+            geoLocation();
+            return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
+                           .then(function (response) {
+                               vm.sellers = response.data.Items;
+                               vm.paging.totalPages = response.data.TotalPages;
+                               vm.paging.totalResults = response.data.TotalResults;
+                               vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
+                               return vm.sellers;
+                           });
         }
-
+ 
         function createAddress() {
             var address = {
                 FullName: vm.fullname,
@@ -393,7 +392,6 @@
                         $('#projectErrorSummary').show();
                         vm.showErrorSummary = true;
                         vm.Errors = response.data;
-
                     }
                 });
         }
@@ -434,7 +432,5 @@
                     address.IsChecked = false;
             });
         };
-
-
     }
 })();
