@@ -22,6 +22,7 @@
         vm.initialise = initialise;
         vm.readMore = readMore;
         vm.isreadMore = false;
+        vm.errorMessages = [];
 
         function initialise() {
             vm.orderBy.property = "Name";
@@ -63,13 +64,21 @@
             });
         }
 
-        function createTrendComment(trend, trendComment) {
+        function createTrendComment(trend, trendComment,isLoggedin) {
+            vm.errorMessages=[];
+            if (!trendComment) vm.errorMessages.push('please enter comment.');
+            if (vm.errorMessages.length > 0) return;
+            if (!isLoggedin) {
+                window.location.href = "/Account/login?returnUrl=" + window.location.pathname;
+            }
           //  vm.trendComment = trendComment;
+            else{
             var trendCommentData= {
                 TrendId: trend.TrendId,
                 Comment:trendComment
             }
             return TrendService.createTrendComment(trendCommentData);
+            }
         }
 
         function readMore(trend) {
