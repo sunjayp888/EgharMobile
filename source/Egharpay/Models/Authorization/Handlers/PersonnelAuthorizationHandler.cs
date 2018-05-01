@@ -34,7 +34,7 @@ namespace Egharpay.Models.Authorization.Handlers
             if (context.User.IsSuperUser())
                 hasPermission = true;
            
-            else if (context.User.IsPersonnel())
+            else if (context.User.IsPersonnel() || context.User.IsSeller() || context.User.IsMobileRepairAdmin())
                 hasPermission = await _authorizationBusinessService.CanAccessPersonnel(context.User.Identity.GetUserId(), resource);
 
 

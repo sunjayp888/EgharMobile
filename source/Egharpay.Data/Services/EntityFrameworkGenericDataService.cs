@@ -59,7 +59,7 @@ namespace Egharpay.Data.Services
 
             if (orderBy != null)
                 query = query.OrderBy(orderBy);
-
+            
             return query;
         }
 

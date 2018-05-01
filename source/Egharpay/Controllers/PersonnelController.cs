@@ -20,7 +20,7 @@ using Egharpay.Business.Enum;
 
 namespace Egharpay.Controllers
 {
-    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel, Role.MobileRepairAdmin })]
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel, Role.MobileRepairAdmin,Role.Seller })]
     public class PersonnelController : BaseController
     {
         private readonly IPersonnelBusinessService _personnelBusinessService;
