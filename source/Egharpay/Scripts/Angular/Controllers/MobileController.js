@@ -162,7 +162,7 @@
             //if (vm.searchKeyword) {
             //    return searchMobile(vm.searchKeyword)();
             //}
-            return retrieveSellersFromGeoLocation();
+            return geoLocation();
         }
 
         function sellerMobileOrderClass(property) {
@@ -191,12 +191,11 @@
 
         function addPincode() {
             geoLocation();
-            if(vm.Address.PinCode!==undefined)
-            {
+            if (vm.Address.PinCode !== undefined) {
                 $("#txtSearchPincode").val(vm.Address.PinCode);
                 vm.searchKeyword = vm.Address.PinCode;
                 usSpinnerService.stop('locationSpinner');
-            }   
+            }
         }
 
         function geoLocation() {
@@ -213,11 +212,12 @@
                             var value = locationDetails.split(",");
                             count = value.length;
                             vm.country = value[count - 1];
-                            vm.state = value[count - 2];
+                            vm.state = value[count - 2].trim().split(" ")[0];
                             vm.city = value[count - 3];
-                            vm.pinCode = data.results[0].address_components[7].long_name;
+                            vm.pinCode = value[count - 2].trim().split(" ")[1];
                             vm.currentAddress = locationDetails;
                             vm.Address = { City: city, State: state, Country: country, PinCode: vm.pinCode }
+                            retrieveSellersFromGeoLocation();
                         }
                         else {
                             vm.Address = { Error: "No location available for provided details." }
@@ -231,17 +231,19 @@
 
         function searchSeller(searchKeyword) {
             vm.searchKeyword = searchKeyword == undefined ? vm.searchKeyword : searchKeyword;
-            vm.orderBy.property = "Name";
-            vm.orderBy.direction = "Ascending";
-            vm.orderBy.class = "asc";
-            return MobileService.searchSeller(vm.searchKeyword, vm.paging, vm.orderBy)
-                .then(function (response) {
-                    vm.sellers = response.data.Items;
-                    vm.paging.totalPages = response.data.TotalPages;
-                    vm.paging.totalResults = response.data.TotalResults;
-                    vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
-                    return vm.sellers;
-                });
+            //vm.orderBy.property = "Name";
+            //vm.orderBy.direction = "Ascending";
+            //vm.orderBy.class = "asc";
+            vm.pinCode = vm.searchKeyword;
+            retrieveSellersFromGeoLocation();
+            //return MobileService.searchSeller(vm.searchKeyword, vm.paging, vm.orderBy)
+            //    .then(function (response) {
+            //        vm.sellers = response.data.Items;
+            //        vm.paging.totalPages = response.data.TotalPages;
+            //        vm.paging.totalResults = response.data.TotalResults;
+            //        vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
+            //        return vm.sellers;
+            //    });
         }
 
         function requestOrder(mobileId, sellerId, isLoggedin) {
@@ -357,18 +359,18 @@
                });
         }
 
-      function retrieveSellersFromGeoLocation() {
-            geoLocation();
+        function retrieveSellersFromGeoLocation() {
             return MobileService.retrieveSellersFromGeoLocation(vm.pinCode, vm.latitude, vm.longitude, vm.paging, vm.orderBy)
                            .then(function (response) {
                                vm.sellers = response.data.Items;
                                vm.paging.totalPages = response.data.TotalPages;
                                vm.paging.totalResults = response.data.TotalResults;
                                vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
+                               usSpinnerService.stop('locationSpinner');
                                return vm.sellers;
                            });
         }
- 
+
         function createAddress() {
             var address = {
                 FullName: vm.fullname,
