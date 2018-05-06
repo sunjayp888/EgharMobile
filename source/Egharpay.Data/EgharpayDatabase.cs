@@ -60,6 +60,7 @@ namespace Egharpay.Data
         public virtual DbSet<MobileRepairGrid> MobileRepairGrids { get; set; }
         public virtual DbSet<AvailableMobileRepairAdmin> AvailableMobileRepairAdmins { get; set; }
         public virtual DbSet<MobileRepairAdminPersonnel> MobileRepairAdminPersonnels { get; set; }
+        public virtual DbSet<Search> Searches { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -997,6 +998,30 @@ namespace Egharpay.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<SellerGrid>()
+                .Property(e => e.SearchField)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+               .Property(e => e.MobileName)
+               .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.SellerName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.SellerAddress)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.Pincode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<SellerMobileGrid>()
+                .Property(e => e.SellerDistance)
+                .HasPrecision(1, 1);
+
+            modelBuilder.Entity<SellerMobileGrid>()
                 .Property(e => e.SearchField)
                 .IsUnicode(false);
         }

@@ -17,5 +17,7 @@ namespace Egharpay.Entity
 
         [StringLength(50)]
         public string NumberOfDevice { get; set; }
+
+        public bool IsTopSellingBrand { get; set; }
     }
 }

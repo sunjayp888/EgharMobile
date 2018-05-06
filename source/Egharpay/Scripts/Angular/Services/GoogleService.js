@@ -3,11 +3,11 @@
 
     angular
         .module('Egharpay')
-        .factory('RegisterService', RegisterService);
+        .factory('GoogleService', GoogleService);
 
-    RegisterService.$inject = ['$http'];
+    GoogleService.$inject = ['$http'];
 
-    function RegisterService($http) {
+    function GoogleService($http) {
         var service = {
             getLocation: getLocation
         };

@@ -64,14 +64,13 @@
         function markAsCompleted(mobileRepairId) {
             var url = "/MobileRepair/MarkAsCompleted",
             data = {
-                mobileRepairId: mobileRepairId,
-                mobileRepairStateId: mobileRepairStateId
+                mobileRepairId: mobileRepairId
             };
             return $http.post(url, data);
         }
 
         function markAsCancelled(mobileRepairId) {
-            var url = "/MobileRepair/MarkAsCompleted",
+            var url = "/MobileRepair/MarkAsCancelled",
             data = {
                 mobileRepairId: mobileRepairId
             };

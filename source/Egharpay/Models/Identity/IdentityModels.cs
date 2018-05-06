@@ -22,11 +22,13 @@ namespace Egharpay.Models.Identity
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("EmailConfirmed", this.EmailConfirmed.ToString()));
             return userIdentity;
         }
 
         public string Name { get; set; }
         public int? PersonnelId { get; set; }
+       
     }
 
     #region Permissions May possible moved

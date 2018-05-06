@@ -30,7 +30,8 @@ namespace Egharpay
                 "~/bower_components/ngBootbox/ngBootbox.js",
                 "~/bower_components/ion.rangeSlider/js/ion.rangeSlider.min.js",
                 "~/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js",
-                 "~/bower_components/angular-spinner/dist/angular-spinner.min.js"
+                "~/bower_components/angular-spinner/dist/angular-spinner.min.js",
+                "~/bower_components/ngGeolocation/ngGeolocation.js"
                 //"~/bower_components/ez-plus/src/jquery.ez-plus.js"
                 //"~/bower_components/angular-ez-plus/js/angular-ezplus.js"
                 ));
@@ -48,7 +49,7 @@ namespace Egharpay
 
                 ));
 
-            // CSS style (bootstrap/inspinia)
+            // CSS style (bootstrap/Mumbile)
             bundles.Add(new StyleBundle("~/Content/Styles").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/animate.css",
@@ -83,13 +84,13 @@ namespace Egharpay
             //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
             //          "~/Scripts/bootstrap.min.js"));
 
-            // Inspinia script
-            bundles.Add(new ScriptBundle("~/bundles/inspinia").Include(
+            // Mumbile script
+            bundles.Add(new ScriptBundle("~/bundles/Mumbile").Include(
                       "~/Scripts/plugins/metisMenu/metisMenu.min.js",
                       "~/Scripts/plugins/pace/pace.min.js"
-                      /*"~/Scripts/app/inspinia.js"*/));
+                      /*"~/Scripts/app/Mumbile.js"*/));
 
-            // Inspinia skin config script
+            // Mumbile skin config script
             bundles.Add(new ScriptBundle("~/bundles/skinConfig").Include(
                       "~/Scripts/app/skin.config.min.js"));
 
@@ -113,7 +114,7 @@ namespace Egharpay
             bundles.Add(new ScriptBundle("~/plugins/lightboxGallery").Include(
                       "~/Scripts/plugins/blueimp/jquery.blueimp-gallery.min.js"));
 
-            
+
 
             // iCheck css styles
             bundles.Add(new StyleBundle("~/Content/plugins/iCheck/iCheckStyles").Include(
@@ -131,11 +132,11 @@ namespace Egharpay
             bundles.Add(new ScriptBundle("~/plugins/dataTables").Include(
                       "~/Scripts/plugins/dataTables/datatables.min.js"));
 
-           
+
             // validate 
             bundles.Add(new ScriptBundle("~/plugins/validate").Include(
                       "~/Scripts/plugins/validate/jquery.validate.min.js"));
-            
+
             // ionRange styles
             //bundles.Add(new StyleBundle("~/Content/plugins/ionRangeSlider/ionRangeStyles").Include(
             //          "~/Content/plugins/ionRangeSlider/ion.rangeSlider.css",
@@ -153,7 +154,7 @@ namespace Egharpay
             bundles.Add(new ScriptBundle("~/plugins/dataPicker").Include(
                       "~/Scripts/plugins/datapicker/bootstrap-datepicker.js"));
 
-            
+
             // image cropper
             bundles.Add(new ScriptBundle("~/plugins/imagecropper").Include(
                       "~/Scripts/plugins/cropper/cropper.min.js"));

@@ -133,7 +133,7 @@ namespace Egharpay.Business.Services
             if (!string.IsNullOrEmpty(email))
                 personnels = await _dataService.RetrieveAsync<Personnel>(a => a.Email.ToLower() == email.ToLower());
             var alreadyExists = personnels.Any();
-            return new ValidationResult<Personnel>  
+            return new ValidationResult<Personnel>
             {
                 Succeeded = !alreadyExists,
                 Errors = alreadyExists ? new List<string> { "User already exists." } : null,
@@ -141,10 +141,14 @@ namespace Egharpay.Business.Services
             };
         }
 
-        //public async Task<PagedResult<PersonnelGrid>> Search(int centreId, string term, List<OrderBy> orderBy = null, Paging paging = null)
-        //{
-        //    return await _dataService.RetrievePagedResultAsync<PersonnelGrid>(a => a.CentreId == centreId && a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
-        //}
+        public async Task<PagedResult<Personnel>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            return await _dataService.RetrievePagedResultAsync<Personnel>(a =>
+            a.Mobile.ToLower().Contains(term.ToLower())
+            || a.Forenames.Replace(" ", "").ToLower().Contains(term.ToLower())
+            || a.Surname.Replace(" ", "").ToLower().Contains(term.ToLower())
+            , orderBy, paging);
+        }
 
 
         public async Task<Personnel> RetrievePersonnel(string userId)

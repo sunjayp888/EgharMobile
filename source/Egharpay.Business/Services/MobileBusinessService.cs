@@ -10,6 +10,7 @@ using Egharpay.Business.Dto;
 using Egharpay.Business.Extensions;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
+using Egharpay.Data.Extensions;
 using Egharpay.Data.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
@@ -130,13 +131,9 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<Mobile>> Search(string term = null, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            if (!string.IsNullOrEmpty(term))
-            {
-                var data = await _dataService.RetrievePagedResultAsync<MobileGrid>(a => a.SearchField.Replace(" ", "").ToLower().Contains(term.Replace(" ", "").ToLower()), orderBy, paging);
-                return _mapper.MapToPagedResult<Models.Mobile>(data);
-            }
-            var result = await _dataService.RetrievePagedResultAsync<MobileGrid>(e => true);
-            return _mapper.MapToPagedResult<Models.Mobile>(result);
+            var data = await _dataService.Search(term, orderBy, paging);
+            var mobiles = _mapper.MapToList<Mobile>(data);
+            return mobiles.AsQueryable().Paginate(paging);
         }
 
         public async Task<PagedResult<MobileGrid>> RetrieveMobilesByBrandId(int brandId, List<OrderBy> orderBy = null, Paging paging = null)
@@ -153,15 +150,7 @@ namespace Egharpay.Business.Services
 
         public async Task<IEnumerable<MetaSearchKeyword>> RetrieveMetaSearchKeyword()
         {
-            try
-            {
-                return await _dataService.RetrieveAsync<MetaSearchKeyword>(e => true);
-            }
-            catch (Exception exception)
-            {
-                throw new Exception();
-            }
-
+            return await _dataService.RetrieveAsync<MetaSearchKeyword>(e => true);
         }
 
         private ExpressionStarter<Entity.Mobile> BuildMobileSearchPredicate(Filter filter)

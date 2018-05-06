@@ -19,13 +19,11 @@ namespace Egharpay.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MobileId { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
         [StringLength(500)]
         public string MobileName { get; set; }
 
         [Key]
-        [Column(Order = 3)]
+        [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SellerId { get; set; }
 
@@ -37,7 +35,7 @@ namespace Egharpay.Entity
         public decimal? DiscountPrice { get; set; }
 
         [Key]
-        [Column(Order = 4)]
+        [Column(Order = 3)]
         public DateTime CreatedDateTime { get; set; }
 
         public bool? EMIAvailable { get; set; }
@@ -45,8 +43,6 @@ namespace Egharpay.Entity
         [StringLength(1052)]
         public string SellerAddress { get; set; }
 
-        [Key]
-        [Column(Order = 5)]
         [StringLength(50)]
         public string Pincode { get; set; }
 
@@ -55,7 +51,7 @@ namespace Egharpay.Entity
         public double? Longitude { get; set; }
 
         [Key]
-        [Column(Order = 6, TypeName = "numeric")]
+        [Column(Order = 4, TypeName = "numeric")]
         public decimal SellerDistance { get; set; }
 
         [StringLength(1060)]

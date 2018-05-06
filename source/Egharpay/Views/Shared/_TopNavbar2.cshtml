@@ -5,21 +5,22 @@
                 <div class="col-lg-2" id="brand">
                     <a href="~/Home" class="navbar-brand"><strong>mumbile</strong></a>
                 </div>
+
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left form-inline" role="search">
                         <div class="form-group">
+                            <a href="~/Home"  class="btn btn-primary mobile-logo mobile-view">
+                                <strong>m</strong>
+                            </a>
                             <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search" />
-
                             <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
                                 <i class="fa fa-search"></i>
                             </button>
-
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <a id="mobileOrderButton" class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder"> Order </span></a>
                             }
-
-                            <a class="btn btn-danger xs-ml-8" ng-href="/MobileRepair"><i class="fa fa-wrench "></i> <span id="spanOrder">Repair Phone</span></a>
+                            <a class="btn btn-danger xs-ml-8 web-view" ng-href="/MobileRepair"><i class="fa fa-wrench "></i> <span id="spanOrder">Repair Phone</span></a>
                             <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartoggle">
                                 <i class="fa fa-tasks"></i>
                             </button>

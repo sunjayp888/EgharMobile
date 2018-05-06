@@ -12,9 +12,10 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="alert alert-danger alert-dismissable">
-                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                                     <span><i class="fa fa-map-marker"></i></span>
-                                    Your current location : <span ng-bind="model.currentAddress"></span>
+                                    Your current location :
+                                    <span us-spinner spinner-key="locationSpinner" spinner-start-active="true" spinner-theme="smallRed"></span>
+                                    <span ng-bind="model.currentAddress"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -51,7 +52,7 @@
                                             <td><span ng-bind="seller.SellerAddress"></span></td>
                                             <td><span ng-bind="seller.SellerDistance"></span></td>
                                             <td><h3 ng-bind="seller.DiscountPrice"></h3></td>
-                                            <td><button class="btn btn-danger" data-toggle="modal" ng-click="model.requestOrder(@Model.MobileId,seller.SellerId,'@User.Identity.IsAuthenticated==true')"> Request Deal</button></td>
+                                            <td><button class="btn btn-danger" data-toggle="modal" ng-click="model.requestOrder(@Model.MobileId,seller.SellerId,true)"> Request Deal</button></td>
                                         </tr>
                                     </table>
                                     @*<button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestOrder(@Model.MobileId)" data-toggle="modal" data-target="#myModal5" ng-disabled="model.isAssignButtonEnable">Request Seller</button>*@

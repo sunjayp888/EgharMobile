@@ -37,6 +37,9 @@ namespace Egharpay.Data.Interfaces
         Task<PagedResult<T>> RetrievePagedResultAsync<T>(Expression<Func<T, bool>> predicate,
             List<OrderBy> orderBy = null, Paging paging = null, params Expression<Func<T, object>>[] includeExpression)
             where T : class;
+
+        Task<PagedResult<T>> RetrieveStoreProcPagedResultAsync<T>(Expression<Func<T, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null) where T : class;
+
         void Update<T>(T entity) where T : class;
         Task UpdateAsync<T>(T entity) where T : class;
 

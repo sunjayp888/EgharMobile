@@ -1,6 +1,6 @@
 ﻿/*
  *
- *   INSPINIA - Responsive Admin Theme
+ *   Mumbile - Responsive Admin Theme
  *   version 2.7
  *
 */
@@ -2528,7 +2528,7 @@ label.error {
   margin-bottom: 20px;
 }
 /* Notifie */
-.cg-notify-message.inspinia-notify {
+.cg-notify-message.Mumbile-notify {
   background: #fff;
   padding: 0;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -2538,16 +2538,16 @@ label.error {
   margin-top: 30px;
   color: inherit;
 }
-.inspinia-notify.alert-warning {
+.Mumbile-notify.alert-warning {
   border-left: 6px solid #f8ac59;
 }
-.inspinia-notify.alert-success {
+.Mumbile-notify.alert-success {
   border-left: 6px solid #1c84c6;
 }
-.inspinia-notify.alert-danger {
+.Mumbile-notify.alert-danger {
   border-left: 6px solid #ED5565;
 }
-.inspinia-notify.alert-info {
+.Mumbile-notify.alert-info {
   border-left: 6px solid #1ab394;
 }
 /* Image cropper style */
@@ -6812,7 +6812,7 @@ body.body-small .vote-icon {
 }
 /*
  *
- *   INSPINIA Landing Page - Responsive Admin Theme
+ *   Mumbile Landing Page - Responsive Admin Theme
  *   Copyright 2014 Webapplayers.com
  *
 */
@@ -7751,7 +7751,7 @@ body.rtls.top-navigation .footer.fixed {
 }
 /*
  *
- *   SKIN 1 - INSPINIA - Responsive Admin Theme
+ *   SKIN 1 - Mumbile - Responsive Admin Theme
  *   NAME - Blue light
  *
 */
@@ -7857,8 +7857,8 @@ body.skin-1 {
 }
 /*
  *
- *   SKIN 2 - INSPINIA - Responsive Admin Theme
- *   NAME - Inspinia Ultra
+ *   SKIN 2 - Mumbile - Responsive Admin Theme
+ *   NAME - Mumbile Ultra
  *
 */
 body.skin-2 {
@@ -8007,7 +8007,7 @@ body.skin-2 #wrapper {
 }
 /*
  *
- *   SKIN 3 - INSPINIA - Responsive Admin Theme
+ *   SKIN 3 - Mumbile - Responsive Admin Theme
  *   NAME - Yellow/purple
  *
 */
@@ -8555,7 +8555,7 @@ body.md-skin {
 }
 /*
  *
- *   INSPINIA - Responsive Admin Theme
+ *   Mumbile - Responsive Admin Theme
  *   version 2.7
  *
 */
@@ -9181,6 +9181,46 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
     margin-top: 0;
     margin-left: 15px !important;
     width: 300px !important;
+  }
+  .web-footer {
+    display: none;
+  }
+  .mobile-footer {
+    display: block !important;
+  }
+  .social-feed-image {
+    width: 750px;
+    height: 250px !important;
+  }
+  .web-view {
+    display: none !important;
+  }
+  .mobile-view {
+    display: inline-block !important;
+  }
+  .tab-pane .panel-body {
+    margin-top: 20px !important;
+  }
+  .carosel-home-height {
+    height: 250px !important;
+  }
+  .navbar-form {
+    padding: 10px 15px;
+    margin-top: -5px;
+    margin-right: -15px;
+    margin-bottom: 0px;
+    margin-left: -15px;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .mobile-logo {
+    margin-left: 8px;
+    margin-right: -10px;
+    margin-top: -16px;
+    height: 50px;
+    font-size: 30px;
   }
 }
 @media (max-width: 592px) {
@@ -11125,7 +11165,7 @@ label.error {
   margin-bottom: 20px;
 }
 /* Notifie */
-.cg-notify-message.inspinia-notify {
+.cg-notify-message.Mumbile-notify {
   background: #fff;
   padding: 0;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -11135,16 +11175,16 @@ label.error {
   margin-top: 30px;
   color: inherit;
 }
-.inspinia-notify.alert-warning {
+.Mumbile-notify.alert-warning {
   border-left: 6px solid #f8ac59;
 }
-.inspinia-notify.alert-success {
+.Mumbile-notify.alert-success {
   border-left: 6px solid #1c84c6;
 }
-.inspinia-notify.alert-danger {
+.Mumbile-notify.alert-danger {
   border-left: 6px solid #ed5565;
 }
-.inspinia-notify.alert-info {
+.Mumbile-notify.alert-info {
   border-left: 6px solid #1ab394;
 }
 /* Image cropper style */
@@ -12247,13 +12287,6 @@ video {
   padding: 0 15px;
   min-height: 568px;
   position: relative !important;
-}
-@media (min-width: 768px) {
-  #page-wrapper {
-    position: inherit;
-    margin: 0 0 0 240px;
-    min-height: 2002px;
-  }
 }
 .title-action {
   text-align: right;
@@ -15411,7 +15444,7 @@ body.body-small .vote-icon {
 }
 /*
  *
- *   INSPINIA Landing Page - Responsive Admin Theme
+ *   Mumbile Landing Page - Responsive Admin Theme
  *   Copyright 2014 Webapplayers.com
  *
 */
@@ -16351,7 +16384,7 @@ body.rtls.top-navigation .footer.fixed {
 }
 /*
  *
- *   SKIN 1 - INSPINIA - Responsive Admin Theme
+ *   SKIN 1 - Mumbile - Responsive Admin Theme
  *   NAME - Blue light
  *
 */
@@ -16457,8 +16490,8 @@ body.skin-1 {
 }
 /*
  *
- *   SKIN 2 - INSPINIA - Responsive Admin Theme
- *   NAME - Inspinia Ultra
+ *   SKIN 2 - Mumbile - Responsive Admin Theme
+ *   NAME - Mumbile Ultra
  *
 */
 body.skin-2 {
@@ -16607,7 +16640,7 @@ body.skin-2 #wrapper {
 }
 /*
  *
- *   SKIN 3 - INSPINIA - Responsive Admin Theme
+ *   SKIN 3 - Mumbile - Responsive Admin Theme
  *   NAME - Yellow/purple
  *
 */
@@ -17041,7 +17074,7 @@ body.md-skin {
   #page-wrapper {
     position: inherit;
     margin: 0 0 0 220px;
-    min-height: 1200px;
+    min-height: 1000px;
   }
   .navbar-static-side {
     z-index: 2001;
@@ -17345,7 +17378,7 @@ body.md-skin {
   overflow: hidden;
 }
 .carosel-home-height {
-  height: 350px !important;
+  height: 350px;
 }
 .navbar-form .form-control {
   display: inline-block;
@@ -17566,4 +17599,35 @@ body.md-skin {
 }
 .margin-top-override {
   margin-top: 60px;
+}
+.social-feed-image {
+  width: 750px;
+  height: 400px;
+}
+.navbar-fixed-bottom {
+  position: fixed !important;
+}
+.mobile-footer {
+  display: none;
+}
+.spinner-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+.validation-summary-valid {
+  display: none !important;
+}
+.validation-summary-valid.validation-summary-errors {
+  display: block;
+}
+.mobile-view {
+  display: none;
+}
+.xs-ml-20 {
+  margin-left: 20px;
+}
+.mobile-logo {
+  margin-left: 8px;
+  margin-right: -10px;
 }

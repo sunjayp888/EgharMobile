@@ -46,6 +46,20 @@
                 @Html.Partial("_Filter")
             </div>
             <div class="col-lg-10">
+                @if (User.IsSuperUserOrAdminOrSeller())
+                {
+                    <div class="row m-b-sm m-t-sm">
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchMobile(searchField)"> <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchMobile(searchField)"> Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="project-list">
+                        </div>
+                    </div>
+                }
                 @Html.Partial("_MobileList")
             </div>
         </div>

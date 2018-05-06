@@ -218,6 +218,24 @@ namespace Egharpay.Data.Services
             }
         }
 
+
+        public virtual async Task<PagedResult<T>> RetrieveStoreProcPagedResultAsync<T>(Expression<Func<T, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null) where T : class
+        {
+            using (ReadUncommitedTransactionScopeAsync)
+            using (var context = _databaseFactory.CreateContext())
+            {
+                _genericDataService.Context = context;
+                try
+                {
+                    return await _genericDataService.RetrieveStoreProcPagedResultAsync<T>(predicate, orderBy, paging);
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
+
         #endregion
 
         #region Update

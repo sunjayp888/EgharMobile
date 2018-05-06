@@ -36,9 +36,9 @@
                         <div class="ibox-content border-left-right">
                             @*<img alt="image" class="img-responsive img-center" src="{{model.mobiles.ProfileImagePath}}" data-zoom-image="~/MobileImage/Acer/Acer Allegro/Acer-Allegro_2.jpg">*@
                             @*<img src="{{model.mobiles.ProfileImagePath}}"
-                                 wip-image-zoom="vm.options"
-                                 selected-model="vm.selected"
-                                 selected-index="vm.selectedIndex">*@
+                                wip-image-zoom="vm.options"
+                                selected-model="vm.selected"
+                                selected-index="vm.selectedIndex">*@
                             <img class="img-responsive img-center" wip-image-zoom="model.zoomOptions1" src="{{model.mobiles.ProfileImagePath}}">
                         </div>
 
@@ -47,35 +47,44 @@
                                 <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-camera"></i></button>
                                     <p>
-                                        <h3>
-                                            <strong><span ng-bind="model.mobiles.CameraPixel"></span>MP</strong>
-                                        </h3><span ng-bind="model.mobiles.VideoPixel"></span>
+                                        <h4>
+                                            <strong><span ng-bind="model.mobiles.PrimaryCamera==null ? 'N/A' : model.mobiles.PrimaryCamera + ' MP'"></span></strong>
+                                        </h4>
+                                        <h4>
+                                            <strong><span ng-bind="model.mobiles.SecondaryCamera==null ? 'N/A' : model.mobiles.SecondaryCamera + ' MP'"></span></strong>
+                                        </h4>
                                     </p>
                                 </div>
                                 <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-microchip"></i></button>
-                                    <p><h3><strong><span ng-bind="model.mobiles.RAM"></span> GB RAM</strong></h3>GB ROM</p>
+                                    <p><h4><strong><span ng-bind="model.mobiles.RAM==null ? 'N/A' : model.mobiles.RAM + ' GB'"></span></strong></h4></p>
                                 </div>
                                 <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-mobile"></i></button>
-                                    <p><h3><strong>"</strong></h3> Display</p>
+                                    <p><h4><strong><span ng-bind="model.mobiles.DisplayResolution==null ? 'N/A' : model.mobiles.DisplayResolution"></span></strong></h4></p>
                                 </div>
                             </div>
                             <div class="row m-t-lg">
                                 <div class="col-md-4 col-xs-4">
                                     <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-floppy-o"></i></button>
-                                    <p><h3><strong>GB</strong></h3> Internal Memory</p>
+                                    <p><h4><strong><span ng-bind="model.mobiles.InternalMemory==null ? 'N/A' : model.mobiles.InternalMemory"></span></strong></h4></p>
                                 </div>
                                 <div class="col-md-4 col-xs-4">
-                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-wrench"></i></button>
-                                    <p><h3><strong>Processor</strong></h3> Processor</p>
-                                </div>
-                                <div class="col-md-4 col-xs-4">
-                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-thermometer-2"></i></button>
+                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-cogs"></i></button>
                                     <p>
-                                        <h3>
+                                        <h4><strong><span ng-bind="model.mobiles.Chipset==null ? 'N/A' : model.mobiles.Chipset"></span></strong></h4>
+                                        <h4><strong><span ng-bind="model.mobiles.Cpu==null ? 'N/A' : model.mobiles.Cpu"></span></strong></h4>
+                                    </p>
+                                </div>
+                                <div class="col-md-4 col-xs-4">
+                                    <button class="btn btn-default dim btn-large-dim" type="button"><i class="fa fa-battery"></i></button>
+                                    <p>
+                                        <h4>
                                             <strong><span ng-bind="model.mobiles.BatterySize"></span> mAh</strong>
-                                        </h3><span ng-bind="model.mobiles.BatteryType"></span> Battery
+                                        </h4>
+                                        <h4>
+                                            <strong><span ng-bind="model.mobiles.BatteryType"></span> Battery</strong>
+                                        </h4>
                                     </p>
                                 </div>
                             </div>
@@ -91,12 +100,6 @@
                             </p>
                             <p>
                                 <i class="fa fa-briefcase"></i><strong> <span ng-bind="model.mobiles.Storage"></span></strong>
-                            </p>
-                            <h5>
-                                About me
-                            </h5>
-                            <p>
-                                Also known as Samsung Galaxy Note8 Duos with Dual SIM card slots.
                             </p>
 
                             @*<div class="user-button">
@@ -120,11 +123,16 @@
                         <li class=""><a data-toggle="tab" href="#tab-2"><strong> Gallery</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-3"><strong> Video</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-4"><strong> Reviews</strong></a></li>
-                        <li class=""><button ng-click="model.sellerMobileOrder()" class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to buy</strong></button></li>
-                        <li class="" id="compareButton"><button class="btn btn-compare" ng-click="model.compareMobile('@Model.BrandId','@Model.MobileId')"><strong> Compare</strong></button></li>
+                        @if (!User.IsSuperUserOrAdminOrSeller())
+                        {
+                            <li class=""><button ng-click="model.sellerMobileOrder()" class="btn btn-request-buy" data-toggle="tab" href="#tab-5"><strong> Request to seller</strong></button></li>
+                            <li class="" id="compareButton"><button class="btn btn-compare" ng-click="model.compareMobile('@Model.BrandId','@Model.MobileId')"><strong> Compare</strong></button></li>
+                        }
+
                         @*<li class=""><button class="btn btn-compare" data-toggle="modal" data-target="#compareModal"><strong> Compare</strong></button></li>*@
-                        @if (User.IsSuperUserOrAdminOrSeller()) {
-                        <li class="" id="addToStoreButton"><button class="btn btn-compare" data-toggle="tab" href="#tab-7"><strong> Add to store</strong></button></li>
+                        @if (User.IsSuperUserOrAdminOrSeller())
+                        {
+                            <li class=""><button class="btn btn-compare" data-toggle="tab" href="#tab-7"><strong> Add to store</strong></button></li>
                         }
                     </ul>
                     <div class="tab-content">

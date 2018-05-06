@@ -23,6 +23,7 @@
         vm.initialise = initialise;
         vm.brandName;
         vm.brandMobileLocation = brandMobileLocation;
+        vm.retrieveTopSellingBrands = retrieveTopSellingBrands;
 
         function initialise() {
             vm.orderBy.property = "Name";
@@ -76,6 +77,21 @@
         function brandMobileLocation(brandId, brandName) {
             vm.brandName = brandName;
             window.location.href = "/Mobile/BrandMobile/" + brandId;
+        }
+
+        function retrieveTopSellingBrands() {
+            if ($("#checkboxTopBrand").is(':checked')) {
+                return BrandService.retrieveTopSellingBrands(vm.orderBy)
+                    .then(function(response) {
+                        vm.brands = response.data.Items;
+                        //vm.paging.totalPages = response.data.TotalPages;
+                        //vm.paging.totalResults = response.data.TotalResults;
+                        vm.searchMessage = vm.brands.length === 0 ? "No Records Found" : "";
+                        return vm.brands;
+                    });
+            } else {
+               return retrieveBrands();
+            }
         }
     }
 })();

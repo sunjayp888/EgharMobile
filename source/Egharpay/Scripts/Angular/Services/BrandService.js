@@ -11,7 +11,8 @@
         var service = {
             retrieveBrands: retrieveBrands,
             retrieveMobileByBrandId: retrieveMobileByBrandId,
-            searchBrand: searchBrand
+            searchBrand: searchBrand,
+            retrieveTopSellingBrands: retrieveTopSellingBrands
         };
 
         return service;
@@ -40,6 +41,15 @@
                 data = {
                     brandId: BrandId,
                     paging: Paging,
+                    orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function retrieveTopSellingBrands(OrderBy) {
+            var url = "/Brand/TopSellingBrands",
+                data = {
+                    //paging: Paging,
                     orderBy: new Array(OrderBy)
                 };
             return $http.post(url, data);

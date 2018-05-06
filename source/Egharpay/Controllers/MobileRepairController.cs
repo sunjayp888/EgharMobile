@@ -91,8 +91,12 @@ namespace Egharpay.Controllers
         {
             try
             {
-                var data = await _mobileRepairBusinessService.RetrieveMobileRepairGrids(e => true, orderBy, paging);
-                return this.JsonNet(data);
+                if (User.IsMobileRepairAdmin())
+                {
+                    var userId = UserPersonnelId;
+                    return this.JsonNet(await _mobileRepairBusinessService.RetrieveMobileRepairGrids(e => e.MobileRepairAdminPersonnelId == userId, orderBy, paging));
+                }
+                return this.JsonNet(await _mobileRepairBusinessService.RetrieveMobileRepairGrids(e => true, orderBy, paging));
             }
             catch (Exception)
             {

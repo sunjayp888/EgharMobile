@@ -66,7 +66,7 @@ namespace Egharpay.Controllers
 
             //}
 
-            var brands = await _brandBusinessService.RetrieveBrands();
+            var brands = await _brandBusinessService.RetrieveBrands(e => true);
             var brandList = brands.Items.ToList();
             var viewModel = new MobileViewModel()
             {
@@ -99,11 +99,8 @@ namespace Egharpay.Controllers
             return View(mobileViewModel);
         }
 
-        // GET: Enquiry/View/{id}
         public async Task<ActionResult> Detail(int? id)
         {
-
-          //  await CreateTrend();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -272,7 +269,7 @@ namespace Egharpay.Controllers
                         var trendShortName = firstOrDefault?.Attributes[1].Value;
 
                         //Write File
-                        const string trendsDirectory = @"E:\MobileImage\TrendImage";
+                        const string trendsDirectory = @"G:\SanjayWorkArea\mumbile.com\mumbileapp\source\Egharpay\TrendImage";
                         var uri = new Uri(imageLink1);
                         var filename = f + imageLink1?.Split('/').Last();
                         if (uri.IsFile)

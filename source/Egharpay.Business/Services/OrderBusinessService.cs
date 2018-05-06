@@ -50,7 +50,7 @@ namespace Egharpay.Business.Services
                     CreatedDateTime = DateTime.Now,
                     MobileId = mobileId,
                     OrderGuid = Guid.NewGuid(),
-                    OrderStateId = 1,
+                    OrderStateId = (int)OrderState.Requested,
                     PersonnelId = personnelId,
                     ShippingAddressId = shippingAddressId
                 };
@@ -67,7 +67,7 @@ namespace Egharpay.Business.Services
                 var mobileData = await _mobileDataService.RetrieveByIdAsync<Entity.Mobile>(mobileId);
                 await SendOrderEmailToCustomer(orderEntity, customerPersonnel, mobileData);
                 await SendOrderEmailToSellers(orderEntity, sellers, customerPersonnel, mobileData);
-                //SendSms(order, sellerList, personnel, mobile);
+                SendOrderSms(order, sellers, customerPersonnel, mobileData);
                 validationResult.Succeeded = true;
             }
             catch (Exception ex)
@@ -131,21 +131,24 @@ namespace Egharpay.Business.Services
             }
         }
 
-        private void SendSms(Order order, Seller seller, Personnel personnel, Entity.Mobile mobile)
+        private void SendOrderSms(Order order, List<Seller> sellers, Personnel personnel, Entity.Mobile mobile)
         {
+            var sellerData = sellers.First();
             if (!string.IsNullOrEmpty(personnel.Mobile))
             {
                 //var msg = String.Format("Order Received: We have received your order request for {0} with order id {1}. Seller will contact you on {2}.", mobile.Name, order.OrderId, personnel.Mobile);
-                var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
+                var msg = $"Hi, we have received your request for {mobile.Name}.Seller {sellerData.Name} will contact you soon for best deal.";
                 _smsBusinessService.SendSMS(personnel.Mobile, msg);
             }
-            if (!string.IsNullOrEmpty(seller.Contact1.ToString()))
+            foreach (var seller in sellers)
             {
-                //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
-                var msg = "Dear Tanmay, Thank you for registring for Java, We have received Rs.18000 as your registration fees, Kindly visit Branch for enrollment process.";
-                _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
+                if (!string.IsNullOrEmpty(seller.Contact1.ToString()))
+                {
+                    //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
+                    var msg = $"Hi, {sellerData.Name} you have received a request for {mobile.Name}.Contact customer on {personnel.Mobile}.";
+                    _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
+                }
             }
-
         }
 
         public async Task<Order> RetrieveOrder(int orderId)
@@ -184,7 +187,7 @@ namespace Egharpay.Business.Services
             var validationResult = new ValidationResult<Order>();
             try
             {
-                order.OrderStateId = (int) OrderState.Cancelled;
+                order.OrderStateId = (int)OrderState.Cancelled;
                 await _dataService.UpdateAsync(order);
                 validationResult.Entity = order;
                 validationResult.Succeeded = true;
