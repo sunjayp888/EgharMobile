@@ -22,7 +22,7 @@ namespace Egharpay.Business.Interfaces
         Task<Personnel> RetrievePersonnel(int centreId, int personnelId);
         Task<ValidationResult<Personnel>> RetrievePersonnel(int personnelId);
         Task<PagedResult<Personnel>> RetrievePersonnels(List<OrderBy> orderBy = null, Paging paging = null);
-        //Task<PagedResult<PersonnelGrid>> Search(int centreId,string term, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<Personnel>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
         Task<Personnel> RetrievePersonnel(string userId);
 
         //Update
