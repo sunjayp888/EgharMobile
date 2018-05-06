@@ -94,25 +94,25 @@ namespace Egharpay
             bundles.Add(new ScriptBundle("~/bundles/skinConfig").Include(
                       "~/Scripts/app/skin.config.min.js"));
 
-            // SlimScroll
-            bundles.Add(new ScriptBundle("~/plugins/slimScroll").Include(
-                      "~/Scripts/plugins/slimscroll/jquery.slimscroll.min.js"));
+            //// SlimScroll
+            //bundles.Add(new ScriptBundle("~/plugins/slimScroll").Include(
+            //          "~/Scripts/plugins/slimscroll/jquery.slimscroll.min.js"));
 
-            // Peity
-            bundles.Add(new ScriptBundle("~/plugins/peity").Include(
-                      "~/Scripts/plugins/peity/jquery.peity.min.js"));
+            //// Peity
+            //bundles.Add(new ScriptBundle("~/plugins/peity").Include(
+            //          "~/Scripts/plugins/peity/jquery.peity.min.js"));
 
-            // Video responsible
-            bundles.Add(new ScriptBundle("~/plugins/videoResponsible").Include(
-                      "~/Scripts/plugins/video/responsible-video.js"));
+            //// Video responsible
+            //bundles.Add(new ScriptBundle("~/plugins/videoResponsible").Include(
+            //          "~/Scripts/plugins/video/responsible-video.js"));
 
-            // Lightbox gallery css styles
-            bundles.Add(new StyleBundle("~/Content/plugins/blueimp/css/").Include(
-                      "~/Content/plugins/blueimp/css/blueimp-gallery.min.css"));
+            //// Lightbox gallery css styles
+            //bundles.Add(new StyleBundle("~/Content/plugins/blueimp/css/").Include(
+            //          "~/Content/plugins/blueimp/css/blueimp-gallery.min.css"));
 
-            // Lightbox gallery
-            bundles.Add(new ScriptBundle("~/plugins/lightboxGallery").Include(
-                      "~/Scripts/plugins/blueimp/jquery.blueimp-gallery.min.js"));
+            //// Lightbox gallery
+            //bundles.Add(new ScriptBundle("~/plugins/lightboxGallery").Include(
+            //          "~/Scripts/plugins/blueimp/jquery.blueimp-gallery.min.js"));
 
 
 
@@ -137,15 +137,7 @@ namespace Egharpay
             bundles.Add(new ScriptBundle("~/plugins/validate").Include(
                       "~/Scripts/plugins/validate/jquery.validate.min.js"));
 
-            // ionRange styles
-            //bundles.Add(new StyleBundle("~/Content/plugins/ionRangeSlider/ionRangeStyles").Include(
-            //          "~/Content/plugins/ionRangeSlider/ion.rangeSlider.css",
-            //          "~/Content/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css"));
-
-            // ionRange 
-            //bundles.Add(new ScriptBundle("~/plugins/ionRange").Include(
-            //          "~/Scripts/plugins/ionRangeSlider/ion.rangeSlider.min.js"));
-
+           
             // dataPicker styles
             bundles.Add(new StyleBundle("~/plugins/dataPickerStyles").Include(
                       "~/Content/plugins/datapicker/datepicker3.css"));
