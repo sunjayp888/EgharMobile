@@ -1,0 +1,126 @@
+﻿<div class="modal inmodal fade" id="addressModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Add New Shipping Address</h4>
+            </div>
+            <div class="modal-body">
+                <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="alert alert-danger validation-summary-errors" ng-show="model.errorMessages.length>0">
+                        <ul>
+                            <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                        </ul>
+                    </div>
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <span>Add new address.</span>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-group" id="projectErrorSummary" ng-if="model.showErrorSummary">
+                                <div class="row xs-mt-20">
+                                    <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+                                        <div class="validation-summary-errors row alert alert-danger" data-valmsg-summary="false">
+                                            <ul class="errors">
+                                                <li ng-repeat="error in model.addressErrors"><span ng-bind="error"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-horizontal">
+                                <div class="form-control-required-example">&nbsp; = Required</div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="FullName" ng-model="model.fullname" class="form-control required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="Company" ng-model="model.company" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="Address1" ng-model="model.address1" class="form-control required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="Address2" ng-model="model.address2" class="form-control required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="City/District/Town" ng-model="model.city" class="form-control required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="District" ng-model="model.district" class="form-control required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="Landmark" ng-model="model.landmark" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="Pincode" ng-model="model.pincode" class="form-control required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="State" ng-model="model.state" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-9">
+                                                <input type="text" placeholder="PhoneNumber" ng-model="model.phonenumber" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" ng-click="model.createAddress()">Place Order</button>
+            </div>
+        </div>
+    </div>
+</div>

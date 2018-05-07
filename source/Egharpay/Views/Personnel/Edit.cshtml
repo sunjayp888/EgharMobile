@@ -1,6 +1,6 @@
 ﻿@model Egharpay.Models.PersonnelProfileViewModel
 @{
-    ViewBag.Title = string.Format("Edit ({0})", Model.Personnel.FullName);
+    ViewBag.Title = string.Format("Edit ({0})", Model.Personnel.Mobile);
 }
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -24,14 +24,60 @@
 
                         }
                         @Html.HiddenFor(model => Model.Personnel.PersonnelId)
-                        @Html.Partial("_PersonnelProfile", Model)
-                        <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
-                            <div class="form-group">
-                                <div class="pull-right">
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                        <div class="panel">
+                            <div class="panel-body">
+                                @Html.Partial("_PersonnelProfile", Model)
+                                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+                                    <div class="form-group">
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="panel panel-primary" ng-controller="PersonnelController as model">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Shipping Address</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <button type="button" ng-click="model.openPersonnelShippingAddressModal()" class="btn btn-danger" data-toggle="modal"><i class="fa fa-address-book"></i> Add New Address</button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4" ng-repeat="address in model.addresses">
+                                        <div class="ibox">
+                                            <div class="ibox-content">
+                                                <div class="row">
+                                                    <p>
+                                                        <h3>
+                                                            <span ng-bind="address.FullName"></span>
+                                                            <button type="button" class="close" ng-click="model.removePersonnelAddress(address.AddressId)">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </h3>
+                                                        <address class="m-t-md">
+                                                            <strong><span ng-bind="address.Address1"></span></strong>
+                                                            <br><span ng-bind="address.Address2"></span>
+                                                            <br><span ng-bind="address.City"></span>
+                                                            <br><span ng-bind="address.District"></span>
+                                                            <br><span ng-bind="address.LandMark"></span>
+                                                            <br><span ng-bind="address.ZipPostalCode"></span>
+                                                            <br><abbr title="Phone">P:</abbr><span ng-bind="address.PhoneNumber"></span>
+                                                        </address>
+                                                        <label class="btn btn-primary col-sm-12 col-xs-12 col-lg-12">
+                                                            <input ng-model="address.IsChecked" ng-click="model.onSelectAddress($index, model.addresses)" type="checkbox"/> Ship Here.
+                                                        </label>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.Partial("_PersonnelShippingAddressModal")
                     </div>
                 }
             </div>
