@@ -24,8 +24,8 @@
             return $http.post(url, data);
         }
 
-        function retrievePersonnelAddress() {
-            var url = "/Address/RetrievePersonnelAddress";
+        function retrievePersonnelAddress(personnelId) {
+            var url = "/Address/RetrievePersonnelAddress/" + personnelId;
             return $http.get(url);
         }
 

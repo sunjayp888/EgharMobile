@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-primary" ng-controller="PersonnelController as model">
+                        <div class="panel panel-primary" ng-controller="PersonnelController as model" ng-init="model.retrievePersonnelAddress(@Model.Personnel.PersonnelId)">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Shipping Address</h3>
                             </div>
@@ -46,7 +46,7 @@
                                     <button type="button" ng-click="model.openPersonnelShippingAddressModal()" class="btn btn-danger" data-toggle="modal"><i class="fa fa-address-book"></i> Add New Address</button>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4" ng-repeat="address in model.addresses">
+                                    <div class="col-lg-4" ng-repeat="address in model.personnelAddress">
                                         <div class="ibox">
                                             <div class="ibox-content">
                                                 <div class="row">
@@ -76,8 +76,8 @@
                                     </div>
                                 </div>
                             </div>
+                            @Html.Partial("_PersonnelShippingAddressModal",Model)
                         </div>
-                        @Html.Partial("_PersonnelShippingAddressModal")
                     </div>
                 }
             </div>

@@ -32,7 +32,7 @@ namespace Egharpay.Controllers
             if (ModelState.IsValid)
             {
                 var personnelId = UserPersonnelId;
-                var personnel = await _personnelBusinessService.RetrievePersonnel(personnelId);
+                var personnel = await _personnelBusinessService.RetrievePersonnel(address.PersonnelId);
                 if (personnel == null)
                     return RedirectToAction("Login", "Account");
                 var result = await _addressBusinessService.CreateAddress(personnel.Entity.PersonnelId, address);
@@ -50,14 +50,14 @@ namespace Egharpay.Controllers
         }
 
         [HttpGet]
-        [Route("Address/RetrievePersonnelAddress")]
-        public async Task<ActionResult> RetrievePersonnelAddress()
+        [Route("Address/RetrievePersonnelAddress/{personnelId:int}")]
+        public async Task<ActionResult> RetrievePersonnelAddress(int personnelId)
         {
             var userId = User.Identity.GetUserId();
-            var personnel = await _personnelBusinessService.RetrievePersonnel(User.Identity.GetUserId());
+            var personnel = await _personnelBusinessService.RetrievePersonnel(personnelId);
             if (personnel == null)
                 return RedirectToAction("Login", "Account");
-            var result = await _addressBusinessService.RetrieveAddresses(personnel.PersonnelId);
+            var result = await _addressBusinessService.RetrieveAddresses(personnelId);
             return this.JsonNet(result.ToList());
         }
 

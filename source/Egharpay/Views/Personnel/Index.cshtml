@@ -134,10 +134,10 @@
                                                                     View Profile
                                                                 </a>
                                                             </li>
-                                                            @if (User.IsInAnyRoles("Admin"))
+                                                            @if (User.IsInAnyRoles("SuperUser"))
                                                             {
                                                                 <li>
-                                                                    <a style="cursor: pointer;" ng-href="/Personnel/Edit/{{person.PersonnelId}}">
+                                                                    <a style="cursor: pointer;" ng-href="/Personnel/{{person.PersonnelId}}/Edit">
                                                                         Edit Profile
                                                                     </a>
                                                                 </li>

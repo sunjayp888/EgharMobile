@@ -22,6 +22,8 @@
         vm.searchMessage = "";
         vm.openPersonnelShippingAddressModal = openPersonnelShippingAddressModal;
         vm.createAddress = createAddress;
+        vm.retrievePersonnelAddress = retrievePersonnelAddress;
+        vm.personnelAddress = [];
         initialise();
 
         function initialise() {
@@ -90,7 +92,7 @@
             angular.element('#addressModal').modal('toggle');
         }
 
-        function createAddress() {
+        function createAddress(personnelId) {
             vm.errorMessages = [];
             if (!vm.fullname) vm.errorMessages.push('Fullname is required.');
             if (!vm.address1) vm.errorMessages.push('Address1 is required.');
@@ -111,18 +113,27 @@
                 ZipPostalCode: vm.pincode,
                 StateId: 1,
                 PhoneNumber: vm.phonenumber,
-                District: vm.district
+                District: vm.district,
+                PersonnelId: personnelId
             }
             return AddressService.createAddress(address)
                 .then(function (response) {
                     if (response.data === '' || response.data.Succeeded === true) {
                         vm.canAddNewAddress = false;
-                        retrievePersonnelAddress();
+                        retrievePersonnelAddress(personnelId);
+                        angular.element('#addressModal').modal('toggle');
                     } else {
                         $('#projectErrorSummary').show();
                         vm.showErrorSummary = true;
                         vm.Errors = response.data;
                     }
+                });
+        }
+
+        function retrievePersonnelAddress(personnelId) {
+            return AddressService.retrievePersonnelAddress(personnelId)
+                .then(function (response) {
+                    vm.personnelAddress = response.data;
                 });
         }
     }
