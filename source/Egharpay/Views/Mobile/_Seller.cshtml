@@ -1,6 +1,6 @@
 ﻿@model Egharpay.Models.MobileViewModel
 <div id="tab-5" class="tab-pane xs-mt-10">
-    <div>
+    <div class="row">
         <div class="panel-body">
             <div class="row">
                 <div class="col-lg-12">
@@ -33,45 +33,94 @@
                                     Order placed successfully. Seller will contact you soon for best deal and product will be delivered on prefered location.
                                 </div>
                             </div>
-                            <div class="row xs-mt-8" ng-if="model.sellers.length > 0">
-                                <div class="table-responsive">
-                                    <table class="table table-striped dataTable">
-                                        <thead>
-                                            <tr>
-                                                @*<th></th>*@
-                                                <th ng-click="model.sellerMobileOrder('SellerName')" ng-class="model.sellerMobileOrderClass('SellerName')">Seller Name</th>
-                                                <th>Seller Address</th>
-                                                <th ng-click="model.sellerMobileOrder('SellerDistance')" ng-class="model.sellerMobileOrderClass('SellerDistance')">Seller Distance(in KM.)</th>
-                                                <th ng-click="model.sellerMobileOrder('DiscountPrice')" ng-class="model.sellerMobileOrderClass('DiscountPrice')">Sell Price</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tr ng-repeat="seller in model.sellers" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
-                                            @*<td><input type="checkbox" class="myCheckBox" checklist-model="model.selectedSellers" checklist-value="seller.SellerId" ng-click="model.canWeAssign()"></td>*@
-                                            <td><span ng-bind="seller.SellerName"></span></td>
-                                            <td><span ng-bind="seller.SellerAddress"></span></td>
-                                            <td><span ng-bind="seller.SellerDistance"></span></td>
-                                            <td><h3 ng-bind="seller.DiscountPrice"></h3></td>
-                                            <td><button class="btn btn-danger" data-toggle="modal" ng-click="model.requestOrder(@Model.MobileId,seller.SellerId,true)"> Request Deal</button></td>
-                                        </tr>
-                                    </table>
-                                    @*<button type="button" id="btnRequestSeller" class="btn btn-sm btn-danger" ng-click="model.requestOrder(@Model.MobileId)" data-toggle="modal" data-target="#myModal5" ng-disabled="model.isAssignButtonEnable">Request Seller</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="xs-mt-8">
+                    <div class="ibox" ng-repeat="seller in model.sellers">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h4>
+                                        <strong>Seller Name</strong>
+                                    </h4>
                                 </div>
-                                @Html.Partial("Pagination/_pagination")
+                                <div class="col-lg-6">
+                                    <span ng-bind="seller.SellerName"></span>
+                                </div>
                             </div>
-
-                            <div class="row xs-mt-8" ng-if="model.sellers.length<=0">
-                                <div class="alert alert-success alert-dismissable">
-                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                                    No seller available. Change pincode and search again.
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h4>
+                                        <strong>Seller Address</strong>
+                                    </h4>
                                 </div>
+                                <div class="col-lg-6">
+                                    <span ng-bind="seller.SellerAddress"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h4>
+                                        <strong>Seller Price</strong>
+                                    </h4>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="btn btn-warning btn-xs"><strong><i class="fa fa-rupee"></i> <span ng-bind="seller.Price"></span> </strong> </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h4>
+                                        <strong>Seller Distance</strong>
+                                    </h4>
+                                </div>
+                                <div class="col-lg-6">
+                                    <span ng-bind="seller.SellerDistance"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h4>
+                                        <strong></strong>
+                                    </h4>
+                                </div>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a class="btn btn-danger" ng-bootbox-confirm="Seller will contact you very soon on @Model." ng-bootbox-confirm-action="model.requestOrder(@Model.MobileId,seller.SellerId,true)" ng-bootbox-confirm-action-cancel="">
+                                        Request Deal
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="/Account/Login" class="btn btn-danger"> Request Deal</a>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @Html.Partial("_Address")
+
+
+        <div class="xs-mt-8" ng-if="model.sellers.length<=0">
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                No seller available. Change pincode and search again.
+            </div>
+        </div>
+
+        <div class="xs-mt-8" ng-if="model.sellers.length>0">
+            @Html.Partial("Pagination/_pagination")
+        </div>
+
+        <div class="row">
+            @Html.Partial("_Address")
+        </div>
     </div>
 </div>
 
