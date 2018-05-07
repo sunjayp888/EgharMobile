@@ -20,7 +20,8 @@ using Egharpay.Business.Enum;
 
 namespace Egharpay.Controllers
 {
-    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel, Role.MobileRepairAdmin,Role.Seller })]
+    [RoutePrefix("Personnel")]
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel, Role.MobileRepairAdmin, Role.Seller })]
     public class PersonnelController : BaseController
     {
         private readonly IPersonnelBusinessService _personnelBusinessService;
@@ -168,44 +169,38 @@ namespace Egharpay.Controllers
         //    return View(viewModel);
         //}
 
-        [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller, Role.MobileRepairAdmin })]
-        public async Task<ActionResult> Edit()
+        [HttpGet]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel, Role.Seller, Role.MobileRepairAdmin })]
+        [Route("{personnelId:int}/Edit")]
+        public async Task<ActionResult> Edit(int personnelId)
         {
             if (!User.Identity.IsAuthenticated)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var personnel = await _personnelBusinessService.RetrievePersonnel(UserPersonnelId);
+            var personnel = await _personnelBusinessService.RetrievePersonnel(personnelId);
             if (personnel == null)
             {
                 return HttpNotFound();
             }
-            //   var centres = EgharpayBusinessService.RetrieveCentres(UserOrganisationId, e => true);
-            // personnel.Email = UserManager.FindByPersonnelId(personnel.PersonnelId)?.Email;
             var viewModel = new PersonnelProfileViewModel
             {
-                //        Centres = new SelectList(centres, "CentreId", "Name"),
                 Personnel = personnel.Entity
             };
             return View(viewModel);
         }
 
-        // POST: Personnels/Edit/{id}
-        [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller, Role.MobileRepairAdmin })]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("{personnelId:int}/Edit")]
+        [PolicyAuthorize(Roles = new[] { Role.Personnel, Role.Seller, Role.MobileRepairAdmin, Role.SuperUser })]
         public async Task<ActionResult> Edit(PersonnelProfileViewModel personnelViewModel)
         {
             if (ModelState.IsValid)
             {
-
                 var resultData = await _personnelBusinessService.UpdatePersonnel(personnelViewModel.Personnel);
                 if (resultData.Succeeded)
                 {
-                    //var editUser = UserManager.FindByPersonnelId(personnelViewModel.Personnel.PersonnelId);
-                    //editUser.Email = personnelViewModel.Personnel.Email;
-                    //var result = UserManager.Update(editUser);
-                    //if (result.Succeeded)
                     personnelViewModel.ProfileUpdated = resultData.Succeeded;
                     return RedirectToAction("Profile", new { profileUpdated = personnelViewModel.ProfileUpdated });
                 }
@@ -223,15 +218,15 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [Route("Personnel/{id}/UploadPhoto")]
-        public async Task<ActionResult> UploadPhoto(int? id)
+        [Route("{personnelId:int}/UploadPhoto")]
+        public async Task<ActionResult> UploadPhoto(int personnelId)
         {
-            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, id, Policies.Resource.Personnel.ToString()))
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, personnelId, Policies.Resource.Personnel.ToString()))
                 return HttpForbidden();
 
             try
             {
-                var getPersonnelResult = await _personnelBusinessService.RetrievePersonnel(id.Value);
+                var getPersonnelResult = await _personnelBusinessService.RetrievePersonnel(personnelId);
                 if (!getPersonnelResult.Succeeded)
                     return HttpNotFound(string.Join(";", getPersonnelResult.Errors));
 
@@ -306,11 +301,11 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
-            //var data = await _personnelBusinessService.Search(1, searchKeyword, orderBy, paging);
-            return this.JsonNet("");
+            var data = await _personnelBusinessService.Search(searchKeyword, orderBy, paging);
+            return this.JsonNet(data);
         }
 
-        [Route("{personnelId}/Documents")]
+        [Route("{personnelId:int}/Documents")]
         public async Task<ActionResult> Documents(int? personnelId)
         {
             //if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, personnelId.Value, Policies.Resource.Personnel.ToString()))
@@ -323,7 +318,7 @@ namespace Egharpay.Controllers
             return View();
         }
 
-        [Route("Personnel/RetrieveProfileImage/{personnelId}")]
+        [Route("RetrieveProfileImage/{personnelId:int}")]
         public async Task<ActionResult> RetrieveProfileImage(int? personnelId)
         {
             if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, personnelId.Value, Policies.Resource.Personnel.ToString()))
