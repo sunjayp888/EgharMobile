@@ -182,7 +182,6 @@
         }
 
         function detailMobile(mobileId) {
-            geoLocation();
             return MobileService.detailMobile(mobileId).then(function (response) {
                 vm.mobiles = response.data;
                 return vm.mobiles;
@@ -199,8 +198,8 @@
         }
 
         function geoLocation() {
-            usSpinnerService.spin('locationSpinner');
             if ("geolocation" in navigator) {
+                usSpinnerService.spin('locationSpinner');
                 navigator.geolocation.getCurrentPosition(function (position) {
                     vm.latitude = position.coords.latitude;
                     vm.longitude = position.coords.longitude;
@@ -372,6 +371,15 @@
         }
 
         function createAddress() {
+            vm.errorMessages = [];
+            if (!vm.fullname) vm.errorMessages.push('Fullname is required.');
+            if (!vm.address1) vm.errorMessages.push('Address1 is required.');
+            if (!vm.address2) vm.errorMessages.push('Address2 is required.');
+            if (!vm.district) vm.errorMessages.push('District is required.');
+            if (!vm.pincode) vm.errorMessages.push('Pincode is required.');
+            if (!vm.city) vm.errorMessages.push('City is required.');
+            if (vm.errorMessages.length > 0) return;
+
             var address = {
                 FullName: vm.fullname,
                 Email: vm.email,
@@ -399,6 +407,7 @@
         }
 
         function addNewAddressButtonClick() {
+            vm.errorMessages = [];
             vm.fullname = "";
             vm.email = "";
             vm.company = "";

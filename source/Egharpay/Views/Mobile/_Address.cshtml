@@ -13,6 +13,11 @@
                     </button>
                     <br />
                     <br />
+                    <div class="alert alert-danger validation-summary-errors" ng-show="model.errorMessages.length>0">
+                        <ul>
+                            <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                        </ul>
+                    </div>
                     <div ng-if="model.canAddNewAddress">
                         <div class="ibox">
                             <div class="ibox-title">
@@ -48,7 +53,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
