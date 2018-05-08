@@ -13,9 +13,9 @@ namespace Egharpay.Business.Interfaces
     public interface IOrderBusinessService
     {
         //Create
-        Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, List<int> sellerIds,int shippingAddressId);
+        Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, List<int> sellerIds, int shippingAddressId);
         Task<ValidationResult<SellerOrder>> CreateSellerOrder(SellerOrder sellerOrder);
-
+        Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, int sellerId);
         //Retrieve
         Task<Order> RetrieveOrder(int orderId);
         Task<PagedResult<Order>> RetrieveOrders(List<OrderBy> orderBy = null, Paging paging = null);

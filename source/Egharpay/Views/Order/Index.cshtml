@@ -70,7 +70,7 @@
     }
 
     @*For Seller*@
-    @if (User.IsInAnyRoles("SuperUser"))
+    @if (User.IsSuperUser() || User.IsSeller())
     {
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -97,7 +97,6 @@
                                             <table wt-responsive-table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
                                                 <thead>
                                                     <tr role="row">
-                                                        <th>Avatar</th>
                                                         <th ng-click="model.order('OrderCreatedDate')" ng-class="model.orderClass('OrderCreatedDate')">Order Created Date</th>
                                                         <th ng-click="model.order('BuyersName')" ng-class="model.orderClass('BuyersName')">Buyers Name</th>
                                                         <th ng-click="model.order('MobileName')" ng-class="model.orderClass('MobileName')">Mobile</th>
@@ -107,7 +106,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="seller in model.sellerOrders" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
-                                                        <td><span ng-bind-template="{{ person.OrderCreatedDate | date:'dd/MM/yyyy'}}"></span></td>
+                                                        <td><span ng-bind="seller.OrderCreatedDate | date:'dd/MM/yyyy'"></span></td>
                                                         <td><span ng-bind="seller.BuyersName"></span></td>
                                                         <td><span ng-bind="seller.MobileName"></span></td>
                                                         <td><span ng-bind="seller.OrderState"></span></td>

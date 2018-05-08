@@ -61,12 +61,11 @@
         }
 
 
-        function requestOrder(mobileId, sellerIds,shippingAddressId) {
-            var url = "/Order/RequestOrder",
+        function requestOrder(mobileId, sellerId) {
+            var url = "/Orders/RequestOrder",
                 data = {
                     mobileId: mobileId,
-                    sellerIds: sellerIds,
-                    shippingAddressId: shippingAddressId
+                    sellerId: sellerId
                 };
             return $http.post(url, data);
         }

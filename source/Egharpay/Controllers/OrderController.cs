@@ -9,8 +9,10 @@ using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
+using Egharpay.Models.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
@@ -62,17 +64,14 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RequestOrder(int? mobileId, List<int> sellerIds, int shippingAddressId)
+        [Route("Orders/RequestOrder")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel })]
+        public async Task<ActionResult> RequestOrder(int mobileId, int sellerId)
         {
-            //if (mobileId == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
             try
             {
                 var personnelId = UserPersonnelId;
-                //var personnel = await _personnelBusinessService.RetrievePersonnel(personnelId);
-                return this.JsonNet(await _orderBusinessService.CreateOrder(mobileId.Value, personnelId, sellerIds, shippingAddressId));
+                return this.JsonNet(await _orderBusinessService.CreateOrder(mobileId, personnelId, sellerId));
             }
             catch (Exception e)
             {
@@ -83,21 +82,17 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            try
+            var personnelId = UserPersonnelId;
+            var personnel = await _personnelBusinessService.RetrievePersonnel(personnelId);
+            if (User.IsSeller())
             {
-                var personnelId = UserPersonnelId;
-                var personnel = _personnelBusinessService.RetrievePersonnel(UserPersonnelId);
-                var personnelData = personnel.Result.Entity;
-                //var personnelData = _personnelBusinessService.RetrievePersonnels(null, null).Result.Items.FirstOrDefault();
-                var isSeller = personnelData.IsSeller;
-                var data = isSeller ? await _orderBusinessService.RetrieveSellerOrders(e => e.SellerPersonnelId == personnelData.PersonnelId, orderBy, paging) : await _orderBusinessService.RetrieveSellerOrders(e => e.BuyerPersonnelId == personnelData.PersonnelId, orderBy, paging);
-                return this.JsonNet(data);
+                return this.JsonNet(await _orderBusinessService.RetrieveSellerOrders(e => e.SellerPersonnelId == personnel.Entity.PersonnelId, orderBy, paging));
             }
-            catch (Exception e)
+            if (User.IsSuperUser())
             {
-                Console.WriteLine(e);
-                throw;
+                return this.JsonNet(await _orderBusinessService.RetrieveSellerOrders(e => true, orderBy, paging));
             }
+            return this.JsonNet(await _orderBusinessService.RetrieveSellerOrders(e => e.BuyerPersonnelId == personnel.Entity.PersonnelId, orderBy, paging));
         }
 
         [HttpPost]

@@ -251,15 +251,14 @@
             if (!isLoggedin) {
                 window.location.href = "/Account/login?returnUrl=" + window.location.pathname;
             } else {
-                $('#addressModal').modal('show');
+                placeOrder();
             }
-            retrievePersonnelAddress();
+
         }
 
         function placeOrder() {
-            return MobileService.requestOrder(vm.mobileId, vm.sellerId, vm.selectedShippingAddressId).then(function (response) {
+            return MobileService.requestOrder(vm.mobileId, vm.sellerId).then(function (response) {
                 vm.isOrderPlacedSuccess = response.data.Succeeded;
-                $('#addressModal').modal('hide');
             });
         }
 

@@ -79,6 +79,48 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
+        public async Task<ValidationResult<Order>> CreateOrder(int mobileId, int personnelId, int sellerId)
+        {
+            ValidationResult<Order> validationResult = new ValidationResult<Order>();
+            try
+            {
+                var order = new Order()
+                {
+                    CreatedDateTime = DateTime.Now,
+                    MobileId = mobileId,
+                    OrderGuid = Guid.NewGuid(),
+                    OrderStateId = (int)OrderState.Requested,
+                    PersonnelId = personnelId,
+                };
+                var orderEntity = await _dataService.CreateGetAsync(order);
+                var sellerOrder = new SellerOrder()
+                {
+                    OrderId = orderEntity.OrderId,
+                    SellerId = sellerId,
+                    OrderStateId = (int)OrderState.Requested
+                };
+                await _dataService.CreateAsync(sellerOrder);
+                var customerPersonnel = await _personnelDataService.RetrieveByIdAsync<Personnel>(personnelId);
+                var seller = await _sellerBusinessService.RetrieveSeller(sellerId);
+                //var personnelData = await _personnelDataService.RetrieveByIdAsync<Personnel>(mobileId.PersonnelId);
+                var mobileData = await _mobileDataService.RetrieveByIdAsync<Entity.Mobile>(mobileId);
+
+                await SendOrderEmailToCustomer(orderEntity, customerPersonnel, mobileData);
+                await SendOrderEmailToSellers(orderEntity, new List<Seller> { seller }, customerPersonnel, mobileData);
+
+                SendOrderSms(order, new List<Seller> { seller }, customerPersonnel, mobileData);
+
+                validationResult.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Errors = new List<string> { ex.InnerMessage() };
+                validationResult.Exception = ex;
+            }
+            return validationResult;
+        }
+
         public async Task<ValidationResult<SellerOrder>> CreateSellerOrder(SellerOrder sellerOrder)
         {
             var validationResult = new ValidationResult<SellerOrder>();
@@ -142,10 +184,10 @@ namespace Egharpay.Business.Services
             }
             foreach (var seller in sellers)
             {
-                if (!string.IsNullOrEmpty(seller.Contact1.ToString()))
+                if (!string.IsNullOrEmpty(seller.MobileNumber.ToString()))
                 {
                     //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
-                    var msg = $"Hi, {sellerData.Name} you have received a request for {mobile.Name}.Contact customer on {personnel.Mobile}.";
+                    var msg = $"Hi, {seller.Name} you have received a request for {mobile.Name}.Contact customer on {personnel.Mobile}.";
                     _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
                 }
             }
@@ -170,16 +212,7 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<SellerOrderGrid>> RetrieveSellerOrders(Expression<Func<SellerOrderGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var result = await _dataService.RetrievePagedResultAsync<SellerOrderGrid>(expression, orderBy, paging);
-            try
-            {
-                return _mapper.MapToPagedResult<SellerOrderGrid>(result);
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-
+            return await _dataService.RetrievePagedResultAsync<SellerOrderGrid>(expression, orderBy, paging);
         }
 
         public async Task<ValidationResult<Order>> UpdateOrder(Order order)

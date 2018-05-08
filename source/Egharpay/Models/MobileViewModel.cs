@@ -18,5 +18,6 @@ namespace Egharpay.Models
         public SelectList Brands { get; set; }
         public string SearchKeyword { get; set; }
         public Address Address { get; set; }
+        public Personnel Personnel { get; set; }
     }
 }

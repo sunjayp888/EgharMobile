@@ -53,9 +53,6 @@
                                                     <p>
                                                         <h3>
                                                             <span ng-bind="address.FullName"></span>
-                                                            <button type="button" class="close" ng-click="model.removePersonnelAddress(address.AddressId)">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
                                                         </h3>
                                                         <address class="m-t-md">
                                                             <strong><span ng-bind="address.Address1"></span></strong>
@@ -66,9 +63,6 @@
                                                             <br><span ng-bind="address.ZipPostalCode"></span>
                                                             <br><abbr title="Phone">P:</abbr><span ng-bind="address.PhoneNumber"></span>
                                                         </address>
-                                                        <label class="btn btn-primary col-sm-12 col-xs-12 col-lg-12">
-                                                            <input ng-model="address.IsChecked" ng-click="model.onSelectAddress($index, model.addresses)" type="checkbox"/> Ship Here.
-                                                        </label>
                                                     </p>
                                                 </div>
                                             </div>

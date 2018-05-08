@@ -26,13 +26,15 @@ namespace Egharpay.Controllers
         private readonly ISellerBusinessService _sellerBusinessService;
         private readonly IGoogleBusinessService _googleBusinessService;
         private readonly ITrendBusinessService _trendBusinessService;
-        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService, ISellerBusinessService sellerBusinessService, IGoogleBusinessService googleBusinessService, ITrendBusinessService trendBusinessService) : base(configurationManager, authorizationService)
+        private readonly IPersonnelBusinessService _personnelBusinessService;
+        public MobileController(IMobileBusinessService mobileBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService, ISellerBusinessService sellerBusinessService, IGoogleBusinessService googleBusinessService, ITrendBusinessService trendBusinessService, IPersonnelBusinessService personnelBusinessService) : base(configurationManager, authorizationService)
         {
             _mobileBusinessService = mobileBusinessService;
             _brandBusinessService = brandBusinessService;
             _sellerBusinessService = sellerBusinessService;
             _googleBusinessService = googleBusinessService;
             _trendBusinessService = trendBusinessService;
+            _personnelBusinessService = personnelBusinessService;
         }
 
         // GET: Mobile
@@ -111,6 +113,12 @@ namespace Egharpay.Controllers
                 var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(UserPersonnelId);
                 viewModel.SellerId = seller?.SellerId ?? 0;
             }
+            if (User.IsPersonnel())
+            {
+                var personnel = await _personnelBusinessService.RetrievePersonnel(UserPersonnelId);
+                viewModel.Personnel = personnel.Entity;
+            }
+
             var result = await _mobileBusinessService.RetrieveMobile(id.Value);
             viewModel.MobileName = result.Name;
             viewModel.MobileId = result.MobileId;
