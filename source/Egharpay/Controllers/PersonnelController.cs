@@ -81,7 +81,7 @@ namespace Egharpay.Controllers
 
 
         // GET: Personnel/Create
-        [Authorize(Roles = "Admin")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public ActionResult Create()
         {
             var centres = _personnelBusinessService.RetrievePersonnel(1, 1);
@@ -105,9 +105,9 @@ namespace Egharpay.Controllers
         }
 
         // POST: Personnel/Create
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> Create(PersonnelProfileViewModel personnelViewModel)
         {
             // check if user with this email already exists for the current organisation
@@ -292,6 +292,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser })]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             var data = await _personnelBusinessService.RetrievePersonnels(orderBy, paging);
@@ -299,6 +300,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser })]
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
             var data = await _personnelBusinessService.Search(searchKeyword, orderBy, paging);

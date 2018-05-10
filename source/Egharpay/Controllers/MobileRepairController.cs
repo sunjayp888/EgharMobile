@@ -17,6 +17,7 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
     public class MobileRepairController : BaseController
     {
         private readonly IMobileRepairBusinessService _mobileRepairBusinessService;

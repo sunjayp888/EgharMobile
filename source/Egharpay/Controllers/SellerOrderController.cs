@@ -8,10 +8,13 @@ using Configuration.Interface;
 using Egharpay.Business.Interfaces;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
+using Egharpay.Models.Authorization;
 using Microsoft.Owin.Security.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Seller })]
     public class SellerOrderController : BaseController
     {
         private readonly ISellerOrderBusinessService _sellerOrderBusinessService;

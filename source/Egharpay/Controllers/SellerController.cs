@@ -12,10 +12,13 @@ using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
 using Egharpay.Models;
+using Egharpay.Models.Authorization;
 using Microsoft.Owin.Security.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
     public class SellerController : BaseController
     {
         private readonly ISellerBusinessService _sellerBusinessService;

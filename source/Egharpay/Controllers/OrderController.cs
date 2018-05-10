@@ -16,6 +16,7 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Seller, Role.Personnel })]
     public class OrderController : BaseController
     {
         private readonly IOrderBusinessService _orderBusinessService;

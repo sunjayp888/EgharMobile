@@ -17,6 +17,7 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
+   
     public class TrendController : BaseController
     {
         private readonly ITrendBusinessService _trendBusinessService;
