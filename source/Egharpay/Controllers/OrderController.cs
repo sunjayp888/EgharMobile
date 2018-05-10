@@ -107,5 +107,26 @@ namespace Egharpay.Controllers
         {
             return View();
         }
+
+        [Route("Orders/{orderId:int}/Edit")]
+        public async Task<ActionResult> Edit(int orderId)
+        {
+            var order = await _orderBusinessService.RetrieveOrder(orderId);
+            var model = new OrderViewModel()
+            {
+                Order = order
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("Orders/{orderId:int}/UpdateShippingAddress")]
+        public async Task<ActionResult> UpdateShippingAddress(int orderId, int shippingAddressId)
+        {
+            var order = await _orderBusinessService.RetrieveOrder(orderId);
+            order.ShippingAddressId = shippingAddressId;
+            await _orderBusinessService.UpdateOrder(order);
+            return this.JsonNet("");
+        }
     }
 }

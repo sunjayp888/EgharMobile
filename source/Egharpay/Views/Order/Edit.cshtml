@@ -1,0 +1,139 @@
+﻿@model Egharpay.Models.OrderViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Personnel</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table shoping-cart-table">
+                        <tbody>
+                            <tr>
+                                <td width="90">
+                                    <div class="cart-product-imitation">
+                                    </div>
+                                </td>
+                                <td class="desc">
+                                    <h3>
+                                        <a href="#" class="text-navy">
+                                            @Model.Order.Personnel.Forenames &nbsp; @Model.Order.Personnel.Surname
+                                            | Mobile : @Model.Order.Personnel.Mobile
+                                        </a>
+                                    </h3>
+                                    <p class="small">
+
+                                    </p>
+                                    <dl class="small m-b-none">
+                                        <dt>Address</dt>
+                                        <dd>@Model.Order.Personnel.FullAddress</dd>
+                                    </dl>
+                                </td>
+                                <td>
+                                    <h4>
+                                        @Model.Order.Mobile.Price
+                                    </h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Order Item</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table shoping-cart-table">
+                        <tbody>
+                            <tr>
+                                <td width="90">
+                                    <div class="cart-product-imitation">
+                                    </div>
+                                </td>
+                                <td class="desc">
+                                    <h3>
+                                        <a href="#" class="text-navy">
+                                            @Model.Order.Mobile.Name
+                                        </a>
+                                    </h3>
+                                    <p class="small">
+
+                                    </p>
+                                    <dl class="small m-b-none">
+                                        <dt>Order Created Date</dt>
+                                        <dd>@Model.Order.CreatedDateTime</dd>
+                                    </dl>
+                                    <dl class="small m-b-none">
+                                        <dt>Order Status</dt>
+                                        <dd>@Model.Order.OrderStateId</dd>
+                                    </dl>
+                                </td>
+
+                                <td>
+                                    <h4>
+                                        @Model.Order.Mobile.Price
+                                    </h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-controller="PersonnelController as model" ng-init="model.retrievePersonnelAddress(@Model.Order.Personnel.PersonnelId,@Model.Order.ShippingAddressId)">
+    <div class="col-md-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <strong>Shipping Address &nbsp;</strong>
+                <button type="button" ng-click="model.openPersonnelShippingAddressModal()" class="btn btn-danger" data-toggle="modal"><i class="fa fa-address-book"></i> Add New Address</button>
+            </div>
+            <div class="row">
+                <div class="col-lg-4" ng-repeat="address in model.personnelAddress">
+                    <div class="ibox">
+                        <div class="ibox-content" >
+                            <div class="row">
+                                <p>
+                                    <h3>
+                                        <span ng-bind="address.FullName"></span>
+                                    </h3>
+                                    <address class="m-t-md">
+                                        <strong><span ng-bind="address.Address1"></span></strong>
+                                        <br><span ng-bind="address.Address2"></span>
+                                        <br><span ng-bind="address.City"></span>
+                                        <br><span ng-bind="address.District"></span>
+                                        <br><span ng-bind="address.LandMark"></span>
+                                        <br><span ng-bind="address.ZipPostalCode"></span>
+                                        <br><abbr title="Phone">P:</abbr><span ng-bind="address.PhoneNumber"></span>
+                                    </address>
+                                    <label class="btn btn-primary col-sm-12 col-xs-12 col-lg-12">
+                                        <input ng-model="address.IsChecked" ng-click="model.onSelectAddress(@Model.Order.OrderId,$index, model.personnelAddress)" type="checkbox"/> Ship Here.
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_PersonnelShippingAddressModal", Model.Order.Personnel)
+</div>

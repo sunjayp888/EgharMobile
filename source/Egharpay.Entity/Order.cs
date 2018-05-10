@@ -25,5 +25,9 @@ namespace Egharpay.Entity
         public string PersonnelIP { get; set; }
 
         public int? ShippingAddressId { get; set; }
+
+        public Mobile Mobile { get; set; }
+
+        public Personnel Personnel { get; set; }
     }
 }

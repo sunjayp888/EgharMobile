@@ -2461,7 +2461,8 @@
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Properties\PublishProfiles\sanjay.pubxml" />
     <None Include="Properties\PublishProfiles\sanjayp.pubxml" />
-    <Content Include="Views\Personnel\_PersonnelShippingAddressModal.cshtml" />
+    <Content Include="Views\Shared\_PersonnelShippingAddressModal.cshtml" />
+    <Content Include="Views\Order\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

@@ -5,9 +5,9 @@
         .module('Egharpay')
         .controller('PersonnelController', PersonnelController);
 
-    PersonnelController.$inject = ['$window', 'PersonnelService', 'AddressService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
+    PersonnelController.$inject = ['$window', 'PersonnelService', 'AddressService', 'SellerOrderService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
 
-    function PersonnelController($window, PersonnelService, AddressService, Paging, OrderService, OrderBy, Order) {
+    function PersonnelController($window, PersonnelService, AddressService, SellerOrderService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
         var vm = this;
         vm.personnel = [];
@@ -24,7 +24,9 @@
         vm.createAddress = createAddress;
         vm.retrievePersonnelAddress = retrievePersonnelAddress;
         vm.personnelAddress = [];
-        initialise();
+        vm.initialise = initialise;
+        vm.selectedShippingAddress = selectedShippingAddress;
+        vm.onSelectAddress = onSelectAddress;
 
         function initialise() {
             order("Forenames");
@@ -130,11 +132,32 @@
                 });
         }
 
-        function retrievePersonnelAddress(personnelId) {
+        function retrievePersonnelAddress(personnelId, shippingAddressId) {
             return AddressService.retrievePersonnelAddress(personnelId)
                 .then(function (response) {
                     vm.personnelAddress = response.data;
+                    selectedShippingAddress(shippingAddressId);
                 });
         }
+
+        function selectedShippingAddress(shippingAddressId) {
+            if (shippingAddressId === null || shippingAddressId === 0)
+                return;
+            angular.forEach(vm.personnelAddress, function (address, index) {
+                if (address.AddressId === shippingAddressId)
+                    address.IsChecked = true;
+            });
+        };
+
+
+        function onSelectAddress(orderId, selectedIndex, list) {
+            vm.selectedShippingAddressId = list[selectedIndex].AddressId;
+            angular.forEach(list, function (address, index) {
+                if (selectedIndex !== index)
+                    address.IsChecked = false;
+            });
+            return SellerOrderService.updateShippingAddress(orderId, vm.selectedShippingAddressId).then(function (response) {
+            });
+        };
     }
 })();

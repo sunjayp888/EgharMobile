@@ -1,4 +1,4 @@
-﻿@model Egharpay.Models.PersonnelProfileViewModel
+﻿@model Egharpay.Entity.Personnel
 <div class="modal inmodal fade" id="addressModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -120,7 +120,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" ng-click="model.createAddress(@Model.Personnel.PersonnelId)">Save</button>
+                <button type="button" class="btn btn-danger" ng-click="model.createAddress(@Model.PersonnelId)">Save</button>
             </div>
         </div>
     </div>

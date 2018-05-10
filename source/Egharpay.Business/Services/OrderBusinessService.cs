@@ -195,7 +195,7 @@ namespace Egharpay.Business.Services
 
         public async Task<Order> RetrieveOrder(int orderId)
         {
-            var order = await _dataService.RetrieveAsync<Order>(a => a.OrderId == orderId);
+            var order = await _dataService.RetrieveAsync<Order>(a => a.OrderId == orderId, null, e => e.Personnel, e => e.Mobile);
             return order.FirstOrDefault();
         }
 

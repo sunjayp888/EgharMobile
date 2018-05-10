@@ -10,7 +10,8 @@
     function SellerOrderService($http) {
         var service = {
             retrieveSellerOrders: retrieveSellerOrders,
-            updateSellerOrder: updateSellerOrder
+            updateSellerOrder: updateSellerOrder,
+            updateShippingAddress: updateShippingAddress
             //editOrder: editOrder
         };
 
@@ -29,6 +30,15 @@
             var url = "/Order/UpdateOrder",
                 data = {
                     orderId: orderId
+                };
+            return $http.post(url, data);
+        }
+
+        function updateShippingAddress(orderId, shippingAddressId) {
+            var url = "/Orders/" + orderId + "/UpdateShippingAddress",
+                data = {
+                    orderId: orderId,
+                    shippingAddressId: shippingAddressId
                 };
             return $http.post(url, data);
         }

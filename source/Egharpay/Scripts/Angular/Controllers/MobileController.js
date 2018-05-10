@@ -441,6 +441,7 @@
                 if (selectedIndex !== index)
                     address.IsChecked = false;
             });
+
         };
     }
 })();
