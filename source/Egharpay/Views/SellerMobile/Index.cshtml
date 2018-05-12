@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Seller Mobiles";
 }
 
 <div ng-controller="SellerMobileController as model" ng-init="model.retrieveSellerMobiles()">
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="wrapper wrapper-content animated fadeInRight" ng-if="model.sellerMobiles.length >0">
         <div class="row">
             <div class="col-md-3" ng-repeat="sellerMobile in model.sellerMobiles">
                 <a ng-href="/Mobile/Detail/{{sellerMobile.MobileId}}">
@@ -61,9 +61,6 @@
                                 @* <small class="text-muted"><span class="label label-info pull-left">Active</span></small>*@
                                 <br />
                                 <a href="#" class="product-name"><strong ng-bind="sellerMobile.MobileName"></strong></a>
-                                <div class="small m-t-xs">
-                                    Many desktop publishing packages and web page editors now.
-                                </div>
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <div class="m-t text-left">
@@ -91,5 +88,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <div ng-if="!model.sellerMobiles.length >0" class="ibox-content">
+        <p> No records found.</p>
     </div>
 </div>

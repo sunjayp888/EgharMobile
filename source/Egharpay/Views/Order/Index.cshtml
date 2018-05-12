@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Seller Order";
 }
-<div ng-controller="SellerOrderController as model" ng-init="model.retrieveSellerOrders()">
+<div ng-cloak ng-controller="SellerOrderController as model" ng-init="model.retrieveSellerOrders()">
     @*For Buyer*@
     @if (User.IsInAnyRoles("Personnel"))
     {
@@ -74,18 +74,18 @@
     {
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
+                <div class="">
+                    <div class="">
                         <h2>
                             Orders <small></small>
                         </h2>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="x_content">
+                    <div ng-if="model.sellerOrders.length >0">
                         <p class="text-muted font-13 m-b-30">
                         </p>
                         <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                            <div ng-if="model.personnel.length !=0">
+                            <div>
                                 <div class="row">
                                     <div class="col-xs-12">
                                         @Html.Partial("Pagination/_pageSize")
@@ -96,40 +96,40 @@
                                         <div class="col-xs-12">
                                             <table wt-responsive-table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="datatable-fixed-header_info">
                                                 <thead>
-                                                    <tr role="row">
-                                                        <th ng-click="model.order('OrderCreatedDate')" ng-class="model.orderClass('OrderCreatedDate')">Order Created Date</th>
-                                                        <th ng-click="model.order('BuyersName')" ng-class="model.orderClass('BuyersName')">Buyers Name</th>
-                                                        <th ng-click="model.order('MobileName')" ng-class="model.orderClass('MobileName')">Mobile</th>
-                                                        <th ng-click="model.order('OrderState')" ng-class="model.orderClass('OrderState')">Status</th>
-                                                        <th>Actions</th>
-                                                    </tr>
+                                                <tr role="row">
+                                                    <th ng-click="model.order('OrderCreatedDate')" ng-class="model.orderClass('OrderCreatedDate')">Order Created Date</th>
+                                                    <th ng-click="model.order('BuyersName')" ng-class="model.orderClass('BuyersName')">Buyers Name</th>
+                                                    <th ng-click="model.order('MobileName')" ng-class="model.orderClass('MobileName')">Mobile</th>
+                                                    <th ng-click="model.order('OrderState')" ng-class="model.orderClass('OrderState')">Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="seller in model.sellerOrders" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
-                                                        <td><span ng-bind="seller.OrderCreatedDate | date:'dd/MM/yyyy'"></span></td>
-                                                        <td><span ng-bind="seller.BuyersName"></span></td>
-                                                        <td><span ng-bind="seller.MobileName"></span></td>
-                                                        <td><span ng-bind="seller.OrderState"></span></td>
-                                                        <td>
-                                                            <div class="btn-group pull-right">
-                                                                <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
-                                                                    <i class="fa fa-chevron-down"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu slidedown">
-                                                                    <li>
-                                                                        <a style="cursor: pointer;" ng-click="model.updateSellerOrder(seller.OrderId)">
-                                                                            Cancel Order
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="/Orders/{{seller.OrderId}}/Edit">
-                                                                            Edit
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                <tr ng-repeat="seller in model.sellerOrders" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled">
+                                                    <td><span ng-bind="seller.OrderCreatedDate | date:'dd/MM/yyyy'"></span></td>
+                                                    <td><span ng-bind="seller.BuyersName"></span></td>
+                                                    <td><span ng-bind="seller.MobileName"></span></td>
+                                                    <td><span ng-bind="seller.OrderState"></span></td>
+                                                    <td>
+                                                        <div class="btn-group pull-right">
+                                                            <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
+                                                                <i class="fa fa-chevron-down"></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu slidedown">
+                                                                <li>
+                                                                    <a style="cursor: pointer;" ng-click="model.updateSellerOrder(seller.OrderId)">
+                                                                        Cancel Order
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="/Orders/{{seller.OrderId}}/Edit">
+                                                                        Edit
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -147,6 +147,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div ng-if="!model.sellerOrders.length >0" class="ibox-content">
+            <p> No records found.</p>
         </div>
     }
 

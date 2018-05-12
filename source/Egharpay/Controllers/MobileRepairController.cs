@@ -17,7 +17,7 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
-    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
+
     public class MobileRepairController : BaseController
     {
         private readonly IMobileRepairBusinessService _mobileRepairBusinessService;
@@ -88,6 +88,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/List")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             try
@@ -107,6 +108,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/MarkAsCompleted")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> MarkAsCompleted(int mobileRepairId)
         {
             var id = UserPersonnelId;
@@ -120,6 +122,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/MarkAsCancelled")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> MarkAsCancelled(int mobileRepairId)
         {
             var result = await _mobileRepairBusinessService.UpdateMobileRepairState(mobileRepairId, (int)MobileRepairRequestState.Cancelled);
@@ -128,6 +131,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/MarkAsInProgress")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> MarkAsInProgress(int mobileRepairId)
         {
             var result = await _mobileRepairBusinessService.UpdateMobileRepairState(mobileRepairId, (int)MobileRepairRequestState.InProgress);
@@ -136,6 +140,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/UpdateMobileRepairState")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> UpdateMobileRepairState(int mobileRepairId, int mobileRepairStateId)
         {
             var id = UserPersonnelId;
@@ -149,6 +154,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/DeleteMobileRepairRequest")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> DeleteMobileRepairRequest(int mobileRepairId, decimal mobileNumber, int otp)
         {
             var otpResult = await _otpBusinessService.IsValidOtp(otp, mobileNumber, (int)OtpReason.MobileRepair, DateTime.UtcNow);
@@ -159,6 +165,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/CreateMobileRepairPayment")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> CreateMobileRepairPayment(MobileRepairViewModel model)
         {
             var otpResult = await _otpBusinessService.IsValidOtp(model.OTP, model.MobileNumber, (int)OtpReason.MobileRepairPayment, DateTime.UtcNow);
@@ -176,6 +183,7 @@ namespace Egharpay.Controllers
         }
 
         [Route("MobileRepair/Edit/{mobileRepairId}")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> Edit(int mobileRepairId)
         {
             var id = UserPersonnelId;
@@ -192,8 +200,9 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [Route("MobileRepair/Edit/{mobileRepairId}")]
         [ValidateAntiForgeryToken]
+        [Route("MobileRepair/Edit/{mobileRepairId}")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> Edit(MobileRepairViewModel model)
         {
             await _mobileRepairBusinessService.UpdateMobileRepair(model.MobileRepair);
@@ -202,6 +211,7 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("MobileRepair/RetrieveAvailableMobileRepairAdmin")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> RetrieveAvailableMobileRepairAdmin(DateTime? date, string time)
         {
             var fromDateTime = date.CombineDateTime(time);
@@ -211,6 +221,7 @@ namespace Egharpay.Controllers
 
 
         [Route("MobileRepair/RetrieveMobileRepairAdmins")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> RetrieveMobileRepairAdmins()
         {
             var data = await _mobileRepairAdminBusinessService.RetrieveAvailableMobileRepairAdmins();
@@ -218,10 +229,10 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public ActionResult SearchByDate(DateTime fromDate, DateTime toDate, Paging paging, List<OrderBy> orderBy)
         {
-            bool isSuperAdmin = User.IsInAnyRoles("SuperAdmin");
-            return this.JsonNet(_mobileRepairBusinessService.RetrieveMobileRepairGrids( e=> e.AppointmentDate >= fromDate && e.AppointmentDate <= toDate, orderBy, paging));
+            return this.JsonNet(_mobileRepairBusinessService.RetrieveMobileRepairGrids(e => e.AppointmentDate >= fromDate && e.AppointmentDate <= toDate, orderBy, paging));
         }
 
     }

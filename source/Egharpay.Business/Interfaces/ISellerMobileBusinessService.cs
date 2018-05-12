@@ -15,7 +15,7 @@ namespace Egharpay.Business.Interfaces
         Task<ValidationResult<SellerMobile>> AddMobileInStore(SellerMobile seller);
 
         //Retrieve
-        Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(Expression<Func<MobileRepairGrid, bool>> predicate,List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(Expression<Func<SellerMobileGrid, bool>> predicate,List<OrderBy> orderBy = null, Paging paging = null);
         Task<PagedResult<SellerMobileGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
     }
 }

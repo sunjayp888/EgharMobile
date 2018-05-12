@@ -101,7 +101,7 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<SellerGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var data= await _dataService.RetrievePagedResultAsync<SellerGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
+            var data = await _dataService.RetrievePagedResultAsync<SellerGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
             return data;
         }
 
@@ -171,13 +171,10 @@ namespace Egharpay.Business.Services
         public async Task<ValidationResult<Seller>> UpdateSellerApprovalState(Seller seller)
         {
             var validationResult = new ValidationResult<Seller>();
-            var sellerApprovalEmail = await SendSellerApprovalStateEmail(seller);
-            if (sellerApprovalEmail.Succeeded)
-            {
-               await _dataService.UpdateAsync(seller);
-                validationResult.Succeeded = true;
-                validationResult.Entity = seller;
-            }
+            await _dataService.UpdateAsync(seller);
+            validationResult.Succeeded = true;
+            validationResult.Entity = seller;
+            await SendSellerApprovalStateEmail(seller);
             return validationResult;
         }
 
