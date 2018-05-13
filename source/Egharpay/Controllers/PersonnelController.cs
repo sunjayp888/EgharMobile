@@ -321,12 +321,12 @@ namespace Egharpay.Controllers
         }
 
         [Route("RetrieveProfileImage/{personnelId:int}")]
-        public async Task<ActionResult> RetrieveProfileImage(int? personnelId)
+        public async Task<ActionResult> RetrieveProfileImage(int personnelId)
         {
-            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, personnelId.Value, Policies.Resource.Personnel.ToString()))
+            if (!await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, personnelId, Policies.Resource.Personnel.ToString()))
                 return HttpForbidden();
 
-            var personnels = await _personnelDocumentBusinessService.RetrievePersonnelDocuments(personnelId.Value, DocumentCategory.ProfilePhoto);
+            var personnels = await _personnelDocumentBusinessService.RetrievePersonnelDocuments(personnelId, DocumentCategory.ProfilePhoto);
             if (personnels == null)
                 return HttpNotFound(UserNotExist);
 

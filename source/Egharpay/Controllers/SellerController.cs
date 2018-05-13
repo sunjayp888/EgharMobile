@@ -18,7 +18,8 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
-    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
+    [RoutePrefix("Seller")]
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Seller })]
     public class SellerController : BaseController
     {
         private readonly ISellerBusinessService _sellerBusinessService;
@@ -33,8 +34,7 @@ namespace Egharpay.Controllers
             return View(new BaseViewModel());
         }
 
-        // GET: Seller/Create
-        [Authorize(Roles = "Admin")]
+        [Route("Create")]
         public async Task<ActionResult> Create()
         {
             var viewModel = new SellerViewModel()
@@ -44,9 +44,8 @@ namespace Egharpay.Controllers
             return View(viewModel);
         }
 
-        // POST: Seller/Create
-        [Authorize(Roles = "Admin")]
         [HttpPost]
+        [Route("Create")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(SellerViewModel sellerViewModel)
         {
@@ -70,13 +69,11 @@ namespace Egharpay.Controllers
             return View(sellerViewModel);
         }
 
-        public async Task<ActionResult> Edit(int? id)
+        [HttpGet]
+        [Route("{sellerId:int}/Edit")]
+        public async Task<ActionResult> Edit(int sellerId)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var seller = await _sellerBusinessService.RetrieveSeller(id.Value);
+            var seller = await _sellerBusinessService.RetrieveSeller(sellerId);
             if (seller == null)
             {
                 return HttpNotFound();
@@ -88,14 +85,14 @@ namespace Egharpay.Controllers
             return View(viewModel);
         }
 
-        // POST: Seller/Create
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(SellerViewModel sellerViewModel)
+        [Route("{sellerId:int}/Edit")]
+        public async Task<ActionResult> Edit(int sellerId, SellerViewModel sellerViewModel)
         {
             if (ModelState.IsValid)
             {
+                sellerViewModel.Seller.SellerId = sellerId;
                 var result = await _sellerBusinessService.UpdateSeller(sellerViewModel.Seller);
                 if (result.Succeeded)
                 {
@@ -111,6 +108,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [Route("List")]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             try
@@ -126,12 +124,14 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [Route("Search")]
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
             return this.JsonNet(await _sellerBusinessService.Search(searchKeyword, orderBy, paging));
         }
 
         [HttpPost]
+        [Route("UpdateSellerApprovalState")]
         public async Task<ActionResult> UpdateSellerApprovalState(int sellerId)
         {
             var sellerdata = await _sellerBusinessService.RetrieveSeller(sellerId);
