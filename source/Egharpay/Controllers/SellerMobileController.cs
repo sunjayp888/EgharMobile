@@ -51,7 +51,11 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
-            return this.JsonNet(await _sellerMobileBusinessService.Search(searchKeyword, orderBy, paging));
+            if (User.IsSuperUserOrAdmin())
+                return this.JsonNet(await _sellerMobileBusinessService.RetrieveSellerMobileGrids(e => true, orderBy, paging));
+
+            var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(UserPersonnelId);
+            return this.JsonNet(await _sellerMobileBusinessService.Search(seller.SellerId, searchKeyword, orderBy, paging));
         }
 
         [HttpPost]

@@ -127,6 +127,13 @@ namespace Egharpay.Business.Services
             return sellerList.AsQueryable().OrderBy(orderBy).Paginate(paging);
         }
 
+        public async Task<PagedResult<SellerMobileGrid>> RetrieveMobileSellers(string term, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            if (string.IsNullOrEmpty(term))
+                return await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => true, orderBy, paging);
+            return await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
+        }
+
         public double RetrieveDistanceInKilometer(GeoPosition startGeoPosition, GeoPosition endGeoPosition)
         {
             //HaversineFormulae to calculate distance

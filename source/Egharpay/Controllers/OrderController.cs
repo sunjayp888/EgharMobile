@@ -16,6 +16,7 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
+    [RoutePrefix("SellerOrders")]
     [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Seller, Role.Personnel })]
     public class OrderController : BaseController
     {
@@ -45,8 +46,7 @@ namespace Egharpay.Controllers
             return View(viewModel);
         }
 
-        // POST: Order/Create
-        [Authorize(Roles = "Admin")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(int? mobileId)
@@ -65,7 +65,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [Route("Orders/RequestOrder")]
+        [Route("RequestOrder")]
         [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Personnel })]
         public async Task<ActionResult> RequestOrder(int mobileId, int sellerId)
         {
@@ -81,6 +81,7 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [Route("List")]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             var personnelId = UserPersonnelId;
@@ -97,6 +98,16 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [Route("Search")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Seller })]
+        public async Task<ActionResult> Search(string searchTerm, Paging paging, List<OrderBy> orderBy)
+        {
+            return this.JsonNet(await _orderBusinessService.Search(searchTerm, orderBy, paging));
+        }
+
+
+        [HttpPost]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Seller, Role.Personnel })]
         public async Task<ActionResult> UpdateOrder(int orderId)
         {
             var orderData = await _orderBusinessService.RetrieveOrder(orderId);
@@ -109,7 +120,7 @@ namespace Egharpay.Controllers
             return View();
         }
 
-        [Route("Orders/{orderId:int}/Edit")]
+        [Route("{orderId:int}/Edit")]
         public async Task<ActionResult> Edit(int orderId)
         {
             var order = await _orderBusinessService.RetrieveOrder(orderId);
@@ -121,13 +132,21 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [Route("Orders/{orderId:int}/UpdateShippingAddress")]
+        [Route("{orderId:int}/UpdateShippingAddress")]
         public async Task<ActionResult> UpdateShippingAddress(int orderId, int shippingAddressId)
         {
             var order = await _orderBusinessService.RetrieveOrder(orderId);
             order.ShippingAddressId = shippingAddressId;
             await _orderBusinessService.UpdateOrder(order);
             return this.JsonNet("");
+        }
+
+        [HttpPost]
+        [Route("SearchByDate")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
+        public async Task<ActionResult> SearchByDate(DateTime fromDate, DateTime toDate, Paging paging, List<OrderBy> orderBy)
+        {
+            return this.JsonNet(await _orderBusinessService.RetrieveSellerOrders(e => e.OrderCreatedDate >= fromDate && e.OrderCreatedDate <= toDate, orderBy, paging));
         }
     }
 }

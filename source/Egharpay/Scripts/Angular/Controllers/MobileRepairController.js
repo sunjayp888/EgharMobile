@@ -50,8 +50,10 @@
         vm.markAsInProgress = markAsInProgress;
         //vm.mobileRepairState = mobileRepairState;
         vm.searchMobileRepairByDate = searchMobileRepairByDate;
+        vm.search = search;
         vm.fromDate;
         vm.toDate;
+        vm.searchTerm;
 
         function initialise() {
             vm.orderBy.property = "MobileRepairId";
@@ -210,6 +212,7 @@
                 vm.disablePay = true;
             }
         }
+
         function retrieveAvailableMobileRepairAdmin() {
             var appointmentTime = $('#MobileRepair_AppointmentTime').val();
             return MobileRepairService.retrieveAvailableMobileRepairAdmin(vm.AppointmentDate, appointmentTime).then(function (response) {
@@ -225,7 +228,6 @@
             });
         }
 
-        
         function selectMobileRepairAdmin() {
             if (vm.mobileRepairAdmins.length > 0) {
                 var admin = $filter('filter')(vm.mobileRepairAdmins,
@@ -246,6 +248,17 @@
                   vm.searchMessage = vm.mobileRepairOrders.length === 0 ? "No Records Found" : "";
                   return vm.mobileRepairOrders;
               });
+        }
+
+        function search() {
+            return MobileRepairService.search(vm.searchTerm, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.mobileRepairOrders = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.mobileRepairOrders.length === 0 ? "No Records Found" : "";
+                    return vm.mobileRepairOrders;
+                });
         }
     }
 

@@ -16,6 +16,6 @@ namespace Egharpay.Business.Interfaces
 
         //Retrieve
         Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(Expression<Func<SellerMobileGrid, bool>> predicate,List<OrderBy> orderBy = null, Paging paging = null);
-        Task<PagedResult<SellerMobileGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<SellerMobileGrid>> Search(int sellerId,string term, List<OrderBy> orderBy = null, Paging paging = null);
     }
 }

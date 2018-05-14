@@ -71,7 +71,7 @@
         }
 
         function searchSeller(SearchKeyword, Paging, OrderBy) {
-            var url = "/Mobile/SellerSearch",
+            var url = "/Mobile/MobileSellers",
                 data = {
                     searchKeyword: SearchKeyword,
                     paging: Paging,

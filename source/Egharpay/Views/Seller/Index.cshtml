@@ -15,100 +15,120 @@
     }
 </div>
 <br />
-<div class="row" ng-cloak ng-controller="SellerController as model" ng-init="model.retrieveSellers()">
-    <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Sellers </h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
+<div ng-cloak ng-controller="SellerController as model" ng-init="model.initialise()">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Sellers </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-5 m-b-xs">
+                            <div class="row m-b-sm m-t-sm">
+                                <div class="col-md-6 form-inline">
+                                    @Html.Partial("Pagination/_pageSize")
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.Partial("Pagination/_pageInformation")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 m-b-xs">
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchSeller(searchField)"> <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchSeller(searchField)"> Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
-            <div class="ibox-content">
-                <div class="row">
-                    <div class="col-sm-5 m-b-xs">
-                        <div class="row m-b-sm m-t-sm">
-                            <div class="col-md-6 form-inline">
-                                @Html.Partial("Pagination/_pageSize")
-                            </div>
-                            <div class="col-md-6">
-                                @Html.Partial("Pagination/_pageInformation")
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3 m-b-xs">
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="input-group">
-                            <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchSeller(searchField)"> <span class="input-group-btn">
-                                <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchSeller(searchField)"> Go!</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr role="row">
-                            <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
-                            <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
-                            <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
-                            <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
-                            <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
-                            <th ng-click="model.order('ApprovalStateId')" ng-class="model.orderClass('ApprovalStateId')">Approved Status</th>
-                            <th ng-click="model.order('MobileNumber')" ng-class="model.orderClass('MobileNumber')">MobileNumber</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="seller in model.sellers" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled || model.editSeller(seller.SellerId)">
-                            <td><span ng-bind="seller.Name"></span></td>
-                            <td><span ng-bind="seller.RegistrationNumber"></span></td>
-                            <td><span ng-bind="seller.Owner"></span></td>
-                            <td><span ng-bind="seller.Address1"></span><span ng-bind="seller.Address2"></span><span ng-bind="seller.Address3"></span><span ng-bind="seller.Address4"></span></td>
-                            <td><span ng-bind="seller.Pincode"></span></td>
-                            <td>
-                                <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.Pending)" type="button" class="btn btn-round btn-warning btn-xs">Pending</button>
-                                <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.Approved)" type="button" class="btn btn-round btn-success btn-xs">Approved</button>
-                                <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.UnApproved)" type="button" class="btn btn-round btn-danger btn-xs">UnApproved</button>
-                            </td>
-                            <td><span ng-bind="seller.MobileNumber"></span></td>
-                            <td>
-                                <div class="btn-group pull-right">
-                                    <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
-                                        <i class="fa fa-chevron-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu slidedown">
-                                        <li>
-                                            <a style="cursor: pointer;" ng-if="seller.ApprovalStateId!=2" ng-click="model.sellerApproveState(seller.SellerId)">
-                                                Approve
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/Seller/{{seller.SellerId}}/Edit">
-                                                Edit
-                                            </a>
-                                        </li>
-                                        @*<li>
-                                                    <a style="cursor: pointer;" ng-click="model.sellerApproveState(seller.SellerId)">
-                                                        Un-Approve
-                                                    </a>
-                                                </li>*@
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                @Html.Partial("Pagination/_pagination")
+        </div>
 
+    </div>
+
+    <div class="row" ng-if="model.sellers.length>0">
+        <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-responsive table-bordered table-hover dataTables-example dataTable responsive">
+                            <thead>
+                            <tr role="row">
+                                <th ng-click="model.order('Name')" ng-class="model.orderClass('Name')">Name</th>
+                                <th ng-click="model.order('RegistrationNumber')" ng-class="model.orderClass('RegistrationNumber')">Registration No.</th>
+                                <th ng-click="model.order('Owner')" ng-class="model.orderClass('Owner')">Owner</th>
+                                <th ng-click="model.order('Address1')" ng-class="model.orderClass('Address1')">Address</th>
+                                <th ng-click="model.order('Pincode')" ng-class="model.orderClass('Pincode')">Pincode</th>
+                                <th ng-click="model.order('ApprovalStateId')" ng-class="model.orderClass('ApprovalStateId')">Approved Status</th>
+                                <th ng-click="model.order('MobileNumber')" ng-class="model.orderClass('MobileNumber')">MobileNumber</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="seller in model.sellers" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled || model.editSeller(seller.SellerId)">
+                                <td><span ng-bind="seller.Name"></span></td>
+                                <td><span ng-bind="seller.RegistrationNumber"></span></td>
+                                <td><span ng-bind="seller.Owner"></span></td>
+                                <td><span ng-bind="seller.Address1"></span><span ng-bind="seller.Address2"></span><span ng-bind="seller.Address3"></span><span ng-bind="seller.Address4"></span></td>
+                                <td><span ng-bind="seller.Pincode"></span></td>
+                                <td>
+                                    <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.Pending)" type="button" class="btn btn-round btn-warning btn-xs">Pending</button>
+                                    <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.Approved)" type="button" class="btn btn-round btn-success btn-xs">Approved</button>
+                                    <button ng-if="seller.ApprovalStateId==@((int) SellerApprovalState.UnApproved)" type="button" class="btn btn-round btn-danger btn-xs">UnApproved</button>
+                                </td>
+                                <td><span ng-bind="seller.MobileNumber"></span></td>
+                                <td>
+                                    <div class="btn-group pull-right">
+                                        <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false" ng-click="$event.originalEvent.ngClickHandled = true">
+                                            <i class="fa fa-chevron-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu slidedown">
+                                            <li>
+                                                <a style="cursor: pointer;" ng-if="seller.ApprovalStateId!=2" ng-click="model.sellerApproveState(seller.SellerId)">
+                                                    Approve
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Seller/{{seller.SellerId}}/Edit">
+                                                    Edit
+                                                </a>
+                                            </li>
+                                            @*<li>
+                                                        <a style="cursor: pointer;" ng-click="model.sellerApproveState(seller.SellerId)">
+                                                            Un-Approve
+                                                        </a>
+                                                    </li>*@
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    @Html.Partial("Pagination/_pagination")
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-12">
-        <label ng-bind="model.searchMessage"></label>
+
+    <div class="row" ng-if="model.sellers.length<=0">
+        <div class="col-xs-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <label ng-bind="model.searchMessage"></label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

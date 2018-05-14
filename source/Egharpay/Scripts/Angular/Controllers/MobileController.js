@@ -234,15 +234,15 @@
             //vm.orderBy.direction = "Ascending";
             //vm.orderBy.class = "asc";
             vm.pinCode = vm.searchKeyword;
-            retrieveSellersFromGeoLocation();
-            //return MobileService.searchSeller(vm.searchKeyword, vm.paging, vm.orderBy)
-            //    .then(function (response) {
-            //        vm.sellers = response.data.Items;
-            //        vm.paging.totalPages = response.data.TotalPages;
-            //        vm.paging.totalResults = response.data.TotalResults;
-            //        vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
-            //        return vm.sellers;
-            //    });
+            return MobileService.searchSeller(vm.searchKeyword, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.sellers = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.sellers.length === 0 ? "No Records Found" : "";
+                    usSpinnerService.stop('locationSpinner');
+                    return vm.sellers;
+                });
         }
 
         function requestOrder(mobileId, sellerId, isLoggedin) {

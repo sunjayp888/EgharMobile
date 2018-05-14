@@ -107,6 +107,25 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
+        [Route("MobileRepair/Search")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
+        public async Task<ActionResult> Search(string searchTerm, Paging paging, List<OrderBy> orderBy)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    return this.JsonNet(await _mobileRepairBusinessService.RetrieveMobileRepairGrids(e => e.MobileNumber.ToString() == searchTerm, orderBy, paging));
+                }
+                return this.JsonNet(await _mobileRepairBusinessService.RetrieveMobileRepairGrids(e => true, orderBy, paging));
+            }
+            catch (Exception)
+            {
+                return this.JsonNet("");
+            }
+        }
+
+        [HttpPost]
         [Route("MobileRepair/MarkAsCompleted")]
         [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> MarkAsCompleted(int mobileRepairId)

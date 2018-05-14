@@ -1,4 +1,5 @@
-﻿<div class="row white-bg" ng-controller="HomeController as model" ng-init="model.initialise()">
+﻿@using Egharpay.Extensions
+<div class="row white-bg" ng-controller="HomeController as model" ng-init="model.initialise()">
     <nav class="navbar navbar-fixed-top" role="navigation">
         <div class="navbar-header">
             <div class="row">
@@ -9,7 +10,7 @@
                 <div class="col-lg-10">
                     <form class="navbar-form navbar-left form-inline" role="search">
                         <div class="form-group">
-                            <a href="~/Home"  class="btn btn-primary mobile-logo mobile-view">
+                            <a href="~/Home" class="btn btn-primary mobile-logo mobile-view">
                                 <strong>m</strong>
                             </a>
                             <input type="text" id="searchField" placeholder="Search for something..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search" />
@@ -21,9 +22,12 @@
                                 <a id="mobileOrderButton" class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder"> Order </span></a>
                             }
                             <a class="btn btn-danger xs-ml-8 web-view" ng-href="/MobileRepair"><i class="fa fa-wrench "></i> <span id="spanOrder">Repair Phone</span></a>
-                            <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartoggle">
-                                <i class="fa fa-tasks"></i>
-                            </button>
+                            @if (!User.IsSuperUserOrAdminOrSeller())
+                            {
+                                <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartoggle">
+                                    <i class="fa fa-tasks"></i>
+                                </button>
+                            }
                         </div>
                     </form>
                 </div>
@@ -45,8 +49,8 @@
                                             <h4><small><span ng-bind="latestMobile.Name"></span></small></h4>
                                             <a href="/Mobile/Detail/{{latestMobile.MobileId}}-{{latestMobile.Name}}" class="btn btn-warning">Detail</a>
                                             @*<button ng-href="#" class="btn btn-default" type="button">
-                                                <span class="glyphicon glyphicon-heart"></span> Add to Wishlist
-                                            </button>*@
+                                                    <span class="glyphicon glyphicon-heart"></span> Add to Wishlist
+                                                </button>*@
                                         </div><!-- End Item -->
                                     </div><!-- End Carousel Inner -->
                                 </div><!-- /.carousel -->
@@ -74,22 +78,22 @@
                             </ul>
                         </li>
                         @*<li class="col-sm-3">
-                            <ul>
-                                <li class="dropdown-header">Accessories</li>
-                                <li><a href="#">Default Navbar</a></li>
-                                <li><a href="#">Lovely Fonts</a></li>
-                                <li><a href="#">Responsive Dropdown </a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Newsletter</li>
-                                <form class="form" role="form">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="email">Email address</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Enter email">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                </form>
-                            </ul>
-                        </li>*@
+                                <ul>
+                                    <li class="dropdown-header">Accessories</li>
+                                    <li><a href="#">Default Navbar</a></li>
+                                    <li><a href="#">Lovely Fonts</a></li>
+                                    <li><a href="#">Responsive Dropdown </a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Newsletter</li>
+                                    <form class="form" role="form">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="email">Email address</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                                    </form>
+                                </ul>
+                            </li>*@
                     </ul>
 
                 </li>
@@ -104,11 +108,14 @@
                     @Html.AntiForgeryToken()
                     <ul class="nav navbar-top-links navbar-right">
                         @*<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>*@
-                        <li>
-                            <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartogglebutton">
-                                <i class="fa fa-tasks"></i>
-                            </button>
-                        </li>
+                        @if (!User.IsSuperUserOrAdminOrSeller())
+                        {
+                            <li>
+                                <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartogglebutton">
+                                    <i class="fa fa-tasks"></i>
+                                </button>
+                            </li>
+                        }
                     </ul>
                 }
             }

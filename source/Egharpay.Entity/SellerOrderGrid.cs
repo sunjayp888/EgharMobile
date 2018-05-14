@@ -73,5 +73,7 @@ namespace Egharpay.Entity
         [Column(Order = 9)]
         [StringLength(100)]
         public string OrderStateName { get; set; }
+
+        public string SearchField { get; set; }
     }
 }

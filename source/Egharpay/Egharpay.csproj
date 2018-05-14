@@ -18,7 +18,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44367</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -2463,6 +2464,8 @@
     <None Include="Properties\PublishProfiles\sanjayp.pubxml" />
     <Content Include="Views\Shared\_PersonnelShippingAddressModal.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Order\_PersonnelOrder.cshtml" />
+    <Content Include="Views\Order\_SellerOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

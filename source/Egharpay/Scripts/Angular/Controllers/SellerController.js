@@ -12,10 +12,10 @@
         var vm = this;
         vm.sellers = [];
         vm.paging = new Paging;
-        //vm.pageChanged = pageChanged;
+        vm.pageChanged = pageChanged;
         vm.orderBy = new OrderBy;
-        //vm.order = order;
-        //vm.orderClass = orderClass;
+        vm.order = order;
+        vm.orderClass = orderClass;
         vm.searchSeller = searchSeller;
         vm.sellerApproveState = sellerApproveState;
         vm.searchKeyword = "";
@@ -31,9 +31,6 @@
         }
 
         function retrieveSellers() {
-            vm.orderBy.property = "Name";
-            vm.orderBy.direction = "Ascending";
-            vm.orderBy.class = "asc";
             return SellerService.retrieveSellers(vm.paging, vm.orderBy)
                 .then(function (response) {
                     vm.sellers = response.data.Items;
@@ -60,25 +57,24 @@
             return SellerService.sellerApproveState(sellerId).then(function (response) {
                 retrieveSellers();
             });
-
-            function pageChanged() {
-                if (vm.searchKeyword) {
-                    return searchSeller(vm.searchKeyword)();
-                }
-                return retrieveSellers();
+        }
+        function pageChanged() {
+            if (vm.searchKeyword) {
+                return searchSeller(vm.searchKeyword)();
             }
+            return retrieveSellers();
+        }
 
-            function order(property) {
-                vm.orderBy = OrderService.order(vm.orderBy, property);
-                if (vm.searchKeyword) {
-                    return searchSeller(vm.searchKeyword)();
-                }
-                return retrieveSellers();
+        function order(property) {
+            vm.orderBy = OrderService.order(vm.orderBy, property);
+            if (vm.searchKeyword) {
+                return searchSeller(vm.searchKeyword)();
             }
+            return retrieveSellers();
+        }
 
-            function orderClass(property) {
-                return OrderService.orderClass(vm.orderBy, property);
-            }
+        function orderClass(property) {
+            return OrderService.orderClass(vm.orderBy, property);
         }
     }
 })();
