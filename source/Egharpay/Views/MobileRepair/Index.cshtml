@@ -56,6 +56,7 @@
                                 <div class="form-group" ng-if="model.isRepair">
                                     @Html.TextBoxFor(m => m.ModelName, new { @class = "form-control", @placeholder = "Model Name", @ng_model = "model.modelName" })
                                 </div>
+                                
                                 <p class="text-muted text-left">
                                     <a ng-if="model.isOtpCreated" ng-click="model.isRepair ? model.createMobileRepairOtp():model.createMobileRepairManageOrderOtp()">&nbsp;&nbsp;&nbsp; ReSend OTP</a>
                                 </p>
@@ -93,7 +94,7 @@
                             <div class="feed-activity-list">
                                 <div class="feed-element" ng-repeat="mobileRepair in model.mobileRepairOrders">
                                     <div class="media-body ">
-                                        
+
                                         <strong>Mobile RepairId</strong> - {{mobileRepair.MobileRepairId}}<br />
                                         <strong>Request Status</strong> &nbsp;&nbsp;&nbsp;<label class="label label-warning"><span ng-bind="mobileRepair.MobileRepairStateDescription"></span></label>
                                         <br>

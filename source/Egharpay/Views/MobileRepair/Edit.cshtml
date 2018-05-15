@@ -51,6 +51,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        @Html.Label("Mobile Faults", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="hidden" id="@Html.IdFor(model => model.SelectedMobileFaultIdsJson)" name="@Html.NameFor(model => model.SelectedMobileFaultIdsJson)" ng-init="model.selectedMobileFaults = @Model.SelectedMobileFaultIdsJson" value="{{model.selectedMobileFaults}}" />
+                                            <ui-select multiple tagging ng-model="model.selectedMobileFaults" on-remove="model.deleteMobileRepairMobileFault(@Model.MobileRepair.MobileRepairId,$item)" class="form-control" ng-change="model.filterSelected()" style="width: 100%" ng-disabled="model.mobileFaults.length <=0">
+                                                <ui-select-match placeholder="Select Mobile Faults"> <span ng-bind-html="$item.Name"></span></ui-select-match>
+                                                <ui-select-choices repeat="mobileFault.MobileFaultId as mobileFault in model.mobileFaults | filter:$select.search">
+                                                    <span ng-bind-html="mobileFault.Name"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         @Html.LabelFor(model => model.MobileRepair.Description, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
                                         <div class="col-md-4 col-sm-4 col-xs-12">
                                             @Html.TextBoxFor(model => model.MobileRepair.Description, new { @class = "form-control col-md-6 col-xs-12" })

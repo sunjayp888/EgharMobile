@@ -22,12 +22,13 @@ namespace Egharpay.Business.Interfaces
         Task<PagedResult<MobileRepair>> RetrieveMobileRepairs(List<OrderBy> orderBy = null, Paging paging = null);
         Task<MobileRepair> RetrieveMobileRepair(int mobileRepairId);
         Task<PagedResult<MobileRepairGrid>> RetrieveMobileRepairGrids(Expression<Func<MobileRepairGrid, bool>> predicate,List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<MobileFault>> RetrieveMobileFaults(List<OrderBy> orderBy = null, Paging paging = null);
         #endregion
 
         #region Update
         Task<ValidationResult> UpdateMobileRepairState(int mobileRepairId, int mobileRepairStateId);
         Task<ValidationResult> CancelMobileRepairRequest(int mobileRepairId);
-        Task<ValidationResult<MobileRepair>> UpdateMobileRepair(MobileRepair mobileRepair);
+        Task<ValidationResult<MobileRepair>> UpdateMobileRepair(MobileRepair mobileRepair, List<int> mobileFaultIds);
         #endregion
     }
 }
