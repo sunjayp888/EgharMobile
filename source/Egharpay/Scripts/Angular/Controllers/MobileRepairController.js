@@ -35,6 +35,8 @@
         vm.createMobileRepairPayment = createMobileRepairPayment;
         vm.isRepair = true;
         vm.mobileRepairOrders = [];
+        vm.mobileFaults = [];
+        vm.selectedMobileFaults = [];
         vm.initialise = initialise;
         vm.amount;
         vm.disablePay = true;
@@ -53,6 +55,9 @@
         vm.search = search;
         vm.fromDate;
         vm.toDate;
+        vm.retrieveMobileRepairFaults = retrieveMobileRepairFaults;
+        vm.deleteMobileRepairMobileFault = deleteMobileRepairMobileFault;
+        vm.initialise = initialise;
         vm.searchTerm;
 
         function initialise() {
@@ -224,6 +229,7 @@
         }
 
         function retrieveMobileRepairAdmins() {
+            retrieveMobileRepairFaults();
             return MobileRepairService.retrieveMobileRepairAdmins().then(function (response) {
                 vm.mobileRepairAdmins = response.data;
                 selectMobileRepairAdmin();
@@ -252,6 +258,21 @@
               });
         }
 
+
+        function retrieveMobileRepairFaults() {
+            vm.orderBy.property = "MobileFaultId";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
+            return MobileRepairService.retrieveMobileRepairFaults(vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.mobileFaults = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.mobileFaults.length === 0 ? "No Records Found" : "";
+                    return vm.mobileFaults;
+                });
+        }
+      
         function search() {
             return MobileRepairService.search(vm.searchTerm, vm.paging, vm.orderBy)
                 .then(function (response) {
@@ -261,6 +282,12 @@
                     vm.searchMessage = vm.mobileRepairOrders.length === 0 ? "No Records Found" : "";
                     return vm.mobileRepairOrders;
                 });
+        }
+   
+        function deleteMobileRepairMobileFault(mobileRepairId, $item) {
+            return MobileRepairService.deleteMobileRepairMobileFault(mobileRepairId, $item.MobileFaultId)
+                .then(function () {
+       
         }
     }
 

@@ -12,6 +12,7 @@ namespace Egharpay.Entity
         public MobileRepair()
         {
             CreatedDateTime = DateTime.UtcNow;
+            MobileRepairMobileFaults = new HashSet<MobileRepairMobileFault>();
         }
 
         public int MobileRepairId { get; set; }
@@ -66,5 +67,7 @@ namespace Egharpay.Entity
 
         public string AppointmentTime { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MobileRepairMobileFault> MobileRepairMobileFaults { get; set; }
     }
 }

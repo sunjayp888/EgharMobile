@@ -68,6 +68,7 @@
     <Compile Include="Interfaces\IAuthorizationDataService.cs" />
     <Compile Include="Interfaces\IMobileRepairAdminDataService.cs" />
     <Compile Include="Interfaces\IMobileRepairDataService.cs" />
+    <Compile Include="Interfaces\IMobileRepairMobileFaultDataService.cs" />
     <Compile Include="Interfaces\IOtpDataService.cs" />
     <Compile Include="Interfaces\IProductDataService.cs" />
     <Compile Include="Interfaces\IAdvertiseDataService.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Services\MobileRepairAdminDataService.cs" />
     <Compile Include="Services\MobileRepairDataService.cs" />
     <Compile Include="Services\AddressDataService.cs" />
+    <Compile Include="Services\MobileRepairMobileFaultDataService.cs" />
     <Compile Include="Services\OtpDataService.cs" />
     <Compile Include="Services\ProductDataService.cs" />
     <Compile Include="Services\AdvertiseDataService.cs" />
