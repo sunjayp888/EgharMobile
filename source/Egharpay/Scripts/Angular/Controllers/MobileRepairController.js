@@ -200,8 +200,10 @@
                 vm.showMessage = true;
                 vm.isOtpCreated = response.data.Succeeded;
                 vm.errorMessages.push(response.data.Message);
-                retrieveMobileRepairOrders();
-                angular.element('#mobileRepairPaymentModal').modal('toggle');
+                if (response.data.Succeeded) {
+                    retrieveMobileRepairOrders();
+                    angular.element('#mobileRepairPaymentModal').modal('toggle');
+                }
             });
         }
 
