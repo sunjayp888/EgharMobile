@@ -1,0 +1,55 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Orders</h2>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <span class="pull-right">(<strong>{{model.sellerOrders.length}}</strong>) items</span>
+                    <h5>Your Request</h5>
+                </div>
+                <div class="ibox-content" ng-repeat="order in model.sellerOrders">
+                    <div class="table-responsive">
+                        <table class="table shoping-cart-table">
+                            <tbody>
+                                <tr>
+                                    <td width="90">
+                                        <div class="cart-product-imitation">
+                                        </div>
+                                    </td>
+                                    <td class="desc">
+                                        <h3>
+                                            <a href="#" class="text-navy">
+                                                {{order.MobileName}}
+                                            </a>
+                                        </h3>
+
+                                        <dl class="small m-b-none">
+                                            <dt>Order Date : {{order.OrderCreatedDate|date : format : shortDate}}</dt>
+                                            <dt>Seller Name : {{order.SellerName}}</dt>
+                                        </dl>
+                                        @*<div class="m-t-sm">
+                                                <button class="btn btn-warning pull-right"><i class="fa fa-times-rectangle"></i> Cancel Order</button>
+                                            </div>*@
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <button type="button" class="btn btn-info btn-sm">{{order.OrderStateName}}</button>
+                                        </h4>
+                                        <button type="button" class="btn btn-warning pull-right" ng-click="model.updateSellerOrder(order.OrderId)" ng-if="order.OrderStateName !='Cancelled'"><i class="fa fa-times-rectangle"></i> Cancel Order</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Personnel";
 }
-<div ng-controller="PersonnelController as model">
+<div ng-controller="PersonnelController as model" ng-init="model.initialise()">
     <div class="page-title">
         <div class="title_left">
             @if (User.IsInAnyRoles("Admin"))
@@ -110,6 +110,7 @@
                                             <tr role="row">
                                                 <th>Avatar</th>
                                                 <th ng-click="model.order('Title')" ng-class="model.orderClass('Title')">Title</th>
+                                                <th ng-click="model.order('Mobile')" ng-class="model.orderClass('Title')">Mobile</th>
                                                 <th ng-click="model.order('Forenames')" ng-class="model.orderClass('Forenames')">Forenames</th>
                                                 <th ng-click="model.order('Surname')" ng-class="model.orderClass('Surname')">Surname</th>
                                                 <th ng-click="model.order('DOB')" ng-class="model.orderClass('DOB')">DOB</th>
@@ -118,8 +119,9 @@
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="person in model.personnel" class="odd gradeX" ng-click="$event.originalEvent.ngClickHandled || model.viewPersonnelProfile(person.PersonnelId)">
-                                                <td><span ng-cloak class="ng-cloak"><img class="avatar" ng-src="{{ person.Avatar.Url || '/Content/images/user.png' }}" alt="Avatar" title="avatar"></span><br /></td>
+                                                <td><span ng-cloak class="ng-cloak"><img class="avatar avatar-grid" ng-src="{{ person.Avatar.Url || '/Images/Avatar.png' }}" alt="Avatar" title="avatar"></span><br /></td>
                                                 <td><span ng-bind="person.Title"></span></td>
+                                                <td><span ng-bind="person.Mobile"></span></td>
                                                 <td><span ng-bind="person.Forenames"></span></td>
                                                 <td><span ng-bind="person.Surname"></span></td>
                                                 <td><span ng-bind-template="{{ person.DOB | date:'dd/MM/yyyy'}}"></span></td>

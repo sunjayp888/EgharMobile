@@ -176,10 +176,11 @@ namespace Egharpay.Business.Services
         private void SendOrderSms(Order order, List<Seller> sellers, Personnel personnel, Entity.Mobile mobile)
         {
             var sellerData = sellers.First();
+            var sellerName = sellerData.Name == null ? "Seller" : sellerData.Name;
             if (!string.IsNullOrEmpty(personnel.Mobile))
             {
                 //var msg = String.Format("Order Received: We have received your order request for {0} with order id {1}. Seller will contact you on {2}.", mobile.Name, order.OrderId, personnel.Mobile);
-                var msg = $"Hi, we have received your request for {mobile.Name}.Seller {sellerData.Name} will contact you soon for best deal.";
+                var msg = $"Hi, we have received your request for {mobile.Name}.Seller {sellerName} will contact you soon for best deal.";
                 _smsBusinessService.SendSMS(personnel.Mobile, msg);
             }
             foreach (var seller in sellers)
@@ -187,8 +188,9 @@ namespace Egharpay.Business.Services
                 if (!string.IsNullOrEmpty(seller.MobileNumber.ToString()))
                 {
                     //var msg = String.Format("Order Received: We have received your order request for {0} from {1} {2} {3} with order id {4}. Kindly contact to customer on {5}.", mobile.Name, personnel.Title, personnel.Forenames, personnel.Surname, order.OrderId, personnel.Mobile);
-                    var msg = $"Hi, {seller.Name} you have received a request for {mobile.Name}.Contact customer on {personnel.Mobile}.";
-                    _smsBusinessService.SendSMS(seller.Contact1.ToString(), msg);
+
+                    var msg = $"Hi, {sellerName} you have received a request for {mobile.Name}.Contact customer on {personnel.Mobile}.";
+                    _smsBusinessService.SendSMS(seller.MobileNumber.ToString(), msg);
                 }
             }
         }
@@ -205,9 +207,12 @@ namespace Egharpay.Business.Services
             return orders;
         }
 
-        public async Task<PagedResult<Order>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<SellerOrderGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            return null;
+            if (string.IsNullOrEmpty(term))
+                return await _dataService.RetrievePagedResultAsync<SellerOrderGrid>(e => true, orderBy, paging);
+            return await _dataService.RetrievePagedResultAsync<SellerOrderGrid>(e => e.SearchField.ToLower().Contains(term.Replace(" ", "")), orderBy, paging);
+
         }
 
         public async Task<PagedResult<SellerOrderGrid>> RetrieveSellerOrders(Expression<Func<SellerOrderGrid, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)

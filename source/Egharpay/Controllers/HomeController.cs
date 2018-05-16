@@ -26,7 +26,7 @@ namespace Egharpay.Controllers
         }
 
         public async Task<ActionResult> Index()
-        {
+            {
             var viewModel = new HomeViewModel { PersonnelId = UserPersonnelId };
             if (User.Identity.IsAuthenticated && viewModel.PersonnelId == 0)
                 return RedirectToAction("Logout", "Account");

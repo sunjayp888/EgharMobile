@@ -1109,7 +1109,7 @@ h5 {
   left: 0;
   list-style: none outside none;
   padding: 0;
-  position: absolute;
+  position: static;
   text-shadow: none;
   top: 100%;
   z-index: 1000;
@@ -10090,4 +10090,10 @@ body.md-skin {
 .mobile-logo {
   margin-left: 8px;
   margin-right: -10px;
+}
+.avatar-grid {
+  height: 22px !important;
+}
+.avatar-navigation {
+  height: 35px !important;
 }

@@ -89,7 +89,7 @@
                                         <strong></strong>
                                     </h4>
                                 </div>
-                                @if (User.Identity.IsAuthenticated)
+                                @if (User.Identity.IsAuthenticated && Model.Personnel != null)
                                 {
                                     <a class="btn btn-danger" ng-bootbox-confirm="Seller will contact you on @Model.Personnel.Mobile" ng-bootbox-confirm-action="model.requestOrder(@Model.MobileId,seller.SellerId,true)" ng-bootbox-confirm-action-cancel="">
                                         Request Deal

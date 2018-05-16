@@ -120,7 +120,7 @@
                 <div class="tabs-container">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#tab-1"><strong> Description</strong></a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-2"><strong> Gallery</strong></a></li>
+                        @*<li class=""><a data-toggle="tab" href="#tab-2"><strong> Gallery</strong></a></li>*@
                         <li class=""><a data-toggle="tab" href="#tab-3"><strong> Video</strong></a></li>
                         <li class=""><a data-toggle="tab" href="#tab-4"><strong> Reviews</strong></a></li>
                         @if (!User.IsSuperUserOrAdminOrSeller())
@@ -137,7 +137,7 @@
                     </ul>
                     <div class="tab-content">
                         @Html.Partial("_Detail")
-                        @Html.Partial("_Gallery")
+                        @*@Html.Partial("_Gallery")*@
                         @Html.Partial("_Video")
                         @Html.Partial("_Review")
                         @Html.Partial("_Seller")

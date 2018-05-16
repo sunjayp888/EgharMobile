@@ -8,16 +8,21 @@ using Egharpay.Business.Interfaces;
 using Egharpay.Entity;
 using Egharpay.Entity.Dto;
 using Egharpay.Extensions;
+using Egharpay.Models.Authorization;
+using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.Seller })]
     public class SellerMobileController : BaseController
     {
         private readonly ISellerMobileBusinessService _sellerMobileBusinessService;
+        private readonly ISellerBusinessService _sellerBusinessService;
 
-        public SellerMobileController(ISellerMobileBusinessService sellerMobileBusinessService)
+        public SellerMobileController(ISellerMobileBusinessService sellerMobileBusinessService, ISellerBusinessService sellerBusinessService)
         {
             _sellerMobileBusinessService = sellerMobileBusinessService;
+            _sellerBusinessService = sellerBusinessService;
         }
 
         // GET: SellerMobile
@@ -35,21 +40,33 @@ namespace Egharpay.Controllers
         [HttpPost]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _sellerMobileBusinessService.RetrieveSellerMobileGrids(e=>true, orderBy, paging);
+            if (User.IsSuperUserOrAdmin())
+                return this.JsonNet(await _sellerMobileBusinessService.RetrieveSellerMobileGrids(e => true, orderBy, paging));
+
+            var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(UserPersonnelId);
+            var data = await _sellerMobileBusinessService.RetrieveSellerMobileGrids(e => e.SellerId == seller.SellerId, orderBy, paging);
             return this.JsonNet(data);
         }
 
         [HttpPost]
         public async Task<ActionResult> Search(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
-            return this.JsonNet(await _sellerMobileBusinessService.Search(searchKeyword, orderBy, paging));
+            if (User.IsSuperUserOrAdmin())
+                return this.JsonNet(await _sellerMobileBusinessService.RetrieveSellerMobileGrids(e => true, orderBy, paging));
+
+            var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(UserPersonnelId);
+            return this.JsonNet(await _sellerMobileBusinessService.Search(seller.SellerId, searchKeyword, orderBy, paging));
         }
 
         [HttpPost]
-        public ActionResult SearchByDate(DateTime fromDate, DateTime toDate, Paging paging, List<OrderBy> orderBy)
+        public async Task<ActionResult> SearchByDate(DateTime fromDate, DateTime toDate, Paging paging, List<OrderBy> orderBy)
         {
-            bool isSuperAdmin = User.IsInAnyRoles("SuperAdmin");
-            return this.JsonNet(_sellerMobileBusinessService.RetrieveSellerMobileGrids(e => e.AppointmentDate >= fromDate && e.AppointmentDate <= toDate, orderBy, paging));
+            if (User.IsSuperUserOrAdmin())
+                return this.JsonNet(await _sellerMobileBusinessService.RetrieveSellerMobileGrids(e => true, orderBy, paging));
+
+            var seller = await _sellerBusinessService.RetrieveSellerByPersonnelId(UserPersonnelId);
+            var data = await _sellerMobileBusinessService.RetrieveSellerMobileGrids(e => e.SellerId == seller.SellerId, orderBy, paging);
+            return this.JsonNet(data);
         }
     }
 }

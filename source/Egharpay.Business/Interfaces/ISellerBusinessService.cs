@@ -12,7 +12,7 @@ namespace Egharpay.Business.Interfaces
     public interface ISellerBusinessService
     {
         //Create
-        Task<ValidationResult<Seller>> CreateSeller(Seller seller, string callBackUrl=null);
+        Task<ValidationResult<Seller>> CreateSeller(Seller seller, string callBackUrl = null);
 
         //Retrieve
         Task<Seller> RetrieveSeller(int sellerId);
@@ -21,6 +21,7 @@ namespace Egharpay.Business.Interfaces
         Task<PagedResult<SellerGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null);
         Task<List<Seller>> RetrieveSellers(List<int> sellerIds);
         PagedResult<SellerMobileGrid> RetrieveSellersByGeoLocation(double latitude, double longitude, string pincode, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PagedResult<SellerMobileGrid>> RetrieveMobileSellers(string term, List<OrderBy> orderBy = null, Paging paging = null);
         //Update
         Task<ValidationResult<Seller>> UpdateSeller(Seller seller);
         Task<ValidationResult<Seller>> UpdateSellerApprovalState(Seller seller);

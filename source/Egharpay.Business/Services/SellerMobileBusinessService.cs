@@ -56,15 +56,17 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(Expression<Func<MobileRepairGrid, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<SellerMobileGrid>> RetrieveSellerMobileGrids(Expression<Func<SellerMobileGrid, bool>> predicate, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var sellerMobiles = await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => true, orderBy, paging);
+            var sellerMobiles = await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(predicate, orderBy, paging);
             return sellerMobiles;
         }
 
-        public async Task<PagedResult<SellerMobileGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<SellerMobileGrid>> Search(int sellerId, string term, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            return await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
+            if (string.IsNullOrEmpty(term))
+                return await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()) && a.SellerId == sellerId, orderBy, paging);
+            return await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => a.SellerId == sellerId, orderBy, paging);
         }
 
         private async Task<ValidationResult<SellerMobile>> MobileAlreadyAssign(int mobileId, int sellerId)

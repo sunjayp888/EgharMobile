@@ -101,8 +101,9 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<SellerGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var data= await _dataService.RetrievePagedResultAsync<SellerGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
-            return data;
+            if (string.IsNullOrEmpty(term))
+                return await _dataService.RetrievePagedResultAsync<SellerGrid>(a => true, orderBy, paging);
+            return await _dataService.RetrievePagedResultAsync<SellerGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
         }
 
         public async Task<List<Seller>> RetrieveSellers(List<int> sellerIds)
@@ -124,6 +125,13 @@ namespace Egharpay.Business.Services
                 sellerList.Add(seller);
             }
             return sellerList.AsQueryable().OrderBy(orderBy).Paginate(paging);
+        }
+
+        public async Task<PagedResult<SellerMobileGrid>> RetrieveMobileSellers(string term, List<OrderBy> orderBy = null, Paging paging = null)
+        {
+            if (string.IsNullOrEmpty(term))
+                return await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => true, orderBy, paging);
+            return await _dataService.RetrievePagedResultAsync<SellerMobileGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
         }
 
         public double RetrieveDistanceInKilometer(GeoPosition startGeoPosition, GeoPosition endGeoPosition)
@@ -171,13 +179,10 @@ namespace Egharpay.Business.Services
         public async Task<ValidationResult<Seller>> UpdateSellerApprovalState(Seller seller)
         {
             var validationResult = new ValidationResult<Seller>();
-            var sellerApprovalEmail = await SendSellerApprovalStateEmail(seller);
-            if (sellerApprovalEmail.Succeeded)
-            {
-               await _dataService.UpdateAsync(seller);
-                validationResult.Succeeded = true;
-                validationResult.Entity = seller;
-            }
+            await _dataService.UpdateAsync(seller);
+            validationResult.Succeeded = true;
+            validationResult.Entity = seller;
+            await SendSellerApprovalStateEmail(seller);
             return validationResult;
         }
 

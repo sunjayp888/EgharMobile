@@ -25,6 +25,11 @@
                             </div>
                         }
                         @Html.HiddenFor(model => Model.Seller.SellerId)
+                        @Html.HiddenFor(model => Model.Seller.ApprovalStateId)
+                        @Html.HiddenFor(model => Model.Seller.Latitude)
+                        @Html.HiddenFor(model => Model.Seller.Longitude)
+                        @Html.HiddenFor(model => Model.Seller.MobileNumber)
+                        @Html.HiddenFor(model => Model.Seller.PersonnelId)
                         @Html.HiddenFor(model => Model.Seller.CreatedDate)
                         @Html.Partial("_Seller", Model)
                         <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">

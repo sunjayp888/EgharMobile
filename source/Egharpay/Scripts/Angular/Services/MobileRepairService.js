@@ -22,6 +22,8 @@
             searchMobileRepairByDate: searchMobileRepairByDate,
             retrieveMobileRepairFaults: retrieveMobileRepairFaults,
             deleteMobileRepairMobileFault: deleteMobileRepairMobileFault
+            search: search
+
         };
 
         return service;
@@ -54,11 +56,11 @@
             return $http.post(url, data);
         }
 
-        function retrieveMobileRepairOrders(Paging, OrderBy) {
+        function retrieveMobileRepairOrders(paging, orderBy) {
             var url = "/MobileRepair/List",
             data = {
-                paging: Paging,
-                orderBy: new Array(OrderBy)
+                paging: paging,
+                orderBy: new Array(orderBy)
             };
             return $http.post(url, data);
         }
@@ -110,17 +112,18 @@
             return $http.get(url);
         }
 
-        function searchMobileRepairByDate(FromDate, ToDate, Paging, OrderBy) {
+        function searchMobileRepairByDate(fromDate, toDate, paging, orderBy) {
             var url = "/MobileRepair/SearchByDate",
             data = {
-                fromDate: FromDate,
-                toDate: ToDate,
-                paging: Paging,
-                orderBy: new Array(OrderBy)
+                fromDate: fromDate,
+                toDate: toDate,
+                paging: paging,
+                orderBy: new Array(orderBy)
             };
 
             return $http.post(url, data);
         }
+
 
         function retrieveMobileRepairFaults(Paging, OrderBy) {
             var url = "/MobileRepair/MobileFaults",
@@ -137,6 +140,15 @@
                     mobileRepairId: mobileRepairId,
                     mobileFaultId: mobileFaultId
                 };
+        }
+
+        function search(searchTerm, paging, orderBy) {
+            var url = "/MobileRepair/Search",
+            data = {
+                searchTerm: searchTerm,
+                paging: paging,
+                orderBy: new Array(orderBy)
+            };
             return $http.post(url, data);
         }
     }

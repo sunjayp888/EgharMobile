@@ -118,12 +118,12 @@ namespace Egharpay.Models.Identity
                 var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
                 var roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
 
-                if (!userManager.Users.Any(u => u.UserName == "admin@itsupportlimited.com") && roleManager.Roles.Any(r => r.Name == "SuperUser") && context.ApplicationPermissions.Any(r => r.Name == "SuperUser"))
+                if (!userManager.Users.Any(u => u.UserName == "superadmin@mumbile.com") && roleManager.Roles.Any(r => r.Name == "SuperUser") && context.ApplicationPermissions.Any(r => r.Name == "SuperUser"))
                 {
                     var user = new ApplicationUser
                     {
-                        UserName = "admin@itsupportlimited.com",
-                        Email = "admin@itsupportlimited.com",
+                        UserName = "superadmin@mumbile.com",
+                        Email = "superadmin@mumbile.com",
                         EmailConfirmed = true,
                     };
 

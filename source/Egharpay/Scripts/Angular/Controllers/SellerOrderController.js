@@ -19,6 +19,10 @@
         vm.retrieveSellerOrders = retrieveSellerOrders;
         vm.updateSellerOrder = updateSellerOrder;
         vm.initialiseinitialise = initialise;
+        vm.search = search;
+        vm.searchByDate = searchByDate;
+        vm.fromDate;
+        vm.toDate;
 
         function initialise() {
             vm.orderBy.property = "OrderId";
@@ -44,16 +48,38 @@
         function order(property) {
             vm.orderBy = OrderService.order(vm.orderBy, property);
             if (vm.searchKeyword) {
-                return searchSeller(vm.searchKeyword)();
+                return search(vm.searchKeyword)();
             }
             return retrieveSellers();
         }
 
         function updateSellerOrder(orderId) {
             return SellerOrderService.updateSellerOrder(orderId)
-                .then(function() {
+                .then(function () {
                     retrieveSellerOrders();
                 });
         }
+        function search() {
+            return SellerOrderService.search(vm.searchTerm, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.sellerOrders = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.sellerOrders.length === 0 ? "No Records Found" : "";
+                    return vm.sellerOrders;
+                });
+        }
+
+        function searchByDate() {
+            return SellerOrderService.searchByDate(vm.fromDate, vm.toDate, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.sellerOrders = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.sellerOrders.length === 0 ? "No Records Found" : "";
+                    return vm.sellerOrders;
+                });
+        }
+
     }
 })();

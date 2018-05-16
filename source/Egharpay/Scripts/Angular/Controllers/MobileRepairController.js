@@ -52,11 +52,13 @@
         vm.markAsInProgress = markAsInProgress;
         //vm.mobileRepairState = mobileRepairState;
         vm.searchMobileRepairByDate = searchMobileRepairByDate;
+        vm.search = search;
         vm.fromDate;
         vm.toDate;
         vm.retrieveMobileRepairFaults = retrieveMobileRepairFaults;
         vm.deleteMobileRepairMobileFault = deleteMobileRepairMobileFault;
         vm.initialise = initialise;
+        vm.searchTerm;
 
         function initialise() {
             vm.orderBy.property = "MobileRepairId";
@@ -203,8 +205,10 @@
                 vm.showMessage = true;
                 vm.isOtpCreated = response.data.Succeeded;
                 vm.errorMessages.push(response.data.Message);
-                retrieveMobileRepairOrders();
-                angular.element('#mobileRepairPaymentModal').modal('toggle');
+                if (response.data.Succeeded) {
+                    retrieveMobileRepairOrders();
+                    angular.element('#mobileRepairPaymentModal').modal('toggle');
+                }
             });
         }
 
@@ -215,6 +219,7 @@
                 vm.disablePay = true;
             }
         }
+
         function retrieveAvailableMobileRepairAdmin() {
             var appointmentTime = $('#MobileRepair_AppointmentTime').val();
             return MobileRepairService.retrieveAvailableMobileRepairAdmin(vm.AppointmentDate, appointmentTime).then(function (response) {
@@ -231,7 +236,6 @@
             });
         }
 
-        
         function selectMobileRepairAdmin() {
             if (vm.mobileRepairAdmins.length > 0) {
                 var admin = $filter('filter')(vm.mobileRepairAdmins,
@@ -254,6 +258,7 @@
               });
         }
 
+
         function retrieveMobileRepairFaults() {
             vm.orderBy.property = "MobileFaultId";
             vm.orderBy.direction = "Ascending";
@@ -267,11 +272,22 @@
                     return vm.mobileFaults;
                 });
         }
-
+      
+        function search() {
+            return MobileRepairService.search(vm.searchTerm, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.mobileRepairOrders = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.mobileRepairOrders.length === 0 ? "No Records Found" : "";
+                    return vm.mobileRepairOrders;
+                });
+        }
+   
         function deleteMobileRepairMobileFault(mobileRepairId, $item) {
             return MobileRepairService.deleteMobileRepairMobileFault(mobileRepairId, $item.MobileFaultId)
                 .then(function () {
-                });
+       
         }
     }
 

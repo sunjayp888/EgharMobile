@@ -148,9 +148,10 @@ namespace Egharpay.Controllers
         //}
 
         [HttpPost]
-        public async Task<ActionResult> SellerSearch(string searchKeyword, Paging paging, List<OrderBy> orderBy)
+        [Route("Mobile/MobileSellers")]
+        public async Task<ActionResult> MobileSellers(string searchKeyword, Paging paging, List<OrderBy> orderBy)
         {
-            var data = await _sellerBusinessService.Search(searchKeyword, orderBy, paging);
+            var data = await _sellerBusinessService.RetrieveMobileSellers(searchKeyword, orderBy, paging);
             return this.JsonNet(data);
         }
 
