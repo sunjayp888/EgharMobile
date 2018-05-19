@@ -76,7 +76,7 @@ namespace Egharpay.Business.Services
             var validationResult = await CreateOtp(mobileNumber, ipAddress, (int)OtpReason.MobileRepairPayment);
             if (validationResult.Succeeded)
             {
-                var message = $"Your OTP for mobile repair payment : {validationResult.Entity.OTP}.Please pay amount of {amount}.Do not share your OTP.";
+                var message = $"Your OTP for mobile repair payment : {validationResult.Entity.OTP} .Please pay amount of {amount}.Do not share your OTP.";
                 _smsBusinessService.SendSMS(mobileNumber.ToString(), message);
             }
             return validationResult;
