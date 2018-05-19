@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Egharpay.Entity;
+using Newtonsoft.Json;
 
 namespace Egharpay.Models
 {
@@ -24,5 +25,18 @@ namespace Egharpay.Models
         public decimal Amount { get; set; }
         public MobileRepair MobileRepair { get; set; }
         public int? MobileRepairAdminPersonnelId { get; set; }
+        public List<int> SelectedMobileFaultIds
+        {
+            get
+            {
+                return JsonConvert.DeserializeObject<List<int>>(SelectedMobileFaultIdsJson);
+            }
+            set
+            {
+                SelectedMobileFaultIdsJson = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        public string SelectedMobileFaultIdsJson { get; set; }
     }
 }

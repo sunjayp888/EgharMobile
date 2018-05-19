@@ -61,6 +61,8 @@ namespace Egharpay.Data
         public virtual DbSet<AvailableMobileRepairAdmin> AvailableMobileRepairAdmins { get; set; }
         public virtual DbSet<MobileRepairAdminPersonnel> MobileRepairAdminPersonnels { get; set; }
         public virtual DbSet<Search> Searches { get; set; }
+        public virtual DbSet<MobileFault> MobileFaults { get; set; }
+        public virtual DbSet<MobileRepairMobileFault> MobileRepairMobileFaults { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -1024,6 +1026,15 @@ namespace Egharpay.Data
             modelBuilder.Entity<SellerMobileGrid>()
                 .Property(e => e.SearchField)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<MobileFault>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MobileFault>()
+                .HasMany(e => e.MobileRepairMobileFaults)
+                .WithRequired(e => e.MobileFault)
+                .WillCascadeOnDelete(false);
         }
     }
 }

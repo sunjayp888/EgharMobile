@@ -166,6 +166,7 @@
     <Compile Include="Interfaces\IGoogleBusinessService.cs" />
     <Compile Include="Interfaces\IHomeBannerDocumentBusinessService.cs" />
     <Compile Include="Interfaces\IMobileRepairAdminBusinessService.cs" />
+    <Compile Include="Interfaces\IMobileRepairMobileFaultBusinessService.cs" />
     <Compile Include="Interfaces\IOtpBusinessService.cs" />
     <Compile Include="Interfaces\IPersonnelEmailBusinessService.cs" />
     <Compile Include="Interfaces\ISellerMobileBusinessService.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Interfaces\MvcTemplateBase.cs" />
     <Compile Include="Services\GoogleBusinessService.cs" />
     <Compile Include="Services\MobileRepairAdminBusinessService.cs" />
+    <Compile Include="Services\MobileRepairMobileFaultBusinessService.cs" />
     <Compile Include="Services\OtpBusinessService.cs" />
     <Compile Include="Services\PdfBusinessService.cs" />
     <Compile Include="Services\RazorBusinessService.cs" />

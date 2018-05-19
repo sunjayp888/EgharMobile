@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -18,6 +19,7 @@ using Role = Egharpay.Enums.Role;
 namespace Egharpay.Controllers
 {
 
+    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin, Role.Personnel })]
     public class MobileRepairController : BaseController
     {
         private readonly IMobileRepairBusinessService _mobileRepairBusinessService;
@@ -37,7 +39,12 @@ namespace Egharpay.Controllers
         // GET: MobileRepair
         public ActionResult Index()
         {
-            return View();
+            var viewModel = new MobileRepairViewModel()
+            {
+                SelectedMobileFaultIds = new List<int>(),
+                MobileRepair = new MobileRepair()
+            };
+            return View(viewModel);
         }
 
         // GET: MobileRepair
@@ -213,7 +220,8 @@ namespace Egharpay.Controllers
             var mobileRepair = await _mobileRepairBusinessService.RetrieveMobileRepair(mobileRepairId);
             var model = new MobileRepairViewModel()
             {
-                MobileRepair = mobileRepair
+                MobileRepair = mobileRepair,
+                SelectedMobileFaultIds = mobileRepair.MobileRepairMobileFaults.Select(e=>e.MobileFaultId).ToList()
             };
             return View(model);
         }
@@ -224,7 +232,7 @@ namespace Egharpay.Controllers
         [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin })]
         public async Task<ActionResult> Edit(MobileRepairViewModel model)
         {
-            await _mobileRepairBusinessService.UpdateMobileRepair(model.MobileRepair);
+            await _mobileRepairBusinessService.UpdateMobileRepair(model.MobileRepair, model.SelectedMobileFaultIds);
             return RedirectToAction("MobileRepairOrder");
         }
 
@@ -254,5 +262,11 @@ namespace Egharpay.Controllers
             return this.JsonNet(_mobileRepairBusinessService.RetrieveMobileRepairGrids(e => e.AppointmentDate >= fromDate && e.AppointmentDate <= toDate, orderBy, paging));
         }
 
+        [HttpPost]
+        public async Task<ActionResult> MobileFaults(Paging paging, List<OrderBy> orderBy)
+        {
+            var data = await _mobileRepairBusinessService.RetrieveMobileFaults(orderBy, null);
+            return this.JsonNet(data);
+        }
     }
 }

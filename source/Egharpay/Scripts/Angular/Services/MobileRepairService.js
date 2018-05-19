@@ -20,7 +20,10 @@
             retrieveMobileRepairAdmins: retrieveMobileRepairAdmins,
             markAsInProgress: markAsInProgress,
             searchMobileRepairByDate: searchMobileRepairByDate,
+            retrieveMobileRepairFaults: retrieveMobileRepairFaults,
+            deleteMobileRepairMobileFault: deleteMobileRepairMobileFault
             search: search
+
         };
 
         return service;
@@ -119,6 +122,24 @@
             };
 
             return $http.post(url, data);
+        }
+
+
+        function retrieveMobileRepairFaults(Paging, OrderBy) {
+            var url = "/MobileRepair/MobileFaults",
+                data = {
+                    paging: Paging,
+                    orderBy: new Array(OrderBy)
+                };
+            return $http.post(url, data);
+        }
+
+        function deleteMobileRepairMobileFault(mobileRepairId, mobileFaultId) {
+            var url = "/MobileRepairMobileFault/Delete",
+                data = {
+                    mobileRepairId: mobileRepairId,
+                    mobileFaultId: mobileFaultId
+                };
         }
 
         function search(searchTerm, paging, orderBy) {
