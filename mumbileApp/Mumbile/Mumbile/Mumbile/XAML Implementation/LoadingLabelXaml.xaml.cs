@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Xamarin.Forms;
 
-using Xamarin.Forms;
-
-namespace Mumbile
+namespace Mumbile.XAML_Implementation
 {
 	public partial class LoadingLabelXaml : ContentPage
 	{
