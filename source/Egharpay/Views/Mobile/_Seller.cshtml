@@ -1,8 +1,7 @@
 ﻿@model Egharpay.Models.MobileViewModel
 <div id="tab-5" class="tab-pane xs-mt-10">
-    <div class="row">
+    <div>
         <div class="panel-body">
-            <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -36,76 +35,78 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="xs-mt-8">
-                    <div class="ibox" ng-repeat="seller in model.sellers">
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <h4>
-                                        <strong>Seller Name</strong>
-                                    </h4>
-                                </div>
-                                <div class="col-lg-6">
-                                    <span ng-bind="seller.SellerName"></span>
-                                </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="xs-mt-8">
+                <div class="ibox" ng-repeat="seller in model.sellers">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h4>
+                                    <strong>Seller Name</strong>
+                                </h4>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <h4>
-                                        <strong>Seller Address</strong>
-                                    </h4>
-                                </div>
-                                <div class="col-lg-6">
-                                    <span ng-bind="seller.SellerAddress"></span>
-                                </div>
+                            <div class="col-lg-6">
+                                <span ng-bind="seller.SellerName"></span>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <h4>
-                                        <strong>Seller Price</strong>
-                                    </h4>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label class="btn btn-warning btn-xs"><strong><i class="fa fa-rupee"></i> <span ng-bind="seller.Price"></span> </strong> </label>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h4>
+                                    <strong>Seller Address</strong>
+                                </h4>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <h4>
-                                        <strong>Seller Distance</strong>
-                                    </h4>
-                                </div>
-                                <div class="col-lg-6">
-                                    <span ng-bind="seller.SellerDistance"></span>
-                                </div>
+                            <div class="col-lg-6">
+                                <span ng-bind="seller.SellerAddress"></span>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <h4>
-                                        <strong></strong>
-                                    </h4>
-                                </div>
-                                @if (User.Identity.IsAuthenticated && Model.Personnel != null)
-                                {
-                                    <a class="btn btn-danger" ng-bootbox-confirm="Seller will contact you on @Model.Personnel.Mobile" ng-bootbox-confirm-action="model.requestOrder(@Model.MobileId,seller.SellerId,true)" ng-bootbox-confirm-action-cancel="">
-                                        Request Deal
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a href="/Account/Login" class="btn btn-danger"> Request Deal</a>
-                                }
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h4>
+                                    <strong>Seller Price</strong>
+                                </h4>
                             </div>
+                            <div class="col-lg-6">
+                                <label class="btn btn-warning btn-xs"><strong><i class="fa fa-rupee"></i> <span ng-bind="seller.Price"></span> </strong> </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h4>
+                                    <strong>Seller Distance</strong>
+                                </h4>
+                            </div>
+                            <div class="col-lg-6">
+                                <span ng-bind="seller.SellerDistance"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h4>
+                                    <strong></strong>
+                                </h4>
+                            </div>
+                            @if (User.Identity.IsAuthenticated && Model.Personnel != null)
+                            {
+                                <a class="btn btn-danger" ng-bootbox-confirm="Seller will contact you on @Model.Personnel.Mobile" ng-bootbox-confirm-action="model.requestOrder(@Model.MobileId,seller.SellerId,true)" ng-bootbox-confirm-action-cancel="">
+                                    Request Deal
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/Account/Login" class="btn btn-danger"> Request Deal</a>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div>
 
         <div class="xs-mt-8" ng-if="model.sellers.length<=0">
             <div class="alert alert-success alert-dismissable">
@@ -113,15 +114,18 @@
                 No seller available. Change pincode and search again.
             </div>
         </div>
+    </div>
 
+    <div>
         <div class="xs-mt-8" ng-if="model.sellers.length>0">
             @Html.Partial("Pagination/_pagination")
         </div>
-
-        <div class="row">
-            @Html.Partial("_Address")
-        </div>
     </div>
+
+    <div class="row">
+        @Html.Partial("_Address")
+    </div>
+
 </div>
 
 
