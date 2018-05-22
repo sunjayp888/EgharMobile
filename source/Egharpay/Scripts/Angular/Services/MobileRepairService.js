@@ -21,7 +21,7 @@
             markAsInProgress: markAsInProgress,
             searchMobileRepairByDate: searchMobileRepairByDate,
             retrieveMobileRepairFaults: retrieveMobileRepairFaults,
-            deleteMobileRepairMobileFault: deleteMobileRepairMobileFault
+            deleteMobileRepairMobileFault: deleteMobileRepairMobileFault,
             search: search
 
         };

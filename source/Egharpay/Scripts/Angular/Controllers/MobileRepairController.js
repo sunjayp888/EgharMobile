@@ -186,8 +186,9 @@
             return MobileRepairService.retrieveMobileRepairOrdersByMobile(vm.mobileNumber, vm.OTP).then(function (response) {
                 if (!response.data.Succeeded && response.data.Succeeded !== undefined) {
                     vm.errorMessages.push(response.data.Message);
+                } else {
+                    vm.mobileRepairOrders = response.data;
                 }
-                else { vm.mobileRepairOrders = response.data; }
             });
         }
 
@@ -239,7 +240,7 @@
         function selectMobileRepairAdmin() {
             if (vm.mobileRepairAdmins.length > 0) {
                 var admin = $filter('filter')(vm.mobileRepairAdmins,
-                    { PersonnelId: vm.selectedMobileRepairAdmin.PersonnelId }, true);
+                { PersonnelId: vm.selectedMobileRepairAdmin.PersonnelId }, true);
 
                 if (admin.length > 0) vm.selectedMobileRepairAdmin = admin[0];
                 //else vm.selectedAssignment = vm.assignments[0];
@@ -249,13 +250,13 @@
         function searchMobileRepairByDate() {
             vm.searchKeyword = null;
             return MobileRepairService.searchMobileRepairByDate(vm.fromDate, vm.toDate, vm.paging, vm.orderBy)
-              .then(function (response) {
-                  vm.mobileRepairOrders = response.data.Items;
-                  vm.paging.totalPages = response.data.TotalPages;
-                  vm.paging.totalResults = response.data.TotalResults;
-                  vm.searchMessage = vm.mobileRepairOrders.length === 0 ? "No Records Found" : "";
-                  return vm.mobileRepairOrders;
-              });
+                .then(function (response) {
+                    vm.mobileRepairOrders = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.mobileRepairOrders.length === 0 ? "No Records Found" : "";
+                    return vm.mobileRepairOrders;
+                });
         }
 
 
@@ -272,7 +273,7 @@
                     return vm.mobileFaults;
                 });
         }
-      
+
         function search() {
             return MobileRepairService.search(vm.searchTerm, vm.paging, vm.orderBy)
                 .then(function (response) {
@@ -283,11 +284,12 @@
                     return vm.mobileRepairOrders;
                 });
         }
-   
+
         function deleteMobileRepairMobileFault(mobileRepairId, $item) {
             return MobileRepairService.deleteMobileRepairMobileFault(mobileRepairId, $item.MobileFaultId)
                 .then(function () {
-       
+
+                });
         }
     }
 

@@ -103,6 +103,7 @@ namespace Egharpay.Controllers
 
         public async Task<ActionResult> Detail(int? id)
         {
+            await CreateMobileFromLink("https://www.gsmarena.com/huawei_honor_10-9157.php");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -434,110 +435,106 @@ namespace Egharpay.Controllers
         //    return mobileList;
         //}
 
-        //private Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection, int brandId)
-        //{
-        //    var modelName = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
-        //    var released = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "released-hl"));
-        //    var body = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "body-hl"));
-        //    var os = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "os-hl"));
-        //    var storage = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "storage-hl"));
-        //    var displayres = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "displayres-hl"));
-        //    var camerapixels = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "camerapixels-hl"));
-        //    var videopixels = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "videopixels-hl"));
-        //    var ramsize = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "ramsize-hl"));
-        //    var batsize = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "batsize-hl"));
-        //    var battypehl = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "battype-hl"));
-        //    var comment = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "comment"));
-        //    var nettech = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "nettech"));
-        //    var net2g = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "net2g"));
-        //    var net3g = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "net3g"));
-        //    var net4g = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "net4g"));
-        //    var speed = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "speed"));
-        //    var gprstext = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "gprstext"));
-        //    var edge = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "edge"));
-        //    var year = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "year"));
-        //    var status = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "status"));
-        //    var dimensions = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "dimensions"));
-        //    var weight = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "weight"));
-        //    var sim = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "sim"));
-        //    var displaytype = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "displaytype"));
-        //    var displayresolution = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "displayresolution"));
-        //    var chipset = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "chipset"));
-        //    var cpu = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "cpu"));
-        //    var gpu = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "gpu"));
-        //    var memoryslot = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "memoryslot"));
-        //    var internalmemory = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "internalmemory"));
-        //    var cameraprimary = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "cameraprimary"));
-        //    var camerafeatures = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "camerafeatures"));
-        //    var cameravideo = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "cameravideo"));
-        //    var camerasecondary = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "camerasecondary"));
-        //    var optionalother = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "optionalother"));
-        //    var wlan = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "wlan"));
-        //    var bluetooth = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "bluetooth"));
-        //    var gps = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "gps"));
-        //    var radio = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "radio"));
-        //    var usb = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "usb"));
-        //    var sensors = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "sensors"));
-        //    var featuresother = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "featuresother"));
-        //    var batdescription1 = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "batdescription1"));
-        //    var colors = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "colors"));
-        //    var price = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "price"));
-        //    var batteryMusicPlay = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "batmusicplay1"));
-        //    var batteryTalkTime = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "battalktime1"));
+        private Mobile CreateMobile(HtmlNodeCollection htmlNodeCollection, int brandId)
+        {
+            var modelName = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "modelname"));
+            var released = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "released-hl"));
+            var body = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "body-hl"));
+            var os = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "os-hl"));
+            var storage = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "storage-hl"));
+            var displayres = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "displayres-hl"));
+            var camerapixels = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "camerapixels-hl"));
+            var videopixels = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "videopixels-hl"));
+            var ramsize = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "ramsize-hl"));
+            var batsize = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "batsize-hl"));
+            var battypehl = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "battype-hl"));
+            var comment = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "comment"));
+            var nettech = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "nettech"));
+            var net2g = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "net2g"));
+            var net3g = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "net3g"));
+            var net4g = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "net4g"));
+            var speed = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "speed"));
+            var gprstext = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "gprstext"));
+            var edge = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "edge"));
+            var year = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "year"));
+            var status = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "status"));
+            var dimensions = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "dimensions"));
+            var weight = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "weight"));
+            var sim = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "sim"));
+            var displaytype = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "displaytype"));
+            var displayresolution = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "displayresolution"));
+            var chipset = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "chipset"));
+            var cpu = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "cpu"));
+            var gpu = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "gpu"));
+            var memoryslot = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "memoryslot"));
+            var internalmemory = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "internalmemory"));
+            var cameraprimary = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "cameraprimary"));
+            var camerafeatures = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "camerafeatures"));
+            var cameravideo = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "cameravideo"));
+            var camerasecondary = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "camerasecondary"));
+            var optionalother = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "optionalother"));
+            var wlan = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "wlan"));
+            var bluetooth = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "bluetooth"));
+            var gps = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "gps"));
+            var radio = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "radio"));
+            var usb = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "usb"));
+            var sensors = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "sensors"));
+            var featuresother = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "featuresother"));
+            var batdescription1 = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "batdescription1"));
+            var colors = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "colors"));
+            var price = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "price"));
+            var batteryMusicPlay = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "batmusicplay1"));
+            var batteryTalkTime = htmlNodeCollection.FirstOrDefault(e => e.Attributes.Any(t => t.Value == "battalktime1"));
 
-        //    var mobile = new Mobile()
-        //    {
-        //        Name = modelName?.InnerHtml,
-        //        Announced = year?.InnerHtml,
-        //        BatteryMusicPlay = batteryMusicPlay?.InnerHtml,
-        //        BatterySize = batsize?.InnerHtml,
-        //        BatteryTalkTime = batteryTalkTime?.InnerHtml,
-        //        BatteryType = battypehl?.InnerHtml,
-        //        Bluetooth = bluetooth?.InnerHtml,
-        //        BodyDimension = body?.InnerHtml,
-        //        CameraFeatures = camerafeatures?.InnerHtml,
-        //        CameraPixel = camerapixels?.InnerHtml,
-        //        CardSlot = memoryslot?.InnerHtml,
-        //        Chipset = chipset?.InnerHtml,
-        //        Colours = colors?.InnerHtml,
-        //        Cpu = cpu?.InnerHtml,
-        //        Dimensions = dimensions?.InnerHtml,
-        //        DisplayResolution = displayresolution?.InnerHtml,
-        //        DisplaySize = displayres?.InnerHtml,
-        //        DisplayType = displaytype?.InnerHtml,
-        //        Edge = edge?.InnerHtml,
-        //        Gprs = gprstext?.InnerHtml,
-        //        Gps = gps?.InnerHtml,
-        //        Gpu = gpu?.InnerHtml,
-        //        InternalMemory = internalmemory?.InnerHtml,
-        //        Loudspeaker = "Yes",
-        //        MiscellaneousBattery = batdescription1?.InnerHtml,
-        //        ReleasedDate = released?.InnerHtml,
-        //        OS = os?.InnerHtml,
-        //        Video = cameravideo?.InnerHtml,
-        //        Storage = storage?.InnerHtml,
-        //        RAM = ramsize?.InnerHtml,
-        //        Technology = nettech?.InnerHtml,
-        //        Network2GBands = net2g?.InnerHtml,
-        //        Network3GBands = net3g?.InnerHtml,
-        //        Network4GBands = net4g?.InnerHtml,
-        //        Speed = speed?.InnerHtml,
-        //        PrimaryCamera = cameraprimary?.InnerHtml,
-        //        Status = status?.InnerHtml,
-        //        SecondaryCamera = camerasecondary?.InnerHtml,
-        //        MiscellaneousSound = optionalother?.InnerHtml,
-        //        Radio = radio?.InnerHtml,
-        //        Usb = usb?.InnerHtml,
-        //        Sensors = sensors?.InnerHtml,
-        //        MiscellaneousFeatures = featuresother?.InnerHtml,
-        //        Wlan = wlan?.InnerHtml,
-        //        Weight = weight?.InnerHtml,
-        //        Sim = sim?.InnerHtml,
-        //        VideoPixel = videopixels?.InnerHtml,
-        //        BrandId = brandId
-        //    };
-        //    return mobile;
-        //}
+            var mobile = new Mobile()
+            {
+                Name = modelName?.InnerHtml,
+                Announced = year?.InnerHtml,
+                BatteryMusicPlay = batteryMusicPlay?.InnerHtml,
+                BatteryTalkTime = batteryTalkTime?.InnerHtml,
+                BatteryType = battypehl?.InnerHtml,
+                Bluetooth = bluetooth?.InnerHtml,
+                BodyDimension = body?.InnerHtml,
+                CameraFeatures = camerafeatures?.InnerHtml,
+                CameraPixel = camerapixels?.InnerHtml,
+                CardSlot = memoryslot?.InnerHtml,
+                Chipset = chipset?.InnerHtml,
+                Colours = colors?.InnerHtml,
+                Cpu = cpu?.InnerHtml,
+                Dimensions = dimensions?.InnerHtml,
+                DisplayResolution = displayresolution?.InnerHtml,
+                DisplaySize = displayres?.InnerHtml,
+                DisplayType = displaytype?.InnerHtml,
+                Edge = edge?.InnerHtml,
+                Gprs = gprstext?.InnerHtml,
+                Gps = gps?.InnerHtml,
+                Gpu = gpu?.InnerHtml,
+                InternalMemory = internalmemory?.InnerHtml,
+                Loudspeaker = "Yes",
+                MiscellaneousBattery = batdescription1?.InnerHtml,
+                ReleasedDate = released?.InnerHtml,
+                OS = os?.InnerHtml,
+                Video = cameravideo?.InnerHtml,
+                Storage = storage?.InnerHtml,
+                Technology = nettech?.InnerHtml,
+                Network2GBands = net2g?.InnerHtml,
+                Network3GBands = net3g?.InnerHtml,
+                Network4GBands = net4g?.InnerHtml,
+                Speed = speed?.InnerHtml,
+                Status = status?.InnerHtml,
+                MiscellaneousSound = optionalother?.InnerHtml,
+                Radio = radio?.InnerHtml,
+                Usb = usb?.InnerHtml,
+                Sensors = sensors?.InnerHtml,
+                MiscellaneousFeatures = featuresother?.InnerHtml,
+                Wlan = wlan?.InnerHtml,
+                Weight = weight?.InnerHtml,
+                Sim = sim?.InnerHtml,
+                VideoPixel = videopixels?.InnerHtml,
+                BrandId = brandId
+            };
+            return mobile;
+        }
 
         //public MobileImage CreateMobileImage(HtmlNodeCollection htmlNodeCollection, string brandName, int brandId, string imageLink, List<Mobile> mobile)
         //{
@@ -691,6 +688,16 @@ namespace Egharpay.Controllers
             {
                 return null;
             }
+        }
+
+        private async Task CreateMobileFromLink(string url)
+        {
+            var htmlData = GetHtmlData(url);
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(htmlData);
+            var obj = htmlDocument.DocumentNode.SelectNodes("//*[@data-spec]");
+            var mobileData = CreateMobile(obj, 329);
+            await _mobileBusinessService.CreateMobile(mobileData);
         }
     }
     //public class BrandData

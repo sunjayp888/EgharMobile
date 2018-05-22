@@ -18,8 +18,6 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
-
-    [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin, Role.MobileRepairAdmin, Role.Personnel })]
     public class MobileRepairController : BaseController
     {
         private readonly IMobileRepairBusinessService _mobileRepairBusinessService;
@@ -221,7 +219,7 @@ namespace Egharpay.Controllers
             var model = new MobileRepairViewModel()
             {
                 MobileRepair = mobileRepair,
-                SelectedMobileFaultIds = mobileRepair.MobileRepairMobileFaults.Select(e=>e.MobileFaultId).ToList()
+                SelectedMobileFaultIds = mobileRepair.MobileRepairMobileFaults.Select(e => e.MobileFaultId).ToList()
             };
             return View(model);
         }
