@@ -89,10 +89,10 @@ namespace Egharpay.Business.Services
             }
         }
 
-        public async Task<Models.Mobile> RetrieveMobile(int mobileId)
+        public async Task<Mobile> RetrieveMobile(int mobileId)
         {
             var result = await _dataService.RetrieveAsync<Entity.Mobile>(a => a.MobileId == mobileId);
-            var mobile = _mapper.MapToList<Models.Mobile>(result);
+            var mobile = _mapper.MapToList<Mobile>(result);
             return mobile.FirstOrDefault();
         }
 
