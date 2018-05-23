@@ -699,14 +699,79 @@ namespace Egharpay.Controllers
             var mobileData = CreateMobile(obj, 329);
             await _mobileBusinessService.CreateMobile(mobileData);
         }
+
+        private List<BrandData> BrandDataList
+        {
+            get
+            {
+                return new List<BrandData>()
+        {
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 323,Link = "https://www.gsmarena.com/xiaomi_redmi_note_5_pro-8893.php"},
+           new BrandData() {BrandId = 323,Link = "https://www.gsmarena.com/xiaomi_redmi_note_5_pro-8893.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+           new BrandData() {BrandId = 317,Link = "https://www.gsmarena.com/vivo_v9-9117.php"},
+        };
+            }
+        }
+
     }
-    //public class BrandData
-    //{
-    //    public string Id { get; set; }
-    //    public string Name { get; set; }
-    //    public string Link { get; set; }
-    //    public string NumberOfDevice { get; set; }
-    //}
+    public class BrandData
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Link { get; set; }
+        public string NumberOfDevice { get; set; }
+        public int BrandId { get; set; }
+    }
+
+//    One plus 6
+//Huawei Honor 10
+//Vivo V9                                    317
+//Xiaomi Redmi Note 5 Pro       323
+//Xiaomi Redmi Note 5	323
+//Oppo F7         287
+//Nokia 7 Plus		283
+//Vivo Y71            317
+//Nokia 6.1 (Nokia 6 2018)	283
+//Samsung Galaxy S9 Plus  300
+//Huawei P20 Lite		256
+//Nokia 1			283
+//Huawei P20 Pro		256
+//Vivo V9 Youth		317
+//Samsung Galaxy S9	300
+//Samsung Galaxy J7 Duo   300
+//Nokia 8 Sirocco		283
+//Samsung Galaxy J7 Prime 2	300
+//InFocus Vision 3 Pro
+//Samsung Galaxy J2 2018	300
+//Oppo A83(2018)     287
+//Micromax Bharat 5 Pro	273
 
 
 }
