@@ -19,5 +19,8 @@ namespace Egharpay.Entity
         public string NumberOfDevice { get; set; }
 
         public bool IsTopSellingBrand { get; set; }
+
+        public string ImagePath { get; set; }
+
     }
 }

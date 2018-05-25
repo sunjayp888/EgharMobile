@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="row">
-        @if (User.IsInAnyRoles("Admin"))
+        @if (User.IsSuperUser())
         {
             <div class="col-lg-12">
                 <a class="btn btn-primary btn-lg" href="@Url.Action("Create", "HomeBanner")">

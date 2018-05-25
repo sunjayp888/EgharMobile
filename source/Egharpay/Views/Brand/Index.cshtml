@@ -2,7 +2,7 @@
 @{
     var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
     Layout = layout;
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Brands";
 }
 <br />
 <div ng-controller="BrandController as model" ng-init="model.initialise()" ng-show="model.brands.length > 0">
@@ -117,7 +117,7 @@
                 <button class="btn btn-default dim btn-brand" ng-click="model.brandMobileLocation(brand.BrandId,brand.Name)">
                     <div class="row">
                         <div class="col-lg-12">
-                            <img class="img-brand" ng-src="{{brand.ImagePath | trustAsResourceUrl}}" />
+                            <img class="img-brand" ng-src="{{brand.ImagePath}}" />
                         </div>
                     </div>
                     <div class="row">

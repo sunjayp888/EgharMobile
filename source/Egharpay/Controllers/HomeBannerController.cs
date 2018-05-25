@@ -18,7 +18,7 @@ using Role = Egharpay.Enums.Role;
 
 namespace Egharpay.Controllers
 {
-
+   
     public class HomeBannerController : BaseController
     {
         private readonly IHomeBannerBusinessService _homeBannerBusinessService;
@@ -33,12 +33,14 @@ namespace Egharpay.Controllers
         }
 
         // GET: HomeBanner
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public ActionResult Index()
         {
             return View(new BaseViewModel());
         }
 
         // GET: HomeBanner/Create
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> Create()
         {
             var viewModel = new HomeBannerViewModel()
@@ -72,6 +74,7 @@ namespace Egharpay.Controllers
             return View(homeBannerViewModel);
         }
 
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -166,8 +169,8 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         [Route("HomeBanner/List")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> List(Paging paging, List<OrderBy> orderBy)
         {
             var data = await _homeBannerBusinessService.RetrieveHomeBanners(orderBy, paging);
@@ -187,8 +190,8 @@ namespace Egharpay.Controllers
         }
 
         [HttpPost]
-        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         [Route("HomeBanner/RetrieveHomeBannerImageList")]
+        [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> RetrieveHomeBannerImageList(int? homeBannerId, Paging paging, List<OrderBy> orderBy)
         {
             var data = await _homeBannerBusinessService.RetrieveHomeBannerImages(e => e.HomeBannerId == homeBannerId, orderBy, paging);
@@ -197,6 +200,7 @@ namespace Egharpay.Controllers
 
 
         [HttpPost]
+        [Route("HomeBanner/RetrieveHomeBannerImageList")]
         public async Task<ActionResult> DeleteHomeBannerDocument(int? documentDetailId, Guid? guid)
         {
             if (guid != null)
