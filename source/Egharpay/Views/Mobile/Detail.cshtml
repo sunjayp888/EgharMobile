@@ -3,7 +3,7 @@
 @{
     var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
     Layout = layout;
-    ViewBag.Title = "Detail";
+    ViewBag.Title = @Model.MobileName;
 }
 
 <div ng-controller="MobileController as model" ng-init="model.detailMobile(@Model.MobileId)">
@@ -39,7 +39,7 @@
                                 wip-image-zoom="vm.options"
                                 selected-model="vm.selected"
                                 selected-index="vm.selectedIndex">*@
-                            <img class="img-responsive img-center" wip-image-zoom="model.zoomOptions1" src="{{model.mobiles.ProfileImagePath}}">
+                            <img class="img-responsive img-center"  src="{{model.mobiles.ProfileImagePath}}">
                         </div>
 
                         <div class="ibox-content profile-content">

@@ -43,7 +43,7 @@ namespace Egharpay.Business.Services
                 
                 var message = $"Your request to repair is created.Request id :{data.MobileRepairId}. mumbile team will contact you on {data.MobileNumber}. Thank you for choosing mumbile.com";
                 _smsBusinessService.SendSMS(mobileRepair.MobileNumber.ToString(), message);
-                validationResult.Message = "Request created successfully.";
+                validationResult.Message = "Request created successfully.Mumbile team will call you for appointment and details.";
                 validationResult.Succeeded = true;
 
             }
@@ -55,7 +55,7 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        private async void CreateMobileRepairMobileFault(int mobileRepairId, List<int> mobileFaultIds)
+        private async Task CreateMobileRepairMobileFault(int mobileRepairId, List<int> mobileFaultIds)
         {
             var mobileRepairMobileFaultsData = await _mobileRepairMobileFaultBusinessService.RetrieveMobileRepairMobileFaults(mobileRepairId);
             var mobileRepairMobileFaults = mobileRepairMobileFaultsData.ToList();
@@ -171,7 +171,7 @@ namespace Egharpay.Business.Services
             {
                 mobileRepair.AppointmentDate = mobileRepair.AppointmentDate.CombineDateTime(mobileRepair.AppointmentTime);
                 await _mobileDataService.UpdateAsync(mobileRepair);
-                CreateMobileRepairMobileFault(mobileRepair.MobileRepairId, mobileFaultIds);
+                await CreateMobileRepairMobileFault(mobileRepair.MobileRepairId, mobileFaultIds);
                 validationResult.Succeeded = true;
             }
             catch (Exception e)
