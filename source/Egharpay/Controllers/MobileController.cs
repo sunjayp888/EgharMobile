@@ -194,6 +194,8 @@ namespace Egharpay.Controllers
         [Route("Mobile/RetrieveMobileByBrandIds")]
         public async Task<ActionResult> RetrieveMobileByBrandIds(string[] brandIds)
         {
+            if(brandIds==null)
+                return this.JsonNet(string.Empty);
             var mobileList = new List<Mobile>();
             foreach (var id in brandIds)
             {
