@@ -120,6 +120,12 @@
         }
 
         function retrieveMobiles() {
+            if (vm.filter === "Islatest") {
+                vm.filter = {
+                    IsFilter: true,
+                    IsLatest: true
+                }
+            }
             vm.paging.pageSize = 12;
             return MobileService.retrieveMobiles(vm.filter, vm.paging, vm.orderBy)
                 .then(function (response) {

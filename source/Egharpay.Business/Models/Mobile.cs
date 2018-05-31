@@ -8,7 +8,7 @@ using Egharpay.Entity;
 
 namespace Egharpay.Business.Models
 {
-    public partial class Mobile 
+    public partial class Mobile
     {
         public int MobileId { get; set; }
         public int BrandId { get; set; }
@@ -85,6 +85,6 @@ namespace Egharpay.Business.Models
         public string SecondaryCameraDescription { get; set; }
         public string BrandName { get; set; }
         public string ShortDescription { get; set; }
-        public string SeoUrl => MobileId.GenerateSlug(MetaSearch);
+        public string SeoUrl => !string.IsNullOrEmpty(MetaSearch) ? MobileId.GenerateSlug(MetaSearch) : MobileId.GenerateSlug(Name);
     }
 }

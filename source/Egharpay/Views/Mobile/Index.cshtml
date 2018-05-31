@@ -3,18 +3,26 @@
 @{
     var layout = User.IsSuperUserOrAdminOrSeller() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
     Layout = layout;
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mobiles";
 }
 
 <div ng-controller="MobileController as model" ng-init="model.initialise('@Model.Filter')">
-    <div class="row">
-        <div class="col-lg-12">
-            <h3>
-                Mobiles
-            </h3>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-8">
+            <br />
+            <ol class="breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Mobile")">Mobile</a>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2 page-information">
+            @Html.Partial("Pagination/_pageInformation")
         </div>
     </div>
-
     <div class="row">
         @if (User.IsSuperUserOrAdmin())
         {

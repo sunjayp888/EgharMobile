@@ -174,6 +174,9 @@ namespace Egharpay.Business.Services
             if (filter != null && filter.IsDeviceInStore)
                 predicate = predicate.And(e => e.IsDeviceInStore);
 
+            if (filter != null && filter.IsLatest)
+                predicate = predicate.And(e => e.IsLatest);
+
             return predicate;
         }
     }
