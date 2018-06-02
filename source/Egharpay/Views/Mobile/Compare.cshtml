@@ -38,7 +38,7 @@
                                     <ui-select-choices repeat="mobile.MobileId as mobile in model.mobiles | filter:$select.search">
                                         <div class="row">
                                             <div class="col-lg-2">
-                                                <img src="~/Images/profile_small.jpg" />
+                                                <img class="compare-mobile-image" src="{{mobile.ProfileImagePath}}" />
                                             </div>
                                             <div>
                                                 <h4 class="ui-select-h5" ng-bind-html="mobile.Name | highlight: $select.search"></h4>
