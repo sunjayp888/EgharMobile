@@ -103,6 +103,7 @@ namespace Egharpay.Controllers
 
         public async Task<ActionResult> Detail(int? id)
         {
+           // await CreateTrend();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -194,7 +195,7 @@ namespace Egharpay.Controllers
         [Route("Mobile/RetrieveMobileByBrandIds")]
         public async Task<ActionResult> RetrieveMobileByBrandIds(string[] brandIds)
         {
-            if(brandIds==null)
+            if (brandIds == null)
                 return this.JsonNet(string.Empty);
             var mobileList = new List<Mobile>();
             foreach (var id in brandIds)
@@ -280,7 +281,7 @@ namespace Egharpay.Controllers
                         var trendShortName = firstOrDefault?.Attributes[1].Value;
 
                         //Write File
-                        const string trendsDirectory = @"G:\SanjayWorkArea\mumbile.com\mumbileapp\source\Egharpay\TrendImage";
+                        const string trendsDirectory = @"G:\SanjayWorkArea\mumbile.com\1.2 Refactor\source\Egharpay\TrendImage";
                         var uri = new Uri(imageLink1);
                         var filename = f + imageLink1?.Split('/').Last();
                         if (uri.IsFile)
@@ -746,7 +747,7 @@ namespace Egharpay.Controllers
                     new BrandData() {BrandId = 273, Link = "https://www.gsmarena.com/micromax_bharat_5_pro-9125.php"},
                 };
             }
-        } 
+        }
         #endregion
 
     }
