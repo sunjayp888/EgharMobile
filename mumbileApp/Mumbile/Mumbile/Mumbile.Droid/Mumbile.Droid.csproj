@@ -24,6 +24,11 @@
     <JavaOptions />
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <NuGetPackageImportStamp>0615c665</NuGetPackageImportStamp>
+    <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidSigningKeyStore>C:\Users\sanjayp\AppData\Local\Xamarin\Mono for Android\Keystore\mumbile\mumbile.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>S@nju@123876</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>mumbile</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>S@nju@123876</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -169,6 +174,8 @@
     <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="KeyStore\mumbile.keyInfo" />
+    <None Include="KeyStore\mumbile.keystore" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />

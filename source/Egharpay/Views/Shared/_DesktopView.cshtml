@@ -1,0 +1,175 @@
+﻿<div class="row" ng-controller="MobileController as model" ng-init="model.retrieveMobilesInStore()">
+
+    <div class="col-lg-3">
+        @*@Html.Partial("_PersonnelHomeSelfie")*@
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content-image-static">
+                    <div>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <a href="@Url.Action("Detail", "Mobile", new {id = 12159})">
+                                    <img alt="image" class="img-responsive" src="~/Images/gallery/Vivo V9 Youth.jpeg">
+                                    <div class="carousel-caption">
+                                        <p>Vivo V9 Youth</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content-image-static">
+                    <div>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <a href="@Url.Action("Detail", "Mobile", new {id = 12160})">
+                                    <img alt="image" class="img-responsive" src="~/Images/gallery/Samsung Galaxy S9.jpg">
+                                    <div class="carousel-caption">
+                                        <p>Samsung Galaxy S9</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content-image-static">
+                    <div>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <a href="@Url.Action("Detail", "Mobile", new {id = 12154})">
+                                    <img alt="image" class="img-responsive" src="~/Images/gallery/Nokia 6.1 (Nokia 6 2018).jpg">
+                                    <div class="carousel-caption">
+                                        <p>Nokia 6</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 trend-scroll" ng-controller="TrendController as model">
+        <div infinite-scroll="model.initialise()" infinite-scroll-distance="3">
+            <div class="social-feed-box" ng-repeat="trend in model.trends">
+                <div class="social-avatar">
+                    <a href="" class="pull-left">
+                        <img alt="image" src="~/TrendImage/{{trend.Filename}}">
+                    </a>
+                    <div class="media-body">
+                        <h3>
+                            <span ng-bind="trend.Name"></span>
+                        </h3>
+                        <small class="text-muted"><span ng-bind="trend.CreatedDateTime | date"></span></small>
+                    </div>
+                </div>
+                <div class="social-body">
+                    <p>
+                        <span ng-bind="trend.ShortDescription"></span>
+                        <span ng-if="trend.IsReadMore==true" ng-bind="trend.Detail"></span>
+                        <button ng-if="!trend.IsReadMore" ng-click="model.readMore(trend)" class="btn btn-danger btn-xs">Read more..</button>
+                    </p>
+                    <img src="~/TrendImage/{{trend.Filename}}" class="img-responsive social-feed-image" />
+                </div>
+                <div class="social-footer">
+                    <div ng-repeat="trendcomment in trend.TrendComments" class="social-comment">
+                        <a href="" class="pull-left">
+                            <img alt="image" src="/Images/Avatar.png">
+                        </a>
+                        <div class="media-body">
+                            <a href="#">
+                                <span ng-bind="trendcomment.Personnel.Forenames==''?'Unknown':(trendcomment.Personnel.Forenames)"></span>
+                            </a>
+                            {{trendcomment.Comment}}
+                            <br>
+                            @*<a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -*@
+                            <small class="text-muted"><span ng-bind="trendcomment.CreatedDateTime | date"></span></small>
+                        </div>
+                    </div>
+                    <div class="social-comment">
+                        <div class="alert alert-danger alert-dismissable" ng-if="model.errorMessages.length>0">
+                            <ul>
+                                <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+                            </ul>
+                        </div>
+                        <a href="" class="pull-left">
+                            <img alt="image" src="~/Images/Avatar.png">
+                        </a>
+                        <div class="media-body">
+                            <textarea id="txtArea" ng-model="model.trend[trend.TrendId]" name="{{trend.TrendId}}" class="form-control" placeholder="Write comment..."></textarea>
+                            <button id="submit" type="submit" class="btn btn-warning btn-xs pull-right btn-comment" ng-click="model.createTrendComment(trend,model.trend[trend.TrendId],false)"> Comment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins" id="deviceinstore">
+            <div class="ibox-title">
+                <h5>Device in store</h5>
+                @*<button class="btn btn-danger btn-xs pull-right">View All</button>*@
+            </div>
+            <div class="ibox-content-image">
+                <div class="carousel slide" id="carousel2">
+                    <div class="carousel-inner">
+                        <div class="item" ng-class='{active: $first}' ng-repeat="mobile in model.mobilesInStore">
+                            <a ng-href="/Mobile/Detail/{{mobile.SeoUrl}}">
+                                <img alt="image" class="img-responsive" src="{{mobile.ProfileImagePath}}">
+                            </a>
+                        </div>
+                    </div>
+                    <a data-slide="prev" href="#carousel2" class="left carousel-control">
+                        <span class="icon-prev"></span>
+                    </a>
+                    <a data-slide="next" href="#carousel2" class="right carousel-control">
+                        <span class="icon-next"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content-image-static">
+                    <div>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <a href="@Url.Action("Detail", "Mobile", new {id = 12160})">
+                                    <img alt="image" class="img-responsive" src="~/Images/gallery/Samsung Galaxy S9.jpg">
+                                    <div class="carousel-caption">
+                                        <p>Samsung Galaxy S9</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content-image-static">
+                    <div>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <a href="@Url.Action("Detail", "Mobile", new {id = 12154})">
+                                    <img alt="image" class="img-responsive" src="~/Images/gallery/Nokia 6.1 (Nokia 6 2018).jpg">
+                                    <div class="carousel-caption">
+                                        <p>Nokia 6</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

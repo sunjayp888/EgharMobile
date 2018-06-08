@@ -45,7 +45,7 @@
                                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="item" ng-class='{active: $first}' ng-repeat="latestMobile in model.latestMobileList">
-                                            <a href="#"><img src="~/Images/gallery/Image2.jpg" class="img-responsive" alt="product 1"></a>
+                                            <a href="#"><img src="{{latestMobile.ProfileImagePath}}" class="img-responsive" ></a>
                                             <h4><small><span ng-bind="latestMobile.Name"></span></small></h4>
                                             <a href="/Mobile/Detail/{{latestMobile.MobileId}}-{{latestMobile.Name}}" class="btn btn-warning">Detail</a>
                                             @*<button ng-href="#" class="btn btn-default" type="button">

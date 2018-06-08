@@ -59,10 +59,12 @@ namespace Egharpay.Controllers
             return View(new BaseViewModel());
         }
 
-        [HttpPost]
-        public ActionResult GetCentres()
+        [AllowAnonymous]
+        public ActionResult PrivacyPolicy()
         {
-            return this.JsonNet(null);
+            ViewBag.Message = "Your contact page.";
+
+            return View(new BaseViewModel());
         }
 
         [HttpPost]

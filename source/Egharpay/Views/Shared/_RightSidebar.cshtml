@@ -8,29 +8,32 @@
                     <i class="fa fa-home"></i>
                 </a>
             </li>
-            <li class="">
-                <a data-toggle="tab" href="#tab-3">
-                    <i class="fa fa-gear"></i>
-                </a>
-            </li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="">
+                    <a data-toggle="tab" href="#tab-3">
+                        <i class="fa fa-gear"></i>
+                    </a>
+                </li>
+            }
         </ul>
 
         <div class="tab-content">
             <div id="tab-2" class="tab-pane active">
                 <div class="sidebar-title">
                     <h3>
-                        <i class="fa fa-gears"></i> Store
+                        <i class="fa fa-home"></i> Store
                     </h3>
                     <small><i class="fa fa-tim"></i> Browse in store.</small>
                 </div>
                 <div class="setings-item">
                     <span>
-                        <a class="btn btn-danger" href="">Latest Phone</a>
+                        <a class="btn btn-danger" href="/Mobile/AllLatestMobile">Latest Phone</a>
                     </span>
                 </div>
                 <div class="setings-item">
                     <span>
-                        <a class="btn btn-danger" href="">Brands</a>
+                        <a class="btn btn-danger" href="/Brand">Brands</a>
                     </span>
                 </div>
                 <div class="setings-item anchor-black">

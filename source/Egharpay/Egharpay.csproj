@@ -2480,6 +2480,9 @@
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\_PersonnelOrder.cshtml" />
     <Content Include="Views\Order\_SellerOrder.cshtml" />
+    <Content Include="Views\Shared\_MobileView.cshtml" />
+    <Content Include="Views\Shared\_DesktopView.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
