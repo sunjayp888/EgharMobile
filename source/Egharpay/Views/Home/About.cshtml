@@ -1,7 +1,27 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿@using Egharpay.Extensions
+@{
+    if (User.IsSuperUserOrAdmin())
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (User.IsSeller() && Model.IsSellerApproved)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    if (User.IsSeller() && !Model.IsSellerApproved)
+    {
+        Layout = "~/Views/Shared/_LayoutUnApprovedSeller.cshtml";
+    }
+    if (User.IsPersonnel() || !User.Identity.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_Layout_2.cshtml";
+    }
+    if (User.IsMobileRepairAdmin())
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    ViewBag.Title = "About Us";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
