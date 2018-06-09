@@ -122,7 +122,10 @@
                     <div class="carousel-inner">
                         <div class="item" ng-class='{active: $first}' ng-repeat="mobile in model.mobilesInStore">
                             <a ng-href="/Mobile/Detail/{{mobile.SeoUrl}}">
-                                <img alt="image" class="img-responsive" src="{{mobile.ProfileImagePath}}">
+                                <img alt="image" class="img-responsive device-in-store-img" src="{{mobile.ProfileImagePath}}">
+                                <div class="carousel-caption">
+                                    <p><span ng-bind="mobile.Name"></span></p>
+                                </div>
                             </a>
                         </div>
                     </div>
