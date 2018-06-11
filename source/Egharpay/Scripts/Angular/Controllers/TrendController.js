@@ -12,7 +12,7 @@
         var vm = this;
         vm.trends = [];
         vm.paging = new Paging;
-        vm.pageChanged = pageChanged;
+        vm.pageChanged = pageChanged;   
         vm.orderBy = new OrderBy;
         vm.order = order;
         vm.orderClass = orderClass;
@@ -25,10 +25,10 @@
         vm.errorMessages = [];
 
         function initialise() {
-            vm.orderBy.property = "Name";
-            vm.orderBy.direction = "Ascending";
-            vm.orderBy.class = "asc";
-            order("Name");
+            vm.orderBy.property = "CreatedDateTime";
+            vm.orderBy.direction = "Descending";
+            vm.orderBy.class = "desc";
+            order("CreatedDateTime");
         }
 
         function retrieveTrends() {

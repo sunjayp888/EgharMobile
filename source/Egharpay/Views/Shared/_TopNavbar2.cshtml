@@ -44,7 +44,7 @@
                                 <li class="dropdown-header">New in Stores</li>
                                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
-                                        <div class="item" ng-class='{active: $first}' ng-repeat="latestMobile in model.latestMobileList">
+                                        <div class="item xs-ml-30" ng-class='{active: $first}' ng-repeat="latestMobile in model.latestMobileList">
                                             <a href="#"><img src="{{latestMobile.ProfileImagePath}}" class="img-responsive mega-menu-image" ></a>
                                             <h4><small><span ng-bind="latestMobile.Name"></span></small></h4>
                                             <a href="/Mobile/Detail/{{latestMobile.MobileId}}-{{latestMobile.Name}}" class="btn btn-warning">Detail</a>

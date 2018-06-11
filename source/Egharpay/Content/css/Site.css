@@ -9744,8 +9744,8 @@ body.md-skin {
   bottom: 0;
   left: 0;
   z-index: 10;
-  padding-top: 20px !important;
-  padding-bottom: 20px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
   color: #fff;
   text-align: center;
   background: rgba(0, 0, 0, 0.4);
@@ -9842,7 +9842,7 @@ body.md-skin {
 }
 .navbar-form .form-control {
   display: inline-block;
-  width: 585px;
+  width: 550px;
   vertical-align: middle;
   margin-left: 40px;
 }
@@ -10065,7 +10065,7 @@ body.md-skin {
 }
 .social-feed-image {
   width: 750px;
-  height: 400px;
+  height: 350px;
 }
 .navbar-fixed-bottom {
   position: fixed !important;
@@ -10107,6 +10107,26 @@ body.md-skin {
 .gift-icon {
   font-size: 55px !important;
   color: #ec4758 !important;
+}
+.google-play-icon {
+  width: 120px;
+}
+.mega-menu-image {
+  height: 100px !important;
+  width: 80px !important;
+}
+.testimonials {
+  background: #1ab394 !important;
+}
+.body-background {
+  background: #2f4050 !important;
+}
+.device-in-store-img {
+  height: 200px !important;
+  width: 280px;
+}
+.xs-ml-30 {
+  margin-left: 30px;
 }
 .mega-menu-image {
   height: 100px !important;
