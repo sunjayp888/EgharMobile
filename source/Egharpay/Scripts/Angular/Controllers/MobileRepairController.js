@@ -61,9 +61,9 @@
         vm.searchTerm;
 
         function initialise() {
-            vm.orderBy.property = "MobileRepairId";
-            vm.orderBy.direction = "Ascending";
-            vm.orderBy.class = "asc";
+            vm.orderBy.property = "CreatedDateTime";
+            vm.orderBy.direction = "Descending";
+            vm.orderBy.class = "desc";
             order("MobileRepairId");
         }
 
