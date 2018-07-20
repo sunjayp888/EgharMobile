@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Egharpay.Business.Dto;
 using Egharpay.Business.Extensions;
+using Egharpay.Business.Helpers;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data.Extensions;

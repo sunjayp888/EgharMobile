@@ -48,6 +48,8 @@ namespace Egharpay.Business.Extensions
 
         public static DateTime? CombineDateTime(this DateTime? dateTime, string time)
         {
+            if (string.IsNullOrEmpty(time))
+                return dateTime;
             var timeSplit = time.Split(':');
             if (!dateTime.HasValue || string.IsNullOrEmpty(time))
                 return null;
@@ -62,7 +64,7 @@ namespace Egharpay.Business.Extensions
 
         public static bool IsBetween(this DateTime date, TimeSpan start, TimeSpan end)
         {
-            
+
             var time = date.TimeOfDay;
             // If the start time and the end time is in the same day.
             if (start <= end)

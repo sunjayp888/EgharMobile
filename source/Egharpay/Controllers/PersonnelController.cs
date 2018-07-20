@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Egharpay.Business.Interfaces;
@@ -15,8 +16,12 @@ using Egharpay.Models;
 using Egharpay.Models.Authorization;
 using Microsoft.Owin.Security.Authorization;
 using DocumentCategory = Egharpay.Business.Enum.DocumentCategory;
-using Role = Egharpay.Enums.Role;
+using Role = Egharpay.Enums.Role;   
 using Egharpay.Business.Enum;
+using Egharpay.Entity;
+using Egharpay.Models.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Egharpay.Controllers
 {
@@ -40,6 +45,22 @@ namespace Egharpay.Controllers
             _documentsBusinessService = documentsBusinessService;
             _sellerBusinessService = sellerBusinessService;
         }
+
+        private ApplicationSignInManager _signInManager;
+        private ApplicationRoleManager _roleManager;
+
+        private ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            set
+            {
+                _roleManager = value;
+            }
+        }
+
 
         // GET: Personnel
         public ActionResult Index()
@@ -84,24 +105,11 @@ namespace Egharpay.Controllers
         [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public ActionResult Create()
         {
-            var centres = _personnelBusinessService.RetrievePersonnel(1, 1);
-            //var viewModel = new PersonnelProfileViewModel
-            //{
-
-            //    Centres = new SelectList(centres, "CentreId", "Name"),
-            //    Personnel = new Personnel
-            //    {
-            //        DOB = DateTime.Today,
-            //        Title = "Mr",
-            //        Forenames = "A",
-            //        Surname = "B",
-            //        Email = string.Format("{0}@hr.com", Guid.NewGuid()),
-            //        Address1 = "Address1",
-            //        Postcode = "POST CODE",
-            //        Telephone = "12345678",
-            //    },
-            //};
-            return View();
+            var personnelProfileViewModel = new PersonnelProfileViewModel()
+            {
+                Personnel = new Personnel()
+            };
+            return View(personnelProfileViewModel);
         }
 
         // POST: Personnel/Create
@@ -110,10 +118,7 @@ namespace Egharpay.Controllers
         [PolicyAuthorize(Roles = new[] { Role.SuperUser, Role.Admin })]
         public async Task<ActionResult> Create(PersonnelProfileViewModel personnelViewModel)
         {
-            // check if user with this email already exists for the current organisation
-            // var centres = EgharpayBusinessService.RetrieveCentres(UserOrganisationId, e => true);
             var userExists = UserManager.FindByEmail(personnelViewModel.Personnel.Email);
-            // personnelViewModel.Centres = new SelectList(centres, "CentreId", "Name");
             if (userExists != null)
                 ModelState.AddModelError("", string.Format("An account already exists for the email address {0}", personnelViewModel.Personnel.Email));
 
@@ -123,7 +128,7 @@ namespace Egharpay.Controllers
                 var result = await _personnelBusinessService.CreatePersonnel(personnelViewModel.Personnel);
                 if (result.Succeeded)
                 {
-                    // CreateUserAndRole(personnelViewModel.Personnel);
+                     CreateUserAndRole(personnelViewModel.Personnel);
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("", result.Exception);
@@ -136,20 +141,20 @@ namespace Egharpay.Controllers
             return View(personnelViewModel);
         }
 
-        //private IdentityResult CreateUserAndRole(Personnel personnel)
-        //{
-        //    var createUser = new ApplicationUser
-        //    {
-        //        UserName = personnel.Email,
-        //        Email = personnel.Email,
-        //    };
+        private IdentityResult CreateUserAndRole(Personnel personnel)
+        {
+            var createUser = new ApplicationUser
+            {
+                UserName = personnel.Email,
+                Email = personnel.Email,
+            };
 
-        //    var roleId = RoleManager.Roles.FirstOrDefault(r => r.Name == "User").Id;
-        //    createUser.Roles.Add(new IdentityUserRole { UserId = createUser.Id, RoleId = roleId });
+            var roleId = RoleManager.Roles.First(r => r.Name == Role.Admin.ToString()).Id;
+            createUser.Roles.Add(new IdentityUserRole { UserId = createUser.Id, RoleId = roleId });
 
-        //    var result = UserManager.Create(createUser, "Password1!");
-        //    return result;
-        //}
+            var result = UserManager.Create(createUser, "Password1!");
+            return result;
+        }
 
         //[Authorize(Roles = "Admin,User")]
         //public async Task<ActionResult> Edit(int id)

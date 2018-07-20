@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Egharpay.Business
+namespace Egharpay.Business.Helpers
 {
     public static class ConfigHelper
     {
@@ -12,6 +12,8 @@ namespace Egharpay.Business
         public static string TemporaryMobileGalleryImagePath => ConfigurationManager.AppSettings["TemporaryMobileGalleryImagePath"].ToString();
         public static string TemplateRootFilePath => ConfigurationManager.AppSettings["TemplateRootFilePath"].ToString();
         public static bool SendSMS => ConfigurationManager.AppSettings["SendSMS"].ToString() == "true";
-
+        public static string MumbileHost => ConfigurationManager.AppSettings["MumbileHost"];
+        public static string MobileRepairInfoEmail => ConfigurationManager.AppSettings["MobileRepairInfoEmail"];
+        
     }
 }

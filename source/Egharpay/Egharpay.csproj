@@ -2470,6 +2470,7 @@
     <Content Include="Views\Shared\_MobileView.cshtml" />
     <Content Include="Views\Shared\_DesktopView.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <None Include="Properties\PublishProfiles\Vijay.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

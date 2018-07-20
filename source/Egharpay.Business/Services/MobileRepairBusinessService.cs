@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Egharpay.Business.EmailServiceReference;
 using Egharpay.Business.Enum;
 using Egharpay.Business.Extensions;
+using Egharpay.Business.Helpers;
 using Egharpay.Business.Interfaces;
 using Egharpay.Business.Models;
 using Egharpay.Data.Interfaces;
@@ -19,13 +21,18 @@ namespace Egharpay.Business.Services
         private readonly ISmsBusinessService _smsBusinessService;
         private readonly IMobileRepairMobileFaultBusinessService _mobileRepairMobileFaultBusinessService;
         private readonly IMobileRepairDataService _mobileRepairDataService;
+        private readonly IEmailBusinessService _emailBusinessService;
+        private readonly ITemplateBusinessService _templateBusinessService;
+        private const string MobileRepairRequestEmailTemplate = "MobileRepairRequestCreated";
 
-        public MobileRepairBusinessService(IMobileDataService mobileDataService, ISmsBusinessService smsBusinessService, IMobileRepairMobileFaultBusinessService mobileRepairMobileFaultBusinessService, IMobileRepairDataService mobileRepairDataService)
+        public MobileRepairBusinessService(IMobileDataService mobileDataService, ISmsBusinessService smsBusinessService, IMobileRepairMobileFaultBusinessService mobileRepairMobileFaultBusinessService, IMobileRepairDataService mobileRepairDataService, IEmailBusinessService emailBusinessService, ITemplateBusinessService templateBusinessService)
         {
             _mobileDataService = mobileDataService;
             _smsBusinessService = smsBusinessService;
             _mobileRepairMobileFaultBusinessService = mobileRepairMobileFaultBusinessService;
             _mobileRepairDataService = mobileRepairDataService;
+            _emailBusinessService = emailBusinessService;
+            _templateBusinessService = templateBusinessService;
         }
 
         #region Create
@@ -40,9 +47,12 @@ namespace Egharpay.Business.Services
                 mobileRepair.MobileRepairStateId = (int)MobileRepairRequestState.Created;
                 var data = await _mobileDataService.CreateGetAsync(mobileRepair);
                 await CreateMobileCoupon(mobileRepair.MobileNumber, mobileRepair.CouponCode);
-                
+
                 var message = $"Your request to repair is created.Request id :{data.MobileRepairId}. mumbile team will contact you on {data.MobileNumber}. Thank you for choosing mumbile.com";
                 _smsBusinessService.SendSMS(mobileRepair.MobileNumber.ToString(), message);
+
+                //Send Email to Admin
+                await SendMobileRepairRequestEmailNotification(data);
                 validationResult.Message = "Request created successfully.Mumbile team will call you for appointment and details.";
                 validationResult.Succeeded = true;
 
@@ -127,7 +137,7 @@ namespace Egharpay.Business.Services
 
         public async Task<MobileRepair> RetrieveMobileRepair(int mobileRepairId)
         {
-            var mobileRepair = await _mobileDataService.RetrieveAsync<MobileRepair>(a => a.MobileRepairId == mobileRepairId,null,a=>a.MobileRepairMobileFaults);
+            var mobileRepair = await _mobileDataService.RetrieveAsync<MobileRepair>(a => a.MobileRepairId == mobileRepairId, null, a => a.MobileRepairMobileFaults);
             return mobileRepair.FirstOrDefault();
         }
 
@@ -216,6 +226,39 @@ namespace Egharpay.Business.Services
             else
             {
                 validationResult.Succeeded = true;
+            }
+            return validationResult;
+        }
+
+        private async Task<ValidationResult> SendMobileRepairRequestEmailNotification(MobileRepair mobileRepair)
+        {
+            var baseUrl = ConfigHelper.MumbileHost;
+            var validationResult = new ValidationResult();
+            var mobileRequestEmail = new MobileRepairRequestEmail
+            {
+                Url = $"{baseUrl}/MobileRepair/Edit/{mobileRepair.MobileRepairId}"
+            };
+            try
+            {
+                var templateJson = mobileRequestEmail.ToJson();
+                var body = _templateBusinessService.CreateText(templateJson, MobileRepairRequestEmailTemplate);
+                if (body != null)
+                {
+                    await _emailBusinessService.SendEmail(new EmailData
+                    {
+                        Subject = $"Mobile repair request created by {mobileRepair.MobileNumber}", //ToDo
+                        ToAddressList = new List<string>() { ConfigHelper.MobileRepairInfoEmail },
+                        IsHtml = true,
+                        Body = body,
+                    });
+                }
+                validationResult.Succeeded = true;
+            }
+            catch (Exception ex)
+            {
+                validationResult.Succeeded = false;
+                validationResult.Errors = new List<string> { ex.InnerMessage() };
+                validationResult.Exception = ex;
             }
             return validationResult;
         }

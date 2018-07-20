@@ -63,6 +63,7 @@ namespace Egharpay.Data
         public virtual DbSet<Search> Searches { get; set; }
         public virtual DbSet<MobileFault> MobileFaults { get; set; }
         public virtual DbSet<MobileRepairMobileFault> MobileRepairMobileFaults { get; set; }
+        public virtual DbSet<MobileRepairFee> MobileRepairFees { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
