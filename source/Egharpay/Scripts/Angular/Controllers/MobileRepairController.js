@@ -5,9 +5,9 @@
         .module('Egharpay')
         .controller('MobileRepairController', MobileRepairController);
 
-    MobileRepairController.$inject = ['$window', '$filter', '$sce', 'MobileRepairService', 'OTPService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
+    MobileRepairController.$inject = ['$window', '$filter', '$sce', 'MobileRepairService', 'BrandService', 'OTPService', 'Paging', 'OrderService', 'OrderBy', 'Order'];
 
-    function MobileRepairController($window, $filter, $sce, MobileRepairService, OTPService, Paging, OrderService, OrderBy, Order) {
+    function MobileRepairController($window, $filter, $sce, MobileRepairService, BrandService, OTPService, Paging, OrderService, OrderBy, Order) {
         /* jshint validthis:true */
         var vm = this;
         vm.errorMessages = [];
@@ -36,6 +36,7 @@
         vm.isRepair = true;
         vm.mobileRepairOrders = [];
         vm.mobileFaults = [];
+        vm.brands = [];
         vm.selectedMobileFaults = [];
         vm.initialise = initialise;
         vm.amount;
@@ -59,6 +60,10 @@
         vm.deleteMobileRepairMobileFault = deleteMobileRepairMobileFault;
         vm.initialise = initialise;
         vm.searchTerm;
+        vm.searchBrand = searchBrand;
+        vm.brandName;
+        vm.brandSelected = brandSelected;
+        vm.mobiles = [];
 
         function initialise() {
             vm.orderBy.property = "CreatedDateTime";
@@ -285,10 +290,38 @@
                 });
         }
 
+        function searchBrand() {
+            vm.orderBy.property = "Name";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
+            return BrandService.searchBrand(vm.searchTerm, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.brands = response.data.Items;
+                });
+        }
+
+        function retrieveMobiles(brandId) {
+            vm.orderBy.property = "Name";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
+            return BrandService.searchBrand(vm.searchTerm, vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.brands = response.data.Items;
+                });
+        }
+
         function deleteMobileRepairMobileFault(mobileRepairId, $item) {
             return MobileRepairService.deleteMobileRepairMobileFault(mobileRepairId, $item.MobileFaultId)
                 .then(function () {
 
+                });
+        }
+
+        function brandSelected(item) {
+            var brandId = item.BrandId;
+            return MobileRepairService.retrieveMobileByBrand(brandId)
+                .then(function (response) {
+                    vm.mobiles = response.data.Items;
                 });
         }
     }

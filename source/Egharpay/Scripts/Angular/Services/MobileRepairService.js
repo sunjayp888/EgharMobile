@@ -22,8 +22,8 @@
             searchMobileRepairByDate: searchMobileRepairByDate,
             retrieveMobileRepairFaults: retrieveMobileRepairFaults,
             deleteMobileRepairMobileFault: deleteMobileRepairMobileFault,
-            search: search
-
+            search: search,
+            retrieveMobileByBrand: retrieveMobileByBrand
         };
 
         return service;
@@ -150,6 +150,11 @@
                 orderBy: new Array(orderBy)
             };
             return $http.post(url, data);
+        }
+
+        function retrieveMobileByBrand(brandId) {
+            var url = "/MobileRepair/RetrieveMobileByBrand/" + brandId;
+            return $http.get(url);
         }
     }
 })();

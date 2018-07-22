@@ -34,6 +34,8 @@ namespace Egharpay.Business.Services
 
         public async Task<PagedResult<BrandGrid>> Search(string term, List<OrderBy> orderBy = null, Paging paging = null)
         {
+            if (string.IsNullOrEmpty(term))
+                return await _dataService.RetrievePagedResultAsync<BrandGrid>(a => true);
             return await _dataService.RetrievePagedResultAsync<BrandGrid>(a => a.SearchField.ToLower().Contains(term.ToLower()), orderBy, paging);
         }
     }
