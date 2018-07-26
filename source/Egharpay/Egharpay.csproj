@@ -261,6 +261,7 @@
     <Folder Include="Views\Address\" />
     <Folder Include="Views\CouponCode\" />
     <Folder Include="Views\HomeBannerImage\" />
+    <Folder Include="Views\MobileRepairFeeCalculator\" />
     <Folder Include="Views\PersonnelDocuments\" />
     <Folder Include="Views\PersonnelDocument\" />
     <Folder Include="Views\Validation\" />
@@ -292,6 +293,7 @@
     <Compile Include="Controllers\MobileCommentController.cs" />
     <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="Controllers\MobileRepairController.cs" />
+    <Compile Include="Controllers\MobileRepairFeeCalculatorController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OTPController.cs" />
     <Compile Include="Controllers\PersonnelController.cs" />
@@ -2470,6 +2472,9 @@
     <Content Include="Views\Shared\_MobileView.cshtml" />
     <Content Include="Views\Shared\_DesktopView.cshtml" />
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
+    <None Include="Properties\PublishProfiles\Vijay.pubxml" />
+    <Content Include="Views\MobileRepair\_Offer.cshtml" />
+    <Content Include="Views\MobileRepair\_MobileRepairCalculator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

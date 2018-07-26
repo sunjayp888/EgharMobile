@@ -3,7 +3,7 @@
 @model Egharpay.Models.PersonnelProfileViewModel
 <div class="form-control-required-example">&nbsp; = Required</div>
 <br />
-@if (Model.ProfileUpdated)
+@if (Model !=null && Model.ProfileUpdated)
 {
     <div class="alert alert-danger alert-dismissable">
         <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
@@ -97,7 +97,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Personnel.Mobile, new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
         <div class="col-md-4 col-sm-6 col-xs-12">
-            @Html.TextBoxFor(model => model.Personnel.Mobile, new { @class = "form-control col-md-7 col-xs-12", @readonly = "true" })
+            @Html.TextBoxFor(model => model.Personnel.Mobile, new { @class = "form-control col-md-7 col-xs-12" })
             @Html.ValidationMessageFor(model => model.Personnel.Mobile, "", new { @class = "help-block" })
         </div>
     </div>

@@ -120,6 +120,7 @@
     <Compile Include="MobileGrid.cs" />
     <Compile Include="MobileRepair.cs" />
     <Compile Include="MobileRepairAdminPersonnel.cs" />
+    <Compile Include="MobileRepairFee.cs" />
     <Compile Include="MobileRepairGrid.cs" />
     <Compile Include="MobileRepairMobileFault.cs" />
     <Compile Include="MobileRepairPayment.cs" />

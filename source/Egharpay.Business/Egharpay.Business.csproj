@@ -153,7 +153,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigHelper.cs" />
+    <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Dto\Extensions.cs" />
     <Compile Include="Dto\Filter.cs" />
     <Compile Include="Enum\MobileRepairRequestState.cs" />
@@ -173,9 +173,11 @@
     <Compile Include="Interfaces\ISellerOrderBusinessService.cs" />
     <Compile Include="Interfaces\ISmsBusinessService.cs" />
     <Compile Include="Interfaces\ICouponCodeBusinessService.cs" />
+    <Compile Include="Interfaces\IMobileRepairFeeBusinessService.cs" />
     <Compile Include="Models\GeoPosition.cs" />
     <Compile Include="Models\HtmlEmail.cs" />
     <Compile Include="Models\Mobile.cs" />
+    <Compile Include="Models\MobileRepairRequestEmail.cs" />
     <Compile Include="Models\OrderCreatedEmail.cs" />
     <Compile Include="Models\SellerApprovalStateEmail.cs" />
     <Compile Include="Models\PersonnelCreatedEmail.cs" />
@@ -269,6 +271,7 @@
     <Compile Include="Services\TrendBusinessService.cs" />
     <Compile Include="Services\TrendCommentBusinessService.cs" />
     <Compile Include="Services\CouponCodeBusinessService.cs" />
+    <Compile Include="Services\MobileRepairFeeBusinessService.cs" />
     <Compile Include="Services\YouTubeBusinessService.cs" />
     <Compile Include="Services\TemplateBusinessService.cs" />
   </ItemGroup>

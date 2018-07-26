@@ -63,7 +63,7 @@ namespace Egharpay.Business.Services
 
         private MailMessage CreateMessage(EmailData data)
         {
-            data.FromAddress = ConfigurationManager.AppSettings["SMTPLoginId"];
+            data.FromAddress = ConfigurationManager.AppSettings["FromAddress"];
             var mail = new MailMessage
             {
                 From = new MailAddress(data.FromAddress),
@@ -89,7 +89,15 @@ namespace Egharpay.Business.Services
                 var pwd = ConfigurationManager.AppSettings["SMTPLoginPwd"];
                 client.Credentials = new NetworkCredential(id, pwd);
                 client.EnableSsl = true;
-                await client.SendMailAsync(msg);
+                try
+                {
+                  await client.SendMailAsync(msg);
+                }
+                catch (Exception Ex)
+                {
+                    Console.Write(Ex);
+                }
+                
             }
         }
 

@@ -19,15 +19,18 @@ namespace Egharpay.Controllers
     {
         private readonly IMobileBusinessService _mobileBusinessService;
         private readonly ISellerBusinessService _sellerBusinessService;
-        public HomeController(IMobileBusinessService mobileBusinessService, IYouTubeBusinessService youTubeBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IPersonnelBusinessService personnelBusinessService, ISellerBusinessService sellerBusinessService) : base(configurationManager, authorizationService)
+        private readonly IMobileRepairFeeBusinessService _mobileRepairFeeBusinessService;
+        public HomeController(IMobileBusinessService mobileBusinessService, IYouTubeBusinessService youTubeBusinessService, IConfigurationManager configurationManager, IAuthorizationService authorizationService, IPersonnelBusinessService personnelBusinessService, ISellerBusinessService sellerBusinessService, IMobileRepairFeeBusinessService mobileRepairFeeBusinessService) : base(configurationManager, authorizationService)
         {
             _mobileBusinessService = mobileBusinessService;
             _sellerBusinessService = sellerBusinessService;
+            _mobileRepairFeeBusinessService = mobileRepairFeeBusinessService;
         }
 
         public async Task<ActionResult> Index()
-            {
+        {
             var viewModel = new HomeViewModel { PersonnelId = UserPersonnelId };
+
             if (User.Identity.IsAuthenticated && viewModel.PersonnelId == 0)
                 return RedirectToAction("Logout", "Account");
             if (User.Identity.IsAuthenticated && User.IsSeller())
@@ -39,6 +42,9 @@ namespace Egharpay.Controllers
             }
             if (User.Identity.IsAuthenticated && User.IsMobileRepairAdmin())
                 viewModel.HasMobileRepairPermission = User.IsSuperUser() || await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, Policies.Permission.AdministratorMobileRepair.ToString());
+
+            if (Request.Browser.IsMobileDevice)
+                return RedirectToAction("Index", "MobileRepair");
 
             return View(viewModel);
         }

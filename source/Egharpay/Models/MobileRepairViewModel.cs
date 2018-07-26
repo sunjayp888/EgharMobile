@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Egharpay.Entity;
 using Newtonsoft.Json;
 
@@ -24,7 +25,10 @@ namespace Egharpay.Models
         public int MobileRepairId { get; set; }
         public decimal Amount { get; set; }
         public MobileRepair MobileRepair { get; set; }
+        public MobileRepairFee MobileRepairFee { get; set; }
         public int? MobileRepairAdminPersonnelId { get; set; }
+        public SelectList Brands { get; set; }
+        public SelectList Mobiles { get; set; }
         public List<int> SelectedMobileFaultIds
         {
             get
