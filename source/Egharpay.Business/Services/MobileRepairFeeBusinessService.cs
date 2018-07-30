@@ -32,7 +32,7 @@ namespace Egharpay.Business.Services
         public async Task Create()
         {
             var mobiles = await _mobileBusinessService.RetrieveMobiles(e => true);
-            
+
             foreach (var mobile in mobiles.Items)
             {
                 var mobileFault = new List<MobileRepairFee>
@@ -69,8 +69,13 @@ namespace Egharpay.Business.Services
                     Console.WriteLine(e);
                     throw;
                 }
-                
+
             }
+        }
+
+        public async Task<IEnumerable<MobileRepairFeeGrid>> RetrieveMobileRepairFeeGrid(int brandId, int mobileId)
+        {
+            return await _mobileRepairFeeDataService.RetrieveAsync<MobileRepairFeeGrid>(e => e.BrandId == brandId && e.MobileId == mobileId);
         }
     }
 }

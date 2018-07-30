@@ -168,6 +168,9 @@ namespace Egharpay
             bundles.Add(new ScriptBundle("~/plugins/clockpicker").Include(
                       "~/Scripts/plugins/clockpicker/clockpicker.js"));
 
+            // slimScroll
+            bundles.Add(new ScriptBundle("~/plugins/slimScroll").Include(
+                      "~/Scripts/plugins/slimscroll/jquery.slimscroll.min.js"));
 
 
         }

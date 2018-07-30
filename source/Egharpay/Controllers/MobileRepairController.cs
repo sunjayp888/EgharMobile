@@ -26,9 +26,14 @@ namespace Egharpay.Controllers
         private readonly IMobileRepairAdminBusinessService _mobileRepairAdminBusinessService;
         private readonly IBrandBusinessService _brandBusinessService;
         private readonly IMobileBusinessService _mobileBusinessService;
+        private readonly IMobileRepairFeeBusinessService _mobileRepairFeeBusinessService;
 
         public MobileRepairController(IMobileRepairBusinessService mobileRepairBusinessService, IOtpBusinessService otpBusinessService, ICouponCodeBusinessService couponCodeBusinessService,
-            IMobileRepairAdminBusinessService mobileRepairAdminBusinessService, IAuthorizationService authorizationService, IBrandBusinessService brandBusinessService, IMobileBusinessService mobileBusinessService) : base(authorizationService)
+            IMobileRepairAdminBusinessService mobileRepairAdminBusinessService,
+            IAuthorizationService authorizationService,
+            IBrandBusinessService brandBusinessService,
+            IMobileBusinessService mobileBusinessService,
+            IMobileRepairFeeBusinessService mobileRepairFeeBusinessService) : base(authorizationService)
         {
             _mobileRepairBusinessService = mobileRepairBusinessService;
             _otpBusinessService = otpBusinessService;
@@ -36,6 +41,7 @@ namespace Egharpay.Controllers
             _mobileRepairAdminBusinessService = mobileRepairAdminBusinessService;
             _brandBusinessService = brandBusinessService;
             _mobileBusinessService = mobileBusinessService;
+            _mobileRepairFeeBusinessService = mobileRepairFeeBusinessService;
         }
 
         // GET: MobileRepair
@@ -271,12 +277,20 @@ namespace Egharpay.Controllers
             return this.JsonNet(data);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("MobileRepair/RetrieveMobileByBrand/{brandId:int}")]
         public async Task<ActionResult> RetrieveMobileByBrand(int brandId)
         {
             var data = await _mobileBusinessService.RetrieveMobiles(e => e.BrandId == brandId);
-            return this.JsonNet(data);  
+            return this.JsonNet(data);
+        }
+
+        [HttpGet]
+        [Route("MobileRepair/RetrieveMobileRepairFee/{brandId:int}/{mobileId:int}")]
+        public async Task<ActionResult> RetrieveMobileRepairFee(int brandId, int mobileId)
+        {
+            var data = await _mobileRepairFeeBusinessService.RetrieveMobileRepairFeeGrid(brandId, mobileId);
+            return this.JsonNet(data);
         }
     }
 }

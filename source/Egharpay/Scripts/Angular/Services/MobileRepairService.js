@@ -23,7 +23,8 @@
             retrieveMobileRepairFaults: retrieveMobileRepairFaults,
             deleteMobileRepairMobileFault: deleteMobileRepairMobileFault,
             search: search,
-            retrieveMobileByBrand: retrieveMobileByBrand
+            retrieveMobileByBrand: retrieveMobileByBrand,
+            calculateRepairFee: calculateRepairFee
         };
 
         return service;
@@ -48,44 +49,44 @@
 
         function deleteMobileRepairRequest(mobileRepairId, mobileNumber, otp) {
             var url = "/MobileRepair/DeleteMobileRepairRequest",
-                 data = {
-                     mobileRepairId: mobileRepairId,
-                     mobileNumber: mobileNumber,
-                     otp: otp
-                 };
+                data = {
+                    mobileRepairId: mobileRepairId,
+                    mobileNumber: mobileNumber,
+                    otp: otp
+                };
             return $http.post(url, data);
         }
 
         function retrieveMobileRepairOrders(paging, orderBy) {
             var url = "/MobileRepair/List",
-            data = {
-                paging: paging,
-                orderBy: new Array(orderBy)
-            };
+                data = {
+                    paging: paging,
+                    orderBy: new Array(orderBy)
+                };
             return $http.post(url, data);
         }
 
         function markAsCompleted(mobileRepairId) {
             var url = "/MobileRepair/MarkAsCompleted",
-            data = {
-                mobileRepairId: mobileRepairId
-            };
+                data = {
+                    mobileRepairId: mobileRepairId
+                };
             return $http.post(url, data);
         }
 
         function markAsCancelled(mobileRepairId) {
             var url = "/MobileRepair/MarkAsCancelled",
-            data = {
-                mobileRepairId: mobileRepairId
-            };
+                data = {
+                    mobileRepairId: mobileRepairId
+                };
             return $http.post(url, data);
         }
 
         function markAsInProgress(mobileRepairId) {
             var url = "/MobileRepair/MarkAsInProgress",
-            data = {
-                mobileRepairId: mobileRepairId
-            };
+                data = {
+                    mobileRepairId: mobileRepairId
+                };
             return $http.post(url, data);
         }
 
@@ -99,10 +100,10 @@
 
         function retrieveAvailableMobileRepairAdmin(date, time) {
             var url = "/MobileRepair/RetrieveAvailableMobileRepairAdmin",
-            data = {
-                date: date,
-                time: time
-            }
+                data = {
+                    date: date,
+                    time: time
+                }
 
             return $http.post(url, data);
         }
@@ -114,12 +115,12 @@
 
         function searchMobileRepairByDate(fromDate, toDate, paging, orderBy) {
             var url = "/MobileRepair/SearchByDate",
-            data = {
-                fromDate: fromDate,
-                toDate: toDate,
-                paging: paging,
-                orderBy: new Array(orderBy)
-            };
+                data = {
+                    fromDate: fromDate,
+                    toDate: toDate,
+                    paging: paging,
+                    orderBy: new Array(orderBy)
+                };
 
             return $http.post(url, data);
         }
@@ -144,16 +145,21 @@
 
         function search(searchTerm, paging, orderBy) {
             var url = "/MobileRepair/Search",
-            data = {
-                searchTerm: searchTerm,
-                paging: paging,
-                orderBy: new Array(orderBy)
-            };
+                data = {
+                    searchTerm: searchTerm,
+                    paging: paging,
+                    orderBy: new Array(orderBy)
+                };
             return $http.post(url, data);
         }
 
         function retrieveMobileByBrand(brandId) {
             var url = "/MobileRepair/RetrieveMobileByBrand/" + brandId;
+            return $http.get(url);
+        }
+
+        function calculateRepairFee(brandId, mobileId) {
+            var url = "/MobileRepair/RetrieveMobileRepairFee/" + brandId + "/" + mobileId;
             return $http.get(url);
         }
     }

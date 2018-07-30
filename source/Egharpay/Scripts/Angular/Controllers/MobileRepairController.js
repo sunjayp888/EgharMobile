@@ -64,6 +64,13 @@
         vm.brandName;
         vm.brandSelected = brandSelected;
         vm.mobiles = [];
+        vm.brandId;
+        vm.calculateRepairFee = calculateRepairFee
+        vm.mobileFees = [];
+        vm.mobileFeesSelected = [];
+        vm.addPrice = addPrice;
+        vm.TotalPrice = 0;
+        vm.showFeeMessage = false;
 
         function initialise() {
             vm.orderBy.property = "CreatedDateTime";
@@ -245,7 +252,7 @@
         function selectMobileRepairAdmin() {
             if (vm.mobileRepairAdmins.length > 0) {
                 var admin = $filter('filter')(vm.mobileRepairAdmins,
-                { PersonnelId: vm.selectedMobileRepairAdmin.PersonnelId }, true);
+                    { PersonnelId: vm.selectedMobileRepairAdmin.PersonnelId }, true);
 
                 if (admin.length > 0) vm.selectedMobileRepairAdmin = admin[0];
                 //else vm.selectedAssignment = vm.assignments[0];
@@ -318,12 +325,39 @@
         }
 
         function brandSelected(item) {
-            var brandId = item.BrandId;
-            return MobileRepairService.retrieveMobileByBrand(brandId)
+            vm.BrandId = item.BrandId;
+            return MobileRepairService.retrieveMobileByBrand(vm.BrandId)
                 .then(function (response) {
                     vm.mobiles = response.data.Items;
                 });
         }
+
+        function calculateRepairFee(item) {
+            $('.full-height-scroll').slimscroll({
+                height: '200px'
+            }) 
+            return MobileRepairService.calculateRepairFee(vm.BrandId, item.MobileId)
+                .then(function (response) {
+                    vm.mobileFees = response.data;
+                    vm.showFeeMessage = response.data.length == 0;
+                });
+        }
+
+        function addPrice(value, checked) {
+            var idx = vm.mobileFees.indexOf(value);
+            if (idx >= 0 && !checked) {
+                vm.mobileFeesSelected.splice(idx, 1);
+                vm.TotalPrice = vm.TotalPrice - value.Amount;
+            }
+            if (idx < 0 && checked) {
+                vm.mobileFeesSelected.push(value);
+            }
+            if (checked) {
+                vm.TotalPrice = value.Amount + vm.TotalPrice;
+            }
+          
+        }
+        
     }
 
 })();

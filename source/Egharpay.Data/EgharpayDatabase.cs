@@ -64,6 +64,7 @@ namespace Egharpay.Data
         public virtual DbSet<MobileFault> MobileFaults { get; set; }
         public virtual DbSet<MobileRepairMobileFault> MobileRepairMobileFaults { get; set; }
         public virtual DbSet<MobileRepairFee> MobileRepairFees { get; set; }
+        public virtual DbSet<MobileRepairFeeGrid> MobileRepairFeeGrids { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
