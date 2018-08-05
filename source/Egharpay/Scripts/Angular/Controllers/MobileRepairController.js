@@ -37,6 +37,7 @@
         vm.mobileRepairOrders = [];
         vm.mobileFaults = [];
         vm.brands = [];
+        vm.partners = [];
         vm.selectedMobileFaults = [];
         vm.initialise = initialise;
         vm.amount;
@@ -65,12 +66,19 @@
         vm.brandSelected = brandSelected;
         vm.mobiles = [];
         vm.brandId;
-        vm.calculateRepairFee = calculateRepairFee
+        vm.calculateRepairFee = calculateRepairFee;
         vm.mobileFees = [];
         vm.mobileFeesSelected = [];
         vm.addPrice = addPrice;
         vm.TotalPrice = 0;
         vm.showFeeMessage = false;
+        vm.partnerName;
+        vm.partnerMobile;
+        vm.partnerEmailId;
+        vm.partnerComment;
+        vm.partnerFollowupDate;
+        vm.createPartner = createPartner;
+        vm.retrievePartners = retrievePartners;
 
         function initialise() {
             vm.orderBy.property = "CreatedDateTime";
@@ -358,6 +366,31 @@
           
         }
         
+        function createPartner() {
+            var partner = {
+                Name: vm.partnerName,
+                Mobile: vm.partnerMobile,
+                EmailId: vm.partnerEmailId,
+                Comment: vm.partnerComment
+            }
+            return MobileRepairService.createPartner(partner)
+                .then(function (response) {
+                });
+        }
+
+        function retrievePartners() {
+            vm.orderBy.property = "CreatedDate";
+            vm.orderBy.direction = "Ascending";
+            vm.orderBy.class = "asc";
+            return MobileRepairService.retrievePartners(vm.paging, vm.orderBy)
+                .then(function (response) {
+                    vm.partners = response.data.Items;
+                    vm.paging.totalPages = response.data.TotalPages;
+                    vm.paging.totalResults = response.data.TotalResults;
+                    vm.searchMessage = vm.partners.length === 0 ? "No Records Found" : "";
+                    return vm.partners;
+                });
+        }
     }
 
 })();

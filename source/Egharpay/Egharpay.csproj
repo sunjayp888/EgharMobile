@@ -296,6 +296,7 @@
     <Compile Include="Controllers\MobileRepairFeeCalculatorController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OTPController.cs" />
+    <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\PersonnelController.cs" />
     <Compile Include="Controllers\PersonnelDocumentController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
@@ -1125,6 +1126,9 @@
     <None Include="Properties\PublishProfiles\Vijay.pubxml" />
     <Content Include="Views\MobileRepair\_Offer.cshtml" />
     <Content Include="Views\MobileRepair\_MobileRepairCalculator.cshtml" />
+    <Content Include="Views\MobileRepair\_Partner.cshtml" />
+    <Content Include="Views\Partner\Edit.cshtml" />
+    <Content Include="Views\Partner\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
