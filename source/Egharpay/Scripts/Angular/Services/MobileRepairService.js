@@ -24,7 +24,9 @@
             deleteMobileRepairMobileFault: deleteMobileRepairMobileFault,
             search: search,
             retrieveMobileByBrand: retrieveMobileByBrand,
-            calculateRepairFee: calculateRepairFee
+            calculateRepairFee: calculateRepairFee,
+            createPartner: createPartner,
+            retrievePartners: retrievePartners
         };
 
         return service;
@@ -161,6 +163,23 @@
         function calculateRepairFee(brandId, mobileId) {
             var url = "/MobileRepair/RetrieveMobileRepairFee/" + brandId + "/" + mobileId;
             return $http.get(url);
+        }
+
+        function createPartner(partner) {
+            var url = "/Partner/Create",
+                data = {
+                    partner: partner
+                };
+            return $http.post(url, data);
+        }
+
+        function retrievePartners(paging, orderBy) {
+            var url = "/Partner/List",
+                data = {
+                    paging: paging,
+                    orderBy: new Array(orderBy)
+                };
+            return $http.post(url, data);
         }
     }
 })();

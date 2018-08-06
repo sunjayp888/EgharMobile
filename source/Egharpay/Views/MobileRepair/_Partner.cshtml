@@ -1,0 +1,47 @@
+﻿<div class="ibox-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="form-group">
+                    <label id="labelName" class="control-label col-md-2 col-sm-3 col-xs-12">Name</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" ng-model="model.partnerName" id="txtName" class="form-control"/>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+                <div class="form-group">
+                    <label id="labelMobile" class="control-label col-md-2 col-sm-3 col-xs-12">Mobile</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" ng-model="model.partnerMobile" id="txtMobile" class="form-control"/>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <div class="form-group">
+                    <label id="labelEmailId" class="control-label col-md-2 col-sm-3 col-xs-12">Email Id</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" ng-model="model.partnerEmailId" id="txtEmailId" class="form-control"/>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <div class="form-group">
+                    <label id="labelComment" class="control-label col-md-2 col-sm-3 col-xs-12">Comment</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <textarea rows="4" ng-model="model.partnerComment" id="txtComment" class="form-control"></textarea>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <button id="submit" ng-click="model.createPartner()" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

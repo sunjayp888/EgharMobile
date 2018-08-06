@@ -65,6 +65,7 @@ namespace Egharpay.Data
         public virtual DbSet<MobileRepairMobileFault> MobileRepairMobileFaults { get; set; }
         public virtual DbSet<MobileRepairFee> MobileRepairFees { get; set; }
         public virtual DbSet<MobileRepairFeeGrid> MobileRepairFeeGrids { get; set; }
+        public virtual DbSet<Partner> Partners { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -1037,6 +1038,18 @@ namespace Egharpay.Data
                 .HasMany(e => e.MobileRepairMobileFaults)
                 .WithRequired(e => e.MobileFault)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Partner>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Partner>()
+                .Property(e => e.EmailId)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Partner>()
+                .Property(e => e.Comment)
+                .IsUnicode(false);
         }
     }
 }
