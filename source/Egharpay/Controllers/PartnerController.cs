@@ -14,7 +14,7 @@ using Microsoft.Owin.Security.Authorization;
 
 namespace Egharpay.Controllers
 {
-    [RoutePrefix("Partner")]
+    [RoutePrefix("PartnerEnquiry")]
     public class PartnerController : BaseController
     {
         private readonly IPartnerBusinessService _partnerBusinessService;
@@ -24,7 +24,7 @@ namespace Egharpay.Controllers
             _partnerBusinessService = partnerBusinessService;
         }
 
-        // GET: Partner
+        // GET: PartnerEnquiry
         public ActionResult Index()
         {
             return View();
@@ -32,24 +32,10 @@ namespace Egharpay.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task<ActionResult> Create(Partner partner)
+        public async Task<ActionResult> Create(PartnerEnquiry partnerEnquiry)
         {
-            if (ModelState.IsValid)
-            {
-                //Create Seller
-                partner.CreatedDate = DateTime.UtcNow;
-                var result = await _partnerBusinessService.CreatePartner(partner);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-                ModelState.AddModelError("", result.Exception);
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error);
-                }
-            }
-            return View(partner);
+           var data = await _partnerBusinessService.CreatePartner(partnerEnquiry);
+           return this.JsonNet(data);
         }
 
         [HttpGet]
@@ -63,7 +49,7 @@ namespace Egharpay.Controllers
             }
             var viewModel = new MobileRepairViewModel()
             {
-                Partner = partner
+                PartnerEnquiry = partner
             };
             return View(viewModel);
         }
@@ -75,8 +61,8 @@ namespace Egharpay.Controllers
         {
             if (ModelState.IsValid)
             {
-                mobileRepairViewModel.Partner.PartnerId = partnerId;
-                var result = await _partnerBusinessService.UpdatePartner(mobileRepairViewModel.Partner);
+                mobileRepairViewModel.PartnerEnquiry.PartnerEnquiryId = partnerId;
+                var result = await _partnerBusinessService.UpdatePartner(mobileRepairViewModel.PartnerEnquiry);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");

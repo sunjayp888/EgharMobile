@@ -1,4 +1,5 @@
 ﻿@using Egharpay.Business.Extensions
+@using Egharpay.Extensions
 @model Egharpay.Models.MobileRepairViewModel
 
 @{
@@ -11,7 +12,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="ibox-title">
-                <h2>@Model.Partner.Name<small> Edit Partner</small></h2>
+                <h2>@Model.PartnerEnquiry.Name<small> Edit Partner</small></h2>
                 <div class="clearfix"></div>
             </div>
             <div class="ibox-content">
@@ -27,64 +28,65 @@
                                 </div>
                             </div>
                         }
-                        @Html.HiddenFor(model => Model.Partner.PartnerId)
-                        @Html.HiddenFor(model => Model.Partner.CreatedDate)
-                        
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="ibox float-e-margins">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Partner.Name, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                @Html.TextBoxFor(model => model.Partner.Name, new { @class = "form-control col-md-7 col-xs-12" })
-                                                @Html.ValidationMessageFor(model => model.Partner.Name, "", new { @class = "help-block" })
-                                            </div>
+                        @Html.HiddenFor(model => Model.PartnerEnquiry.PartnerEnquiryId)
+                        @Html.HiddenFor(model => Model.PartnerEnquiry.CreatedDate)
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PartnerEnquiry.Name, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.PartnerEnquiry.Name, new { @class = "form-control col-md-7 col-xs-12 required" })
+                                            @Html.ValidationMessageFor(model => model.PartnerEnquiry.Name, "", new { @class = "help-block" })
                                         </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Partner.Mobile, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                @Html.TextBoxFor(model => model.Partner.Mobile, new { @class = "form-control col-md-7 col-xs-12" })
-                                                @Html.ValidationMessageFor(model => model.Partner.Mobile, "", new { @class = "help-block" })
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PartnerEnquiry.Mobile, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.PartnerEnquiry.Mobile, new { @class = "form-control col-md-7 col-xs-12 required" })
+                                            @Html.ValidationMessageFor(model => model.PartnerEnquiry.Mobile, "", new { @class = "help-block" })
                                         </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Partner.EmailId,"Email Id", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                @Html.TextBoxFor(model => model.Partner.EmailId, new { @class = "form-control col-md-7 col-xs-12" })
-                                                @Html.ValidationMessageFor(model => model.Partner.EmailId, "", new { @class = "help-block" })
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PartnerEnquiry.EmailId, "Email Id", new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextBoxFor(model => model.PartnerEnquiry.EmailId, new { @class = "form-control col-md-7 col-xs-12 required" })
+                                            @Html.ValidationMessageFor(model => model.PartnerEnquiry.EmailId, "", new { @class = "help-block" })
                                         </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Partner.Comment, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                @Html.TextAreaFor(model => model.Partner.Comment, new { @class = "form-control col-md-7 col-xs-12" })
-                                                @Html.ValidationMessageFor(model => model.Partner.Comment, "", new { @class = "help-block" })
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PartnerEnquiry.Comment, new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            @Html.TextAreaFor(model => model.PartnerEnquiry.Comment, new { @class = "form-control col-md-7 col-xs-12" })
+                                            @Html.ValidationMessageFor(model => model.PartnerEnquiry.Comment, "", new { @class = "help-block" })
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Follow up date</label>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <daterange-picker value="@Model.Partner.FolloupDate.Formatted()" name="Partner.FolloupDate" id="Partner_FolloupDate"></daterange-picker>
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Follow up date</label>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <daterange-picker value="@Model.PartnerEnquiry.FollowupDate.Formatted()" name="PartnerEnquiry.FolloupDate" id="PartnerEnquiry_FolloupDate"></daterange-picker>
                                         </div>
-                                        <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
-                                            <div class="form-group">
-                                                <div class="pull-right">
-                                                    <button type="submit" class="btn btn-success">Submit</button>
-                                                </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-3">
+                                        <div class="form-group">
+                                            <div class="pull-right">
+                                                <button type="submit" class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        
-                        
+                        </div>
+
+
                     </div>
                 }
             </div>
         </div>
     </div>
 </div>
+<br/>
 <div>
     <a href="@Url.Action("Index")" class="btn btn-primary" role="button">
         <span class="fa fa-chevron-left"></span>&nbsp;Back to list

@@ -24,14 +24,15 @@ namespace Egharpay.Business.Services
             _dataService = dataService;
             _mapper = mapper;
         }
-        public async Task<ValidationResult<Partner>> CreatePartner(Partner partner)
+        public async Task<ValidationResult<PartnerEnquiry>> CreatePartner(PartnerEnquiry partnerEnquiry)
         {
-            ValidationResult<Partner> validationResult = new ValidationResult<Partner>();
+            ValidationResult<PartnerEnquiry> validationResult = new ValidationResult<PartnerEnquiry>();
             try
             {
-                var mobileData = _mapper.Map<Partner>(partner);
+                partnerEnquiry.CreatedDate = DateTime.UtcNow;
+                var mobileData = _mapper.Map<PartnerEnquiry>(partnerEnquiry);
                 await _dataService.CreateAsync(mobileData);
-                validationResult.Entity = partner;
+                validationResult.Entity = partnerEnquiry;
                 validationResult.Succeeded = true;
             }
             catch (Exception ex)
@@ -43,25 +44,25 @@ namespace Egharpay.Business.Services
             return validationResult;
         }
 
-        public async Task<Partner> RetrievePartner(int partnerId)
+        public async Task<PartnerEnquiry> RetrievePartner(int partnerId)
         {
-            var partner = await _dataService.RetrieveAsync<Partner>(a => a.PartnerId == partnerId);
+            var partner = await _dataService.RetrieveAsync<PartnerEnquiry>(a => a.PartnerEnquiryId == partnerId);
             return partner.FirstOrDefault();
         }
 
-        public async Task<PagedResult<Partner>> RetrievePartners(Expression<Func<Partner, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
+        public async Task<PagedResult<PartnerEnquiry>> RetrievePartners(Expression<Func<PartnerEnquiry, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null)
         {
-            var partners = await _dataService.RetrievePagedResultAsync<Partner>(expression, orderBy, paging);
+            var partners = await _dataService.RetrievePagedResultAsync<PartnerEnquiry>(expression, orderBy, paging);
             return partners;
         }
 
-        public async Task<ValidationResult<Partner>> UpdatePartner(Partner partner)
+        public async Task<ValidationResult<PartnerEnquiry>> UpdatePartner(PartnerEnquiry partnerEnquiry)
         {
-            ValidationResult<Partner> validationResult = new ValidationResult<Partner>();
+            ValidationResult<PartnerEnquiry> validationResult = new ValidationResult<PartnerEnquiry>();
             try
             {
-                await _dataService.UpdateAsync(partner);
-                validationResult.Entity = partner;
+                await _dataService.UpdateAsync(partnerEnquiry);
+                validationResult.Entity = partnerEnquiry;
                 validationResult.Succeeded = true;
             }
             catch (Exception ex)

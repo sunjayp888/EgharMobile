@@ -14,13 +14,13 @@ namespace Egharpay.Business.Interfaces
     public interface IPartnerBusinessService
     {
         //Create
-        Task<ValidationResult<Partner>> CreatePartner(Partner partner);
+        Task<ValidationResult<PartnerEnquiry>> CreatePartner(PartnerEnquiry partnerEnquiry);
 
         //Retrieve
-        Task<Partner> RetrievePartner(int partnerId);
-        Task<PagedResult<Partner>> RetrievePartners(Expression<Func<Partner, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
+        Task<PartnerEnquiry> RetrievePartner(int partnerId);
+        Task<PagedResult<PartnerEnquiry>> RetrievePartners(Expression<Func<PartnerEnquiry, bool>> expression, List<OrderBy> orderBy = null, Paging paging = null);
 
         //Update
-        Task<ValidationResult<Partner>> UpdatePartner(Partner partner);
+        Task<ValidationResult<PartnerEnquiry>> UpdatePartner(PartnerEnquiry partnerEnquiry);
     }
 }

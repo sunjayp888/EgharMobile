@@ -11,17 +11,8 @@
                     <form class="navbar-form navbar-left form-inline" role="search">
                         <div class="form-group">
                             <a href="~/Home" class="btn btn-primary mobile-logo mobile-view">
-                                <strong>m</strong>
+                                <strong>mumbile</strong>
                             </a>
-                            <input type="text" id="searchField" placeholder="Search for mobile..." ng-model="model.searchKeyword" ng-keyup="$event.keyCode == 13 && model.searchMobiles(model.searchField)" class="typeahead_2 form-control dropdown-menu-search" />
-                            <button class="btn btn-danger" type="button" ng-click="model.searchMobiles(model.searchField)">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <a id="mobileOrderButton" class="btn btn-danger xs-ml-8" href="/Order"><i class="fa fa-cart-arrow-down "></i> <span id="spanOrder"> Order </span></a>
-                            }
-                            <a class="btn btn-danger xs-ml-8 web-view" ng-href="/MobileRepair"><i class="fa fa-wrench "></i> <span id="spanOrder">Repair Phone</span></a>
                             @if (!User.IsSuperUserOrAdminOrSeller())
                             {
                                 <button type="button" class="btn btn-primary navbar-toggle collapsed right-sidebar-toggle" id="rightsidebartoggle">
@@ -35,69 +26,6 @@
         </div>
 
         <div class="navbar-collapse collapse" id="navbar">
-            <ul class="nav navbar-nav">
-                <li class="dropdown mega-dropdown">
-                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown">In Store<span class="caret"></span></a>
-                    <ul class="dropdown-menu mega-dropdown-menu row">
-                        <li class="col-sm-3">
-                            <ul>
-                                <li class="dropdown-header">New in Stores</li>
-                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner">
-                                        <div class="item xs-ml-30" ng-class='{active: $first}' ng-repeat="latestMobile in model.latestMobileList">
-                                            <a href="#"><img src="{{latestMobile.ProfileImagePath}}" class="img-responsive mega-menu-image" ></a>
-                                            <h4><small><span ng-bind="latestMobile.Name"></span></small></h4>
-                                            <a href="/Mobile/Detail/{{latestMobile.MobileId}}-{{latestMobile.Name}}" class="btn btn-warning">Detail</a>
-                                        </div><!-- End Item -->
-                                    </div><!-- End Carousel Inner -->
-                                </div><!-- /.carousel -->
-                                <li class="divider"></li>
-                                @*<li><a href="#">View all upcoming phone<span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>*@
-                            </ul>
-                        </li>
-                        <li class="col-sm-3">
-                            <ul>
-                                <li class="dropdown-header">Brand</li>
-                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 283})">Nokia</a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 300})">Samsung</a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 224})"></a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 278})">Motorola</a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 323})">Redmi(Xiaomi)</a></li>
-                                <li><a ng-href="@Url.Action("BrandMobile", "Mobile", new {id = 226})">Apple</a></li>
-                                <li><button class="btn btn-danger" ng-click="model.showAllBrands()">Show all brands</button></li>
-                            </ul>
-                        </li>
-                        <li class="col-sm-3">
-                            <ul>
-                                <li class="dropdown-header">Latest Phones</li>
-                                <li ng-repeat="latestMobile in model.latestMobileList"><a ng-href="Mobile/Detail/{{latestMobile.MobileId}}"><span ng-bind="latestMobile.Name"></span></a></li>
-                                <li><button class="btn btn-danger" ng-click="model.showAllLatestMobile()">Show all latest</button></li>
-                            </ul>
-                        </li>
-                        @*<li class="col-sm-3">
-                                <ul>
-                                    <li class="dropdown-header">Accessories</li>
-                                    <li><a href="#">Default Navbar</a></li>
-                                    <li><a href="#">Lovely Fonts</a></li>
-                                    <li><a href="#">Responsive Dropdown </a></li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-header">Newsletter</li>
-                                    <form class="form" role="form">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="email">Email address</label>
-                                            <input type="email" class="form-control" id="email" placeholder="Enter email">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                    </form>
-                                </ul>
-                            </li>*@
-                    </ul>
-
-                </li>
-            </ul>
-
-
-
             @if (User.Identity.IsAuthenticated)
             {
                 using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm" }))

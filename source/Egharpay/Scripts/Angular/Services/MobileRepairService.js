@@ -165,16 +165,16 @@
             return $http.get(url);
         }
 
-        function createPartner(partner) {
-            var url = "/Partner/Create",
+        function createPartner(partnerEnquiry) {
+            var url = "/PartnerEnquiry/Create",
                 data = {
-                    partner: partner
+                    partnerEnquiry: partnerEnquiry
                 };
             return $http.post(url, data);
         }
 
         function retrievePartners(paging, orderBy) {
-            var url = "/Partner/List",
+            var url = "/PartnerEnquiry/List",
                 data = {
                     paging: paging,
                     orderBy: new Array(orderBy)

@@ -26,7 +26,7 @@ namespace Egharpay.Models
         public decimal Amount { get; set; }
         public MobileRepair MobileRepair { get; set; }
         public MobileRepairFee MobileRepairFee { get; set; }
-        public Partner Partner { get; set; }
+        public PartnerEnquiry PartnerEnquiry { get; set; }
         public int? MobileRepairAdminPersonnelId { get; set; }
         public SelectList Brands { get; set; }
         public SelectList Mobiles { get; set; }

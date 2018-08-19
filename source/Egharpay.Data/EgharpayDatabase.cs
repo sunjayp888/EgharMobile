@@ -65,10 +65,22 @@ namespace Egharpay.Data
         public virtual DbSet<MobileRepairMobileFault> MobileRepairMobileFaults { get; set; }
         public virtual DbSet<MobileRepairFee> MobileRepairFees { get; set; }
         public virtual DbSet<MobileRepairFeeGrid> MobileRepairFeeGrids { get; set; }
-        public virtual DbSet<Partner> Partners { get; set; }
+        public virtual DbSet<PartnerEnquiry> PartnerEnquiries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PartnerEnquiry>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<PartnerEnquiry>()
+                .Property(e => e.Mobile)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<PartnerEnquiry>()
+                .Property(e => e.EmailId)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Advertise>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -1039,15 +1051,15 @@ namespace Egharpay.Data
                 .WithRequired(e => e.MobileFault)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Partner>()
+            modelBuilder.Entity<PartnerEnquiry>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Partner>()
+            modelBuilder.Entity<PartnerEnquiry>()
                 .Property(e => e.EmailId)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Partner>()
+            modelBuilder.Entity<PartnerEnquiry>()
                 .Property(e => e.Comment)
                 .IsUnicode(false);
         }

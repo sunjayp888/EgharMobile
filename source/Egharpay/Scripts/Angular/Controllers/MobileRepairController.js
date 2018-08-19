@@ -79,6 +79,7 @@
         vm.partnerFollowupDate;
         vm.createPartner = createPartner;
         vm.retrievePartners = retrievePartners;
+        vm.showEnquiryCreated = false;
 
         function initialise() {
             vm.orderBy.property = "CreatedDateTime";
@@ -343,7 +344,7 @@
         function calculateRepairFee(item) {
             $('.full-height-scroll').slimscroll({
                 height: '200px'
-            }) 
+            })
             return MobileRepairService.calculateRepairFee(vm.BrandId, item.MobileId)
                 .then(function (response) {
                     vm.mobileFees = response.data;
@@ -363,10 +364,15 @@
             if (checked) {
                 vm.TotalPrice = value.Amount + vm.TotalPrice;
             }
-          
+
         }
-        
+
         function createPartner() {
+            vm.errorMessages = [];
+            if (!vm.partnerName) vm.errorMessages.push('Enter Name.');
+            if (!vm.partnerMobile) vm.errorMessages.push('Enter Mobile.');
+            if (!vm.partnerEmailId) vm.errorMessages.push('Enter email.');
+            if (vm.errorMessages.length > 0) return;
             var partner = {
                 Name: vm.partnerName,
                 Mobile: vm.partnerMobile,
@@ -375,6 +381,9 @@
             }
             return MobileRepairService.createPartner(partner)
                 .then(function (response) {
+                    if (response.data.Succeeded) {
+                        vm.showEnquiryCreated = true;
+                    }
                 });
         }
 

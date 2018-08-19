@@ -1,9 +1,9 @@
-﻿@using Egharpay.Business.Extensions
-
+﻿@using Egharpay.Business.Enum
+@using Egharpay.Extensions
 @{
     var layout = User.IsSuperUser() ? "~/Views/Shared/_Layout.cshtml" : "~/Views/Shared/_Layout_2.cshtml";
     Layout = layout;
-    ViewBag.Title = "Partner";
+    ViewBag.Title = "PartnerEnquiry";
 }
 
 <div ng-cloak ng-controller="MobileRepairController as model" ng-init="model.retrievePartners()">
@@ -34,10 +34,10 @@
                         </div>
                         <div class="col-sm-4">
                             @*<div class="input-group">
-                                <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchSeller(searchField)"> <span class="input-group-btn">
-                                    <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchSeller(searchField)"> Go!</button>
-                                </span>
-                            </div>*@
+                                    <input type="text" placeholder="Search" class="input-sm form-control" ng-model="searchField" ng-keyup="$event.keyCode == 13 && model.searchSeller(searchField)"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary" ng-click="model.searchSeller(searchField)"> Go!</button>
+                                    </span>
+                                </div>*@
                         </div>
                     </div>
 
@@ -80,7 +80,7 @@
                                             </a>
                                             <ul class="dropdown-menu slidedown">
                                                 <li>
-                                                    <a href="/Partner/{{partner.PartnerId}}/Edit">
+                                                    <a href="/PartnerEnquiry/{{partner.PartnerEnquiryId}}/Edit">
                                                         Edit
                                                     </a>
                                                 </li>

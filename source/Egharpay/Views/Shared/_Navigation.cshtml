@@ -79,7 +79,7 @@
             }
             @if (User.IsSuperAdmin())
             {
-                <li class="@Html.IsSelected(controller: "Partner")">
+                <li class="@Html.IsSelected(controller: "PartnerEnquiry")">
                     <a href="@Url.Action("Index", "Partner")"><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.partner">Partner</span> <span class="fa arrow"></span> </a>
                 </li>
             }

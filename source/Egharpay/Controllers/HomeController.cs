@@ -43,10 +43,7 @@ namespace Egharpay.Controllers
             if (User.Identity.IsAuthenticated && User.IsMobileRepairAdmin())
                 viewModel.HasMobileRepairPermission = User.IsSuperUser() || await AuthorizationService.AuthorizeAsync((ClaimsPrincipal)User, Policies.Permission.AdministratorMobileRepair.ToString());
 
-            if (Request.Browser.IsMobileDevice)
-                return RedirectToAction("Index", "MobileRepair");
-
-            return View(viewModel);
+            return RedirectToAction("Index", "MobileRepair");
         }
 
         [AllowAnonymous]

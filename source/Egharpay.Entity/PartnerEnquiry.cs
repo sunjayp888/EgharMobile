@@ -6,25 +6,25 @@ namespace Egharpay.Entity
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Partner")]
-    public partial class Partner
+    [Table("PartnerEnquiry")]
+    public partial class PartnerEnquiry
     {
-        public int PartnerId { get; set; }
+        public int PartnerEnquiryId { get; set; }
 
         [Required]
         [StringLength(500)]
         public string Name { get; set; }
 
-        public long Mobile { get; set; }
+        public decimal Mobile { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(256)]
         public string EmailId { get; set; }
 
         public string Comment { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
-        public DateTime? FolloupDate { get; set; }
+        public DateTime? FollowupDate { get; set; }
     }
 }
