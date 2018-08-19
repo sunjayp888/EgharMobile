@@ -46,11 +46,21 @@
             }
             else
             {
+
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
                         <a href="@Url.Action("Login", "Account")">
                             <i class="fa fa-sign-in"></i> Login
                         </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        @*<a href="@Url.Action("Login", "Account")">
+                                <i class="fa fa-sign-in"></i> Join us
+                            </a>*@
+                        @*<button ng-if="!model.isOtpCreated && model.isRepair" ng-click="model.createMobileRepairOtp()" class="btn btn-danger pull-right col-xs-12" type="button"><strong>Join us</strong></button>*@
+                        <button ng-click="model.joinUs()" class="btn btn-danger pull-right col-xs-12 xs-mt-10" type="button"><strong>Join us</strong></button>
                     </li>
                 </ul>
             }

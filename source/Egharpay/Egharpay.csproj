@@ -1129,11 +1129,16 @@
     <Content Include="Views\MobileRepair\_Partner.cshtml" />
     <Content Include="Views\Partner\Edit.cshtml" />
     <Content Include="Views\Partner\Index.cshtml" />
+    <Content Include="Views\Partner\Joinus.cshtml" />
+    <Content Include="Views\Shared\_Partner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Egharpay.Business\Egharpay.Business.csproj">
@@ -1148,9 +1153,6 @@
       <Project>{4829285d-04b9-46dd-a961-5b90e7200473}</Project>
       <Name>Egharpay.Entity</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

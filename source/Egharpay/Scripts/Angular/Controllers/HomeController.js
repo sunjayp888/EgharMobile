@@ -29,6 +29,7 @@
         vm.showAll = false;
         vm.showAllLatestMobile = showAllLatestMobile;
         vm.showAllBrands = showAllBrands;
+        vm.joinUs = joinUs;
 
         function initialise() {
             retrieveSearchField();
@@ -113,6 +114,9 @@
 
         function showAllBrands() {
             window.location.href = "/Brand";
+        }
+        function joinUs() {
+            window.location.href = "/PartnerEnquiry/Joinus";
         }
     }
 })();

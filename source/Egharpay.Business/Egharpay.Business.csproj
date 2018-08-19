@@ -278,16 +278,6 @@
     <Compile Include="Services\TemplateBusinessService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Egharpay.Data\Egharpay.Data.csproj">
-      <Project>{BBAF06D0-C7E6-454F-96C3-801AD6076243}</Project>
-      <Name>Egharpay.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Egharpay.Entity\Egharpay.Entity.csproj">
-      <Project>{4829285D-04B9-46DD-A961-5B90E7200473}</Project>
-      <Name>Egharpay.Entity</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +347,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Partial\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Egharpay.Data\Egharpay.Data.csproj">
+      <Project>{bbaf06d0-c7e6-454f-96c3-801ad6076243}</Project>
+      <Name>Egharpay.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Egharpay.Entity\Egharpay.Entity.csproj">
+      <Project>{4829285d-04b9-46dd-a961-5b90e7200473}</Project>
+      <Name>Egharpay.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

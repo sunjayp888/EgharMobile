@@ -30,6 +30,12 @@ namespace Egharpay.Controllers
             return View();
         }
 
+        [Route("Joinus")]
+        public ActionResult Joinus()
+        {
+            return View();
+
+        }
         [HttpPost]
         [Route("Create")]
         public async Task<ActionResult> Create(PartnerEnquiry partnerEnquiry)
@@ -91,5 +97,6 @@ namespace Egharpay.Controllers
             }
 
         }
+
     }
 }
