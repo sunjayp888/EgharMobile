@@ -1,0 +1,63 @@
+﻿<div class="ibox-content">
+    <div class="form-control-required-example">&nbsp; = Required</div>
+    <br />
+    <div class="row">
+        <div class="alert alert-danger alert-dismissable col-md-offset-2 col-lg-6" ng-if="model.errorMessages.length>0">
+            <ul>
+                <li ng-repeat="message in model.errorMessages track by $index"><span ng-bind="message"></span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="alert alert-danger alert-dismissable col-md-offset-2 col-lg-6" ng-if="model.showEnquiryCreated">
+            <ul>
+                <li><span>Your requested created successfully.Mumbile team will contact you soon.</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="form-group">
+                    <label id="labelName" class="control-label col-md-2 col-sm-3 col-xs-12">Name</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" ng-model="model.partnerName" id="txtName" class="form-control required" />
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <div class="form-group">
+                    <label id="labelMobile" class="control-label col-md-2 col-sm-3 col-xs-12">Mobile</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" ng-model="model.partnerMobile" id="txtMobile" class="form-control required" />
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <div class="form-group">
+                    <label id="labelEmailId" class="control-label col-md-2 col-sm-3 col-xs-12">Email Id</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="email" ng-model="model.partnerEmailId" id="txtEmailId" class="form-control required" />
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <div class="form-group">
+                    <label id="labelComment" class="control-label col-md-2 col-sm-3 col-xs-12">Comment</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <textarea rows="4" ng-model="model.partnerComment" id="txtComment" class="form-control"></textarea>
+                    </div>
+                    <br />
+                    <br />
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-2 xs-mt-10">
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <button id="submit" ng-click="model.createPartner()" class="btn btn-danger">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
