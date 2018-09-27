@@ -1,5 +1,6 @@
 ﻿@model Egharpay.Models.MobileRepairViewModel
 <div id="tab-2" class="tab-pane xs-mt-10" ng-init="model.searchBrand()">
+
     <div class="ibox float-e-margins">
         <div class="ibox-content">
             <div class="row">
@@ -25,28 +26,42 @@
                                 </ui-select>
                             </div>
                         </div>
-                        <div class="row" ng-if="model.mobileFees.length!=0">
-                            <div class="col-lg-6">
-                                <div class="alert alert-danger xs-mt-10">
-                                    <b>Total Repairing Fee :</b><span class="label label-danger pull-right font-18 ng-binding"><i class="fa fa-rupee"></i> {{model.TotalPrice}}</span><b></b>.
-                                </div>
-                            </div>
+                        <div class="team-members scrolling-wrapper">
+                            <ul class="inline list-unstyled faults" ng-repeat="mobileFee in model.mobileFees">
+                                <li>
+                                    <a href="#">
+                                        <div class="text-center width-80">
+                                            <img alt="image" class="rounded-circle m-t-xs img-fluid" src="~/Images/Avatar.png">
+                                            <div class="">{{mobileFee.MobileFaultName}}</div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="full-height-scroll">
-                            <div class="row " ng-if="model.mobileFees.length!=0">
-                                <div class="col-lg-6">
-                                    <ul class="todo-list m-t small-list" ng-repeat="mobileFee in model.mobileFees">
-                                        <li>
-                                                <input type="checkbox" checklist-model="model.mobileFeesSelected" checklist-value="mobileFee" ng-change="model.addPrice(mobileFee,checked)">
-                                                {{mobileFee.MobileFaultName}}
-                                                <span class="label label-danger pull-right font-18"><i class="fa fa-rupee"></i> {{mobileFee.Amount}}</span>
-                                        </li>
-                                    </ul>
-                                    <label>{{mobileFee}}</label>
-                                </div>
-                            </div>
-                        </div>
-                       
+                        @*<div class="row" ng-if="model.mobileFees.length!=0">
+            <div class="col-lg-6">
+                <div class="alert alert-danger xs-mt-10">
+                    <b>Total Repairing Fee :</b><span class="label label-danger pull-right font-18 ng-binding"><i class="fa fa-rupee"></i> {{model.TotalPrice}}</span><b></b>.
+                </div>
+            </div>
+        </div>*@
+                        @*<div class="full-height-scroll">
+            <div class="row " ng-if="model.mobileFees.length!=0">
+                <div class="col-lg-6">
+                    <ul class="todo-list m-t small-list" ng-repeat="mobileFee in model.mobileFees">
+                        <li>
+                            <input type="checkbox" checklist-model="model.mobileFeesSelected" checklist-value="mobileFee" ng-change="model.addPrice(mobileFee,checked)">
+                            {{mobileFee.MobileFaultName}}
+                            <span class="label label-danger pull-right font-18"><i class="fa fa-rupee"></i> {{mobileFee.Amount}}</span>
+                        </li>
+                    </ul>
+                    <label>{{mobileFee}}</label>
+                </div>
+            </div>
+        </div>*@
+
+
+
                         <div class="row" ng-show="model.showFeeMessage">
                             <div class="col-lg-6">
                                 <div class="alert alert-danger xs-mt-10">
@@ -56,6 +71,16 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5><i class="fa fa-wrench"></i> Choose issue type.</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+              
             </div>
         </div>
     </div>
